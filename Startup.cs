@@ -48,9 +48,10 @@ namespace Vancouver
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+
+            app.UseStatusCodePagesWithRedirects("/errors/notfound");
+
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseMvc();
         }
