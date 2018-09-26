@@ -4,7 +4,7 @@
 <script src="lib/popper.js/dist/popper.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <link href="~/css/fullBackgroundImage.css" rel="stylesheet" />
-
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
 
 
@@ -18,32 +18,32 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px">
-    <a class="navbar-brand" href="/index">Vancouver</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px">
+        <a class="navbar-brand" href="/index">Vancouver</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Flights</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Log in</a>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Flights</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Log in</a>
+                </li>
+            </ul>
 
 
 
+        </div>
+    </nav>
+    <div class="container" id="body">
+        @RenderBody()
     </div>
-</nav>
-<div class="container" id="body">
-    @RenderBody()
-</div>
 
 </body>
 </html>

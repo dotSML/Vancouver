@@ -1,36 +1,59 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+    @{
+        ViewData["Title"] = "Vancouver Flights";
+    }
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="~/js/datepicker/dist/datepicker.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js"></script>
+    <link href="~/css/airportAC.css" rel="stylesheet" />
+    <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
+    <link href="~/js/datepicker/dist/datepicker.css" rel="stylesheet" />
+    
+</head>
 <body>
-<link href="~/css/bootstrapIndex.css" rel="stylesheet" />
-<div class="vertical-center">
-    <form>
-        
-    <div class="row align-items-center" style="position: absolute; top: 300px; background-color: rgba(0, 0, 0, 0.3); padding-top: 8px; border-radius: 7px">
-        <div class="col-auto">
-            <label class="sr-only" for="inlineFormInputDepart">Departure</label>
-            <input type="text" class="form-control mb-2" id="inlineFormInputDepart" placeholder="Departure">
-        </div>
-        <div class="col-auto">
-            <label class="sr-only" for="inlineFormInputArrive">Arrival</label>
-            <input type="text" class="form-control mb-2" id="inlineFormInputArrive" placeholder="Arrival">
-        </div>
-        <div class="col-auto">
-            <label class="sr-only" for="inlineFormInputOut">Outbound</label>
-            <input type="text" class="form-control mb-2" id="inlineFormInputOut" placeholder="Outbound">
-        </div>
-        <div class="col-auto" style="border: black">
-            <label class="sr-only" for="inlineFormInputIn">Inbound</label>
-            <input type="text" class="form-control mb-2" id="inlineFormInputIn" placeholder="Inbound">
-        </div>
-        <div class="col-auto" style="padding-bottom: 8px">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+    <div class="vertical-center">
+        <form autocomplete="off">
+            <div class="row align-items-center" style="position: absolute; top: 300px; background-color: rgba(0, 0, 0, 0.3); padding-top: 8px; border-radius: 7px">
+                <div class="col-auto">
+                    <label class="sr-only" for="autocompleteDepart">Departure</label>
+                        <input type="text" class="form-control mb-2 js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
+                    </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="autocompleteArrive">Arrival</label>
+                        <input type="text" class="form-control mb-2 js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="datepickerOutbound">Outbound</label>
+                    <input type="text" class="form-control mb-2" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
+                </div>
+                <div class="col-auto" style="border: black">
+                    <label class="sr-only" for="datepickerInbound">Inbound</label>
+                    <input type="text" class="form-control mb-2" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
+                </div>
+                <div class="col-auto" style="padding-bottom: 8px">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
     </div>
-    </form>
-</div>
+    
+
+<script src="~/js/datepicker/flightDatepicker.js"></script>
+<script src="~/js/airportsAutoComplete.js"></script>
 </body>
+</html>
+
+
+
 
 
