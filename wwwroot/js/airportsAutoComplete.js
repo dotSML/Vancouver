@@ -1,18 +1,23 @@
-﻿var airports = [
-
-    { iata: "FRA", name: "Frankfurt Intl.", city: "Frankfurt", country: "Germany" },
-    { iata: "SEA", name: "Seattle-Tacoma Intl.", city: "Seattle", country: "USA" },
-    { iata: "TLL", name: "Lennart-Meri Intl.", city: "Tallinn", country: "Estonia" },
-    { iata: "TAY", name: "Tartu Intl.", city: "Tartu", country: "Estonia" },
-    { iata: "LAX", name: "Los Angeles Intl.", city: "Los Angeles", country: "USA" },
-    { iata: "DOH", name: "Doha Intl.", city: "Doha", country: "Qatar" },
-    { iata: "LHR", name: "London Heathrow Intl.", city: "London", country: "UK" },
-    { iata: "JFK", name: "John F. Kennedy Intl.", city: "New York", country: "USA" },
-    { iata: "HEL", name: "Helsinki-Vantaa Intl.", city: "Helsinki", country: "Finland" }
-
-
-
-];
+﻿$.getJSON("airports.json", function(data){
+    var airports = [];
+    var i = 0;
+    $.each(data, function (key, val){
+        if(val.iata === '')
+        {
+            return true;
+        }    
+        else
+        {
+        
+        airports[i] = [];
+            airports[i]['iata'] = val.iata;
+            airports[i]['city'] = val.city;
+            airports[i]['name'] = val.name;
+            airports[i]['country'] = val.country;
+            i++;
+        }
+        
+    });
 
 var options = {
     shouldSort: true,
@@ -180,3 +185,5 @@ function onKeyDown(e) {
     e.stopPropagation();
     e.preventDefault(); // prevent the default action (scroll / move caret)
 }
+
+});
