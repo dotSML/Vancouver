@@ -1,8 +1,8 @@
-﻿$.getJSON("airports.json", function(data){
+﻿$.getJSON("airportsData.json", function(data){
     var airports = [];
     var i = 0;
     $.each(data, function (key, val){
-        if(val.iata === '')
+        if(val.code === '')
         {
             return true;
         }    
@@ -10,12 +10,14 @@
         {
         
         airports[i] = [];
-            airports[i]['iata'] = val.iata;
+            airports[i]['iata'] = val.code;
             airports[i]['city'] = val.city;
             airports[i]['name'] = val.name;
             airports[i]['country'] = val.country;
             i++;
         }
+
+        console.log(airports);
         
     });
 
