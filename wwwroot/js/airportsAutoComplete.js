@@ -6,9 +6,22 @@
         {
             return true;
         }    
-        else
-        {
-        
+        else {
+            //delete data[i]['lon'];
+            //delete data[i]['lat'];
+            //delete data[i]['state'];
+            //delete data[i]['woeid'];
+            //delete data[i]['tz'];
+            //delete data[i]['type'];
+            ////delete data[i]['phone'];
+            ////delete data[i]['runway_length'];
+            ////delete data[i]['elev'];
+            ////delete data[i]['icao'];
+            ////delete data[i]['direct_flights'];
+            ////delete data[i]['carriers'];
+
+            console.log(data[1]);
+
         airports[i] = [];
             airports[i]['iata'] = val.code;
             airports[i]['city'] = val.city;

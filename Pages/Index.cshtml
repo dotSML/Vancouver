@@ -21,31 +21,50 @@
     
 </head>
 <body>
-    <div class="vertical-center">
-        <form autocomplete="off">
-            <div class="row align-items-center" style="position: absolute; top: 300px; background-color: rgba(0, 0, 0, 0.3); padding-top: 8px; border-radius: 7px">
-                <div class="col-auto">
-                    <label class="sr-only" for="autocompleteDepart">Departure</label>
-                        <input type="text" class="form-control mb-2 js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
-                    </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                        <input type="text" class="form-control mb-2 js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                    <input type="text" class="form-control mb-2" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
-                </div>
-                <div class="col-auto" style="border: black">
-                    <label class="sr-only" for="datepickerInbound">Inbound</label>
-                    <input type="text" class="form-control mb-2" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
-                </div>
-                <div class="col-auto" style="padding-bottom: 8px">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
+<div class="vertical-center">
+    <form method="post" autocomplete="off">
+        <div class="row align-items-center" style="margin-top: 250px; background-color: rgba(0, 0, 0, 0.3); border-radius: 7px; padding-top: 3px; padding-bottom: 3px;">
+            <div class="col-auto" style="padding-left:8px">
+                <label class="sr-only" for="autocompleteDepart">Departure</label>
+                <input type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
             </div>
-        </form>
-    </div>
+            <div class="col-auto">
+                <label class="sr-only" for="autocompleteArrive">Arrival</label>
+                <input type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
+            </div>
+            <div class="col-auto">
+                <label class="sr-only" for="datepickerOutbound">Outbound</label>
+                <input type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
+            </div>
+            <div class="col-auto">
+                <label class="sr-only" for="datepickerInbound">Inbound</label>
+                <input type="text" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
+            </div>
+            <div class="col-auto" style="margin: 1px">
+                <select class="form-control" id="passengers">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                </select>
+            </div>
+            <div class="col-auto" style="margin-left: 25px">
+                <button type="submit" asp-handler="SubmitHandler" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+    
+    @{
+        var departure = Request.Form["departureField"];
+
+    }
+    
+    
+</div>
+    
+
     
 
 <script src="~/js/datepicker/flightDatepicker.js"></script>
