@@ -24,7 +24,7 @@
 <div class="vertical-center">
     <form method="post" autocomplete="off">
         <div class="row align-items-center" style="margin-top: 250px; background-color: rgba(0, 0, 0, 0.3); border-radius: 7px; padding-top: 3px; padding-bottom: 3px;">
-            <div class="col-auto" style="padding-left:8px">
+            <div class="col-auto" style="padding-left: 8px">
                 <label class="sr-only" for="autocompleteDepart">Departure</label>
                 <input type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
             </div>
@@ -40,6 +40,12 @@
                 <label class="sr-only" for="datepickerInbound">Inbound</label>
                 <input type="text" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
             </div>
+            
+            <div class="col-auto" style="margin-left: 25px" id="searchFlights">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </div>
+        <div class="row align-items-center" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 7px">
             <div class="col-auto" style="margin: 1px">
                 <select class="form-control" id="passengers">
                     <option>1</option>
@@ -50,22 +56,100 @@
                     <option>6</option>
                 </select>
             </div>
-            <div class="col-auto" style="margin-left: 25px">
-                <button type="submit" asp-handler="SubmitHandler" class="btn btn-primary">Search</button>
-            </div>
         </div>
+        
     </form>
     
-    @{
-        var departure = Request.Form["departureField"];
 
-    }
-    
-    
 </div>
-    
+<div id="flightResults" class="vertical-center" style="margin-top: 25px">
+    <div class="container" style="background-color: rgba(0, 0, 0, 0.8); border-radius: 7px;">
+        <div class="row" style="color: white;">
+            <div id="flightInfoAirline" class="col-2 align-self-center">Lufthansa</div>
+            <div id="flightInfoDepartureTime" class="col-1 align-self-center">6:10 <br/>TLL</div>
+            <div id="fligthInfoDuration" class="col-1 align-self-center">
+                <div style="font-size: 13px">15h 45</div>
+                <div id="flightInfoLayovers" style="font-size: 10px;"><span style="color: red;">1 stop</span>
+                    <div id="fligthInfoLayoverCities"> FRA</div>
+                </div>
+            </div>
+            <div if="fligthInfoArrivalTime" class="col-1 align-self-center">11:55<br/>
+                <div id="flightInfoArrival">SEA</div>
+            </div>
+            <div id="fligthInfoPrice" class="col-1 align-self-center"><span style="color:green">1248$</span></div>
+        </div>
+        
+    </div>
+</div>
 
-    
+<div class="btn btn-primary" id="testBtn">Check values</div>
+
+
+<script>
+    $('#testBtn').on("click", function() {
+
+
+        var apiKey = "DAI4hfrkFliQkgA6U4L04yImEuD9g06i";
+        var origin = $('#autocompleteDepart').val();
+        var destination = $('#autocompleteArrive').val();
+        var outboundDate = $('#datepickerOutbound').val();
+        outboundDate = outboundDate.replace(/\//g, "-");
+        outboundDate = outboundDate.split('-');
+        outboundDate = outboundDate[2] + '-' + outboundDate[0] + '-' + outboundDate[1];
+        var inboundDate = $('#datepickerInbound').val();
+        inboundDate = inboundDate.replace(/\//g, "-");
+        inboundDate = inboundDate.split("-");
+        inboundDate = inboundDate[2] + '-' + inboundDate[0] + '-' + inboundDate[1];
+        var adultPassengers = $('#passengers').val();
+        var url =
+            "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
+                apiKey +
+                "&origin=" +
+                origin +
+                "&destination=" +
+                destination +
+                "&departure_date=" +
+                outboundDate +
+                "&return_date=" +
+                inboundDate +
+                "&adults=" +
+                adultPassengers;
+
+        console.log(apiKey, origin, destination, outboundDate, inboundDate, adultPassengers, url);
+
+            $.ajax({
+                dataType: "json",
+                url:
+                    "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
+                        apiKey +
+                        "&origin=" +
+                        origin +
+                        "&destination=" +
+                        destination +
+                        "&departure_date=" +
+                        outboundDate +
+                        "&return_date=" +
+                        inboundDate +
+                        "&adults=" +
+                        adultPassengers,
+                data: {
+                    format: 'json'
+                },
+            success:
+                function(data) {
+                    console.log(data);
+                }
+
+        });
+
+    });
+</script>
+
+    <div class="jsonDiv"></div>
+
+
+
+
 
 <script src="~/js/datepicker/flightDatepicker.js"></script>
 <script src="~/js/airportsAutoComplete.js"></script>

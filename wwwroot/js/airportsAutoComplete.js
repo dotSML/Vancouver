@@ -20,7 +20,7 @@
             ////delete data[i]['direct_flights'];
             ////delete data[i]['carriers'];
 
-            console.log(data[1]);
+            
 
         airports[i] = [];
             airports[i]['iata'] = val.code;
@@ -30,7 +30,7 @@
             i++;
         }
 
-        console.log(airports);
+        
         
     });
 
