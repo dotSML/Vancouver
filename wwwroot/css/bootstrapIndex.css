@@ -1,4 +1,24 @@
-﻿/*!
+﻿@import url(wwwroot/images/Dense-Regular.otf);
+
+
+
+.fixed {
+    position: fixed;
+    top: 10px;
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 7px;
+    z-index: 1;
+}
+
+.flightSearchBox {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 7px;
+    top: 250px;
+}
+
+
+
+/*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
