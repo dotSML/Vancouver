@@ -181,7 +181,6 @@
         }
         
 
-        console.log(inboundDate);
 
         if ($('#datepickerInbound').val() === '') {
             inboundDate = '';
@@ -194,6 +193,7 @@
             inboundDate = "&return_date=" + inboundDate;
         }
 
+       
 
         var fareRequestUrl =
             "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
@@ -261,7 +261,10 @@
                     inboundLegArrivalTime,
                     inboundLegFlightNumber,
                     inboundLegMarketingAirline,
-                    inboundLegTerminal;
+                    inboundLegTerminal,
+                    inboundLegTravelClass,
+                    inboundLegOrigin,
+                    inboundLegDestination;
                     
 
                 var i;
@@ -271,14 +274,16 @@
 
                 var flightLegsFoundOutbound = '';
                 var flightLegsFoundCountOutbound = '';
+                var flightLegsFoundInbound = '';
+                var flightLegsFoundInboundCount = '';
                 var flightLegsOutboundHtml = '';
+                var flightLegsDetailsBtnId = 0;
 
                 console.log(faresData.results[0]);
 
                 for (var k = 0; k < itemsFoundCount; ++k) {
 
                     flightLegsFoundOutbound = faresData.results[k]['itineraries'][0]['outbound']['flights'];
-                    console.log(flightLegsFoundOutbound);
                     flightLegsFoundCountOutbound = flightLegsFoundOutbound.length; 
 
                     for (var l = 0; l < flightLegsFoundCountOutbound; l++) {
@@ -307,9 +312,6 @@
 
                         flightLegsOutboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
                             '<div id="outboundLegsInfo">' +
-                            '<span style="color:green;">' +
-                            'OUTBOUND' +
-                            '</span>' +
                             '</div>' +
                             '<div id="flightLegInfoAirline" class="col-2 align-self-center">' +
                             outboundLegMarketingAirline +
@@ -335,14 +337,129 @@
                             outboundLegDestination +
                             '</span>' +
                             '</div>' +
-                            '<div class="col-5 align-self-center"></div>' +
+                            '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
+                            '<span style="font-size: 11px;">' +
+                            'Flight No. ' +
+                            '</span> <br>' +
+                            '<span style="font-weight: bold; font-size: 13px;">' +
+                            outboundLegFlightNumber +
+                            '</span>' +
+                            '</div>' +
+                            '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
+                            '<span style="font-size: 11px;">' +
+                            'Aircraft ' +
+                            '</span> <br>' +
+                            '<span style="font-weight: bold; font-size: 13px;">' +
+                            outboundLegAircraft +
+                            '</span>' +
+                            '</div>' +
+                            '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
+                            '<span style="font-size: 11px;">' +
+                            'Travel Class' +
+                            '</span> <br>' +
+                            '<span style="font-weight: bold; font-size: 13px;">' +
+                            outboundLegTravelClass +
+                            '</span>' +
+                            '</div>' +
                             '<div class="col-1 align-self-center">' +
                             '</div>' +
                             '</div>';
 
                     }
+                
+
+                    var flightLegsFoundInbound = '';
+                    var flightLegsFoundCountInbound = '';
+                    var flightLegsInboundHtml = '';
+
+                    if (inboundDate === '') { }
+                    else {
+                            flightLegsFoundInbound = faresData.results[k]['itineraries'][0]['inbound']['flights'];
+                            flightLegsFoundCountInbound = flightLegsFoundInbound.length;
+
+                        for (var y = 0; y < flightLegsFoundCountInbound; y++) {
+
+                            inboundLegDepartureTime =
+                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['departs_at'];
+                            inboundLegDepartureTime = inboundLegDepartureTime.split('T');
+                            inboundLegDepartureTime = inboundLegDepartureTime[1];
+
+                            inboundLegArrivalTime =
+                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['arrives_at'];
+                            inboundLegArrivalTime = inboundLegArrivalTime.split('T');
+                            inboundLegArrivalTime = inboundLegArrivalTime[1];
 
 
+                            inboundLegOrigin = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['origin']['airport'];
+                            inboundLegDestination = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['destination']['airport'];
+                            inboundLegAircraft = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['aircraft'];
+                            inboundLegFlightNumber =
+                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['flight_number'];
+                            inboundLegTravelClass =
+                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['booking_info']
+                                ['travel_class'];
+                            inboundLegMarketingAirline =
+                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]["marketing_airline"];
+
+                            flightLegsInboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
+                                '<div id="inboundLegsInfo">' +
+                                '</div>' +
+                                '<div class="col-2 align-self-center">' +
+                                inboundLegMarketingAirline +
+                                '</div>' +
+                                '<div class="col-1 align-self-center">' +
+                                '<span class="itinerary-time">' +
+                                inboundLegDepartureTime +
+                                '</span><br/>' +
+                                '<span id="flightLegOriginAirport">' +
+                                inboundLegOrigin +
+                                '</span>' +
+                                '</div>' +
+                                '<div class="col-1 align-self-center">' +
+                                '<div id="flightLegDuration" style="font-size: 13px">' +
+                            /*inboundLegDuration*/ 'N/A' + //add duration for individual leg, placeholder for now
+                                '</div>' +
+                                '</div>' +
+                                '<div class="col-1 align-self-center">' +
+                                '<span id="flightLegArrivalTime" class="itinerary-time">' +
+                                inboundLegArrivalTime +
+                                '</span><br/>' +
+                                '<span id="flightLegArrivalAirport">' +
+                                inboundLegDestination +
+                                '</span>' +
+                                '</div>' +
+                                '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
+                                '<span style="font-size: 11px;">' +
+                                'Flight No. ' +
+                                '</span> <br>' +
+                                '<span style="font-weight: bold; font-size: 13px;">' +
+                                inboundLegFlightNumber +
+                                '</span>' +
+                                '</div>' +
+                                '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
+                                '<span style="font-size: 11px;">' +
+                                'Aircraft ' +
+                                '</span> <br>' +
+                                '<span style="font-weight: bold; font-size: 13px;">' +
+                                inboundLegAircraft +
+                                '</span>' +
+                                '</div>' +
+                                '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
+                                '<span style="font-size: 11px;">' +
+                                'Travel Class ' +
+                                '</span> <br>' +
+                                '<span style="font-weight: bold; font-size: 13px;">' +
+                                inboundLegTravelClass +
+                                '</span>' +
+                                '</div>' +
+                                '<div class="col-5 align-self-center"></div>' +
+                                '<div class="col-1 align-self-center">' +
+                                '</div>' +
+                                '</div>';
+
+                        }
+                      
+                    }
 
 
 
@@ -377,14 +494,14 @@
                     //add currency symbol
                     switch (fareCurrency) {
                     case 'EUR':
-                            farePricePerPassenger += "€";
-                            farePriceTotal += "€";
-                            farePriceTax += "€";
+                        farePricePerPassenger += "€";
+                        farePriceTotal += "€";
+                        farePriceTax += "€";
                         break;
                     case 'USD':
-                            farePricePerPassenger = "$" + farePricePerPassenger;
-                            farePriceTotal = "$" + farePriceTotal;
-                            farePriceTax = "$" + farePriceTax;
+                        farePricePerPassenger = "$" + farePricePerPassenger;
+                        farePriceTotal = "$" + farePriceTotal;
+                        farePriceTax = "$" + farePriceTax;
                         break;
                     }
 
@@ -393,9 +510,9 @@
                         faresData.results[k]['itineraries'][0]['outbound']['flights'].length - 1;
                     if (layoverStopAmountOutbound === 0) {
                         layoverStopAmountOutbound = 'DIRECT';
-                        layoverStopsSpanOutbound = 'color: green;';
+                        layoverStopsSpanOutbound = 'color: green; font-size: 10px;';
                     } else {
-                        layoverStopsSpanOutbound = 'color:red;';
+                        layoverStopsSpanOutbound = 'color:red; font-size: 10px;';
                         if (layoverStopAmountOutbound === 1) {
                             layoverStopAmountOutbound = layoverStopAmountOutbound + ' stop';
                         }
@@ -413,7 +530,6 @@
                             ', ';
                     }
                     layoverCitiesOutbound = layoverCitiesOutbound.slice(0, -2);
-                    console.log(layoverCitiesOutbound);
 
                     if (inboundDate === '') {
                     } else {
@@ -443,9 +559,9 @@
                         layoverStopAmountInbound = faresData.results[k]['itineraries'][0]['inbound']['flights'].length - 1;
                         if (layoverStopAmountInbound === 0) {
                             layoverStopAmountInbound = 'DIRECT';
-                            layoverStopsSpanInbound = 'color: green;';
+                            layoverStopsSpanInbound = 'color: green; font-size: 10px;';
                         } else {
-                            layoverStopsSpanInbound = 'color: red;';
+                            layoverStopsSpanInbound = 'color: red; font-size: 10px;';
                             if (layoverStopAmountInbound === 1) {
                                 layoverStopAmountInbound = layoverStopAmountInbound + ' stop';
                             }
@@ -462,6 +578,20 @@
                                 ', ';
                         }
                         layoverCitiesInbound = layoverCitiesInbound.slice(0, -2);
+
+                        //var airlineLogoApiKey = 'VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
+                        //var airlineLogoIcaoOutbound = airlineOutbound;
+                        //var airlineLogoIcaoInbound;
+                        //var airlineLogoMd5Str = airlineLogoIcaoOutbound + '_150_70_r_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
+
+                        //var airHexApiMd5 = $.md5(airlineLogoMd5Str);
+                        //console.log(airHexApiMd5);
+                        //    var airlineLogoRequestUrlOutbound =
+                        //        'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_150_70_r.png?md5apikey=' + airHexApiMd5;
+
+                            
+                        
+
 
                     }
 
@@ -488,7 +618,7 @@
                             '<span id="flightInfoLayovers" style="'+ layoverStopsSpanOutbound +'">' +
                             layoverStopAmountOutbound +
                             '</span>' +
-                            '<div id="flightInfoLayoverCities">' +
+                            '<div id="flightInfoLayoverCities" style="font-weight: bold; font-size: 11px">' +
                             layoverCitiesOutbound +
                             '</div>' +
                             '</div>' +
@@ -513,19 +643,19 @@
 
                         htmlRoundTrip += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
                             '<div class="container shadow" style="background-color: rgba(10, 10, 10, 0.9); border-radius: 7px;">' +
-                            '<div class="row" style="color: white; border-bottom: dotted; height: 7vh;">' +
+                            '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                             '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                             airlineOutbound +
                             '</div>' +
-                            '<div class="col-1 align-self-center">' +
+                            '<div class="col-2 align-self-center" style="width: 60%">' +
                             '<span id="flightInfoDepartureTime" class="itinerary-time">' +
                             departureTimeOutbound +
                             '</span><br/>' +
-                            '<span id="flightInfoOriginAirport">' +
+                            '<span id="flightInfoOriginAirport" style="font-weight: bold;">' +
                             originAirportOutbound +
                             '</span>' +
                             '</div>' +
-                            '<div class="col-1 align-self-center">' +
+                            '<div class="col-2 align-self-center" style="width: 60%;">' +
                             '<div id="flightInfoDuration" style="font-size: 13px">' +
                             tripDurationOutbound +
                             '</div>' +
@@ -535,39 +665,39 @@
                             '">' +
                             layoverStopAmountOutbound +
                             '</span>' +
-                            '<div id="flightInfoLayoverCities">' +
+                            '<div id="flightInfoLayoverCitiesOutbound" style="font-size: 10px; font-weight: bold;">' +
                             layoverCitiesOutbound +
                             '</div>' +
                             '</div>' +
                             '</div>' +
-                            '<div class="col-1 align-self-center">' +
+                            '<div class="col-2 align-self-center" style="width: 60%">' +
                             '<span id="flightInfoArrivalTime" class="itinerary-time">' +
                             arrivalTimeOutbound +
                             '</span><br/>' +
-                            '<span id="flightInfoArrivalAirport">' +
+                            '<span id="flightInfoArrivalAirport" style="font-weight: bold;">' +
                             arrivalAirportOutbound +
                             '</span>' +
                             '</div>' +
-                            '<div class="col-5 align-self-center"></div>' +
+                            '<div class="col-2 align-self-center"></div>' +
                             '<div class="col-1 align-self-center">' +
                             '<button class="btn btn-success" id="flightInfoPriceSpan" style="color:white; left: 50px">' +
                             farePricePerPassenger +
                             '</button>' +
                             '</div>' +
                             '</div>' +
-                            '<div id="outboundFlights" class="row" style="color: white; height: 7vh;">' +
+                            '<div id="outboundFlights" class="row" style="color: white; height: 8vh;">' +
                             '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                             airlineInbound +
                             '</div>' +
-                            '<div class="col-1 align-self-center">' +
+                            '<div class="col-2 align-self-center">' +
                             '<span id="flightInfoDepartureTime" class="itinerary-time">' +
                             departureTimeInbound +
                             '</span><br/>' +
-                            '<span id="flightInfoOriginAirport">' +
+                            '<span id="flightInfoOriginAirport" style="font-weight: bold;">' +
                             originAirportInbound +
                             '</span>' +
                             '</div>' +
-                            '<div class="col-1 align-self-center">' +
+                            '<div class="col-2 align-self-center" style="width: 60%">' +
                             '<div id="flightInfoDuration" style="font-size: 13px">' +
                             tripDurationInbound +
                             '</div>' +
@@ -577,28 +707,38 @@
                             '">' +
                             layoverStopAmountInbound +
                             '</span>' +
-                            '<div id="flightInfoLayoverCities">' +
+                            '<div id="flightInfoLayoverCitiesInbound" style="font-size: 10px; font-weight: bold;">' +
                             layoverCitiesInbound +
                             '</div>' +
                             '</div>' +
                             '</div>' +
-                            '<div class="col-1 align-self-center">' +
+                            '<div class="col-2 align-self-center" style="width: 60%">' +
                             '<span id="flightInfoArrivalTime" class="itinerary-time">' +
                             arrivalTimeInbound +
                             '</span><br/>' +
-                            '<span id="flightInfoArrivalAirport">' +
+                            '<span id="flightInfoArrivalAirport" style="font-weight: bold;">' +
                             arrivalAirportInbound +
                             '</span>' +
                             '</div>' +
-                            '<div class="col-5 align-self-center"></div>' +
+                            '<div class="col-2 align-self-center"></div>' +
                             '<div class="col-1 align-self-center">' +
-                            '<button class="btn btn-info" id="flightInfoExpand" style="color:white; left: 50px">Details</button>' +
+                            '<button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-'+ flightLegsDetailsBtnId + '" style="color:white; left: 50px">Details</button>' +
                             '</div>' +
                             '</div>' +
-                            '<div id="flightDetails" class="container">' +
-                            '<div id="flightDetailsContent" style="display: none;">"' +
-                            
+                            '<div id="flightDetails">' +
+                            '<div id="flight-'+ flightLegsDetailsBtnId +'" class="flightDetailsClass" style="display: none;">"' +
+                            '<div class="row" style="border-bottom: solid 1px white; height: 15px;">' +
+                            '<div class="col align-self-center" style="font-size: 10px; color: white;">' +
+                            'Outbound flights' +
+                            '</div>' +
+                            '</div>' +
                             flightLegsOutboundHtml +
+                            '<div class="row" style="border-bottom: solid 1px white; height: 15px;">' +
+                            '<div class="col align-self-center" style="font-size: 10px; color: white;">' +
+                            'Inbound flights' +
+                            '</div>' +
+                            '</div>' +
+                            flightLegsInboundHtml +
                             '<div class="row" style="color: white; border-top: dotted;">' +
                             '<div id="farePriceDetailsTotal" class="col-3 align self-center" style="font-size: 11px;">' +
                             'Total price for all passengers: <span style="color: green; font-size: 12px">' +
@@ -621,6 +761,10 @@
                             //flightLegsOutboundHtml +
                             '</div>' +
                             '</div>';
+
+                        flightLegsDetailsBtnId++;
+                        flightLegsOutboundHtml = '';
+                        flightLegsInboundHtml = '';
                     }
 
                     
@@ -649,12 +793,21 @@
 </script>
 
 <script>
-    $('#flightInfoExpand').click(function() {
-        $('#flightDetailsContent').fadeIn();
-    })
-        
+    var activeDetails = null;
+    $(document).on('click', '.flightDetailsButton', function (e) {
+        //if (activeDetails)
+        //    activeDetails.hide();
+        //    activeDetails = $($(this).data('target'));
+        //    activeDetails.slideToggle("fast");
+        if (activeDetails) {activeDetails.hide();
+        }
+        if (!activeDetails) {
+            activeDetails = $($(this).data('target'));
+            activeDetails.slideToggle("fast");
+        }
+        activeDetails = null;
+    });
 </script>
-
 
 
 
