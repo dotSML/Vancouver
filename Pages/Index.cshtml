@@ -18,6 +18,8 @@
     <link href="~/css/airportAC.css" rel="stylesheet" />
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <link href="~/js/datepicker/dist/datepicker.css" rel="stylesheet" />
+    <link href="~/css/acrylicMaterial.css" rel="stylesheet" />
+    
     
 
 </head>
@@ -597,7 +599,7 @@
 
                     if (inboundDate === '') {
                         htmlOneway += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
-                            '<div class="container" style="background-color: rgba(0, 0, 0, 0.8); border-radius: 7px;">' +
+                            '<div class="container acrylic" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 7px;">' +
                             '<div class="row" style="color: white;">' +
                             '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                             airlineOutbound +
@@ -642,7 +644,7 @@
                     } else {
 
                         htmlRoundTrip += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
-                            '<div class="container shadow" style="background-color: rgba(10, 10, 10, 0.9); border-radius: 7px;">' +
+                            '<div class="container acrylic" style="border-radius: 7px;">' +
                             '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                             '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                             airlineOutbound +
@@ -726,7 +728,7 @@
                             '</div>' +
                             '</div>' +
                             '<div id="flightDetails">' +
-                            '<div id="flight-'+ flightLegsDetailsBtnId +'" class="flightDetailsClass" style="display: none;">"' +
+                            '<div id="flight-'+ flightLegsDetailsBtnId +'" class="flightDetailsClass" style="display: none;">' +
                             '<div class="row" style="border-bottom: solid 1px white; height: 15px;">' +
                             '<div class="col align-self-center" style="font-size: 10px; color: white;">' +
                             'Outbound flights' +
