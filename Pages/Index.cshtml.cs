@@ -11,6 +11,9 @@ namespace Vancouver.Pages
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
         //[BindProperty]
         //public Flight FlightData { get; set; }
 =======
@@ -18,8 +21,6 @@ namespace Vancouver.Pages
         public Flight FlightData { get; set; }
 >>>>>>> parent of a17b761... proovisin midagi, pean commirima
 
-=======
->>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
         public void OnGet()
         {
             
@@ -27,6 +28,9 @@ namespace Vancouver.Pages
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
 //        public ActionResult OnPostSubmitHandler()
 //        {
 //            var departureTemp = Request.Form["departureField"];
@@ -44,6 +48,7 @@ namespace Vancouver.Pages
 <<<<<<< HEAD
 //            return Page();
 //        }
+<<<<<<< HEAD
 =======
         
 >>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
@@ -51,6 +56,8 @@ namespace Vancouver.Pages
             return Page();
         }
 >>>>>>> parent of a17b761... proovisin midagi, pean commirima
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
 
 
     }
@@ -58,11 +65,15 @@ namespace Vancouver.Pages
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
 //public class Flight
 //{
 //    public string Departure;
 //    public string Arrival;
 //}
+<<<<<<< HEAD
 =======
 >>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
 =======
@@ -72,3 +83,5 @@ public class Flight
     public string Arrival;
 }
 >>>>>>> parent of a17b761... proovisin midagi, pean commirima
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver

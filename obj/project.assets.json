@@ -11508,11 +11508,15 @@
     "restore": {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
       "projectUniqueName": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
       "projectName": "Vancouver",
       "projectPath": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
       "packagesPath": "C:\\Users\\hlv\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\hlv\\source\\repos\\Vancouver\\obj\\",
+<<<<<<< HEAD
 =======
       "projectUniqueName": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
       "projectName": "Vancouver",
@@ -11527,6 +11531,8 @@
       "packagesPath": "C:\\Users\\sten\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\obj\\",
 >>>>>>> parent of a17b761... proovisin midagi, pean commirima
+=======
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

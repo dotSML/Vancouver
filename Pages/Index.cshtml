@@ -18,186 +18,90 @@
     <link href="~/css/airportAC.css" rel="stylesheet" />
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <link href="~/js/datepicker/dist/datepicker.css" rel="stylesheet" />
-    <link href="~/css/acrylicMaterial.css" rel="stylesheet" />
     
-    
-
 </head>
 <body>
-<div id="searchBar" class="container vertical-center flightSearchBox">
-    <div>
-        <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
-            <div class="col-auto" style="margin-left:20px">
+<div class="vertical-center">
+    <form method="post" autocomplete="off">
+        <div class="row align-items-center" style="margin-top: 250px; background-color: rgba(0, 0, 0, 0.3); border-radius: 7px; padding-top: 3px; padding-bottom: 3px;">
+            <div class="col-auto" style="padding-left: 8px">
                 <label class="sr-only" for="autocompleteDepart">Departure</label>
-                <input autocomplete="off" type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
+                <input type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
             </div>
             <div class="col-auto">
                 <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                <input autocomplete="off" type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
+                <input type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
             </div>
-            <div class="col-auto" style="margin-left: 20px">
+            <div class="col-auto">
                 <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                <input autocomplete="off" type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
+                <input type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
             </div>
             <div class="col-auto">
                 <label class="sr-only" for="datepickerInbound">Inbound</label>
-                <input autocomplete="off" type="text" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
+                <input type="text" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
             </div>
+            
+            <div class="col-auto" style="margin-left: 25px" id="searchFlights">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </div>
+        <div class="row align-items-center" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 7px">
+            <div class="col-auto" style="margin: 1px">
+                <select class="form-control" id="passengers">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                </select>
+            </div>
+        </div>
         
-            <div class="row align-items-center">
-                <div class="col-auto" style="margin-left: 35px">
-                    <select class="form-control" id="fareClass">
-                        <option value="ECONOMY">Economy Class</option>
-                        <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
-                        <option value="BUSINESS">Business Class</option>
-                        <option value="FIRST">First Class</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <select class="form-control" id="fareOption">
-                        <option val="ROUND">Round Trip</option>
-                        <option val="ONEWAY">One Way</option>
-                    </select>
-                </div>
-                <div class="col-auto" style="margin-left: 1px">
-                    <select class="form-control" id="passengers">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <select class="form-control" id="fareCurrency">
-                        <option>EUR</option>
-                        <option>USD</option>
-                    </select>
-                </div>
-                <div class="col-auto" style="margin-left: 1px" id="searchFlights">
-                    <button class="btn btn-primary" id="searchBtn">Search</button>
-                </div>
-            </div>
-        </div>       
-    </div>
-</div> 
+    </form>
     
 
-<div id="flightResults" class="vertical-center" style="margin-top: 25px;">
+</div>
+<div id="flightResults" class="vertical-center" style="margin-top: 25px">
     <div class="container" style="background-color: rgba(0, 0, 0, 0.8); border-radius: 7px;">
         <div class="row" style="color: white;">
-            <div id="flightInfoAirline" class="col-2 align-self-center"></div>
-            <div class="col-1 align-self-center"><span id="flightInfoDepartureTime"></span><br/><span id="flightInfoOriginAirport"></span></div>
-            <div class="col-1 align-self-center">
-                <div id="flightInfoDuration" style="font-size: 13px"></div>
-                <div style="font-size: 10px;"><span id="flightInfoLayovers" style="color: red;"></span>
-                    <div id="flightInfoLayoverCities"></div>
+            <div id="flightInfoAirline" class="col-2 align-self-center">Lufthansa</div>
+            <div id="flightInfoDepartureTime" class="col-1 align-self-center">6:10 <br/>TLL</div>
+            <div id="fligthInfoDuration" class="col-1 align-self-center">
+                <div style="font-size: 13px">15h 45</div>
+                <div id="flightInfoLayovers" style="font-size: 10px;"><span style="color: red;">1 stop</span>
+                    <div id="fligthInfoLayoverCities"> FRA</div>
                 </div>
             </div>
-            <div class="col-1 align-self-center"><span id="flightInfoArrivalTime"></span><br/><span id="flightInfoArrivalAirport"></span>
-                
+            <div if="fligthInfoArrivalTime" class="col-1 align-self-center">11:55<br/>
+                <div id="flightInfoArrival">SEA</div>
             </div>
-            <div class="col-1 align-self-center"><button class="btn btn-success" id="flightInfoPriceSpan" style="color:white"></button></div>
+            <div id="fligthInfoPrice" class="col-1 align-self-center"><span style="color:green">1248$</span></div>
         </div>
         
     </div>
 </div>
-    
 
-
-<div id="loading" style="margin-top: 80px; display: none; margin-left: 400px">
-
-    <div id="made-with-love" style="height: 150px; width: 150px;">
-        <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-            <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;" />
-
-            <circle fill="#fff" stroke="#e74c3c" stroke-width="3" cx="8" cy="54" r="6">
-                <animateTransform attributeName="transform"
-                                  dur="2s"
-                                  type="rotate"
-                                  from="0 50 48"
-                                  to="360 50 52"
-                                  repeatCount="indefinite" />
-            </circle>
-        </svg>
-    </div>
-</div>
-
-<div id="errorMessage" style="display: none">
-    <h2 style="color: white;">You broke it...</h2>
-    <img src="~/images/sad.png" />
-</div>
-
-
-
+<div class="btn btn-primary" id="testBtn">Check values</div>
 
 
 <script>
-    $(window).scroll(function (event) {
-        var scrollPosition = $(window).scrollTop();
-
-        if (scrollPosition > 100) {
-            $('#searchBar').removeClass('flightSearchBox');
-            $('#searchBar').addClass('fixed');
-        } else {
-            $('#searchBar').removeClass('fixed');
-            $('#searchBar').addClass('flightSearchBox');
-        }
-    });
-</script>
+    $('#testBtn').on("click", function() {
 
 
-
-<script>
-    $(document).ready(function () {
-        $('#loading').hide();
-        $('#flightResults').hide();
-        $('#errorMessage').hide();
-        $('#searchBar').removeClass('fixed');
-    })
-</script>
-
-<script>
-    $('#searchBtn').on("click", function () {
-        $('#flightResults').fadeOut();
-        $('#errorMessage').hide();
-        $('#loading').fadeIn();
         var apiKey = "DAI4hfrkFliQkgA6U4L04yImEuD9g06i";
         var origin = $('#autocompleteDepart').val();
         var destination = $('#autocompleteArrive').val();
         var outboundDate = $('#datepickerOutbound').val();
-        var adultPassengers = $('#passengers').val();
-        var fareCurrency = $('#fareCurrency').val();
-        var fareClass = $('#fareClass').val();
-        var numberOfResults = "30";
         outboundDate = outboundDate.replace(/\//g, "-");
         outboundDate = outboundDate.split('-');
         outboundDate = outboundDate[2] + '-' + outboundDate[0] + '-' + outboundDate[1];
-        var inboundDate = '';
-        if ($('#fareOption').val() === 'ONEWAY') {
-            inboundDate = '';
-        } else {
-            inboundDate = $('#datepickerInbound').val();
-        }
-        
-
-
-        if ($('#datepickerInbound').val() === '') {
-            inboundDate = '';
-            $('#fareOption').prop(2);
-        } else {
-            inboundDate = $('#datepickerInbound').val();
-            inboundDate = inboundDate.replace(/\//g, "-");
-            inboundDate = inboundDate.split("-");
-            inboundDate = inboundDate[2] + '-' + inboundDate[0] + '-' + inboundDate[1];
-            inboundDate = "&return_date=" + inboundDate;
-        }
-
-       
-
-        var fareRequestUrl =
+        var inboundDate = $('#datepickerInbound').val();
+        inboundDate = inboundDate.replace(/\//g, "-");
+        inboundDate = inboundDate.split("-");
+        inboundDate = inboundDate[2] + '-' + inboundDate[0] + '-' + inboundDate[1];
+        var adultPassengers = $('#passengers').val();
+        var url =
             "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
                 apiKey +
                 "&origin=" +
@@ -206,610 +110,44 @@
                 destination +
                 "&departure_date=" +
                 outboundDate +
+                "&return_date=" +
                 inboundDate +
                 "&adults=" +
-                adultPassengers +
-                "&currency=" +
-                fareCurrency +
-                "&travel_class=" +
-                fareClass +
-                "&number_of_results=" +
-                numberOfResults;
+                adultPassengers;
 
-        $.ajax({
-            dataType: "json",
-            url: fareRequestUrl,
+        console.log(apiKey, origin, destination, outboundDate, inboundDate, adultPassengers, url);
 
-            success: function(faresData) {
-                var results = $('#flightResults');
-                var itemsFound = faresData.results; 
-                var itemsFoundCount = itemsFound.length;
-                var htmlRoundTrip = '';
-                var htmlOneway = '';
-                var layoverStopsSpanOutbound = '';
-                var layoverStopsSpanInbound = '';
-
-                var arrivalAirportOutbound,
-                    originAirportOutbound,
-                    departureTimeOutbound,
-                    arrivalTimeOutbound,
-                    layoverCitiesOutbound,
-                    airlineOutbound,
-                    tripDurationOutbound,
-                    layoverStopAmountOutbound;
-
-                var arrivalAirportInbound,
-                    originAirportInbound,
-                    departureTimeInbound,
-                    arrivalTimeInbound,
-                    layoverCitiesInbound,
-                    airlineInbound,
-                    tripDurationInbound,
-                    layoverStopAmountInbound;
-
-                var outboundLegAircraft,
-                    outboundLegDepartureTime,
-                    outboundLegArrivalTime,
-                    outboundLegFlightNumber,
-                    outboundLegMarketingAirline,
-                    outboundLegTerminal,
-                    outboundLegTravelClass,
-                    outboundLegOrigin,
-                    outboundLegDestination;
-                
-
-                var inboundLegAircraft,
-                    inboundLegDepartureTime,
-                    inboundLegArrivalTime,
-                    inboundLegFlightNumber,
-                    inboundLegMarketingAirline,
-                    inboundLegTerminal,
-                    inboundLegTravelClass,
-                    inboundLegOrigin,
-                    inboundLegDestination;
-                    
-
-                var i;
-                var farePriceTotal;
-                var farePricePerPassenger;
-                var farePriceTax;
-
-                var flightLegsFoundOutbound = '';
-                var flightLegsFoundCountOutbound = '';
-                var flightLegsFoundInbound = '';
-                var flightLegsFoundInboundCount = '';
-                var flightLegsOutboundHtml = '';
-                var flightLegsDetailsBtnId = 0;
-
-                console.log(faresData.results[0]);
-
-                for (var k = 0; k < itemsFoundCount; ++k) {
-
-                    flightLegsFoundOutbound = faresData.results[k]['itineraries'][0]['outbound']['flights'];
-                    flightLegsFoundCountOutbound = flightLegsFoundOutbound.length; 
-
-                    for (var l = 0; l < flightLegsFoundCountOutbound; l++) {
-
-                        outboundLegDepartureTime =
-                            faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['departs_at'];
-                        outboundLegDepartureTime = outboundLegDepartureTime.split('T');
-                        outboundLegDepartureTime = outboundLegDepartureTime[1];
-
-                        outboundLegArrivalTime =
-                            faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['arrives_at'];
-                        outboundLegArrivalTime = outboundLegArrivalTime.split('T');
-                        outboundLegArrivalTime = outboundLegArrivalTime[1];
-
-
-                        outboundLegOrigin = faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['origin']['airport'];
-                        outboundLegDestination = faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['destination']['airport'];
-                        outboundLegAircraft = faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['aircraft'];
-                        outboundLegFlightNumber =
-                            faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['flight_number'];
-                        outboundLegTravelClass =
-                            faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]['booking_info']
-                            ['travel_class'];
-                        outboundLegMarketingAirline =
-                            faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]["marketing_airline"];
-
-                        flightLegsOutboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
-                            '<div id="outboundLegsInfo">' +
-                            '</div>' +
-                            '<div id="flightLegInfoAirline" class="col-2 align-self-center">' +
-                            outboundLegMarketingAirline +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<span id="flightLegDepartureTime" class="itinerary-time">' +
-                            outboundLegDepartureTime +
-                            '</span><br/>' +
-                            '<span id="flightLegOriginAirport">' +
-                            outboundLegOrigin +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<div id="flightLegDuration" style="font-size: 13px">' +
-                            /*outboundLegDuration*/ 'N/A' + //add duration for individual leg, placeholder for now
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<span id="flightLegArrivalTime" class="itinerary-time">' +
-                            outboundLegArrivalTime +
-                            '</span><br/>' +
-                            '<span id="flightLegArrivalAirport">' +
-                            outboundLegDestination +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
-                            '<span style="font-size: 11px;">' +
-                            'Flight No. ' +
-                            '</span> <br>' +
-                            '<span style="font-weight: bold; font-size: 13px;">' +
-                            outboundLegFlightNumber +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
-                            '<span style="font-size: 11px;">' +
-                            'Aircraft ' +
-                            '</span> <br>' +
-                            '<span style="font-weight: bold; font-size: 13px;">' +
-                            outboundLegAircraft +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
-                            '<span style="font-size: 11px;">' +
-                            'Travel Class' +
-                            '</span> <br>' +
-                            '<span style="font-weight: bold; font-size: 13px;">' +
-                            outboundLegTravelClass +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '</div>' +
-                            '</div>';
-
-                    }
-                
-
-                    var flightLegsFoundInbound = '';
-                    var flightLegsFoundCountInbound = '';
-                    var flightLegsInboundHtml = '';
-
-                    if (inboundDate === '') { }
-                    else {
-                            flightLegsFoundInbound = faresData.results[k]['itineraries'][0]['inbound']['flights'];
-                            flightLegsFoundCountInbound = flightLegsFoundInbound.length;
-
-                        for (var y = 0; y < flightLegsFoundCountInbound; y++) {
-
-                            inboundLegDepartureTime =
-                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['departs_at'];
-                            inboundLegDepartureTime = inboundLegDepartureTime.split('T');
-                            inboundLegDepartureTime = inboundLegDepartureTime[1];
-
-                            inboundLegArrivalTime =
-                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['arrives_at'];
-                            inboundLegArrivalTime = inboundLegArrivalTime.split('T');
-                            inboundLegArrivalTime = inboundLegArrivalTime[1];
-
-
-                            inboundLegOrigin = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['origin']['airport'];
-                            inboundLegDestination = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['destination']['airport'];
-                            inboundLegAircraft = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['aircraft'];
-                            inboundLegFlightNumber =
-                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['flight_number'];
-                            inboundLegTravelClass =
-                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]['booking_info']
-                                ['travel_class'];
-                            inboundLegMarketingAirline =
-                                faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]["marketing_airline"];
-
-                            flightLegsInboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
-                                '<div id="inboundLegsInfo">' +
-                                '</div>' +
-                                '<div class="col-2 align-self-center">' +
-                                inboundLegMarketingAirline +
-                                '</div>' +
-                                '<div class="col-1 align-self-center">' +
-                                '<span class="itinerary-time">' +
-                                inboundLegDepartureTime +
-                                '</span><br/>' +
-                                '<span id="flightLegOriginAirport">' +
-                                inboundLegOrigin +
-                                '</span>' +
-                                '</div>' +
-                                '<div class="col-1 align-self-center">' +
-                                '<div id="flightLegDuration" style="font-size: 13px">' +
-                            /*inboundLegDuration*/ 'N/A' + //add duration for individual leg, placeholder for now
-                                '</div>' +
-                                '</div>' +
-                                '<div class="col-1 align-self-center">' +
-                                '<span id="flightLegArrivalTime" class="itinerary-time">' +
-                                inboundLegArrivalTime +
-                                '</span><br/>' +
-                                '<span id="flightLegArrivalAirport">' +
-                                inboundLegDestination +
-                                '</span>' +
-                                '</div>' +
-                                '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
-                                '<span style="font-size: 11px;">' +
-                                'Flight No. ' +
-                                '</span> <br>' +
-                                '<span style="font-weight: bold; font-size: 13px;">' +
-                                inboundLegFlightNumber +
-                                '</span>' +
-                                '</div>' +
-                                '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
-                                '<span style="font-size: 11px;">' +
-                                'Aircraft ' +
-                                '</span> <br>' +
-                                '<span style="font-weight: bold; font-size: 13px;">' +
-                                inboundLegAircraft +
-                                '</span>' +
-                                '</div>' +
-                                '<div class="col-1 align-self-center" style="margin-left: 5px;">' +
-                                '<span style="font-size: 11px;">' +
-                                'Travel Class ' +
-                                '</span> <br>' +
-                                '<span style="font-weight: bold; font-size: 13px;">' +
-                                inboundLegTravelClass +
-                                '</span>' +
-                                '</div>' +
-                                '<div class="col-5 align-self-center"></div>' +
-                                '<div class="col-1 align-self-center">' +
-                                '</div>' +
-                                '</div>';
-
-                        }
-                      
-                    }
-
-
-
-
-                    //marketingAirline OUTBOUND
-                    airlineOutbound =
-                        faresData.results[k]['itineraries'][0]['outbound']['flights'][0]['marketing_airline'];
-
-                    //itinerary origin and destination OUTBOUND
-                    originAirportOutbound =
-                        faresData.results[k]['itineraries'][0]['outbound']['flights'][0]['origin']['airport'];
-                    arrivalAirportOutbound =
-                        faresData.results[k]['itineraries'][0]['outbound']['flights'][
-                            faresData.results[k]['itineraries'][0]['outbound']['flights'].length - 1]['destination'][
-                            'airport'];
-
-                    //itinerary departure and arrival times OUTBOUND
-                    departureTimeOutbound =
-                        faresData.results[k]['itineraries'][0]['outbound']['flights'][0]['departs_at'].split('T')[1];
-                    arrivalTimeOutbound =
-                        faresData.results[k]['itineraries'][0]['outbound']['flights'][0]['arrives_at'].split('T')[1];
-
-                    tripDurationOutbound = faresData.results[k]['itineraries'][0]['outbound']['duration'];
-                    tripDurationOutbound = tripDurationOutbound.split(':');
-                    tripDurationOutbound = tripDurationOutbound[0] + 'h ' + tripDurationOutbound[1] + 'm';
-
-                    //FarePrice
-                    farePriceTotal = faresData.results[k]['fare']['total_price'];
-                    farePricePerPassenger = faresData.results[k]['fare']['price_per_adult']['total_fare'];
-                    farePriceTax = faresData.results[k]['fare']['price_per_adult']['tax'];
-
-                    //add currency symbol
-                    switch (fareCurrency) {
-                    case 'EUR':
-                        farePricePerPassenger += "€";
-                        farePriceTotal += "€";
-                        farePriceTax += "€";
-                        break;
-                    case 'USD':
-                        farePricePerPassenger = "$" + farePricePerPassenger;
-                        farePriceTotal = "$" + farePriceTotal;
-                        farePriceTax = "$" + farePriceTax;
-                        break;
-                    }
-
-                    //correct display of stops OUTBOUND
-                    layoverStopAmountOutbound =
-                        faresData.results[k]['itineraries'][0]['outbound']['flights'].length - 1;
-                    if (layoverStopAmountOutbound === 0) {
-                        layoverStopAmountOutbound = 'DIRECT';
-                        layoverStopsSpanOutbound = 'color: green; font-size: 10px;';
-                    } else {
-                        layoverStopsSpanOutbound = 'color:red; font-size: 10px;';
-                        if (layoverStopAmountOutbound === 1) {
-                            layoverStopAmountOutbound = layoverStopAmountOutbound + ' stop';
-                        }
-                        else if (layoverStopAmountOutbound > 1) {
-                            layoverStopAmountOutbound = layoverStopAmountOutbound + ' stops';
-                        }
-                    }
-                        
-   
-                    //layovers on outbound itinerary OUTBOUND
-                    layoverCitiesOutbound = '';
-                    for (i = 0; i < faresData.results[k]['itineraries'][0]['outbound']['flights'].length - 1; i++) {
-                        layoverCitiesOutbound += faresData.results[k]['itineraries'][0]["outbound"]['flights'][i][
-                                'destination']['airport'] +
-                            ', ';
-                    }
-                    layoverCitiesOutbound = layoverCitiesOutbound.slice(0, -2);
-
-                    if (inboundDate === '') {
-                    } else {
-
-                        //airline INBOUND
-                        airlineInbound =
-                            faresData.results[k]['itineraries'][0]['inbound']['flights'][0]['marketing_airline'];
-
-                        //itinerary departure and arrival INBOUND
-                        originAirportInbound =
-                            faresData.results[k]['itineraries'][0]['inbound']['flights'][0]['origin']['airport'];
-                        arrivalAirportInbound =
-                            faresData.results[k]['itineraries'][0]["inbound"]['flights'][faresData.results[k]['itineraries'][0]['inbound']['flights'].length - 1]['destination']['airport'];
-
-                        //itinerary departure and arrival time INBOUND
-                        departureTimeInbound =
-                            faresData.results[k]['itineraries'][0]['inbound']['flights'][0]['departs_at'].split('T')[1];
-                        arrivalTimeInbound =
-                            faresData.results[k]['itineraries'][0]['inbound']['flights'][0]['arrives_at'].split('T')[1];
-
-                        //itinerary duration INBOUND
-                        tripDurationInbound = faresData.results[k]['itineraries'][0]['inbound']['duration'];
-                        tripDurationInbound = tripDurationInbound.split(':');
-                        tripDurationInbound = tripDurationInbound[0] + 'h ' + tripDurationInbound[1] + 'm';
-
-                        //correct display of stops INBOUND
-                        layoverStopAmountInbound = faresData.results[k]['itineraries'][0]['inbound']['flights'].length - 1;
-                        if (layoverStopAmountInbound === 0) {
-                            layoverStopAmountInbound = 'DIRECT';
-                            layoverStopsSpanInbound = 'color: green; font-size: 10px;';
-                        } else {
-                            layoverStopsSpanInbound = 'color: red; font-size: 10px;';
-                            if (layoverStopAmountInbound === 1) {
-                                layoverStopAmountInbound = layoverStopAmountInbound + ' stop';
-                            }
-                            else if (layoverStopAmountInbound > 1) {
-                                layoverStopAmountInbound = layoverStopAmountInbound + ' stops';
-                            }
-                        }
-                            
-                        //layover stop cities INBOUND
-                        layoverCitiesInbound = '';
-                        for (i = 0; i < faresData.results[k]['itineraries'][0]['inbound']['flights'].length - 1; i++) {
-                            layoverCitiesInbound += faresData.results[k]['itineraries'][0]["inbound"]['flights'][i][
-                                    'destination']['airport'] +
-                                ', ';
-                        }
-                        layoverCitiesInbound = layoverCitiesInbound.slice(0, -2);
-
-                        //var airlineLogoApiKey = 'VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
-                        //var airlineLogoIcaoOutbound = airlineOutbound;
-                        //var airlineLogoIcaoInbound;
-                        //var airlineLogoMd5Str = airlineLogoIcaoOutbound + '_150_70_r_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
-
-                        //var airHexApiMd5 = $.md5(airlineLogoMd5Str);
-                        //console.log(airHexApiMd5);
-                        //    var airlineLogoRequestUrlOutbound =
-                        //        'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_150_70_r.png?md5apikey=' + airHexApiMd5;
-
-                            
-                        
-
-
-                    }
-
-                    if (inboundDate === '') {
-                        htmlOneway += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
-                            '<div class="container acrylic" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 7px;">' +
-                            '<div class="row" style="color: white;">' +
-                            '<div id="flightInfoAirline" class="col-2 align-self-center">' +
-                            airlineOutbound +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<span id="flightInfoDepartureTime">' +
-                            departureTimeOutbound +
-                            '</span><br/>' +
-                            '<span id="flightInfoOriginAirport">' +
-                            originAirportOutbound +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<div id="flightInfoDuration" style="font-size: 13px">' +
-                            tripDurationOutbound +
-                            '</div>' +
-                            '<div style="font-size: 10px;">' +
-                            '<span id="flightInfoLayovers" style="'+ layoverStopsSpanOutbound +'">' +
-                            layoverStopAmountOutbound +
-                            '</span>' +
-                            '<div id="flightInfoLayoverCities" style="font-weight: bold; font-size: 11px">' +
-                            layoverCitiesOutbound +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<span id="flightInfoArrivalTime">' +
-                            arrivalTimeOutbound +
-                            '</span><br/>' +
-                            '<span id="flightInfoArrivalAirport">' +
-                            arrivalAirportOutbound +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-5 align-self-center"></div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<button class="btn btn-success" id="flightInfoPriceSpan" style="color:white; left: 50px">' +
-                            farePricePerPassenger +
-                            '</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>';
-                    } else {
-
-                        htmlRoundTrip += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
-                            '<div class="container acrylic" style="border-radius: 7px;">' +
-                            '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
-                            '<div id="flightInfoAirline" class="col-2 align-self-center">' +
-                            airlineOutbound +
-                            '</div>' +
-                            '<div class="col-2 align-self-center" style="width: 60%">' +
-                            '<span id="flightInfoDepartureTime" class="itinerary-time">' +
-                            departureTimeOutbound +
-                            '</span><br/>' +
-                            '<span id="flightInfoOriginAirport" style="font-weight: bold;">' +
-                            originAirportOutbound +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-2 align-self-center" style="width: 60%;">' +
-                            '<div id="flightInfoDuration" style="font-size: 13px">' +
-                            tripDurationOutbound +
-                            '</div>' +
-                            '<div style="font-size: 10px;">' +
-                            '<span id="flightInfoLayovers" style="' +
-                            layoverStopsSpanOutbound +
-                            '">' +
-                            layoverStopAmountOutbound +
-                            '</span>' +
-                            '<div id="flightInfoLayoverCitiesOutbound" style="font-size: 10px; font-weight: bold;">' +
-                            layoverCitiesOutbound +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-2 align-self-center" style="width: 60%">' +
-                            '<span id="flightInfoArrivalTime" class="itinerary-time">' +
-                            arrivalTimeOutbound +
-                            '</span><br/>' +
-                            '<span id="flightInfoArrivalAirport" style="font-weight: bold;">' +
-                            arrivalAirportOutbound +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-2 align-self-center"></div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<button class="btn btn-success" id="flightInfoPriceSpan" style="color:white; left: 50px">' +
-                            farePricePerPassenger +
-                            '</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div id="outboundFlights" class="row" style="color: white; height: 8vh;">' +
-                            '<div id="flightInfoAirline" class="col-2 align-self-center">' +
-                            airlineInbound +
-                            '</div>' +
-                            '<div class="col-2 align-self-center">' +
-                            '<span id="flightInfoDepartureTime" class="itinerary-time">' +
-                            departureTimeInbound +
-                            '</span><br/>' +
-                            '<span id="flightInfoOriginAirport" style="font-weight: bold;">' +
-                            originAirportInbound +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-2 align-self-center" style="width: 60%">' +
-                            '<div id="flightInfoDuration" style="font-size: 13px">' +
-                            tripDurationInbound +
-                            '</div>' +
-                            '<div style="font-size: 10px;">' +
-                            '<span id="flightInfoLayovers" style="' +
-                            layoverStopsSpanInbound +
-                            '">' +
-                            layoverStopAmountInbound +
-                            '</span>' +
-                            '<div id="flightInfoLayoverCitiesInbound" style="font-size: 10px; font-weight: bold;">' +
-                            layoverCitiesInbound +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="col-2 align-self-center" style="width: 60%">' +
-                            '<span id="flightInfoArrivalTime" class="itinerary-time">' +
-                            arrivalTimeInbound +
-                            '</span><br/>' +
-                            '<span id="flightInfoArrivalAirport" style="font-weight: bold;">' +
-                            arrivalAirportInbound +
-                            '</span>' +
-                            '</div>' +
-                            '<div class="col-2 align-self-center"></div>' +
-                            '<div class="col-1 align-self-center">' +
-                            '<button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-'+ flightLegsDetailsBtnId + '" style="color:white; left: 50px">Details</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div id="flightDetails">' +
-                            '<div id="flight-'+ flightLegsDetailsBtnId +'" class="flightDetailsClass" style="display: none;">' +
-                            '<div class="row" style="border-bottom: solid 1px white; height: 15px;">' +
-                            '<div class="col align-self-center" style="font-size: 10px; color: white;">' +
-                            'Outbound flights' +
-                            '</div>' +
-                            '</div>' +
-                            flightLegsOutboundHtml +
-                            '<div class="row" style="border-bottom: solid 1px white; height: 15px;">' +
-                            '<div class="col align-self-center" style="font-size: 10px; color: white;">' +
-                            'Inbound flights' +
-                            '</div>' +
-                            '</div>' +
-                            flightLegsInboundHtml +
-                            '<div class="row" style="color: white; border-top: dotted;">' +
-                            '<div id="farePriceDetailsTotal" class="col-3 align self-center" style="font-size: 11px;">' +
-                            'Total price for all passengers: <span style="color: green; font-size: 12px">' +
-                            farePriceTotal +
-                            '</span>' +
-                            '</div>' +
-                            '<div id="farePriceDetailsPP" class="col-3 align self-center" style="font-size: 11px;">' +
-                            'Price per passenger: <span style="color: green; font-size: 12px">' +
-                            farePricePerPassenger +
-                            '</span>' +
-                            '</div>' +
-                            '<div id="farePriceDetailsPPtax" class="col-3 align self-center" style="font-size: 11px;">' +
-                            'Tax per passenger: ' +
-                            '<span style="color: green; font-size: 12px">' +
-                            farePriceTax +
-                            '</span>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            //flightLegsOutboundHtml +
-                            '</div>' +
-                            '</div>';
-
-                        flightLegsDetailsBtnId++;
-                        flightLegsOutboundHtml = '';
-                        flightLegsInboundHtml = '';
-                    }
-
-                    
-
-
+            $.ajax({
+                dataType: "json",
+                url:
+                    "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
+                        apiKey +
+                        "&origin=" +
+                        origin +
+                        "&destination=" +
+                        destination +
+                        "&departure_date=" +
+                        outboundDate +
+                        "&return_date=" +
+                        inboundDate +
+                        "&adults=" +
+                        adultPassengers,
+                data: {
+                    format: 'json'
+                },
+            success:
+                function(data) {
+                    console.log(data);
                 }
 
-                if (inboundDate === '') {
-                    results.html(htmlOneway);
-                } else {
-                    results.html(htmlRoundTrip);
-                }
-
-                
-
-                $('#loading').hide();
-                $('#flightResults').fadeIn();
-            },
-            error: function() {
-                $('#errorMessage').fadeIn();
-                $('#loading').hide();
-            }
         });
 
     });
 </script>
 
-<script>
-    var activeDetails = null;
-    $(document).on('click', '.flightDetailsButton', function (e) {
-        //if (activeDetails)
-        //    activeDetails.hide();
-        //    activeDetails = $($(this).data('target'));
-        //    activeDetails.slideToggle("fast");
-        if (activeDetails) {activeDetails.hide();
-        }
-        if (!activeDetails) {
-            activeDetails = $($(this).data('target'));
-            activeDetails.slideToggle("fast");
-        }
-        activeDetails = null;
-    });
-</script>
+    <div class="jsonDiv"></div>
+
+
 
 
 

@@ -29,12 +29,16 @@ namespace Vancouver
             services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase());
 =======
           
 >>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
 =======
 >>>>>>> parent of a17b761... proovisin midagi, pean commirima
+=======
+            services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase());
+>>>>>>> parent of 09562f0... Merge branch 'master' of https://github.com/dotSML/Vancouver
 
             services.Configure<CookiePolicyOptions>(options =>
             {
