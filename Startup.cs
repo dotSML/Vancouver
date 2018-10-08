@@ -27,14 +27,7 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase());
-<<<<<<< HEAD
-<<<<<<< HEAD
-            services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase());
-=======
           
->>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
-=======
->>>>>>> parent of a17b761... proovisin midagi, pean commirima
 
             services.Configure<CookiePolicyOptions>(options =>
             {
