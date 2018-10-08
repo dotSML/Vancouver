@@ -11500,24 +11500,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sten\\.nuget\\packages\\": {},
+    "C:\\Users\\hlv\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
+      "projectUniqueName": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
       "projectName": "Vancouver",
-      "projectPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
-      "packagesPath": "C:\\Users\\sten\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\obj\\",
+      "projectPath": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
+      "packagesPath": "C:\\Users\\hlv\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hlv\\source\\repos\\Vancouver\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\sten\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\hlv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
@@ -11559,13 +11562,5 @@
         "warn": true
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\obj\\Vancouver.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

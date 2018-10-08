@@ -12,7 +12,7 @@ namespace Vancouver.Models
         public string LastName { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public TravelHistory TravelHistory { get; set; }
-        public FavoriteDestinations FavoriteDestinations { get; set; }
+        public CustomerTravelHistory CustomerTravelHistory { get; set; }
+        public IEnumerable<FavoriteDestination> ThreeFavoriteDestinations { get; set; }
     }
 }

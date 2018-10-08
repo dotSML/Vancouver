@@ -7,5 +7,6 @@ namespace Vancouver.Models
 {
     public class PaymentMethod
     {
+        public BankLink BankLink { get; set; }
     }
 }
