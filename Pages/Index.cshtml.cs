@@ -9,9 +9,12 @@ namespace Vancouver.Pages
 {
     public class IndexModel : PageModel
     {
+<<<<<<< HEAD
         //[BindProperty]
         //public Flight FlightData { get; set; }
 
+=======
+>>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
         public void OnGet()
         {
 
@@ -19,6 +22,7 @@ namespace Vancouver.Pages
     }
 }
 
+<<<<<<< HEAD
 //        public ActionResult OnPostSubmitHandler()
 //        {
 //            var departureTemp = Request.Form["departureField"];
@@ -29,13 +33,19 @@ namespace Vancouver.Pages
 
 //            return Page();
 //        }
+=======
+        
+>>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
 
 
 //    }
 //}
 
+<<<<<<< HEAD
 //public class Flight
 //{
 //    public string Departure;
 //    public string Arrival;
 //}
+=======
+>>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2

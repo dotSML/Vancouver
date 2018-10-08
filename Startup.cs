@@ -29,7 +29,11 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase());
+<<<<<<< HEAD
             services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase());
+=======
+          
+>>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
 
             services.Configure<CookiePolicyOptions>(options =>
             {

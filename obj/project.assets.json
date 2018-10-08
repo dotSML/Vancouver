@@ -11507,11 +11507,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
       "projectName": "Vancouver",
       "projectPath": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
       "packagesPath": "C:\\Users\\hlv\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\hlv\\source\\repos\\Vancouver\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
+      "projectName": "Vancouver",
+      "projectPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
+      "packagesPath": "C:\\Users\\sten\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\obj\\",
+>>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
