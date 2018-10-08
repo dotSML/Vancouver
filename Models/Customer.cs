@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Vancouver.Models
 {
-    [Table("CustomersTable")]
     public class Customer
     {
         public int ID { get; set; }

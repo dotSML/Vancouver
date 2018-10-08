@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vancouver.Databases;
-using Vancouver.Models;
 
 namespace Vancouver
 {
@@ -30,10 +28,13 @@ namespace Vancouver
         {
             services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase());
 <<<<<<< HEAD
+<<<<<<< HEAD
             services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase());
 =======
           
 >>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
+=======
+>>>>>>> parent of a17b761... proovisin midagi, pean commirima
 
             services.Configure<CookiePolicyOptions>(options =>
             {

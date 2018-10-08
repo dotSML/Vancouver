@@ -11500,13 +11500,13 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hlv\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\sten\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
 <<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\hlv\\source\\repos\\Vancouver\\Vancouver.csproj",
       "projectName": "Vancouver",
@@ -11520,15 +11520,20 @@
       "packagesPath": "C:\\Users\\sten\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\obj\\",
 >>>>>>> c2513bff8bc2ba59bff719fcc44eee07cc1432f2
+=======
+      "projectUniqueName": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver.csproj",
+      "projectName": "Vancouver",
+      "projectPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver.csproj",
+      "packagesPath": "C:\\Users\\sten\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\obj\\",
+>>>>>>> parent of a17b761... proovisin midagi, pean commirima
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\hlv\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\sten\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
