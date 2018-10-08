@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vancouver.Databases;
+using Vancouver.Models;
 
 namespace Vancouver
 {
@@ -27,6 +29,7 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase());
+            services.AddDbContext<CustomerDbContext>(options => options.UseInMemoryDatabase());
 
             services.Configure<CookiePolicyOptions>(options =>
             {
