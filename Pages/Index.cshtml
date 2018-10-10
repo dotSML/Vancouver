@@ -255,7 +255,8 @@
                     outboundLegTerminal,
                     outboundLegTravelClass,
                     outboundLegOrigin,
-                    outboundLegDestination;
+                    outboundLegDestination,
+                    outboundLegOperatingAirline;
                 
 
                 var inboundLegAircraft,
@@ -266,7 +267,8 @@
                     inboundLegTerminal,
                     inboundLegTravelClass,
                     inboundLegOrigin,
-                    inboundLegDestination;
+                    inboundLegDestination,
+                    inboundLegOperatingAirline;
                     
 
                 var i;
@@ -280,10 +282,36 @@
                 var flightLegsFoundInboundCount = '';
                 var flightLegsOutboundHtml = '';
                 var flightLegsDetailsBtnId = 0;
+                var airlineLogoId = 0;
+                var airlineLogoApiKey = 'VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
+                var airlineLogoIcaoOutbound = '';
+                var airlineLogoMd5Str = ''; 
+                var airHexApiMd5 = '';
+                var airlineLogoRequestUrlOutbound = '';
+                var airlineLogoRequestUrlInbound = '';
+                var airlineLogoIcaoInbound = '';
 
                 console.log(faresData.results[0]);
 
                 for (var k = 0; k < itemsFoundCount; ++k) {
+
+                    //OUTBOUND Logos
+                    airlineLogoIcaoOutbound = airlineOutbound;
+                    airlineLogoMd5Str = airlineLogoIcaoOutbound + '_50_50_s_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
+
+                    airHexApiMd5 = $.md5(airlineLogoMd5Str);
+                    airlineLogoRequestUrlOutbound =
+                        'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
+
+                    //INBOUND logos
+                    airlineLogoIcaoInbound = airlineInbound;
+                    airlineLogoMd5Str = airlineLogoIcaoInbound + '_50_50_s_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
+
+                    airHexApiMd5 = $.md5(airlineLogoMd5Str);
+                    airlineLogoRequestUrlOutbound =
+                        'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoInbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
+
+
 
                     flightLegsFoundOutbound = faresData.results[k]['itineraries'][0]['outbound']['flights'];
                     flightLegsFoundCountOutbound = flightLegsFoundOutbound.length; 
@@ -311,12 +339,13 @@
                             ['travel_class'];
                         outboundLegMarketingAirline =
                             faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]["marketing_airline"];
+                        outboundLegOperatingAirline = faresData.results[k]["itineraries"][0]["outbound"]['flights'][l]["operating_airline"];
 
                         flightLegsOutboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
                             '<div id="outboundLegsInfo">' +
                             '</div>' +
                             '<div id="flightLegInfoAirline" class="col-2 align-self-center">' +
-                            outboundLegMarketingAirline +
+                            outboundLegOperatingAirline +
                             '</div>' +
                             '<div class="col-1 align-self-center">' +
                             '<span id="flightLegDepartureTime" class="itinerary-time">' +
@@ -402,12 +431,13 @@
                                 ['travel_class'];
                             inboundLegMarketingAirline =
                                 faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]["marketing_airline"];
+                            inboundLegOperatingAirline = faresData.results[k]["itineraries"][0]["inbound"]['flights'][y]["operating_airline"];
 
                             flightLegsInboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
                                 '<div id="inboundLegsInfo">' +
                                 '</div>' +
                                 '<div class="col-2 align-self-center">' +
-                                inboundLegMarketingAirline +
+                                inboundLegOperatingAirline +
                                 '</div>' +
                                 '<div class="col-1 align-self-center">' +
                                 '<span class="itinerary-time">' +
@@ -581,19 +611,7 @@
                         }
                         layoverCitiesInbound = layoverCitiesInbound.slice(0, -2);
 
-                        //var airlineLogoApiKey = 'VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
-                        //var airlineLogoIcaoOutbound = airlineOutbound;
-                        //var airlineLogoIcaoInbound;
-                        //var airlineLogoMd5Str = airlineLogoIcaoOutbound + '_150_70_r_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
-
-                        //var airHexApiMd5 = $.md5(airlineLogoMd5Str);
-                        //console.log(airHexApiMd5);
-                        //    var airlineLogoRequestUrlOutbound =
-                        //        'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_150_70_r.png?md5apikey=' + airHexApiMd5;
-
-                            
                         
-
 
                     }
 
@@ -643,11 +661,16 @@
                             '</div>';
                     } else {
 
+                        
+
                         htmlRoundTrip += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
                             '<div class="container acrylic" style="border-radius: 7px;">' +
                             '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                             '<div id="flightInfoAirline" class="col-2 align-self-center">' +
-                            airlineOutbound +
+                            '<div style="margin-left: 10px;">' +
+                            '<img src=' + '"' + airlineLogoRequestUrlOutbound + '"' + '>' +
+                            '</div>' +
+                            //airlineOutbound +
                             '</div>' +
                             '<div class="col-2 align-self-center" style="width: 60%">' +
                             '<span id="flightInfoDepartureTime" class="itinerary-time">' +
@@ -689,7 +712,10 @@
                             '</div>' +
                             '<div id="outboundFlights" class="row" style="color: white; height: 8vh;">' +
                             '<div id="flightInfoAirline" class="col-2 align-self-center">' +
-                            airlineInbound +
+                            //airlineInbound +
+                            '<div style="margin-left: 10px">' +
+                            '<img src=' + '"' + airlineLogoRequestUrlOutbound + '"' + '>' +
+                            '</div>' +
                             '</div>' +
                             '<div class="col-2 align-self-center">' +
                             '<span id="flightInfoDepartureTime" class="itinerary-time">' +
@@ -764,6 +790,7 @@
                             '</div>' +
                             '</div>';
 
+                        airlineLogoId++;
                         flightLegsDetailsBtnId++;
                         flightLegsOutboundHtml = '';
                         flightLegsInboundHtml = '';
@@ -812,7 +839,7 @@
 </script>
 
 
-
+<script src="~/js/jquery.md5.js"></script>
 <script src="~/js/datepicker/flightDatepicker.js"></script>
 <script src="~/js/airportsAutoComplete.js"></script>
 </body>
