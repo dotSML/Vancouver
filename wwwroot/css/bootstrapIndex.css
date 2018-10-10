@@ -6393,6 +6393,11 @@ button.bg-dark:focus {
   display: flex !important;
 }
 
+.d-flexLoading {
+    display: -ms-flexbox;
+    display: flex;
+}
+
 .d-inline-flex {
   display: -ms-inline-flexbox !important;
   display: inline-flex !important;
