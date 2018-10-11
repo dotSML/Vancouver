@@ -46,22 +46,22 @@
         </div>
             <div class="row align-items-center" style="padding-bottom: 3px;">
                 <div class="col-auto" style="margin-left: 3px">
-                    <select class="form-control" id="fareClass">
-                        <option value="ECONOMY">Economy Class</option>
+                    <select class="form-control" id="fareClass" autocomplete="off">
+                        <option selected="selected" value="ECONOMY">Economy Class</option>
                         <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
                         <option value="BUSINESS">Business Class</option>
                         <option value="FIRST">First Class</option>
                     </select>
                 </div>
                 <div class="col-auto">
-                    <select class="form-control" id="fareOption">
-                        <option val="ROUND">Round Trip</option>
-                        <option val="ONEWAY">One Way</option>
+                    <select class="form-control" id="fareOption" onchange="selectChangedDatepicker()" autocomplete="off">
+                        <option selected="selected" val="1">Round Trip</option>
+                        <option val="2">One Way</option>
                     </select>
                 </div>
                 <div class="col-auto" style="margin-left: 1px">
-                    <select class="form-control" id="passengers">
-                        <option>1</option>
+                    <select class="form-control" id="passengers" autocomplete="off">
+                        <option selected="selected">1</option>
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>
@@ -70,8 +70,8 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <select class="form-control" id="fareCurrency">
-                        <option>EUR</option>
+                    <select class="form-control" id="fareCurrency" autocomplete="off">
+                        <option selected="selected">EUR</option>
                         <option>USD</option>
                     </select>
                 </div>
@@ -113,7 +113,21 @@
     <img src="~/images/sad.png" />
 </div>
 
+<script>
 
+    //$('#fareOption').click(function selectChangedDatepicker() {
+    //if ($('#fareOption').val() == "One Way") {
+    //    $('#datepickerInbound').attr('disabled', true);
+    //    $('#datepickerInbound').val() = '';
+    //} else {
+    //    $('#datepickerInbound').attr('disabled', false);
+    //    }
+    //});
+    //selectChangedDatepicker();
+
+    
+
+</script>
 
 
 <script>
@@ -138,7 +152,15 @@
         $('#flightResults').hide();
         $('#errorMessage').hide();
         $('#searchBar').removeClass('fixed');
-    })
+        $('#fareOption').click(function selectChangedDatepicker() {
+            if ($('#fareOption').val() == "One Way") {
+                $('#datepickerInbound').val('');
+                $('#datepickerInbound').attr('disabled', true);
+            } else {
+                $('#datepickerInbound').attr('disabled', false);
+            }
+        });
+    });
 </script>
 
 <script src="~/js/searchFlights.js"></script>

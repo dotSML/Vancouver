@@ -12,7 +12,7 @@
     var numberOfResults = "30";
     outboundDate = outboundDate.replace(/\//g, "-");
     outboundDate = outboundDate.split('-');
-    outboundDate = outboundDate[2] + '-' + outboundDate[0] + '-' + outboundDate[1];
+    outboundDate = outboundDate[2] + '-' + outboundDate[1] + '-' + outboundDate[0];
     var inboundDate = '';
     if ($('#fareOption').val() === 'ONEWAY') {
         inboundDate = '';
@@ -29,10 +29,9 @@
         inboundDate = $('#datepickerInbound').val();
         inboundDate = inboundDate.replace(/\//g, "-");
         inboundDate = inboundDate.split("-");
-        inboundDate = inboundDate[2] + '-' + inboundDate[0] + '-' + inboundDate[1];
+        inboundDate = inboundDate[2] + '-' + inboundDate[1] + '-' + inboundDate[0];
         inboundDate = "&return_date=" + inboundDate;
     }
-
 
 
     var fareRequestUrl =
@@ -134,7 +133,7 @@
             var airlineLogoIcaoOutboundLeg = '';
             var airlineLogoIcaoInboundLeg = '';
 
-            console.log(faresData.results[0]);
+            
 
             for (var k = 0; k < itemsFoundCount; ++k) {
 
@@ -179,7 +178,7 @@
                         '</div>' +
                         '<div id="flightLegInfoAirline" class="col-2 align-self-center">' +
                         '<div style="margin-left: 10px;">' +
-                        '<img src=' + '"' + airlineLogoRequestUrlOutboundLeg + '"' + '>' +
+                        '<img src=' + '"' + airlineLogoRequestUrlOutboundLeg + '" style="border-radius: 3px;"' + '>' +
                         '</div>' +
                         '</div>' +
                         '<div class="col-1 align-self-center">' +
@@ -280,7 +279,7 @@
                             '</div>' +
                             '<div class="col-2 align-self-center">' +
                             '<div style="margin-left: 10px;">' +
-                            '<img src=' + '"' + airlineLogoRequestUrlInboundLeg + '"' + '>' +
+                            '<img src=' + '"' + airlineLogoRequestUrlInboundLeg + '" style="border-radius: 3px;"' + '>' +
                             '</div>' +
                             '</div>' +
                             '<div class="col-1 align-self-center">' +
@@ -489,7 +488,7 @@
                         '<div class="row flightResultOnewayRow" style="color: white;">' +
                         '<div class="col-2 align-self-center">' +
                         '<div style="margin-left: 10px;">' +
-                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '"' + '>' +
+                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '" style="border-radius: 3px;"' + '>' +
                         '</div>' +
                         '</div>' +
                         '<div class="col-1 align-self-center">' +
@@ -578,7 +577,7 @@
                         '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                         '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                         '<div style="margin-left: 10px;">' +
-                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '"' + '>' +
+                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '" style="border-radius: 3px;"' + '>' +
                         '</div>' +
                         //airlineOutbound +
                         '</div>' +
@@ -624,7 +623,7 @@
                         '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                         //airlineInbound +
                         '<div style="margin-left: 10px">' +
-                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '"' + '>' +
+                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '" style="border-radius: 3px;"' + '>' +
                         '</div>' +
                         '</div>' +
                         '<div class="col-2 align-self-center">' +
