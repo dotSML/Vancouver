@@ -9,6 +9,10 @@
         if (!activeDetails) {
             activeDetails = $($(this).data('target'));
             activeDetails.slideToggle("fast");
+            console.log(activeDetails);
         }
         activeDetails = null;
     });
+
+
+

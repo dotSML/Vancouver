@@ -9,18 +9,20 @@
     font-weight: bold;
 }
 
-.fixed {
+.fixedFlightSearchBox {
     position: fixed;
-    top: 10px;
     background-color: rgba(0, 0, 0, 1);
     border-radius: 7px;
     z-index: 1;
+    top: 5px;
+    max-width: 1110px !important;
+    margin-bottom: 50px;
+    
 }
 
 .flightSearchBox {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 7px;
-    top: 250px;
 }
 
 .itinerary :hover {
@@ -49,7 +51,11 @@
 }
 
 .flightDetailsClass {
+    
+}
 
+.flightResultOnewayRow{
+    height: 7vh;
 }
 
 

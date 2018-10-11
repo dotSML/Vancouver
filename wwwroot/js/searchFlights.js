@@ -276,7 +276,7 @@
                             'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoInbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
 
                         flightLegsInboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
-                            '<div id="inboundLegsInfo">' +
+                            '<div>' +
                             '</div>' +
                             '<div class="col-2 align-self-center">' +
                             '<div style="margin-left: 10px;">' +
@@ -408,6 +408,16 @@
                 layoverCitiesOutbound = layoverCitiesOutbound.slice(0, -2);
 
                 if (inboundDate === '') {
+
+                    //OUTBOUND Logos for Oneway itineraries
+                    airlineLogoIcaoOutbound = airlineOutbound;
+                    console.log(airlineLogoIcaoOutbound);
+                    airlineLogoMd5Str = airlineLogoIcaoOutbound + '_50_50_s_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
+
+                    airHexApiMd5 = $.MD5(airlineLogoMd5Str);
+                    airlineLogoRequestUrlOutbound =
+                        'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
+
                 } else {
 
                     //airline INBOUND
@@ -471,16 +481,16 @@
                     airHexApiMd5 = $.MD5(airlineLogoMd5Str);
                     airlineLogoRequestUrlOutbound =
                         'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoInbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
-
-                    console.log(airlineLogoRequestUrlInbound);
                 }
 
                 if (inboundDate === '') {
-                    htmlOneway += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
-                        '<div class="container acrylic" style="background-color: rgba(0, 0, 0, 0.3); border-radius: 7px;">' +
-                        '<div class="row" style="color: white;">' +
-                        '<div id="flightInfoAirline" class="col-2 align-self-center">' +
-                        airlineOutbound +
+                    htmlOneway += '<div class="vertical-center" style="margin-top: 25px;">' +
+                        '<div class="container flightBackground">' +
+                        '<div class="row flightResultOnewayRow" style="color: white;">' +
+                        '<div class="col-2 align-self-center">' +
+                        '<div style="margin-left: 10px;">' +
+                        '<img src=' + '"' + airlineLogoRequestUrlOutbound + '"' + '>' +
+                        '</div>' +
                         '</div>' +
                         '<div class="col-1 align-self-center">' +
                         '<span id="flightInfoDepartureTime">' +
@@ -511,19 +521,59 @@
                         arrivalAirportOutbound +
                         '</span>' +
                         '</div>' +
-                        '<div class="col-5 align-self-center"></div>' +
-                        '<div class="col-1 align-self-center">' +
+                        '<div class="col-2 align-self-center">' +
+                        //'<button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-' + flightLegsDetailsBtnId + '" style="color:white; left: 50px">Details</button>' +
+                        '</div > ' +
+                        '<div class="col-2">' +
+                        '</div>' +
+                        '<div class="col-2 align-self-center">' +
+                        '<button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-' + flightLegsDetailsBtnId + '" style="color:white; margin-right: 10px">Details</button>' +
                         '<button class="btn btn-success" id="flightInfoPriceSpan" style="color:white; left: 50px">' +
                         farePricePerPassenger +
                         '</button>' +
                         '</div>' +
                         '</div>' +
+                        '<div id="flightDetails">' +
+                        '<div id="flight-' + flightLegsDetailsBtnId + '" class="flightDetailsClass" style="display: none;">' +
+                        '<div class="row" style="border-bottom: solid 1px white; height: 15px;">' +
+                        '<div class="col align-self-center" style="font-size: 10px; color: white;">' +
+                        'Outbound flights' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="flightDetails">' +
+                        flightLegsOutboundHtml +
+                        '<div class="row" style="color: white; border-top: dotted;">' +
+                        '<div id="farePriceDetailsTotal" class="col-3 align self-center" style="font-size: 11px;">' +
+                        'Total price for all passengers: <span style="color: green; font-size: 12px">' +
+                        farePriceTotal +
+                        '</span>' +
+                        '</div>' +
+                        '<div id="farePriceDetailsPP" class="col-3 align self-center" style="font-size: 11px;">' +
+                        'Price per passenger: <span style="color: green; font-size: 12px">' +
+                        farePricePerPassenger +
+                        '</span>' +
+                        '</div>' +
+                        '<div id="farePriceDetailsPPtax" class="col-3 align self-center" style="font-size: 11px;">' +
+                        'Tax per passenger: ' +
+                        '<span style="color: green; font-size: 12px">' +
+                        farePriceTax +
+                        '</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
                         '</div>';
+
+                    flightLegsOutboundHtml = '';
+                    flightLegsDetailsBtnId++;
+
                 } else {
 
 
 
-                    htmlRoundTrip += '<div id="flightResults" class="vertical-center" style="margin-top: 25px;">' +
+                    htmlRoundTrip += '<div class="vertical-center" style="margin-top: 25px;">' +
                         '<div class="container acrylic" style="border-radius: 7px;">' +
                         '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                         '<div id="flightInfoAirline" class="col-2 align-self-center">' +

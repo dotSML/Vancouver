@@ -85,23 +85,6 @@
     
 
 <div id="flightResults" class="vertical-center" style="margin-top: 25px;">
-    <div class="container" style="background-color: rgba(0, 0, 0, 0.8); border-radius: 7px;">
-        <div class="row" style="color: white;">
-            <div id="flightInfoAirline" class="col-2 align-self-center"></div>
-            <div class="col-1 align-self-center"><span id="flightInfoDepartureTime"></span><br/><span id="flightInfoOriginAirport"></span></div>
-            <div class="col-1 align-self-center">
-                <div id="flightInfoDuration" style="font-size: 13px"></div>
-                <div style="font-size: 10px;"><span id="flightInfoLayovers" style="color: red;"></span>
-                    <div id="flightInfoLayoverCities"></div>
-                </div>
-            </div>
-            <div class="col-1 align-self-center"><span id="flightInfoArrivalTime"></span><br/><span id="flightInfoArrivalAirport"></span>
-                
-            </div>
-            <div class="col-1 align-self-center"><button class="btn btn-success" id="flightInfoPriceSpan" style="color:white"></button></div>
-        </div>
-        
-    </div>
 </div>
     
 
@@ -133,16 +116,15 @@
 
 
 
-
 <script>
     $(window).scroll(function (event) {
         var scrollPosition = $(window).scrollTop();
 
-        if (scrollPosition > 100) {
+        if (scrollPosition > 80) {
             $('#searchBar').removeClass('flightSearchBox');
-            $('#searchBar').addClass('fixed');
+            $('#searchBar').addClass('fixedFlightSearchBox vertical-center');
         } else {
-            $('#searchBar').removeClass('fixed');
+            $('#searchBar').removeClass('fixedFlightSearchBox');
             $('#searchBar').addClass('flightSearchBox');
         }
     });
