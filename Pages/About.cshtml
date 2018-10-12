@@ -12,7 +12,6 @@
 <style>
     img {
         border-radius: 50%;
-        position: relative;
         float: left;
         width: 400px;
         height: 400px;
@@ -32,9 +31,10 @@
 
     .column {
         float: left;
-        width: 33.3%;
+        width: 25%;
         margin-bottom: 16px;
         padding: 0 8px;
+
     }
 
     @@media screen and (max-width: 650px) {
@@ -46,10 +46,18 @@
 
     .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: hsla(27, 34%, 65%, 0.2);
+        color: azure;
+    }
+    .card:hover{
+        background-color: hsla(209, 19%, 28%, 0.8);
     }
 
     .container {
         padding: 0 16px;
+        max-width: 98%;
+        min-width: 80%;
+        margin-top: 2cm;
     }
 
     .container::after, .row::after {
@@ -59,33 +67,39 @@
     }
 
     .title {
-        color: grey;
+        color: azure;
     }
 
     .button {
         border: none;
+        border-radius: 5px;
         outline: 0;
         display: inline-block;
         padding: 8px;
         color: white;
-        background-color: #000;
+        background-color: hsla(35, 92%, 75%, 0.7);
         text-align: center;
         cursor: pointer;
         width: 100%;
     }
-
     .button:hover {
-        background-color: #555;
+        background-color:indianred;
+    }
+    #ourTeamHeading{
+        text-align:center; 
+        color: azure;
+        font-weight: bolder;
+
     }
 </style>
 <body>
-    <h2>Our Team</h2>
+    <h5 id="ourTeamHeading">OUR TEAM</h5>
     <br>
 
-    <div class="row">
+    <div class="row"">
         <div class="column">
             <div class="card">
-                <img src="/images/Peeter.jpg" alt="Peeter" style="width:100%">
+                <img src="/images/Peeter.jpg" alt="Peeter">
                 <div class="container">
                     <h2>Peeter Raudsepp</h2>
                     <p class="title">Title</p>
@@ -98,7 +112,7 @@
 
         <div class="column">
             <div class="card">
-                <img src="/images/Grete.jpg" alt="Grete" style="width:100%">
+                <img src="/images/Grete.jpg" alt="Grete">
                 <div class="container">
                     <h2>Grete Post</h2>
                     <p class="title">Title</p>
@@ -110,7 +124,7 @@
         </div>
         <div class="column">
             <div class="card">
-                <img src="/images/Hannaliisa.jpg" alt="HannaLiisa" style="width:100%">
+                <img src="/images/Hannaliisa.jpg" alt="HannaLiisa">
                 <div class="container">
                     <h2>Hanna-Liisa Vilbiks</h2>
                     <p class="title">Title</p>
@@ -122,7 +136,7 @@
         </div>
         <div class="column">
             <div class="card">
-                <img src="/images/sten.jpg" alt="Sten" style="width:100%">
+                <img src="/images/sten.jpg" alt="Sten">
                 <div class="container">
                     <h2>Sten-Mark Laur</h2>
                     <p class="title">Title</p>
