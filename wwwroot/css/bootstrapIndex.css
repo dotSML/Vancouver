@@ -124,6 +124,15 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    background: hsla(27, 34%, 65%, 0.2);
+    padding: 25px;
+    width: 100%;
+    margin-top: 2cm;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
