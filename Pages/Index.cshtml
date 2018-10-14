@@ -1,8 +1,8 @@
 ﻿@page
 @model IndexModel
-    @{
-        ViewData["Title"] = "Vancouver Flights";
-    }
+@{
+    ViewData["Title"] = "Vancouver Flights";
+}
 
 
 <html lang="en">
@@ -21,26 +21,26 @@
     <link href="~/css/acrylicMaterial.css" rel="stylesheet" />
 </head>
 <body>
-<div id="searchBar" class="container vertical-center flightSearchBox">
-    <div>
-        <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
-            <div class="col-auto" style="margin-left:3px">
-                <label class="sr-only" for="autocompleteDepart">Departure</label>
-                <input autocomplete="off" type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
+    <div id="searchBar" class="container vertical-center flightSearchBox">
+        <div>
+            <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
+                <div class="col-auto" style="margin-left:3px">
+                    <label class="sr-only" for="autocompleteDepart">Departure</label>
+                    <input autocomplete="off" type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="autocompleteArrive">Arrival</label>
+                    <input autocomplete="off" type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
+                </div>
+                <div class="col-auto" style="margin-left: 3px">
+                    <label class="sr-only" for="datepickerOutbound">Outbound</label>
+                    <input autocomplete="off" type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="datepickerInbound">Inbound</label>
+                    <input autocomplete="off" type="text" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
+                </div>
             </div>
-            <div class="col-auto">
-                <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                <input autocomplete="off" type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
-            </div>
-            <div class="col-auto" style="margin-left: 3px">
-                <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                <input autocomplete="off" type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
-            </div>
-            <div class="col-auto">
-                <label class="sr-only" for="datepickerInbound">Inbound</label>
-                <input autocomplete="off" type="text" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
-            </div>
-        </div>
             <div class="row align-items-center" style="padding-bottom: 3px;">
                 <div class="col-auto" style="margin-left: 3px">
                     <select class="form-control" id="fareClass" autocomplete="off">
@@ -76,93 +76,81 @@
                     <button class="btn btn-primary" id="searchBtn">Search</button>
                 </div>
             </div>
-        </div>       
+        </div>
     </div>
-</div> 
-    
-
-<div id="flightResults" class="vertical-center" style="margin-top: 25px;">
-</div>
-    
 
 
-<div id="loading" class="d-flexLoading align-items-center justify-content-center h-100"  style="margin-top: 80px; display: none !important;">
+    <div id="flightResults" class="vertical-center" style="margin-top: 25px;">
+    </div>
 
-    <div id="made-with-love" style="height: 150px; width: 150px;">
-        <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+
+
+    <div id="loading" class="d-flexLoading align-items-center justify-content-center h-100" style="margin-top: 80px; display: none !important;">
+
+        <div id="made-with-love" style="height: 150px; width: 150px;">
+            <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
             <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;" />
 
+
+
             <circle fill="#fff" stroke="#e74c3c" stroke-width="3" cx="8" cy="54" r="6">
-                <animateTransform attributeName="transform"
-                                  dur="2s"
-                                  type="rotate"
-                                  from="0 50 48"
-                                  to="360 50 52"
-                                  repeatCount="indefinite" />
+            <animateTransform attributeName="transform"
+                              dur="2s"
+                              type="rotate"
+                              from="0 50 48"
+                              to="360 50 52"
+                              repeatCount="indefinite" />
+
             </circle>
         </svg>
+        </div>
     </div>
-</div>
 
-<div id="errorMessage" style="display: none">
-    <h2 style="color: white;">You broke it...</h2>
-    <img src="~/images/sad.png" />
-</div>
-
-
-<script>
-    $(window).scroll(function (event) {
-        var scrollPosition = $(window).scrollTop();
-
-        if (scrollPosition > 80) {
-            $('#searchBar').removeClass('flightSearchBox');
-            $('#searchBar').addClass('fixedFlightSearchBox vertical-center');
-        } else {
-            $('#searchBar').removeClass('fixedFlightSearchBox');
-            $('#searchBar').addClass('flightSearchBox');
-        }
-    });
-</script>
+    <div id="errorMessage" style="display: none">
+        <h2 style="color: white;">You broke it...</h2>
+        <img src="~/images/sad.png" />
+    </div>
 
 
+    <script>
+        $(window).scroll(function (event) {
+            var scrollPosition = $(window).scrollTop();
 
-<script>
-    $(document).ready(function () {
-        $('#loading').hide();
-        $('#flightResults').hide();
-        $('#errorMessage').hide();
-        $('#searchBar').removeClass('fixed');
-        $('#fareOption').click(function selectChangedDatepicker() {
-            if ($('#fareOption').val() == "One Way") {
-                $('#datepickerInbound').val('');
-                $('#datepickerInbound').attr('disabled', true);
+            if (scrollPosition > 80) {
+                $('#searchBar').removeClass('flightSearchBox');
+                $('#searchBar').addClass('fixedFlightSearchBox vertical-center');
             } else {
-                $('#datepickerInbound').attr('disabled', false);
+                $('#searchBar').removeClass('fixedFlightSearchBox');
+                $('#searchBar').addClass('flightSearchBox');
             }
         });
-    });
-</script>
+    </script>
 
-<script src="~/js/searchFlights.js"></script>
-<script src="~/js/showFlightDetails.js"></script>
-<script src="~/lib/jquery.md5.js"></script>
-<script src="~/js/datepicker/flightDatepicker.js"></script>
-<script src="~/js/airportsAutoComplete.js"></script>
 
-<footer style="position: absolute; bottom: 0; background: hsla(27, 34%, 65%, 0.2); padding: 25px; width: 100%; margin-top: 2cm; color: azure;">
-    <p style="text-align:left;">
-        &copy; Vancouver 2018
 
-        <span style="float:right;">Contact us:</span>
-    </p>
-    <p style="text-align:left;">
-        Taltech
-        <a href="#" style="float: right; background: #3B5998; color: white; font-size: 25px; padding: 5px; padding-right: 8px; padding-left: 8px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-facebook"></a>
-        <a href="#" style="float: right; background: #55ACEE; color: white; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-twitter"></a>
-        <a href="#" style="float: right; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px; color: white; background-color: #f09433; background-image: url('http://www.myprojectsite.com/images/social/instagram.png'), linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);font-size: 25px;" class="fa fa-instagram"></a>
-    </p>
-</footer>
+    <script>
+        $(document).ready(function () {
+            $('#loading').hide();
+            $('#flightResults').hide();
+            $('#errorMessage').hide();
+            $('#searchBar').removeClass('fixed');
+            $('#fareOption').click(function selectChangedDatepicker() {
+                if ($('#fareOption').val() == "One Way") {
+                    $('#datepickerInbound').val('');
+                    $('#datepickerInbound').attr('disabled', true);
+                } else {
+                    $('#datepickerInbound').attr('disabled', false);
+                }
+            });
+        });
+    </script>
+
+    <script src="~/js/searchFlights.js"></script>
+    <script src="~/js/showFlightDetails.js"></script>
+    <script src="~/lib/jquery.md5.js"></script>
+    <script src="~/js/datepicker/flightDatepicker.js"></script>
+    <script src="~/js/airportsAutoComplete.js"></script>
 </body>
 </html>
 

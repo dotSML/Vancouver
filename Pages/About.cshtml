@@ -85,21 +85,64 @@
         width: 100%;
     }
 
-        .button:hover {
-            background-color: indianred;
-        }
+    .jumbotron {
+        background-color: hsla(27, 34%, 65%, 0.2);
+        color: azure;
+        border-radius: 10px;
+    }
+
+    .about-sector {
+        display: flex;
+        width: 100%;
+    }
+    .about-sector-column {
+        width: 25%;
+        padding: 10px;
+
+    }
+
+    .button:hover {
+        background-color: indianred;
+    }
 
     #ourTeamHeading {
         text-align: center;
         color: azure;
-        font-weight: bolder;
+        text-align: left;
+        padding: 20px;
     }
 </style>
 <body>
-    <h5 id="ourTeamHeading">OUR TEAM</h5>
+    <div class="jumbotron">
+        <div class="about-sector">
+            <div class="about-sector-column">
+                <h3>Get all the best deals!</h3>
+                <p>We display all the possible flight routes for your comfort with the best possible prices available.</p>
+            </div>
+            <div class="about-sector-column">
+                <h3>Transparency</h3>
+                <p>The ticket prices will not change in between site visits</p>
+            </div>
+            <div class="about-sector-column">
+                <h3>Customer Friendly</h3>
+                <p>Easy to use search engine and displays only the necessary information.</p>
+            </div>
+            <div class="about-sector-column">
+                <h3>Personalized offers</h3>
+                <p>All registered users will get custom offers just for them based on their favourite destonations.</p>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <h2 id="ourTeamHeading">Our Team</h2>
     <br>
 
-    <div class="row" ">
+    <div class="row">
         <div class="column">
             <div class="card">
                 <img src="/images/Peeter.jpg" alt="Peeter">
@@ -150,24 +193,7 @@
             </div>
         </div>
     </div>
-
-    <footer style="position: relative; bottom: 0; background: hsla(27, 34%, 65%, 0.2); padding: 25px; width: 100%; margin-top: 2cm; color: azure;">
-        <p style="text-align:left;">
-            &copy; Vancouver 2018
-
-            <span style="float:right;">Contact us:</span>
-        </p>
-        <p style="text-align:left;">
-            Taltech
-            <a href="#" style="float: right; background: #3B5998; color: white; font-size: 25px; padding: 5px; padding-right: 8px; padding-left: 8px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-facebook"></a>
-            <a href="#" style="float: right; background: #55ACEE; color: white; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-twitter"></a>
-            <a href="#" style="float: right; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px; color: white; background-color: #f09433; background-image: url('http://www.myprojectsite.com/images/social/instagram.png'), linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);font-size: 25px;" class="fa fa-instagram"></a>
-        </p>
-    </footer>
-
 </body>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
