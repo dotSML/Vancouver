@@ -1,5 +1,19 @@
 ﻿@import url(wwwroot/images/Dense-Regular.otf);
 
+#body{
+    min-height: calc(100vh - 21.1vh);
+}
+
+.vancouverFooter {
+    height: 11vh;
+    position: relative;
+    background: hsla(27, 34%, 65%, 0.2);
+    padding: 25px;
+    width: 100%;
+    color: azure;
+    margin-top: 0 !important;
+}
+
 .itinerary-time {
     font-size: 1.1em;
     color: white;
