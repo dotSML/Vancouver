@@ -133,7 +133,9 @@
             var airlineLogoIcaoOutboundLeg = '';
             var airlineLogoIcaoInboundLeg = '';
 
-            
+            var flightResultId = 0;
+            var flightResultOutbound[] = '';
+            var flightResultInbound[] = '';
 
             for (var k = 0; k < itemsFoundCount; ++k) {
 
@@ -338,7 +340,6 @@
 
 
 
-
                 //marketingAirline OUTBOUND
                 airlineOutbound =
                     faresData.results[k]['itineraries'][0]['outbound']['flights'][0]['marketing_airline'];
@@ -410,7 +411,6 @@
 
                     //OUTBOUND Logos for Oneway itineraries
                     airlineLogoIcaoOutbound = airlineOutbound;
-                    console.log(airlineLogoIcaoOutbound);
                     airlineLogoMd5Str = airlineLogoIcaoOutbound + '_50_50_s_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
 
                     airHexApiMd5 = $.MD5(airlineLogoMd5Str);
@@ -466,13 +466,11 @@
 
                     //OUTBOUND FULL TRIP Logos
                     airlineLogoIcaoOutbound = airlineOutbound;
-                    console.log(airlineLogoIcaoOutbound);
                     airlineLogoMd5Str = airlineLogoIcaoOutbound + '_50_50_s_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
 
                     airHexApiMd5 = $.MD5(airlineLogoMd5Str);
                     airlineLogoRequestUrlOutbound =
                         'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
-                    console.log(airlineLogoRequestUrlOutbound);
                     //INBOUND FULL TRIP logos
                     airlineLogoIcaoInbound = airlineInbound;
                     airlineLogoMd5Str = airlineLogoIcaoInbound + '_50_50_s_VDjfGgv8mxiTvvLLwGicD6VQhXXtgGND';
@@ -480,6 +478,14 @@
                     airHexApiMd5 = $.MD5(airlineLogoMd5Str);
                     airlineLogoRequestUrlOutbound =
                         'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoInbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
+
+
+
+                    //Pass to .NET
+                    console.log(faresData.results[k]['itineraries'][0]['outbound']);
+                    console.log(faresData.results[k]['itineraries'][0]['inbound']);
+
+                    flightResultOutbound = faresData.results[k]['itineraries'][0]['outbound'];
                 }
 
                 if (inboundDate === '') {
@@ -699,10 +705,12 @@
                         '</div>' +
                         '</div>';
 
+
                     airlineLogoId++;
                     flightLegsDetailsBtnId++;
                     flightLegsOutboundHtml = '';
                     flightLegsInboundHtml = '';
+                    flightResultId++;
                 }
 
 

@@ -26,16 +26,16 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/index">Home <span class="sr-only">(current)</span></a>
+                <li id="indexNav" class="nav-item">
+                    <a class="nav-link" href="/index">Home</a>
                 </li>
-                <li class="nav-item">
+                <li id="myaccountNav" class="nav-item">
                     <a class="nav-link" href="#">My Account</a>
                 </li>
-                <li class="nav-item login-nav">
+                <li id="loginNav" class="nav-item login-nav">
                     <a class="nav-link cd-signin" href="#0">Log in</a>
                 </li>
-                <li class="nav-item">
+                <li id="aboutNav" class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
             </ul>
@@ -155,5 +155,28 @@
         </p>
     </div>
     <script src="~/js/js_modalLogin.js"></script>
+    <script>
+            $(document).ready(function() {
+                var pathName = window.location.pathname;
+                console.log($('#aboutActive'));
+
+                if (pathName === "/about") {
+                }
+
+                switch (pathName) {
+                    case '/about':
+                        $('#aboutNav').addClass('active');
+                        $('#aboutIndex').removeClass('active');
+                        break;
+                    case '/index':
+                        $('#indexNav').addClass('active');
+                        $('#aboutNav').removeClass('active');
+                        break;
+                }
+
+
+            })
+
+        </script>
 </body>
 </html>

@@ -7,111 +7,11 @@
 
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
+    <link href="css/about.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
 
 </head>
-<style>
-    img {
-        border-radius: 50%;
-        float: left;
-        width: 400px;
-        height: 400px;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        object-fit: cover;
-    }
 
-    html {
-        box-sizing: border-box;
-    }
-
-    *, *:before, *:after {
-        box-sizing: inherit;
-    }
-
-    .column {
-        float: left;
-        width: 25%;
-        margin-bottom: 16px;
-        padding: 0 8px;
-    }
-
-    @@media screen and (max-width: 650px) {
-        .column {
-            width: 100%;
-            display: block;
-        }
-    }
-
-    .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        background-color: hsla(27, 34%, 65%, 0.2);
-        color: azure;
-        padding-top: 0.5cm;
-        border-radius: 10px;
-    }
-
-        .card:hover {
-            background-color: hsla(209, 19%, 28%, 0.8);
-        }
-
-    .container {
-        padding: 0 16px;
-        max-width: 98%;
-        min-width: 80%;
-        margin-top: 2cm;
-    }
-
-        .container::after, .row::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-    .title {
-        color: azure;
-    }
-
-    .button {
-        border: none;
-        border-radius: 5px;
-        outline: 0;
-        display: inline-block;
-        padding: 8px;
-        color: white;
-        background-color: hsla(35, 92%, 75%, 0.7);
-        text-align: center;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .jumbotron {
-        background-color: hsla(27, 34%, 65%, 0.2);
-        color: azure;
-        border-radius: 10px;
-    }
-
-    .about-sector {
-        display: flex;
-        width: 100%;
-    }
-    .about-sector-column {
-        width: 25%;
-        padding: 10px;
-
-    }
-
-    .button:hover {
-        background-color: indianred;
-    }
-
-    #ourTeamHeading {
-        text-align: center;
-        color: azure;
-        text-align: left;
-        padding: 20px;
-    }
-</style>
 <body>
     <div class="jumbotron">
         <div class="about-sector">
@@ -142,57 +42,59 @@
     <h2 id="ourTeamHeading">Our Team</h2>
     <br>
 
-    <div class="row">
-        <div class="column">
-            <div class="card">
-                <img src="/images/Peeter.jpg" alt="Peeter">
-                <div class="container">
-                    <h2>Peeter Raudsepp</h2>
-                    <p class="title">Title</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
-                    <p><button class="button">Contact</button></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="card">
-                <img src="/images/Grete.jpg" alt="Grete">
-                <div class="container">
-                    <h2>Grete Post</h2>
-                    <p class="title">Title</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
-                    <p><button class="button">Contact</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <img src="/images/Hannaliisa.jpg" alt="HannaLiisa">
-                <div class="container">
-                    <h2>Hanna-Liisa Vilbiks</h2>
-                    <p class="title">Title</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
-                    <p><button class="button">Contact</button></p>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <img src="/images/sten.jpg" alt="Sten">
-                <div class="container">
-                    <h2>Sten-Mark Laur</h2>
-                    <p class="title">Title</p>
-                    <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-                    <p>example@example.com</p>
-                    <p><button class="button">Contact</button></p>
-                </div>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="/images/Peeter.jpg" alt="Peeter">
+            <div class="container">
+                <h2>Peeter Raudsepp</h2>
+                <p class="title">Title</p>
+                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                <p>example@example.com</p>
+                <p><button class="button">Contact</button></p>
             </div>
         </div>
     </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="/images/Grete.jpg" alt="Grete">
+            <div class="container">
+                <h2>Grete Post</h2>
+                <p class="title">Title</p>
+                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                <p>example@example.com</p>
+                <p><button class="button">Contact</button></p>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="/images/Hannaliisa.jpg" alt="HannaLiisa">
+            <div class="container">
+                <h2>Hanna-Liisa Vilbiks</h2>
+                <p class="title">Title</p>
+                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                <p>example@example.com</p>
+                <p><button class="button">Contact</button></p>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <img src="/images/sten.jpg" alt="Sten">
+            <div class="container">
+                <h2>Sten-Mark Laur</h2>
+                <p class="title">Title</p>
+                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                <p>example@example.com</p>
+                <p><button class="button">Contact</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 
@@ -200,60 +102,5 @@
 
 
 
-
-@*@page
-    @model AboutModel
-    @{
-        ViewData["Title"] = "About";
-    }
-
-
-    <head>
-        <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
-
-    </head>
-
-    <body>
-        <h5 style="color:white"></> Our Team</h5>
-        <style>
-            img {
-                border-radius: 50%
-            }
-        </style>
-        <div class="row">
-            <div class="column">
-                <img src="images\Peeter.jpg" width="200px" />
-                <h6 style="color:white">Peeter Raudsepp</h6>
-            </div>
-            <div class="column">
-                <img src="images\Grete.jpg" width="200px" />
-                <h6 style="color:white">Grete Post</h6>
-            </div>
-            <div class="column">
-                <img src="images\Hannaliisa.jpg" width="200px" />
-                <h6 style="color:white">Hanna-Liisa Vilbiks</h6>
-            </div>
-            <div class="column">
-                <img src="images\sten.jpg" width="200px" />
-                <h6 style="color:white">Sten-Mark Laur</h6>
-            </div>
-        </div>
-
-
-        <div class="row align align-items-center" id="description">
-                <section class="col-auto"></section>
-                <div class="container">
-                    <h2>A new way to plan the best vacations or work trips</h2>
-                    <p></p>
-                    <h3><a href="/about#" style="color: coral; font-size: larger">Log in</a> to get personalized flight offers just for YOU</h3>
-                </div>
-            </div>
-            <footer class="align-items-center" id="aboutFooter"></footer>
-            <div class="container" style="color: white; text-align: center; margin-top: 50px">
-                <p style="line-height: 0.5">Best flight offers just for you</p>
-                <p style="line-height: 0.5">&copy; Vancouver 2018</p>
-            </div>
-    </body>
-    <p></p>*@
 
 
