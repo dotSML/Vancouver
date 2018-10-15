@@ -134,8 +134,8 @@
             var airlineLogoIcaoInboundLeg = '';
 
             var flightResultId = 0;
-            var flightResultOutbound[] = '';
-            var flightResultInbound[] = '';
+            var flightResultOutbound = '';
+            var flightResultInbound = '';
 
             for (var k = 0; k < itemsFoundCount; ++k) {
 
@@ -485,7 +485,8 @@
                     console.log(faresData.results[k]['itineraries'][0]['outbound']);
                     console.log(faresData.results[k]['itineraries'][0]['inbound']);
 
-                    flightResultOutbound = faresData.results[k]['itineraries'][0]['outbound'];
+                    flightResultOutbound[flightResultId] = faresData.results[k]['itineraries'][0]['outbound'];
+                    flightResultInbound[flightResultId] = faresData.results[k]['itineraries'][0]['outbound'];
                 }
 
                 if (inboundDate === '') {
