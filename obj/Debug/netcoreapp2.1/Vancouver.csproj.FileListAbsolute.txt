@@ -127,3 +127,4 @@ C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Vanc
 C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.pdb
 C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.csproj.CopyComplete
 C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs
+C:\Users\sten\source\repos\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs

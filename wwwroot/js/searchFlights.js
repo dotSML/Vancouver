@@ -133,9 +133,14 @@
             var airlineLogoIcaoOutboundLeg = '';
             var airlineLogoIcaoInboundLeg = '';
 
-            var flightResultId = 0;
+            var flightResultRoundtripId = 0;
+            var flightResultOnewayId = 0;
             var flightResultOutbound = '';
             var flightResultInbound = '';
+            var itineraryObject = [];
+            var itineraryObjectJSON = [];
+            var itineraryId = 0;
+
 
             for (var k = 0; k < itemsFoundCount; ++k) {
 
@@ -481,12 +486,7 @@
 
 
 
-                    //Pass to .NET
-                    console.log(faresData.results[k]['itineraries'][0]['outbound']);
-                    console.log(faresData.results[k]['itineraries'][0]['inbound']);
 
-                    flightResultOutbound[flightResultId] = faresData.results[k]['itineraries'][0]['outbound'];
-                    flightResultInbound[flightResultId] = faresData.results[k]['itineraries'][0]['outbound'];
                 }
 
                 if (inboundDate === '') {
@@ -574,12 +574,35 @@
 
                     flightLegsOutboundHtml = '';
                     flightLegsDetailsBtnId++;
+                    flightResultOnewayId++;
 
                 } else {
 
+                    itineraryObject[flightResultRoundtripId] = {};
+                    itineraryObject[flightResultRoundtripId].departureTimeOutbound = departureTimeOutbound;
+                    itineraryObject[flightResultRoundtripId].departureTimeInbound = departureTimeInbound;
+                    itineraryObject[flightResultRoundtripId].originAirportOutbound = originAirportOutbound;
+                    itineraryObject[flightResultRoundtripId].originAirportInbound = originAirportInbound;
+                    itineraryObject[flightResultRoundtripId].tripDurationOutbound = tripDurationOutbound;
+                    itineraryObject[flightResultRoundtripId].tripDurationInbound = tripDurationInbound;
+                    itineraryObject[flightResultRoundtripId].layoverStopAmountOutbound = layoverStopAmountOutbound;
+                    itineraryObject[flightResultRoundtripId].layoverStopAmountInbound = layoverStopAmountInbound;
+                    itineraryObject[flightResultRoundtripId].layoverCitiesOutbound = layoverCitiesOutbound;
+                    itineraryObject[flightResultRoundtripId].layoverCitiesInbound = layoverCitiesInbound;
+                    itineraryObject[flightResultRoundtripId].arrivalTimeOutbound = arrivalTimeOutbound;
+                    itineraryObject[flightResultRoundtripId].arrivalTimeInbound = arrivalTimeInbound;
+                    itineraryObject[flightResultRoundtripId].arrivalAirportOutbound = arrivalAirportOutbound;
+                    itineraryObject[flightResultRoundtripId].arrivalAirportInbound = arrivalAirportInbound;
+                    itineraryObject[flightResultRoundtripId].farePricePerPassenger = farePricePerPassenger;
+                    itineraryObject[flightResultRoundtripId].fareClass = fareClass;
+                    itineraryObject[flightResultRoundtripId].fareCurrency = fareCurrency;
+                    itineraryObject[flightResultRoundtripId].farePriceTax = farePriceTax;
+                    itineraryObject[flightResultRoundtripId].farePriceTotal = farePriceTotal;
 
+                    itineraryObjectJSON[flightResultRoundtripId] = JSON.stringify(itineraryObject[flightResultRoundtripId]);
+                    
 
-                    htmlRoundTrip += '<div class="vertical-center" style="margin-top: 25px;">' +
+                    htmlRoundTrip += '<div class="vertical-center" id="#' + flightResultRoundtripId + '" style="margin-top: 25px;">' +
                         '<div class="container acrylic" style="border-radius: 7px;">' +
                         '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                         '<div id="flightInfoAirline" class="col-2 align-self-center">' +
@@ -621,7 +644,7 @@
                         '</div>' +
                         '<div class="col-2 align-self-center"></div>' +
                         '<div class="col-1 align-self-center">' +
-                        '<button class="btn btn-success" id="flightInfoPriceSpan" style="color:white; left: 50px">' +
+                        '<button class="btn btn-success getFlightBtn" data-target="' + flightResultRoundtripId + '" style="color:white; left: 50px">' +
                         farePricePerPassenger +
                         '</button>' +
                         '</div>' +
@@ -708,10 +731,11 @@
 
 
                     airlineLogoId++;
+                    flightResultRoundtripId++;
                     flightLegsDetailsBtnId++;
                     flightLegsOutboundHtml = '';
                     flightLegsInboundHtml = '';
-                    flightResultId++;
+                    itineraryId++;
                 }
 
 
@@ -725,10 +749,32 @@
                 results.html(htmlRoundTrip);
             }
 
-
-
             $('#loading').hide();
             $('#flightResults').fadeIn();
+
+
+            $(document).on('click', '.getFlightBtn', function (e) {
+                var itineraryId = $($(this).data('target'));
+                var itineraryResultJSON = itineraryObjectJSON[itineraryId[0]];
+
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/index?handler=GetTicket',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: itineraryResultJSON,
+                    contentType: "application/json",
+
+                    success: function (response) {
+                        console.log(response);
+                    }
+                })
+            });
+
+
         },
         error: function () {
             $('#errorMessage').fadeIn();

@@ -26,8 +26,10 @@ namespace Vancouver
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase());
-          
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+            services.AddDbContext<TestDbContext>(options =>
+                options.UseInMemoryDatabase("Database"));
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -54,7 +56,7 @@ namespace Vancouver
             }
 
 
-            app.UseStatusCodePagesWithRedirects("/errors/notfound");
+            //app.UseStatusCodePagesWithRedirects("/errors/notfound");
 
             app.UseStaticFiles();
 
