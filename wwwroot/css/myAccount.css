@@ -1,3 +1,61 @@
-﻿.container {
-    background-color: hsla(27, 34%, 65%, 0.2);
+﻿/*.container {
+    /*background-color: hsla(27, 34%, 65%, 0.2);*/
+/*}*/
+body{
+    color: azure;
+}
+.profile-sector {
+    display: flex;
+    width: 100%;
+    background-color: hsla(27, 34%, 65%, 0.5);
+    padding: 3vh;
+    border-radius: 10px;
+}
+
+.profile-sector-column {
+    float: left;
+    width: 33%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+img {
+    float: left;
+    width: 50vh;
+    height: 400px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+    padding-bottom: 3vh;
+    padding-right: 5vh;
+}
+@@media screen and (max-width: 650px) {
+    .column {
+     display: block;
+    }
+}
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+h3, h5 {
+    padding-bottom: 2vh;
+}
+.button{
+    border: none;
+    border-radius: 5px;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: hsla(35, 92%, 75%, 0.7);
+    text-align: center;
+    cursor: pointer;
+    width: 70%;
+}
+.button:hover{
+    background-color: indianred;
 }

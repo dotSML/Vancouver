@@ -7,17 +7,24 @@ namespace Vancouver.Models
 {
     public class Ticket
     {
-        public int TicketID { get; set; }
-        public Customer Customer { get; set; }
-        public string AirportFrom { get; set; } // peaks Airport class olema
-        public string AirportTo { get; set; } // peaks Airport class olema
-        public DateTime DepartureDateTime { get; set; }
-        public DateTime ArrivalDateTime { get; set; }
-        public string Seat { get; set; }
-        public TicketType TicketType { get; set; }
-        public string Gate { get; set; }
-        public string Airline { get; set; }
-        public int AirlineID { get; set; }
-        public int FlightID { get; set; }
+        public string departureTimeOutbound { get; set; }
+        public string departureTimeInbound { get; set; }
+        public string originAirportOutbound { get; set; }
+        public string originAirportInbound { get; set; }
+        public string tripDurationOutbound { get; set; }
+        public string tripDurationInbound { get; set; }
+        public string layoverStopAmountOutbound { get; set; }
+        public string layoverStopAmountInbound { get; set; }
+        public string layoverCitiesOutbound { get; set; }
+        public string layoverCitiesInbound { get; set; }
+        public string arrivalTimeOutbound { get; set; }
+        public string arrivalTimeInbound { get; set; }
+        public string arrivalAirportOutbound { get; set; }
+        public string arrivalAirportInbound { get; set; }
+        public string farePricePerPassenger { get; set; }
+        public string fareClass { get; set; }
+        public string fareCurrency { get; set; }
+        public string farePriceTax { get; set; }
+        public string farePriceTotal { get; set; }
     }
 }

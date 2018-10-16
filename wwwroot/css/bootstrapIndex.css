@@ -17,6 +17,7 @@
     width: 100%;
     color: azure;
     margin: 0 !important;
+    padding-bottom: 0;
 }
 
 .itinerary-time {
