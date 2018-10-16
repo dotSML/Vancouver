@@ -7,6 +7,7 @@ namespace Vancouver.Models
 {
     public class Ticket
     {
+        public int TicketId { get; set; }
         public string departureTimeOutbound { get; set; }
         public string departureTimeInbound { get; set; }
         public string originAirportOutbound { get; set; }

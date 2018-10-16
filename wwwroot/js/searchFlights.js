@@ -133,7 +133,7 @@
             var airlineLogoIcaoOutboundLeg = '';
             var airlineLogoIcaoInboundLeg = '';
 
-            var flightResultRoundtripId = 0;
+            var flightResultRoundtripId = 1;
             var flightResultOnewayId = 0;
             var flightResultOutbound = '';
             var flightResultInbound = '';
@@ -729,13 +729,12 @@
                         '</div>' +
                         '</div>';
 
-
+                    
                     airlineLogoId++;
                     flightResultRoundtripId++;
                     flightLegsDetailsBtnId++;
                     flightLegsOutboundHtml = '';
                     flightLegsInboundHtml = '';
-                    itineraryId++;
                 }
 
 
@@ -754,8 +753,9 @@
 
 
             $(document).on('click', '.getFlightBtn', function (e) {
-                var itineraryId = $($(this).data('target'));
-                var itineraryResultJSON = itineraryObjectJSON[itineraryId[0]];
+                var getItineraryElement = $($(this).data('target'));
+                var itineraryResultJSON = itineraryObjectJSON[getItineraryElement[0]];
+                console.log(itineraryResultJSON);
 
                 $.ajax({
                     type: 'POST',
@@ -769,6 +769,7 @@
                     contentType: "application/json",
 
                     success: function (response) {
+                        alert("Ticket saved to database! Go check it out /ticketTest")
                         console.log(response);
                     }
                 })

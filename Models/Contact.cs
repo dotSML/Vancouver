@@ -7,6 +7,7 @@ namespace Vancouver.Models
 {
     public class Contact
     {
+        public int ContactId { get; set; }
         public string AreaCode { get; set; }
         public string MobileNumber { get; set; }
         public string Email { get; set; }

@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='sass, default' />
+/// <binding />
 module.exports = function (grunt) {
     'use strict';
 

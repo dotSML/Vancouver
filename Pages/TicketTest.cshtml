@@ -1,0 +1,32 @@
+﻿@page
+@model Vancouver.Pages.TicketTestModel
+@{
+    ViewData["Title"] = "TicketTest";
+}
+
+<h2 style="color: white;">TicketTest</h2>
+
+<head>
+    <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+</head>
+
+<div class="row">
+
+@{
+    foreach (var ticket in Model.Tickets)
+    {
+        <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid;">
+        <p>Ticket ID: @ticket.TicketId</p>
+        <p>Origin Outbound: @ticket.originAirportOutbound</p>
+        <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
+        <p>Origin Outbound: @ticket.originAirportOutbound</p>
+        <p>Origin Inbound: @ticket.originAirportInbound</p>
+        <p>Departure Time Outbound: @ticket.departureTimeOutbound</p>
+        <p>Arrvial Time Outbound: @ticket.arrivalTimeOutbound</p>
+        <p>Departure Time Inbound: @ticket.arrivalTimeInbound</p>
+        <p>Arrival Time Inbound: @ticket.arrivalTimeInbound</p> <br/>
+        </div>
+    }
+}
+</div>

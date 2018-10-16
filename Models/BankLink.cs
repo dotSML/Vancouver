@@ -7,5 +7,6 @@ namespace Vancouver.Models
 {
     public class BankLink
     {
+        public int Id { get; set; }
     }
 }

@@ -20,12 +20,11 @@ namespace Vancouver.Pages
             _context = context;
         }
 
+        [BindProperty]
         public Ticket Ticket { get; set; }
 
         public ActionResult OnPostGetTicket()
         {
-            var test1 = "";
-            var test2 = "";
 
             {
                 MemoryStream stream = new MemoryStream();
@@ -39,20 +38,38 @@ namespace Vancouver.Pages
                         var obj = JsonConvert.DeserializeObject<Ticket>(requestBody);
                         if (obj != null)
                         {
-                            //Ticket.OriginAirportOutbound = obj.OriginAirportOutbound;
-                            //Ticket.OriginAirportInbound = obj.OriginAirportInbound;
-                            test1 = obj.originAirportOutbound;
-                            test2 = obj.originAirportInbound;
+                            var ticket = new Ticket
+                            {
+                                originAirportOutbound = obj.originAirportOutbound,
+                                originAirportInbound = obj.originAirportInbound,
+                                tripDurationOutbound = obj.tripDurationOutbound,
+                                tripDurationInbound = obj.tripDurationInbound,
+                                layoverStopAmountOutbound = obj.layoverStopAmountOutbound,
+                                layoverStopAmountInbound = obj.layoverStopAmountInbound,
+                                layoverCitiesOutbound = obj.layoverCitiesOutbound,
+                                layoverCitiesInbound = obj.layoverCitiesInbound,
+                                arrivalAirportOutbound = obj.arrivalAirportOutbound,
+                                arrivalAirportInbound = obj.arrivalAirportInbound,
+                                arrivalTimeOutbound = obj.arrivalTimeOutbound,
+                                arrivalTimeInbound = obj.arrivalTimeInbound,
+                                farePricePerPassenger = obj.farePricePerPassenger,
+                                fareClass = obj.fareClass,
+                                fareCurrency = obj.fareCurrency,
+                                farePriceTax = obj.farePriceTax,
+                                farePriceTotal = obj.farePriceTotal,
+                                departureTimeOutbound = obj.departureTimeOutbound,
+                                departureTimeInbound = obj.departureTimeInbound
+
+                            };
+
+                            _context.Tickets.Add(ticket);
+                            _context.SaveChangesAsync();
                         }
                     }
                 }
             }
-            List<string> lstString = new List<string>
-            {
-                test1,
-                test2
-            };
-            return new JsonResult(lstString);
+            var jsonSuccess = "SUCCESS!";
+            return new JsonResult(jsonSuccess);
         }
 
         public void OnGet()

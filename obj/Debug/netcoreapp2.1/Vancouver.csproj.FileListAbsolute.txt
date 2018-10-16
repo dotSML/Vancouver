@@ -132,3 +132,4 @@ C:\Users\hlv\source\repos\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccoun
 =======
 C:\Users\sten\source\repos\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs
 >>>>>>> 033b762fd44c6cd211071226959a6c40363659ef
+C:\Users\sten\source\repos\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\TicketTest.g.cshtml.cs
