@@ -127,4 +127,8 @@ C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Vanc
 C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.pdb
 C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.csproj.CopyComplete
 C:\Users\peete\OneDrive\Dokumendid\GitHub\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs
+<<<<<<< HEAD
 C:\Users\hlv\source\repos\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs
+=======
+C:\Users\sten\source\repos\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs
+>>>>>>> 033b762fd44c6cd211071226959a6c40363659ef
