@@ -1,5 +1,6 @@
 ﻿$('#searchBtn').on("click", function () {
     $('#flightResults').fadeOut();
+    $('.roundTrip').remove();
     $('#errorMessage').hide();
     $('#loading').fadeIn();
     var apiKey = "DAI4hfrkFliQkgA6U4L04yImEuD9g06i";
@@ -602,7 +603,7 @@
                     itineraryObjectJSON[flightResultRoundtripId] = JSON.stringify(itineraryObject[flightResultRoundtripId]);
                     
 
-                    htmlRoundTrip += '<div class="vertical-center" id="#' + flightResultRoundtripId + '" style="margin-top: 25px;">' +
+                    htmlRoundTrip += '<div class="vertical-center roundTrip" id="#' + flightResultRoundtripId + '" style="margin-top: 25px;">' +
                         '<div class="container acrylic" style="border-radius: 7px;">' +
                         '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
                         '<div id="flightInfoAirline" class="col-2 align-self-center">' +
@@ -756,6 +757,7 @@
                 var getItineraryElement = $($(this).data('target'));
                 var itineraryResultJSON = itineraryObjectJSON[getItineraryElement[0]];
                 console.log(itineraryResultJSON);
+                console.log(getItineraryElement);
 
                 $.ajax({
                     type: 'POST',
@@ -771,10 +773,11 @@
                     success: function (response) {
                         alert("Ticket saved to database! Go check it out /ticketTest")
                         console.log(response);
+                        $(document).off('click', '.getFlightBtn');
+                        //$('.getFlightBtn').unbind('click');
                     }
                 })
             });
-
 
         },
         error: function () {

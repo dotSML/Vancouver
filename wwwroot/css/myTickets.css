@@ -8,4 +8,9 @@
     url('BebasNeueFont/BebasNeue Regular.otf') format('svg'); /* Legacy iOS */
 }
 
+.ticketContainer{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 

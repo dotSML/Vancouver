@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/bootstrapIndex.css">
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/popper.js/dist/popper.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
@@ -31,6 +31,9 @@
                 </li>
                 <li id="myaccountNav" class="nav-item">
                     <a class="nav-link" href="/MyAccount">My Account</a>
+                </li>
+                <li id="myTicketsNav" class="nav-item">
+                    <a class="nav-link" href="/tickettest">My Tickets</a>
                 </li>
                 <li id="loginNav" class="nav-item login-nav">
                     <a class="nav-link cd-signin" href="#0">Log in</a>
@@ -165,13 +168,17 @@
 
                 switch (pathName) {
                     case '/about':
+                        $(document).remove('active');
                         $('#aboutNav').addClass('active');
-                        $('#aboutIndex').removeClass('active');
                         break;
                     case '/index':
+                        $(document).remove('active');
                         $('#indexNav').addClass('active');
-                        $('#aboutNav').removeClass('active');
                         break;
+                    case '/tickettest':
+                    $(document).remove('active');
+                    $('#myTicketsNav').addClass('active');
+                    
                 }
 
 

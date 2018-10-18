@@ -4,7 +4,6 @@
     ViewData["Title"] = "My Tickets";
 }
 
-<h2 style="color: white; font-family: BebasNeue">My Tickets</h2>
 
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
@@ -12,12 +11,14 @@
     <script src="lib/jquery/dist/jquery.js"></script>
 </head>
 <body>
-<div class="row" style="font-family: BebasNeue; font-size: 20px">
+    <div class="ticketContainer">
+<h2 style="color: white; font-family: BebasNeue">My Tickets</h2>
+<div class="row" style="font-family: BebasNeue; font-size: 20px;">
 
 @{
     foreach (var ticket in Model.Tickets)
     {
-        <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px">
+        <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
         <p>Ticket ID: @ticket.TicketId</p>
         <p>Origin Outbound: @ticket.originAirportOutbound</p>
         <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
@@ -31,5 +32,6 @@
         </div>
     }
 }
+</div>
 </div>
 </body>
