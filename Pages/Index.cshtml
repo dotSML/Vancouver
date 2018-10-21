@@ -22,8 +22,9 @@
     @Html.AntiForgeryToken()
 </head>
 <body>
-    <div class="container vertical-center">
+<div class="container vertical-center" style="position: relative;">
     <div id="searchBar" class="flightSearchBox" style="position: relative; display: none;">
+        <div class="blurWrapper"></div>
         <div>
             <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
                 <div class="col-auto" style="">
@@ -80,7 +81,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 
 
     <div id="flightResults" class="vertical-center" style="margin-top: 25px; display: none;">
@@ -93,31 +94,31 @@
         <div id="made-with-love" style="height: 150px; width: 150px;">
             <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-            <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;" />
+                <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;"/>
 
 
 
-            <circle fill="#fff" stroke="#e74c3c" stroke-width="3" cx="8" cy="54" r="6">
-            <animateTransform attributeName="transform"
-                              dur="2s"
-                              type="rotate"
-                              from="0 50 48"
-                              to="360 50 52"
-                              repeatCount="indefinite" />
+                <circle fill="#fff" stroke="#e74c3c" stroke-width="3" cx="8" cy="54" r="6">
+                    <animateTransform attributeName="transform"
+                                      dur="2s"
+                                      type="rotate"
+                                      from="0 50 48"
+                                      to="360 50 52"
+                                      repeatCount="indefinite"/>
 
-            </circle>
-        </svg>
+                </circle>
+            </svg>
         </div>
     </div>
 
     <div id="errorMessage" style="display: none">
         <h2 style="color: white;">You broke it...</h2>
-        <img src="~/images/sad.png" />
+        <img src="~/images/sad.png"/>
     </div>
 
 
     <script>
-        $(window).scroll(function (event) {
+        $(window).scroll(function(event) {
             var scrollPosition = $(window).scrollTop();
 
             if (scrollPosition > 95) {
@@ -136,7 +137,7 @@
 
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#searchBar').fadeIn();
 
             $('#fareOption').click(function selectChangedDatepicker() {
@@ -150,11 +151,11 @@
         });
     </script>
 
-    <script src="~/js/searchFlights.js"></script>
-    <script src="~/js/showFlightDetails.js"></script>
-    <script src="~/lib/jquery.md5.js"></script>
-    <script src="~/js/datepicker/flightDatepicker.js"></script>
-    <script src="~/js/airportsAutoComplete.js"></script>
+<script src="~/js/searchFlights.js"></script>
+<script src="~/js/showFlightDetails.js"></script>
+<script src="~/lib/jquery.md5.js"></script>
+<script src="~/js/datepicker/flightDatepicker.js"></script>
+<script src="~/js/airportsAutoComplete.js"></script>
 </body>
 </html>
 

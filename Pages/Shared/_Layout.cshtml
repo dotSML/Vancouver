@@ -17,7 +17,7 @@
 
 
 <body>
-
+<div id="layoutPreload">
     <nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px;" id="navBar">
         <a class="navbar-brand" href="/index">Vancouver</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,37 +159,39 @@
     </div>
     <script src="~/js/js_modalLogin.js"></script>
     <script>
-            $(document).ready(function() {
-                var pathName = window.location.pathname;
-                console.log($('#aboutActive'));
+        $(document).ready(function() {
+            var pathName = window.location.pathname;
+            console.log($('#aboutActive'));
 
-                if (pathName === "/about") {
-                }
+            if (pathName === "/about") {
+            }
 
-                switch (pathName) {
-                    case '/about':
-                        $(document).remove('active');
-                        $('#aboutNav').addClass('active');
-                        break;
-                    case '/index':
-                        $(document).remove('active');
-                        $('#indexNav').addClass('active');
-                        break;
-                    case '/tickettest':
-                    $(document).remove('active');
-                    $('#myTicketsNav').addClass('active');
-                    break;
-                    case '/MyAccount':
-                    $(document).remove('active');
-                    $('#myAccountNav').addClass('active');
-                    break;
+            switch (pathName) {
+            case '/about':
+                $(document).remove('active');
+                $('#aboutNav').addClass('active');
+                break;
+            case '/index':
+                $(document).remove('active');
+                $('#indexNav').addClass('active');
+                break;
+            case '/tickettest':
+                $(document).remove('active');
+                $('#myTicketsNav').addClass('active');
+                break;
+            case '/MyAccount':
+                $(document).remove('active');
+                $('#myAccountNav').addClass('active');
+                break;
+            }
+        })
 
-                    
-                }
-
-
-            })
-
-        </script>
+    </script>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#layoutPreload').fadeIn();
+    });
+</script>
 </body>
 </html>

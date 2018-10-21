@@ -6,7 +6,7 @@
 }
 
 #body{
-    min-height: calc(100vh - 12vh);
+    min-height: calc(100vh - 24vh);
 }
 
 .vancouverFooter {
@@ -30,38 +30,38 @@
     font-weight: bold;
 }
 
-/*.fixedFlightSearchBox {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 1);
-    border-radius: 7px;
-    z-index: 1;
-    top: 5px;
-    max-width: 1110px !important;
-    margin: auto;
-    width: 80vw;
-    
-} */
-
 .fixedFlightSearchBox {
     position: fixed !important;
     background: rgba(0, 0, 0, 0.8) !important;
     border-radius: 7px;
-    
     margin-left: 62px;
     display: flex;
     top: 0px;
     z-index: 1;
 }
 
+.blurWrapper {
+    filter: blur(8px);
+    -moz-filter: blur(8px);
+    background-color: rgba(25, 25, 25, 0.6);
+    display: block;
+    height: 100%;
+    width: 100%;
+    top:0;
+    bottom:0;
+    left: 0;
+    right:0;
+    position:absolute;
+    
+}
+
 .flightSearchBox {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 7px;
     max-width: 88.5%;
-    
     margin:auto;
     display: flex;
-
-
+    z-index: 1000 !important;
 }
 
 .pushFlightResultsDown{
