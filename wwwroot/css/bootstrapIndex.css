@@ -43,11 +43,11 @@
 } */
 
 .fixedFlightSearchBox {
-  background: rgba(0, 0, 0, 0.8);
+    position: fixed !important;
+    background: rgba(0, 0, 0, 0.8) !important;
     border-radius: 7px;
-    width: 90%;
-    margin-left: 54px;
-    position:fixed;
+    
+    margin-left: 62px;
     display: flex;
     top: 0px;
     z-index: 1;
@@ -56,7 +56,8 @@
 .flightSearchBox {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 7px;
-    width: 90%;
+    max-width: 88.5%;
+    
     margin:auto;
     display: flex;
 
@@ -64,7 +65,7 @@
 }
 
 .pushFlightResultsDown{
-  margin-top: 115px !important; 
+  margin-top: 118px !important; 
 }
 
 .itinerary :hover {

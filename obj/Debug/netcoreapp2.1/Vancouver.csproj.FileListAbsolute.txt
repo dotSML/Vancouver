@@ -167,3 +167,5 @@ C:\Users\sten\source\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.Views.pdb
 C:\Users\sten\source\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.dll
 C:\Users\sten\source\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.pdb
 C:\Users\sten\source\Vancouver\obj\Debug\netcoreapp2.1\Vancouver.csproj.CopyComplete
+C:\Users\sten\source\repos\Vancouver\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\MyAccount.g.cshtml.cs
+C:\Users\sten\source\repos\Vancouver\Vancouver\obj\Debug\netcoreapp2.1\Razor\Pages\TicketTest.g.cshtml.cs

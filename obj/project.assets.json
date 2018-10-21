@@ -5452,7 +5452,7 @@
       ]
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.1": {
-      "sha512": "BOK5fckW9v7xWjpEI6bPGwkjw10OPVASZcAa8HoWJo/0Mmg4Azddj92v8noU+YgvD/6zNZ9o/RiRXXKxk5rYwQ==",
+      "sha512": "f8PKGcxiezL1RVqmnmrazj24Mj4KCTSXqwdotl7Lc+82h8iLV7ItxEIShTJakG7M9iw0ZuCocM0J/IhYesdQrg==",
       "type": "package",
       "path": "microsoft.aspnetcore.razor.design/2.1.1",
       "files": [
@@ -12224,22 +12224,24 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sten\\source\\Vancouver\\Vancouver.csproj",
+      "projectUniqueName": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
       "projectName": "Vancouver",
-      "projectPath": "C:\\Users\\sten\\source\\Vancouver\\Vancouver.csproj",
+      "projectPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\Vancouver.csproj",
       "packagesPath": "C:\\Users\\sten\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sten\\source\\Vancouver\\obj\\",
+      "outputPath": "C:\\Users\\sten\\source\\repos\\Vancouver\\Vancouver\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\sten\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\sten\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
