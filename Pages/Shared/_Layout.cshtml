@@ -18,7 +18,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px;" id="navBar">
         <a class="navbar-brand" href="/index">Vancouver</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
                 <li id="indexNav" class="nav-item">
                     <a class="nav-link" href="/index">Home</a>
                 </li>
-                <li id="myaccountNav" class="nav-item">
+                <li id="myAccountNav" class="nav-item">
                     <a class="nav-link" href="/MyAccount">My Account</a>
                 </li>
                 <li id="myTicketsNav" class="nav-item">
@@ -178,6 +178,12 @@
                     case '/tickettest':
                     $(document).remove('active');
                     $('#myTicketsNav').addClass('active');
+                    break;
+                    case '/MyAccount':
+                    $(document).remove('active');
+                    $('#myAccountNav').addClass('active');
+                    break;
+
                     
                 }
 

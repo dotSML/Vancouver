@@ -6,11 +6,12 @@
 }
 
 #body{
-    min-height: calc(100vh - 12vh - 98px);
+    min-height: calc(100vh - 12vh);
 }
 
 .vancouverFooter {
     height: 12vh;
+    bottom: 0;
     position: relative;
     background: hsla(27, 34%, 65%, 0.2);
     padding: 25px;
@@ -29,20 +30,41 @@
     font-weight: bold;
 }
 
-.fixedFlightSearchBox {
+/*.fixedFlightSearchBox {
     position: fixed;
     background-color: rgba(0, 0, 0, 1);
     border-radius: 7px;
     z-index: 1;
     top: 5px;
     max-width: 1110px !important;
-    margin-bottom: 50px;
+    margin: auto;
+    width: 80vw;
     
+} */
+
+.fixedFlightSearchBox {
+  background: rgba(0, 0, 0, 0.8);
+    border-radius: 7px;
+    width: 90%;
+    margin-left: 54px;
+    position:fixed;
+    display: flex;
+    top: 0px;
+    z-index: 1;
 }
 
 .flightSearchBox {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 7px;
+    width: 90%;
+    margin:auto;
+    display: flex;
+
+
+}
+
+.pushFlightResultsDown{
+  margin-top: 115px !important; 
 }
 
 .itinerary :hover {

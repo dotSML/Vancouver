@@ -181,7 +181,7 @@
                         'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoOutbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
 
 
-                    flightLegsOutboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
+                    flightLegsOutboundHtml += '<div class="row" style="color: white; min-height: 7vh;">' +
                         '<div id="outboundLegsInfo">' +
                         '</div>' +
                         '<div id="flightLegInfoAirline" class="col-2 align-self-center">' +
@@ -282,7 +282,7 @@
                         airlineLogoRequestUrlInboundLeg =
                             'https://content.airhex.com/content/logos/airlines_' + airlineLogoIcaoInbound + '_50_50_s.png?md5apikey=' + airHexApiMd5;
 
-                        flightLegsInboundHtml += '<div class="row" style="color: white; height: 7vh;">' +
+                        flightLegsInboundHtml += '<div class="row" style="color: white; min-height: 7vh;">' +
                             '<div>' +
                             '</div>' +
                             '<div class="col-2 align-self-center">' +
@@ -603,9 +603,9 @@
                     itineraryObjectJSON[flightResultRoundtripId] = JSON.stringify(itineraryObject[flightResultRoundtripId]);
                     
 
-                    htmlRoundTrip += '<div class="vertical-center roundTrip" id="#' + flightResultRoundtripId + '" style="margin-top: 25px;">' +
+                    htmlRoundTrip += '<div class="vertical-center roundTrip" id="#' + flightResultRoundtripId + '" style="margin-top: 25px; min-height: 100%;">' +
                         '<div class="container acrylic" style="border-radius: 7px;">' +
-                        '<div class="row" style="color: white; border-bottom: dotted; height: 8vh;">' +
+                        '<div class="row" style="color: white; border-bottom: dotted; min-height: 8vh;">' +
                         '<div id="flightInfoAirline" class="col-2 align-self-center">' +
                         '<div style="margin-left: 10px;">' +
                         '<img src=' + '"' + airlineLogoRequestUrlOutbound + '" style="border-radius: 3px;"' + '>' +

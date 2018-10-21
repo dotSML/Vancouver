@@ -29,9 +29,9 @@ namespace Vancouver.Pages
             Tickets = await _context.Tickets.AsNoTracking().ToListAsync();
         }
 
-        public async Task OnDeleteAsyncDeleteTicket()
+        public async Task OnDeleteDeleteTicket()
         {
-            
+
         }
     }
 }

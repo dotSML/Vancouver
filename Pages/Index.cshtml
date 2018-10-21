@@ -22,10 +22,11 @@
     @Html.AntiForgeryToken()
 </head>
 <body>
-    <div id="searchBar" class="container vertical-center flightSearchBox">
+    <div class="container vertical-center">
+    <div id="searchBar" class="flightSearchBox" style="position: relative; display: none;">
         <div>
             <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
-                <div class="col-auto" style="margin-left:3px">
+                <div class="col-auto" style="">
                     <label class="sr-only" for="autocompleteDepart">Departure</label>
                     <input autocomplete="off" type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
                 </div>
@@ -33,7 +34,7 @@
                     <label class="sr-only" for="autocompleteArrive">Arrival</label>
                     <input autocomplete="off" type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
                 </div>
-                <div class="col-auto" style="margin-left: 3px">
+                <div class="col-auto" style="">
                     <label class="sr-only" for="datepickerOutbound">Outbound</label>
                     <input autocomplete="off" type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
                 </div>
@@ -43,7 +44,7 @@
                 </div>
             </div>
             <div class="row align-items-center" style="padding-bottom: 3px;">
-                <div class="col-auto" style="margin-left: 3px">
+                <div class="col-auto" style="">
                     <select class="form-control" id="fareClass" autocomplete="off">
                         <option selected="selected" value="ECONOMY">Economy Class</option>
                         <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
@@ -57,7 +58,7 @@
                         <option val="2">One Way</option>
                     </select>
                 </div>
-                <div class="col-auto" style="margin-left: 1px">
+                <div class="col-auto">
                     <select class="form-control" id="passengers" autocomplete="off">
                         <option selected="selected">1</option>
                         <option>2</option>
@@ -73,15 +74,16 @@
                         <option>USD</option>
                     </select>
                 </div>
-                <div class="col-auto" style="margin-left: 1px" id="searchFlights">
+                <div class="col-auto" style="" id="searchFlights">
                     <button class="btn btn-primary" id="searchBtn">Search</button>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
 
-    <div id="flightResults" class="vertical-center" style="margin-top: 25px;">
+    <div id="flightResults" class="vertical-center" style="margin-top: 25px; display: none;">
     </div>
 
 
@@ -118,12 +120,14 @@
         $(window).scroll(function (event) {
             var scrollPosition = $(window).scrollTop();
 
-            if (scrollPosition > 80) {
+            if (scrollPosition > 95) {
                 $('#searchBar').removeClass('flightSearchBox');
-                $('#searchBar').addClass('fixedFlightSearchBox vertical-center');
+                $('#searchBar').addClass('fixedFlightSearchBox');
+                $('#flightResults').addClass('pushFlightResultsDown')
             } else {
                 $('#searchBar').removeClass('fixedFlightSearchBox');
                 $('#searchBar').addClass('flightSearchBox');
+                $('#flightResults').removeClass('pushFlightResultsDown');
             }
         });
     </script>
@@ -132,10 +136,8 @@
 
     <script>
         $(document).ready(function () {
-            $('#loading').hide();
-            $('#flightResults').hide();
-            $('#errorMessage').hide();
-            $('#searchBar').removeClass('fixed');
+            $('#searchBar').fadeIn();
+
             $('#fareOption').click(function selectChangedDatepicker() {
                 if ($('#fareOption').val() == "One Way") {
                     $('#datepickerInbound').val('');
