@@ -1,6 +1,7 @@
 ﻿/*.container {
     /*background-color: hsla(27, 34%, 65%, 0.2);*/
 /*}*/
+
 body{
     color: azure;
 }
@@ -10,8 +11,11 @@ body{
     background-color: hsla(27, 34%, 65%, 0.5);
     padding: 3vh;
     border-radius: 10px;
+    margin: 3vh;
 }
-
+input {
+    background-color: aqua;
+}
 .profile-sector-column {
     float: left;
     width: 33%;
@@ -29,7 +33,8 @@ img {
     padding-bottom: 3vh;
     padding-right: 5vh;
 }
-@@media screen and (max-width: 650px) {
+
+@media screen and (max-width: 650px) {
     .column {
      display: block;
     }

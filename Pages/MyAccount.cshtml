@@ -2,6 +2,7 @@
 @model MyAccountModel
 @{
     ViewData["Title"] = "MyAccount";
+    var customers = ViewData["CustomersFromModel"];
 }
 
 <head>
@@ -13,20 +14,26 @@
 <body>
 
 <div class="container">
-     <div class="profile-sector">
-            <div class="profile-sector-column">
-                 <img src="/images/Grete.jpg" alt="Grete">
-            </div>
-         <div class="profile-sector-column">
-             <h3>Profile</h3>
-             <h5>Name</h5>
-             <h5>Email</h5>
-             <h5>Favourite destinations </h5>
-             <button class="button">Change Profile</button>
-             
-         </div>
-         
+    <div class="profile-sector">
+        <div class="profile-sector-column">
+            <img src="/images/Grete.jpg" alt="Grete">
         </div>
+        <div class="profile-sector-column">
+            <h3>Profile</h3>
+            <form method="post">
+                <label asp-for="FirstName"></label> <input type="text" asp-for="FirstName"/><br>
+                <label asp-for="LastName"></label> <input type="text" asp-for="LastName"/><br>
+               
+            </form>
+            <h5>Email</h5>
+            <h5>Favourite destinations </h5>
+            <input type="submit" class="button" value="Change Profile"/>
+            @*Kuidas teha js-iga nii et alles buttonile clickides tuleks mmuutmise form lahti?*@
+             
+        </div>
+    </div>
+  
 </div>
+
 </body>
 
