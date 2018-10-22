@@ -14,8 +14,11 @@ body{
     margin: 3vh;
 }
 input {
-    background-color: aqua;
+    border-radius: 30px;
+    padding: 3%;
+    background-color: hsla(0,0%,100%, 0.7);
 }
+
 .profile-sector-column {
     float: left;
     width: 33%;
