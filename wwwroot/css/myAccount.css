@@ -14,9 +14,10 @@ body{
     margin: 3vh;
 }
 input {
-    border-radius: 30px;
-    padding: 3%;
+    border-radius: 10px;
+    padding: 2%;
     background-color: hsla(0,0%,100%, 0.7);
+    margin: 1vh;
 }
 
 .profile-sector-column {

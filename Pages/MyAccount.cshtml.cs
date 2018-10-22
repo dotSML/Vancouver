@@ -17,13 +17,14 @@ namespace Vancouver.Pages
     {
         private readonly ICustomersRepository customers;
         
+        [BindProperty] public Customer Customer { get; set; }
         [BindProperty] public string FirstName { get; set; }
         [BindProperty] public string LastName { get; set; }
         public MyAccountModel(ICustomersRepository c)
         {
             customers = c;
         }
-        public async Task OnGet()
+        public async Task OnGet() //string id
         {//sisse logimisel peab kuskilt tulema siia õige customeri ID mille järgi saaks uuendama jms hakata.
             if (ModelState.IsValid)
             await customers.GetObjectsList();
@@ -32,6 +33,10 @@ namespace Vancouver.Pages
             c.LastName = LastName;
             await customers.UpdateObject(c);
 
+        }
+
+        public async Task OnPost()
+        {
         }
     }
 }
