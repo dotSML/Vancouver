@@ -1,8 +1,11 @@
-﻿@page 
+﻿@page
+
+@using CustomerFolder
 @model MyAccountModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "MyAccount";
-    var customers = ViewData["CustomersFromModel"];
+    var countOfCustomers = Model.Customers.Count;
 }
 @*page "{id}"*@
 <head>
@@ -11,7 +14,7 @@
     <script src="lib/jquery/dist/jquery.js"></script>
 </head>
 
-    <body>
+<body>
 
     <div class="container">
         <div class="profile-sector">
@@ -20,20 +23,42 @@
             </div>
             <div class="profile-sector-column">
                 <h3>Profile</h3>
-                <form method="post">
-                    <label asp-for="FirstName"></label> <input type="text" asp-for="FirstName" style="background-color: white;"/><br>
-                    <label asp-for="LastName"></label> <input type="text" asp-for="LastName" style="background-color: white;"/><br>
-                </form>
+
                 <h5>Email</h5>
                 <h5>Favourite destinations </h5>
-                <input type="submit" class="button" value="Change Profile" onclick=""/>
+                <input type="submit" class="button" value="Change Profile" onclick="" />
                 @*Kuidas teha js-iga nii et alles buttonile clickides tuleks mmuutmise form lahti?*@
 
 
             </div>
         </div>
+        <form method="post">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var customer in Model.Customers)
+                {
+                    <tr>
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.FirstName</td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@customer.CustomerId">edit</a>
+                            <button type="submit" asp-page-handler="delete" 
+                                    asp-route-id="@customer.CustomerId">delete</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
 
+            <a asp-page="./Create">Create</a>
+        </form>
     </div>
 
-    </body>
+</body>
 

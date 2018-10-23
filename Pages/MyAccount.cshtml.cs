@@ -16,27 +16,51 @@ namespace Vancouver.Pages
     public class MyAccountModel : PageModel
     {
         private readonly ICustomersRepository customers;
+        private readonly TestDbContext db;
         
-        [BindProperty] public Customer Customer { get; set; }
-        [BindProperty] public string FirstName { get; set; }
-        [BindProperty] public string LastName { get; set; }
-        public MyAccountModel(ICustomersRepository c)
-        {
-            customers = c;
-        }
-        public async Task OnGet() //string id
-        {//sisse logimisel peab kuskilt tulema siia õige customeri ID mille järgi saaks uuendama jms hakata.
-            if (ModelState.IsValid)
-            await customers.GetObjectsList();
-            var c = await customers.GetObject("001");
-            c.FirstName = FirstName;
-            c.LastName = LastName;
-            await customers.UpdateObject(c);
+        [BindProperty(SupportsGet = true)] public Customer Customer { get; set; }
+        //[BindProperty] public List<Customer> Customers { get; set; }
+        public IList<Customer> Customers { get; private set; }
 
-        }
-
-        public async Task OnPost()
+        public MyAccountModel(TestDbContext dataBase)
         {
+            db = dataBase;
         }
+        //public void OnGet() //string id
+        //{
+          
+        //}
+
+        //public void OnPost(List<Customer> customersFromPage)
+        //{
+        //    Customers = customersFromPage;
+        //}
+        public async Task OnGetAsync()
+        {
+            Customers = await db.Customers.AsNoTracking().ToListAsync();
+        }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            db.Customers.Add(Customer);
+            await db.SaveChangesAsync();
+            return RedirectToPage("/MyAccount");
+        }
+        //public async Task<IActionResult> OnPostDeleteAsync(int id)
+        //{
+        //    var contact = await db.Customers.FindAsync(id);
+
+        //    if (contact != null)
+        //    {
+        //        db.Customers.Remove(contact);
+        //        await db.SaveChangesAsync();
+        //    }
+
+        //    return RedirectToPage();
+        //}
     }
 }

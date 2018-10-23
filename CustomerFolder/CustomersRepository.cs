@@ -23,7 +23,7 @@ namespace Vancouver.CustomerFolder
             //    x => x.CustomerId == id);
             return new Customer();
         }
-        public async Task<List<Customer>> GetObjectsList()
+        public List<Customer> GetObjectsList()
         {
             List<Customer> listOfCustomers = new List<Customer>();
             foreach (var customer in dbSet)
