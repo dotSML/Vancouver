@@ -16,15 +16,16 @@ namespace Vancouver.Pages
     public class MyAccountModel : PageModel
     {
         private readonly ICustomersRepository customers;
-        private readonly TestDbContext db;
+        private readonly TestDbContext _context;
         
-        [BindProperty(SupportsGet = true)] public Customer Customer { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public Customer Customer { get; set; }
         //[BindProperty] public List<Customer> Customers { get; set; }
         public IList<Customer> Customers { get; private set; }
 
-        public MyAccountModel(TestDbContext dataBase)
+        public MyAccountModel(TestDbContext context)
         {
-            db = dataBase;
+            _context = context;
         }
         //public void OnGet() //string id
         //{
@@ -37,7 +38,7 @@ namespace Vancouver.Pages
         //}
         public async Task OnGetAsync()
         {
-            Customers = await db.Customers.AsNoTracking().ToListAsync();
+            Customers = await _context.Customers.AsNoTracking().ToListAsync();
         }
         public async Task<IActionResult> OnPostAsync()
         {
@@ -46,10 +47,24 @@ namespace Vancouver.Pages
                 return Page();
             }
 
-            db.Customers.Add(Customer);
-            await db.SaveChangesAsync();
+            _context.Customers.Add(Customer);
+            await _context.SaveChangesAsync();
             return RedirectToPage("/MyAccount");
         }
+
+        public async Task<IActionResult> OnPostDelete(string id)
+        {
+            var customer = await _context.Customers.FindAsync(id);
+
+            if (customer != null)
+            {
+                _context.Customers.Remove(customer);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage();
+        }
+
         //public async Task<IActionResult> OnPostDeleteAsync(int id)
         //{
         //    var contact = await db.Customers.FindAsync(id);

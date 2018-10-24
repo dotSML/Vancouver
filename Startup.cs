@@ -40,7 +40,9 @@ namespace Vancouver
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                //.AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount"); })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ICustomersRepository, CustomersRepository>();
         }
 
