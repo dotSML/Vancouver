@@ -27,15 +27,7 @@ namespace Vancouver.Pages
         {
             _context = context;
         }
-        //public void OnGet() //string id
-        //{
-          
-        //}
-
-        //public void OnPost(List<Customer> customersFromPage)
-        //{
-        //    Customers = customersFromPage;
-        //}
+        
         public async Task OnGetAsync()
         {
             Customers = await _context.Customers.AsNoTracking().ToListAsync();
@@ -65,17 +57,6 @@ namespace Vancouver.Pages
             return RedirectToPage();
         }
 
-        //public async Task<IActionResult> OnPostDeleteAsync(int id)
-        //{
-        //    var contact = await db.Customers.FindAsync(id);
-
-        //    if (contact != null)
-        //    {
-        //        db.Customers.Remove(contact);
-        //        await db.SaveChangesAsync();
-        //    }
-
-        //    return RedirectToPage();
-        //}
+        
     }
 }
