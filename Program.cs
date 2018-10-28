@@ -26,8 +26,7 @@ namespace Vancouver
 
                 try
                 {
-                    var context = services.GetRequiredService<TestDbContext>();
-                    // using ContosoUniversity.Data; 
+                    var context = services.GetRequiredService<VancouverDbContext>();
                     CustomersDbTableInitializer.Initialize(context);
                 }
                 catch (Exception ex)

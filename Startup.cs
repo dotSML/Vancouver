@@ -29,7 +29,9 @@ namespace Vancouver
         {
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             var connection = @"Server=(localdb)\mssqllocaldb;Database=VancouverDb;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<VancouverDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<VancouverDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.Configure<CookiePolicyOptions>(options =>

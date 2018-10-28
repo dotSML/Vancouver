@@ -12,7 +12,7 @@ namespace Vancouver.CustomerFolder
         private readonly DbSet<Customer> dbSet;
         private readonly DbContext db;
 
-        public CustomersRepository(TestDbContext c)
+        public CustomersRepository(VancouverDbContext c)
         {
             db = c;
             dbSet = c?.Customers;

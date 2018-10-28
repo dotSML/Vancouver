@@ -6,7 +6,7 @@ namespace Vancouver.CustomerFolder
 {
     public static class CustomersDbTableInitializer
     {
-        public static void Initialize(TestDbContext c)
+        public static void Initialize(VancouverDbContext c)
         {
             c.Database.EnsureCreated();
             c.Customers.Add(new Customer

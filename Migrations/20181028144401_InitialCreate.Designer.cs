@@ -10,8 +10,8 @@ using Vancouver.Databases;
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    [Migration("20181028123934_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20181028144401_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
