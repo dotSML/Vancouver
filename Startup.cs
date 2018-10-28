@@ -28,8 +28,8 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
-            services.AddDbContext<TestDbContext>(options =>
-                options.UseInMemoryDatabase("Database"));
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=VancouverDb;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<VancouverDbContext>(options => options.UseSqlServer(connection));
 
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -63,7 +63,7 @@ namespace Vancouver
             //app.UseStatusCodePagesWithRedirects("/errors/notfound");
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

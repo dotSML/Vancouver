@@ -12,9 +12,9 @@ namespace Vancouver.Pages
 {
     public class TicketTestModel : PageModel
     {
-        public TestDbContext _context { get; set; }
+        public VancouverDbContext _context { get; set; }
 
-        public TicketTestModel(TestDbContext context)
+        public TicketTestModel(VancouverDbContext context)
         {
             _context = context;
         }

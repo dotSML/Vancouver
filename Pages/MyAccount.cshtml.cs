@@ -16,14 +16,14 @@ namespace Vancouver.Pages
     public class MyAccountModel : PageModel
     {
         private readonly ICustomersRepository customers;
-        private readonly TestDbContext _context;
+        private readonly VancouverDbContext _context;
         
         [BindProperty(SupportsGet = true)]
         public Customer Customer { get; set; }
         //[BindProperty] public List<Customer> Customers { get; set; }
         public IList<Customer> Customers { get; private set; }
 
-        public MyAccountModel(TestDbContext context)
+        public MyAccountModel(VancouverDbContext context)
         {
             _context = context;
         }

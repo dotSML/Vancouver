@@ -13,9 +13,9 @@ namespace Vancouver.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly TestDbContext _context;
+        private readonly VancouverDbContext _context;
 
-        public IndexModel(TestDbContext context)
+        public IndexModel(VancouverDbContext context)
         {
             _context = context;
         }
