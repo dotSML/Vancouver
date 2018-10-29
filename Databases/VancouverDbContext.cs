@@ -9,7 +9,7 @@ using Vancouver.Models;
 
 namespace Vancouver.Databases
 {
-    public class VancouverDbContext : IdentityDbContext
+    public class VancouverDbContext : IdentityDbContext<ApplicationUser>
     {
         public VancouverDbContext(DbContextOptions<VancouverDbContext> options) : base(options)
         {

@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vancouver.CustomerFolder;
 using Vancouver.Databases;
+using Vancouver.Models;
 
 namespace Vancouver
 {
@@ -33,8 +34,7 @@ namespace Vancouver
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddRoles<IdentityRole>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<VancouverDbContext>();
 
