@@ -34,6 +34,8 @@ namespace Vancouver
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<VancouverDbContext>();
 
 
@@ -46,7 +48,7 @@ namespace Vancouver
 
 
             services.AddMvc()
-                //.AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount"); })
+                .AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount"); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ICustomersRepository, CustomersRepository>();
         }

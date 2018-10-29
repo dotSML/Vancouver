@@ -774,7 +774,6 @@
                         alert("Ticket saved to database! Go check it out /ticketTest")
                         console.log(response);
                         $(document).off('click', '.getFlightBtn');
-                        //$('.getFlightBtn').unbind('click');
                     }
                 })
             });
