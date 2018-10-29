@@ -11,13 +11,13 @@ namespace Vancouver.CustomerFolder
             c.Database.EnsureCreated();
             c.Customers.Add(new Customer
             {
-                CustomerId = "001",
+                CustomerId = Guid.NewGuid().ToString(),
                 FirstName = "Anna",
                 LastName = "Allik"
             });
             c.Customers.Add(new Customer
             {
-                CustomerId = "002",
+                CustomerId = Guid.NewGuid().ToString(),
                 FirstName = "Mati",
                 LastName = "Mesi"
             });
@@ -28,16 +28,7 @@ namespace Vancouver.CustomerFolder
                 LastName = "Kaev"
             });
 
-            //    foreach (var customer in c.Customers)
-            //    {
-            //        var x = new Customer
-            //        {
-            //            CustomerId = customer.CustomerId,
-            //            FirstName = customer.FirstName,
-            //            LastName = customer.LastName
-            //        };
-            //        c.Customers.Add(x);
-            //    }
+           
 
             c.SaveChanges();
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,10 +29,12 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=VancouverDb;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<VancouverDbContext>();
 
 
             services.Configure<CookiePolicyOptions>(options =>

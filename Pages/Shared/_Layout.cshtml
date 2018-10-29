@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    @RenderSection("scripts", required: false)
 </head>
 
 
@@ -35,9 +36,9 @@
                 <li id="myTicketsNav" class="nav-item">
                     <a class="nav-link" href="/tickettest">My Tickets</a>
                 </li>
-                <li id="loginNav" class="nav-item login-nav">
-                    <a class="nav-link cd-signin" href="#0">Log in</a>
-                </li>
+                
+                    <partial name="_LoginPartial"/>
+                
                 <li id="aboutNav" class="nav-item">
                     <a class="nav-link" href="/about">About</a>
                 </li>
