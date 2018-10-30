@@ -14,5 +14,7 @@ namespace Vancouver.Models
         public string LastName { get; set; }
         [PersonalData]
         public DateTime DateOfBirth { get; set; }
+
+        public List<Ticket> Tickets { get; set; }
     }
 }

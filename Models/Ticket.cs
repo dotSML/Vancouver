@@ -27,5 +27,7 @@ namespace Vancouver.Models
         public string fareCurrency { get; set; }
         public string farePriceTax { get; set; }
         public string farePriceTotal { get; set; }
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

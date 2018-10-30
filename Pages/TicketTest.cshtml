@@ -1,10 +1,13 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
+@using Models
 @model Vancouver.Pages.TicketTestModel
 @{
     ViewData["Title"] = "My Tickets";
 }
 
-
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <link href="~/css/myTickets.css" rel="stylesheet" />
@@ -18,18 +21,26 @@
             @{
                 foreach (var ticket in Model.Tickets)
                 {
-                    <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
-                        <p>Ticket ID: @ticket.TicketId</p>
-                        <p>Origin Outbound: @ticket.originAirportOutbound</p>
-                        <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
-                        <p>Origin Outbound: @ticket.originAirportOutbound</p>
-                        <p>Origin Inbound: @ticket.originAirportInbound</p>
-                        <p>Departure Time Outbound: @ticket.departureTimeOutbound</p>
-                        <p>Arrvial Time Outbound: @ticket.arrivalTimeOutbound</p>
-                        <p>Departure Time Inbound: @ticket.arrivalTimeInbound</p>
-                        <p>Arrival Time Inbound: @ticket.arrivalTimeInbound</p> <br />
-                        <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight:bold">@ticket.farePriceTotal</span></p>
-                    </div>
+                    if (UserManager.GetUserId(User) == ticket.ApplicationUserId)
+                    {
+                        <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
+                            <p>Ticket ID: @ticket.TicketId</p>
+                            <p>User ID: @ticket.ApplicationUserId</p>
+                            <p>Origin Outbound: @ticket.originAirportOutbound</p>
+                            <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
+                            <p>Origin Outbound: @ticket.originAirportOutbound</p>
+                            <p>Origin Inbound: @ticket.originAirportInbound</p>
+                            <p>Departure Time Outbound: @ticket.departureTimeOutbound</p>
+                            <p>Arrvial Time Outbound: @ticket.arrivalTimeOutbound</p>
+                            <p>Departure Time Inbound: @ticket.arrivalTimeInbound</p>
+                            <p>Arrival Time Inbound: @ticket.arrivalTimeInbound</p> <br/>
+                            <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@ticket.farePriceTotal</span></p>
+                        </div>
+                    }
+                    else
+                    {
+                        <h1 style="font-size: 30px; color: white;">No tickets for you boii.</h1>
+                    }
                 }
                 <div>
                     <button class="btn btn-default" onclick="@{
