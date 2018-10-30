@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <link rel="stylesheet" href="~/css/bootstrapIndex.css">
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/popper.js/dist/popper.js"></script>
@@ -18,179 +23,198 @@
 
 
 <body>
-<div id="layoutPreload">
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px;" id="navBar">
-        <a class="navbar-brand" href="/index">Vancouver</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div id="layoutPreload">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-inverse" style="padding-top: 50px;" id="navBar">
+            <a class="navbar-brand" href="/index">Vancouver</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li id="indexNav" class="nav-item">
-                    <a class="nav-link" href="/index">Home</a>
-                </li>
-                <li id="myAccountNav" class="nav-item">
-                    <a class="nav-link" href="/MyAccount">My Account</a>
-                </li>
-                <li id="myTicketsNav" class="nav-item">
-                    <a class="nav-link" href="/tickettest">My Tickets</a>
-                </li>
-                <li id="aboutNav" class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <partial name="_LoginPartial" />
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li id="indexNav" class="nav-item">
+                        <a class="nav-link" href="/index">Home</a>
+                    </li>
+                    <li id="myAccountNav" class="nav-item">
+                        <a class="nav-link" href="/MyAccount">My Account</a>
+                    </li>
+                    <li id="myTicketsNav" class="nav-item">
+                        <a class="nav-link" href="/tickettest">My Tickets</a>
+                    </li>
+                    <li id="aboutNav" class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    @*<partial name="_LoginPartial" />*@
+                    @{
+                        if (SignInManager.IsSignedIn(User))
+                        {
+                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.FirstName!</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button type="submit" class="btn btn-link">Logout</button>
+                                    </li>
+                            </form>
+                        }
+                        else
+                        {
+                                <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                        }
+                        
+                    }
+                </ul>
 
+            </div>
+        </nav>
+
+        @*<div class="cd-user-modal">
+                <!-- this is the entire modal form, including the background -->
+                <div class="cd-user-modal-container">
+                    <!-- this is the container wrapper -->
+                    <ul class="cd-switcher">
+                        <li><a href="#0">Sign in</a></li>
+                        <li><a href="#0">New account</a></li>
+                    </ul>
+
+                    <div id="cd-login">
+                        <!-- log in form -->
+                        <form class="cd-form">
+                            <p class="fieldset">
+                                <label class="image-replace cd-email" for="signin-email">E-mail</label>
+                                <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+
+                            <p class="fieldset">
+                                <label class="image-replace cd-password" for="signin-password">Password</label>
+                                <input class="full-width has-padding has-border" id="signin-password" type="text" placeholder="Password">
+                                <a href="#0" class="hide-password">Hide</a>
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+
+                            <p class="fieldset">
+                                <input type="checkbox" id="remember-me" checked>
+                                <label for="remember-me">Remember me</label>
+                            </p>
+
+                            <p class="fieldset">
+                                <input class="full-width" type="submit" value="Login">
+                            </p>
+                        </form>
+
+                        <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                    </div> <!-- cd-login -->
+
+                    <div id="cd-signup">
+                        <!-- sign up form -->
+                        <form class="cd-form">
+                            <p class="fieldset">
+                                <label class="image-replace cd-username" for="signup-username">Username</label>
+                                <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+
+                            <p class="fieldset">
+                                <label class="image-replace cd-email" for="signup-email">E-mail</label>
+                                <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+
+                            <p class="fieldset">
+                                <label class="image-replace cd-password" for="signup-password">Password</label>
+                                <input class="full-width has-padding has-border" id="signup-password" type="text" placeholder="Password">
+                                <a href="#0" class="hide-password">Hide</a>
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+
+                            <p class="fieldset">
+                                <input type="checkbox" id="accept-terms">
+                                <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+                            </p>
+
+                            <p class="fieldset">
+                                <input class="full-width has-padding" type="submit" value="Create account">
+                            </p>
+                        </form>
+
+                        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                    </div> <!-- cd-signup -->
+
+                    <div id="cd-reset-password">
+                        <!-- reset password form -->
+                        <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+
+                        <form class="cd-form">
+                            <p class="fieldset">
+                                <label class="image-replace cd-email" for="reset-email">E-mail</label>
+                                <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+                                <span class="cd-error-message">Error message here!</span>
+                            </p>
+
+                            <p class="fieldset">
+                                <input class="full-width has-padding" type="submit" value="Reset password">
+                            </p>
+                        </form>
+
+                        <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+                    </div> <!-- cd-reset-password -->
+                    <a href="#0" class="cd-close-form">Close</a>
+                </div> <!-- cd-user-modal-container -->
+            </div> <!-- cd-user-modal -->*@
+
+        <div class="container" id="body">
+            @RenderBody()
         </div>
-    </nav>
+        <div class="vancouverFooter">
+            <p style="text-align:left;">
+                &copy; Vancouver 2018
+                <span style="float:right;">Contact us:</span>
+            </p>
+            <p style="text-align:left;">
+                Taltech
+                <a href="#" style="float: right; background: #55ACEE; color: white; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-twitter"></a>
+                <a href="#" style="float: right; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px; color: white; background-color: #f09433; background-image: url('http://www.myprojectsite.com/images/social/instagram.png'), linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);font-size: 25px;" class="fa fa-instagram"></a>
+                <a href="#" style="float: right; background: #3B5998; color: white; font-size: 25px; padding: 5px; padding-right: 9px; padding-left: 9px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-facebook"></a>
+            </p>
+        </div>
+        <script src="~/js/js_modalLogin.js"></script>
+        <script>
+            $(document).ready(function () {
+                var pathName = window.location.pathname;
+                console.log($('#aboutActive'));
 
-    @*<div class="cd-user-modal">
-        <!-- this is the entire modal form, including the background -->
-        <div class="cd-user-modal-container">
-            <!-- this is the container wrapper -->
-            <ul class="cd-switcher">
-                <li><a href="#0">Sign in</a></li>
-                <li><a href="#0">New account</a></li>
-            </ul>
+                if (pathName === "/about") {
+                }
 
-            <div id="cd-login">
-                <!-- log in form -->
-                <form class="cd-form">
-                    <p class="fieldset">
-                        <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
-                        <span class="cd-error-message">Error message here!</span>
-                    </p>
+                switch (pathName) {
+                    case '/about':
+                        $(document).remove('active');
+                        $('#aboutNav').addClass('active');
+                        break;
+                    case '/index':
+                        $(document).remove('active');
+                        $('#indexNav').addClass('active');
+                        break;
+                    case '/tickettest':
+                        $(document).remove('active');
+                        $('#myTicketsNav').addClass('active');
+                        break;
+                    case '/MyAccount':
+                        $(document).remove('active');
+                        $('#myAccountNav').addClass('active');
+                        break;
+                }
+            })
 
-                    <p class="fieldset">
-                        <label class="image-replace cd-password" for="signin-password">Password</label>
-                        <input class="full-width has-padding has-border" id="signin-password" type="text" placeholder="Password">
-                        <a href="#0" class="hide-password">Hide</a>
-                        <span class="cd-error-message">Error message here!</span>
-                    </p>
-
-                    <p class="fieldset">
-                        <input type="checkbox" id="remember-me" checked>
-                        <label for="remember-me">Remember me</label>
-                    </p>
-
-                    <p class="fieldset">
-                        <input class="full-width" type="submit" value="Login">
-                    </p>
-                </form>
-
-                <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
-                <!-- <a href="#0" class="cd-close-form">Close</a> -->
-            </div> <!-- cd-login -->
-
-            <div id="cd-signup">
-                <!-- sign up form -->
-                <form class="cd-form">
-                    <p class="fieldset">
-                        <label class="image-replace cd-username" for="signup-username">Username</label>
-                        <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
-                        <span class="cd-error-message">Error message here!</span>
-                    </p>
-
-                    <p class="fieldset">
-                        <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
-                        <span class="cd-error-message">Error message here!</span>
-                    </p>
-
-                    <p class="fieldset">
-                        <label class="image-replace cd-password" for="signup-password">Password</label>
-                        <input class="full-width has-padding has-border" id="signup-password" type="text" placeholder="Password">
-                        <a href="#0" class="hide-password">Hide</a>
-                        <span class="cd-error-message">Error message here!</span>
-                    </p>
-
-                    <p class="fieldset">
-                        <input type="checkbox" id="accept-terms">
-                        <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-                    </p>
-
-                    <p class="fieldset">
-                        <input class="full-width has-padding" type="submit" value="Create account">
-                    </p>
-                </form>
-
-                <!-- <a href="#0" class="cd-close-form">Close</a> -->
-            </div> <!-- cd-signup -->
-
-            <div id="cd-reset-password">
-                <!-- reset password form -->
-                <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
-
-                <form class="cd-form">
-                    <p class="fieldset">
-                        <label class="image-replace cd-email" for="reset-email">E-mail</label>
-                        <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-                        <span class="cd-error-message">Error message here!</span>
-                    </p>
-
-                    <p class="fieldset">
-                        <input class="full-width has-padding" type="submit" value="Reset password">
-                    </p>
-                </form>
-
-                <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
-            </div> <!-- cd-reset-password -->
-            <a href="#0" class="cd-close-form">Close</a>
-        </div> <!-- cd-user-modal-container -->
-    </div> <!-- cd-user-modal -->*@
-
-    <div class="container" id="body">
-        @RenderBody()
+        </script>
     </div>
-    <div class="vancouverFooter">
-        <p style="text-align:left;">
-            &copy; Vancouver 2018
-            <span style="float:right;">Contact us:</span>
-        </p>
-        <p style="text-align:left;">
-            Taltech
-            <a href="#" style="float: right; background: #55ACEE; color: white; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-twitter"></a>
-            <a href="#" style="float: right; font-size: 25px; padding: 5px; border-radius: 20%; margin-left: 2px; margin-right: 2px; color: white; background-color: #f09433; background-image: url('http://www.myprojectsite.com/images/social/instagram.png'), linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);font-size: 25px;" class="fa fa-instagram"></a>
-            <a href="#" style="float: right; background: #3B5998; color: white; font-size: 25px; padding: 5px; padding-right: 9px; padding-left: 9px; border-radius: 20%; margin-left: 2px; margin-right: 2px;" class="fa fa-facebook"></a>
-        </p>
-    </div>
-    <script src="~/js/js_modalLogin.js"></script>
     <script>
-        $(document).ready(function() {
-            var pathName = window.location.pathname;
-            console.log($('#aboutActive'));
-
-            if (pathName === "/about") {
-            }
-
-            switch (pathName) {
-            case '/about':
-                $(document).remove('active');
-                $('#aboutNav').addClass('active');
-                break;
-            case '/index':
-                $(document).remove('active');
-                $('#indexNav').addClass('active');
-                break;
-            case '/tickettest':
-                $(document).remove('active');
-                $('#myTicketsNav').addClass('active');
-                break;
-            case '/MyAccount':
-                $(document).remove('active');
-                $('#myAccountNav').addClass('active');
-                break;
-            }
-        })
-
+        $(document).ready(function () {
+            $('#layoutPreload').fadeIn();
+        });
     </script>
-</div>
-<script>
-    $(document).ready(function() {
-        $('#layoutPreload').fadeIn();
-    });
-</script>
 </body>
 </html>

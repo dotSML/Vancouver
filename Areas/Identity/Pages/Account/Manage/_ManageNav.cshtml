@@ -3,15 +3,55 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<style>
+    .nav-item-manage {
+        font-size: 25px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 0px;
+      
+    }
+
+    .activeManage {
+        color: #0056b3;
+    }
+
+    a:hover {
+        text-decoration: none !important;
+    }
+
+    .navbarManage {
+        margin-left: 5px;
+        
+    }
+
+    .aManage {
+        color: white;
+    }
+</style>
+
+<nav class="navbarManage">
 <ul>
-    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Profile</a></li>
-    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./ChangePassword">Password</a></li>
+    <li class="@ManageNavPages.IndexNavClass(ViewContext) nav-item-manage">
+        <a class="aManage" id="information" asp-page="./Index">Information</a>
+    </li>
+    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext) nav-item-manage">
+        <a class="aManage" id="change-password" asp-page="./ChangePassword">Password</a>
+    </li>
     @if (hasExternalLogins)
     {
-        <li class="@ManageNavPages.ExternalLoginsNavClass(ViewContext)"><a id="external-login" asp-page="./ExternalLogins">External logins</a></li>
+        <li class="@ManageNavPages.ExternalLoginsNavClass(ViewContext) nav-item-manage">
+            <a class="aManage" id="external-login" asp-page="./ExternalLogins">External logins</a>
+        </li>
     }
-    <li class="@ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)"><a asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="@ManageNavPages.PersonalDataNavClass(ViewContext)"><a asp-page="./PersonalData">Personal data</a></li>
+    <li class="@ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) nav-item-manage">
+        <a class="aManage" id="fauth" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+    </li>
+    <li class="@ManageNavPages.PersonalDataNavClass(ViewContext) nav-item-manage">
+        <a class="aManage" id="personalData" asp-page="./PersonalData">Personal data</a>
+    </li>
 </ul>
-<h1>TESADASDASDSD</h1>
+</nav>
 
+    

@@ -8,46 +8,55 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
-<div style="margin-top: 100px;"></div>
-<div class="row" style="color: white;">
-    <div class="col-md-4">
-        <section>
-            <form method="post">
-                <h1 style="font-size: 27px;">Use a local account to log in.</h1>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
+<div class="flex" style="margin: 20px; padding: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 7px; position: relative;">
+    <div>
+        <h2 style="position: absolute; font-size: 20px; right: 150px; top: 90px; color: white;">Logging in gives you the best flight searching and<br/> planning experience. </h2>
+    </div>
+    <div>
+        <h1 style="color: white; font-size: 20px; position: absolute; right: 190px; top: 180px;">Thousands of flights right at your fingertips...</h1>
+    </div>
+    <div class="row" style="color: white;">
+        <div class="col-md-4">
+            <section>
+                <form method="post">
+                    <h1 style="font-size: 25px;">Use a local account to log in.</h1>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                </div>
-            </form>
-        </section>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-5" style="padding: 10px;">
+        </div>
+        
     </div>
     @*<div class="col-md-6 col-md-offset-2">
         <section>
