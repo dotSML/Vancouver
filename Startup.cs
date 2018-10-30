@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Vancouver.CustomerFolder;
 using Vancouver.Databases;
 using Vancouver.Models;
+using Vancouver.Services;
 
 namespace Vancouver
 {
@@ -29,14 +31,22 @@ namespace Vancouver
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEmailSender, EmailService>();
+
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDefaultIdentity<ApplicationUser>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+                    {
+                        config.SignIn.RequireConfirmedEmail = true;
+                    })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<VancouverDbContext>();
+
+
+            //.AddDefaultTokenProviders()
+
 
 
             services.Configure<CookiePolicyOptions>(options =>
