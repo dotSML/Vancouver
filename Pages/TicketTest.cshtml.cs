@@ -12,13 +12,13 @@ namespace Vancouver.Pages
 {
     public class TicketTestModel : PageModel
     {
-        public VancouverDbContext _context { get; set; }
+        public VancouverDbContext _context;
 
         public TicketTestModel(VancouverDbContext context)
         {
             _context = context;
         }
-        
+
         [BindProperty]
         public Ticket Ticket { get; set; }
 
@@ -27,6 +27,16 @@ namespace Vancouver.Pages
         public async Task OnGetAsync()
         {
             Tickets = await _context.Tickets.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(Ticket removeTicket)
+        {
+
+            Tickets.Remove(removeTicket);
+            await _context.SaveChangesAsync();
+
+
+            return RedirectToPage();
         }
 
         public async Task OnDeleteDeleteTicket()

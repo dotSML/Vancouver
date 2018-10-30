@@ -601,7 +601,7 @@
                     itineraryObject[flightResultRoundtripId].farePriceTotal = farePriceTotal;
 
                     itineraryObjectJSON[flightResultRoundtripId] = JSON.stringify(itineraryObject[flightResultRoundtripId]);
-                    
+
 
                     htmlRoundTrip += '<div class="vertical-center roundTrip" id="#' + flightResultRoundtripId + '" style="margin-top: 25px; min-height: 100%;">' +
                         '<div class="container acrylic" style="border-radius: 7px;">' +
@@ -730,7 +730,7 @@
                         '</div>' +
                         '</div>';
 
-                    
+
                     airlineLogoId++;
                     flightResultRoundtripId++;
                     flightLegsDetailsBtnId++;
