@@ -4,14 +4,11 @@
     ViewData["Title"] = "Configure authenticator app";
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
-<style>
-    #goBack a:hover {
-        color: white;
-    </style>
+
 
 <partial name="_StatusMessage" model="Model.StatusMessage"/>
 <h4 style="font-size: 25px; color: white;">@ViewData["Title"]</h4>
-<div class="flex" style="background: rgba(0, 0, 0, 0.3); border-radius: 7px; padding: 20px; margin: 20px; height: 420px; position: relative;">
+<div class="flex" style="background: rgba(0, 0, 0, 0.8); border-radius: 7px; padding: 20px; margin: 20px; height: 420px; position: relative;">
     <div style="position: absolute; top: 10px; right: 10px; bottom: 410px;">
         <a id="goBack" href="/Identity/Account/Manage/TwoFactorAuthentication" style="color: aqua; font-size: 15px; text-decoration: none !important;"> Go Back</a>
     </div>

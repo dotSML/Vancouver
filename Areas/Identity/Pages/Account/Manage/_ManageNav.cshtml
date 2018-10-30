@@ -3,6 +3,10 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
+
+<head>
+    <link href="@Url.Content("~/css/bootstrapIndex.css")" rel="stylesheet" type="text/css" />
+</head>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <style>
     .nav-item-manage {

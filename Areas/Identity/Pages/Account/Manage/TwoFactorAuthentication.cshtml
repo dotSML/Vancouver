@@ -6,7 +6,7 @@
 
 <partial name="_StatusMessage" model="Model.StatusMessage"/>
 <h1 style="color: white; font-size: 25px;">@ViewData["Title"]</h1>
-<div class="flex" style="background: rgba(0, 0, 0, 0.3); border-radius: 7px; height: 420px; margin: 20px; padding: 20px;">
+<div class="flex" style="background: rgba(0, 0, 0, 0.8); border-radius: 7px; height: 420px; margin: 20px; padding: 20px;">
     <div class="row">
         <div class="col-md-5">
             <partial name="_ManageNav"/>
@@ -54,8 +54,8 @@
             else
             {
                 <div id="authBtnGroup" style="margin-top: 20px;">
-                    <button id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Setup authenticator app</button>
-                    <button id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Reset authenticator app</button>
+                    <a style="margin-right: 5px;" id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Setup authenticator app</a>
+                    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Reset authenticator app</a>
                 </div>
             }
         </div>
