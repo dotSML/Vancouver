@@ -14,54 +14,45 @@
     <script src="lib/jquery/dist/jquery.js"></script>
 </head>
 <body>
-    <div class="ticketContainer">
-        <h2 style="color: white; font-family: BebasNeue">My Tickets</h2>
-        <div class="row" style="font-family: BebasNeue; font-size: 20px;">
+<div class="ticketContainer">
+    <h2 style="color: white; font-family: BebasNeue">My Tickets</h2>
+    <div class="row" style="font-family: BebasNeue; font-size: 20px;">
 
-            @{
-                foreach (var ticket in Model.Tickets)
+        @{
+            foreach (var ticket in Model.Tickets)
+            {
+                if (UserManager.GetUserId(User) == ticket.ApplicationUserId)
                 {
-                    if (UserManager.GetUserId(User) == ticket.ApplicationUserId)
-                    {
-                        <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
-                            <p>Ticket ID: @ticket.TicketId</p>
-                            <p>User ID: @ticket.ApplicationUserId</p>
-                            <p>Origin Outbound: @ticket.originAirportOutbound</p>
-                            <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
-                            <p>Origin Outbound: @ticket.originAirportOutbound</p>
-                            <p>Origin Inbound: @ticket.originAirportInbound</p>
-                            <p>Departure Time Outbound: @ticket.departureTimeOutbound</p>
-                            <p>Arrvial Time Outbound: @ticket.arrivalTimeOutbound</p>
-                            <p>Departure Time Inbound: @ticket.arrivalTimeInbound</p>
-                            <p>Arrival Time Inbound: @ticket.arrivalTimeInbound</p> <br/>
-                            <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@ticket.farePriceTotal</span></p>
-                        </div>
-                    }
-                    else
-                    {
-                        <h1 style="font-size: 30px; color: white;">No tickets for you boii.</h1>
-                    }
+                    <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
+                        <p>Ticket ID: @ticket.TicketId</p>
+                        <p>User ID: @ticket.ApplicationUserId</p>
+                        <p>Origin Outbound: @ticket.originAirportOutbound</p>
+                        <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
+                        <p>Origin Outbound: @ticket.originAirportOutbound</p>
+                        <p>Origin Inbound: @ticket.originAirportInbound</p>
+                        <p>Departure Time Outbound: @ticket.departureTimeOutbound</p>
+                        <p>Arrvial Time Outbound: @ticket.arrivalTimeOutbound</p>
+                        <p>Departure Time Inbound: @ticket.arrivalTimeInbound</p>
+                        <p>Arrival Time Inbound: @ticket.arrivalTimeInbound</p> <br/>
+                        <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@ticket.farePriceTotal</span></p>
+                        <form method="post">
+                            <label asp-for="@ticket.TicketId">
+                            <button asp-page-handler="delete" asp-route-id="@ticket.TicketId" class="btn btn-danger">Delete</button>
+                            </label>
+                        </form>
+                    </div>
                 }
-                <div>
-                    <button class="btn btn-default" onclick="@{
-                                                                 if (Model.Tickets.Any())
-                                                                 {
-                                                                     foreach (var ticket in Model.Tickets)
-                                                                     {
-                                                                         @Model.OnPostRemoveAsync(ticket)
-                                                                         ;
-                                                                     }
-                                                                 }
-                                                                 else
-                                                                 {
-                                                                     
-                                                                 }
-                                                             }
-                                                             "></button>
-                </div>
-                
-
+                else
+                {
+                    <h1 style="font-size: 30px; color: white;">No tickets for you boii.</h1>
+                }
             }
-        </div>
+
+
+
+
+        }
     </div>
+</div>
+
 </body>

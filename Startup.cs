@@ -45,6 +45,9 @@ namespace Vancouver
                 .AddEntityFrameworkStores<VancouverDbContext>();
 
 
+
+            services.AddCors();
+
             //.AddDefaultTokenProviders()
 
 

@@ -29,19 +29,20 @@ namespace Vancouver.Pages
             Tickets = await _context.Tickets.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IActionResult> OnPostRemoveAsync(Ticket removeTicket)
+        public async Task<IActionResult> OnPostDelete(string id)
         {
 
-            Tickets.Remove(removeTicket);
-            await _context.SaveChangesAsync();
+            var ticket =  await _context.Tickets.FindAsync(id);
+            if (ticket != null)
+            {
+                _context.Tickets.Remove(ticket);
+                await _context.SaveChangesAsync();
 
+            }
 
             return RedirectToPage();
         }
 
-        public async Task OnDeleteDeleteTicket()
-        {
-
-        }
+        
     }
 }
