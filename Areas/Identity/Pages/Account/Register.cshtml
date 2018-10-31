@@ -14,7 +14,7 @@
 <div class="flex" style="margin: 20px; padding: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 7px; position: relative;">
 <div class="row" style="color: white;">
     <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace Vancouver.Models
@@ -17,6 +18,6 @@ namespace Vancouver.Models
 
         public List<Ticket> Tickets { get; set; }
 
-        //public byte[] UserPhoto { get; set; }
+        public byte[] UserPhoto { get; set; }
     }
 }
