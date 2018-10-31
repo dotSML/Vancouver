@@ -35,12 +35,6 @@
                     <li id="indexNav" class="nav-item">
                         <a class="nav-link" href="/index">Home</a>
                     </li>
-                    <li id="myAccountNav" class="nav-item">
-                        <a class="nav-link" href="/MyAccount">My Account</a>
-                    </li>
-                    <li id="myTicketsNav" class="nav-item">
-                        <a class="nav-link" href="/tickettest">My Tickets</a>
-                    </li>
                     <li id="aboutNav" class="nav-item">
                         <a class="nav-link" href="/about">About</a>
                     </li>
@@ -48,6 +42,12 @@
                     @{
                         if (SignInManager.IsSignedIn(User))
                         {
+                            <li id="myAccountNav" class="nav-item">
+                                <a class="nav-link" href="/MyAccount">My Account</a>
+                            </li>
+                            <li id="myTicketsNav" class="nav-item">
+                                <a class="nav-link" href="/tickettest">My Tickets</a>
+                            </li>
                             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-nav ml-auto">
                                     <li class="nav-item">
                                         <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.FirstName!</a>

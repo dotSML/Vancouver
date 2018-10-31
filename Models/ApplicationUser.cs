@@ -17,6 +17,6 @@ namespace Vancouver.Models
 
         public List<Ticket> Tickets { get; set; }
 
-        public byte[] UserPhoto { get; set; }
+        //public byte[] UserPhoto { get; set; }
     }
 }

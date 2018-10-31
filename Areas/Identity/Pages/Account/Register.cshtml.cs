@@ -76,7 +76,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             public byte[] UserPhoto { get; set; }
         }
 
-        public FileContentResult UserPhotos()
+        public void UserPhotos()
         {
         }
 
