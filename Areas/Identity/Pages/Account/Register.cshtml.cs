@@ -24,7 +24,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailService;
-        private readonly IHostingEnvironment _environment;
+        private IHostingEnvironment _environment;
 
 
         public RegisterModel(
@@ -81,7 +81,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             
             [BindProperty]
             [Display(Name = "User Photo")]
-            public string UserPhoto { get; set; }
+            public IFormFile UserPhoto { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -89,15 +89,35 @@ namespace Vancouver.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        public async Task UploadFileAsync(ApplicationUser user)
+        {
+            string extension = Input.UserPhoto.FileName;
+            string[] extensionHelper = extension.Split('.');
+            extension = "." + extensionHelper[1];
+            string fileName = _userManager.GetUserId(User) + extension;
+            var file = _environment.ContentRootPath + "/wwwroot/uploads/usrImg";
+            var FullFileName = Path.Combine(file, fileName);
+            var UserPhotoPath = fileName;
+            user.UserPhoto = UserPhotoPath;
+
+            using (var fileStream = new FileStream(FullFileName, FileMode.Create))
+            {
+                await Input.UserPhoto.CopyToAsync(fileStream);
+            }
+        }
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email, UserPhoto = Input.UserPhoto};
+                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email};
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    UploadFileAsync(user);
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -110,7 +130,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                     await _emailService.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    //string fileName = _environment.
+                    
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
