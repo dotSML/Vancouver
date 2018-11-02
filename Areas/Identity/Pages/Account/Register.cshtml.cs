@@ -80,7 +80,6 @@ namespace Vancouver.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
             
             [BindProperty]
-            [Display(Name = "User Photo")]
             public IFormFile UserPhoto { get; set; }
         }
 
@@ -89,22 +88,8 @@ namespace Vancouver.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task UploadFileAsync(ApplicationUser user)
-        {
-            string extension = Input.UserPhoto.FileName;
-            string[] extensionHelper = extension.Split('.');
-            extension = "." + extensionHelper[1];
-            string fileName = _userManager.GetUserId(User) + extension;
-            var file = _environment.ContentRootPath + "/wwwroot/uploads/usrImg";
-            var FullFileName = Path.Combine(file, fileName);
-            var UserPhotoPath = fileName;
-            user.UserPhoto = UserPhotoPath;
-
-            using (var fileStream = new FileStream(FullFileName, FileMode.Create))
-            {
-                await Input.UserPhoto.CopyToAsync(fileStream);
-            }
-        }
+        public string FullFileName { get; set; }
+        public string UserPhotoPath { get; set; }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -113,10 +98,24 @@ namespace Vancouver.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email};
 
+                string extension = Input.UserPhoto.FileName;
+                string[] extensionHelper = extension.Split('.');
+                extension = "." + extensionHelper[1];
+                string fileName = user.Id + extension;
+                var file = _environment.ContentRootPath + "/wwwroot/uploads/usrImg";
+                FullFileName = Path.Combine(file, fileName);
+                UserPhotoPath = fileName;
+                user.UserPhoto = UserPhotoPath;
+
+                using (var fileStream = new FileStream(FullFileName, FileMode.Create))
+                {
+                    await Input.UserPhoto.CopyToAsync(fileStream);
+                }
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    UploadFileAsync(user);
 
                     _logger.LogInformation("User created a new account with password.");
 
