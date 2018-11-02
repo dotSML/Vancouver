@@ -63,9 +63,12 @@ namespace Vancouver.Pages
             await _signInManager.RefreshSignInAsync(user);
         }
 
-        public void OnGet()
+        public async Task OnPostDeletePhoto()
         {
-
+            var user = await _userManager.GetUserAsync(User);
+            user.UserPhoto = null;
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
         }
 
     

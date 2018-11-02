@@ -19,11 +19,68 @@
     <script src="lib/jquery/dist/jquery.js"></script>
 </head>
 
+<style>
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .usrImgContainer:hover .image {
+        opacity: 0.3;
+    }
+
+    .usrImgContainer:hover .middle {
+        opacity: 1;
+    }
+
+    .image {
+        opacity: 1;
+        display: block;
+        width: 100%;
+        transition: .5s ease;
+        backface-visibility: hidden;
+    }
+    
+    
+</style>
+
 <body>
     <div class="container">
         <div class="profile-sector">
-            <div class="profile-sector-column">
-                <img class="" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="Grete">
+            <div class="profile-sector-column" style="position: relative;">
+                @{
+                    if (UserManager.GetUserAsync(User).Result.UserPhoto == null)
+                    {
+                        <form method="post" enctype="multipart/form-data">
+                            <input type="file" asp-for="Upload" />
+                            <input type="submit" />
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="usrImgContainer">
+                            <img class="image" style="border: black; border-radius: 7px;" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="No Profile Pic">
+                            <div class="middle">
+                                <div>
+                                    <div class="btn btn-primary">
+                                        Upload
+                                        <input class="btn btn-dark" type="file" name="file"/>
+                                    </div>
+                                </div>
+                                <div style="top: 200px; right: 50px">
+                                    <form method="post">
+                                        <button type="submit" class="btn btn-danger" asp-page-handler="DeletePhoto">Delete Photo</button>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    }
+                }
             </div>
             <div class="profile-sector-column">
                 <div>Full name</div>
@@ -39,10 +96,7 @@
                 <div>Favourite destinations </div>
                 <hr />
                 <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
-                <form method="post" enctype="multipart/form-data">
-                    <input type="file" asp-for="Upload" />
-                    <input type="submit" />
-                </form>
+                
                 @*Kuidas teha js-iga nii et alles buttonile clickides tuleks mmuutmise form lahti?*@
             </div>
             <div class="profile-sector-column">
