@@ -101,7 +101,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email};
+                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber};
 
                 string extension = Input.UserPhoto.FileName;
                 string[] extensionHelper = extension.Split('.');

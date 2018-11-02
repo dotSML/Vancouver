@@ -33,3 +33,4 @@ msbuild.wrn
 /node_modules
 .vs
 .obj
+/wwwroot/uploads

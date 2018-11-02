@@ -39,14 +39,9 @@ namespace Vancouver.Pages
         [BindProperty] public string FullFileName { get; set; }
         [BindProperty] public string UserPhotoPath { get; set; }
 
-        public async Task OnGet()
+        public void OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            var usrImgPath = _environment.ContentRootPath + "wwwroot/uploads/usrImg" + user.UserPhoto;
-            if (!System.IO.File.Exists(usrImgPath))
-            {
-                user.UserPhoto = null;
-            }
+            
         }
 
         public async Task OnPostAsync()
