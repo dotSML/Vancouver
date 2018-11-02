@@ -16,8 +16,9 @@ namespace Vancouver.Models
         [PersonalData]
         public DateTime DateOfBirth { get; set; }
 
+        public string UserPhoto { get; set; }
+
         public List<Ticket> Tickets { get; set; }
 
-        public byte[] UserPhoto { get; set; }
     }
 }

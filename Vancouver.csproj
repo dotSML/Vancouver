@@ -1777,4 +1777,8 @@
     <TypeScriptCompile Include="wwwroot\lib\popper.js\index.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\usrImg\" />
+  </ItemGroup>
+
 </Project>

@@ -32,9 +32,6 @@ namespace Vancouver.Pages
         {
             if (_signInManager.IsSignedIn(User))
             {
-
-
-
                 {
                     MemoryStream stream = new MemoryStream();
                     Request.Body.CopyTo(stream);

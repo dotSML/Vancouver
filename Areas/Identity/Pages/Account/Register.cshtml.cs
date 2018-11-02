@@ -81,7 +81,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             
             [BindProperty]
             [Display(Name = "User Photo")]
-            public byte[] UserPhoto { get; set; }
+            public string UserPhoto { get; set; }
         }
 
         public void OnGet(string returnUrl = null)

@@ -1,13 +1,18 @@
 ﻿@page
 
 @using CustomerFolder
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Server.Kestrel.Core.Features
+@using Models
 @model MyAccountModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "MyAccount";
-    var countOfCustomers = Model.Customers.Count;
 }
-@*page "{id}"*@
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager 
+
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <link href="css/myAccount.css" rel="stylesheet" />
@@ -15,62 +20,36 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="profile-sector">
             <div class="profile-sector-column">
-                <img src="/images/Grete.jpg" alt="Grete">
+                <img class="" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="Grete">
             </div>
             <div class="profile-sector-column">
-                <h3>Profile</h3>
+                <div>Full name</div>
+                <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</div>
+                <hr />
+                <div>Email</div>
+                <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.Email</div>
+                <hr />
+                <div>Phone number</div>
+                <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.PhoneNumber</div>
+                <hr />
 
-                <h5>Email</h5>
-                <h5>Favourite destinations </h5>
-                <input type="submit" class="button" value="Change Profile" onclick="" />
+                <div>Favourite destinations </div>
+                <hr />
+                <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" asp-for="Upload" />
+                    <input type="submit" />
+                </form>
                 @*Kuidas teha js-iga nii et alles buttonile clickides tuleks mmuutmise form lahti?*@
-
-
+            </div>
+            <div class="profile-sector-column">
+                
             </div>
         </div>
-        <div id="formMyAccount">
-            <form method="post" style="display: inline;">
-                <label asp-for="Customer.FirstName">First Name
-                    <input asp-for="@Model.Customer.FirstName" class="form-control"/>
-                </label>
-                <label asp-for="Customer.LastName">Last Name
-                    <input asp-for="@Model.Customer.LastName" class="form-control"/>
-                </label>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var customer in Model.Customers)
-                    {
-
-                        <tr>
-                            <td>@customer.CustomerId</td>
-                            <td>@customer.FirstName</td>
-                            <td>@customer.LastName</td>
-                            <td>
-                                <a asp-page="./Edit" asp-route-id="@customer.CustomerId" class="btn btn-default">Edit</a>
-                                <button asp-page-handler="delete"
-                                        asp-route-id="@customer.CustomerId" class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-
-                @*<a asp-page="./Create">Create</a>*@
-                <button type="submit" id="submitAccountBtn" class="btn btn-success">Create</button>
-            </form>
-    </div>
+        
    </div>
 </body>
 

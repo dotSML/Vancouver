@@ -1,56 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Vancouver.CustomerFolder;
 using Vancouver.Databases;
+using Vancouver.Models;
 
 namespace Vancouver.Pages
 {
     public class MyAccountModel : PageModel
     {
-        private readonly ICustomersRepository customers;
-        private readonly VancouverDbContext _context;
-        
-        [BindProperty(SupportsGet = true)]
-        public Customer Customer { get; set; }
-        //[BindProperty] public List<Customer> Customers { get; set; }
-        public IList<Customer> Customers { get; private set; }
+        private IHostingEnvironment _environment;
+        private SignInManager<ApplicationUser> _signInManager;
+        private UserManager<ApplicationUser> _userManager;
 
-        public MyAccountModel(VancouverDbContext context)
+        public MyAccountModel(IHostingEnvironment environment, 
+            SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager)
+            
         {
-            _context = context;
+            _environment = environment;
+            _signInManager = signInManager;
+            _userManager = userManager;
+
         }
+
         
-        public async Task OnGetAsync()
+
+        [BindProperty]
+        public IFormFile Upload { get; set; }
+        [BindProperty]
+        public string FullFileName { get; set; }
+        [BindProperty]
+        public string UserPhotoPath { get; set; }
+
+        public async Task OnPostAsync()
         {
-            Customers = await _context.Customers.AsNoTracking().ToListAsync();
-        }
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
+            var user = await _userManager.GetUserAsync(User);
+            string extension = Upload.FileName;
+            string[] extensionHelper = extension.Split('.');
+            extension = "." + extensionHelper[1];
+            string fileName = _userManager.GetUserId(User) + extension;
+            var file = _environment.ContentRootPath + "/wwwroot/uploads/usrImg";
+            FullFileName = Path.Combine(file, fileName);
+            UserPhotoPath = fileName;
+            user.UserPhoto = UserPhotoPath;
+            
+            using (var fileStream = new FileStream(FullFileName, FileMode.Create))
             {
-                return Page();
+                await Upload.CopyToAsync(fileStream);
             }
 
-            _context.Customers.Add(Customer);
-            await _context.SaveChangesAsync();
-            return RedirectToPage("/MyAccount");
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
         }
 
-        public async Task<IActionResult> OnPostDelete(string id)
+        public void OnGet()
         {
-            var customer = await _context.Customers.FindAsync(id);
 
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage();
         }
+
+    
     }
 }
