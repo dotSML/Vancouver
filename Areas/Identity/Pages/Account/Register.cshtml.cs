@@ -68,6 +68,10 @@ namespace Vancouver.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [DataType(DataType.PhoneNumber)]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -80,6 +84,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
             
             [BindProperty]
+            [Display(Name = "Add a profile picture")]
             public IFormFile UserPhoto { get; set; }
         }
 

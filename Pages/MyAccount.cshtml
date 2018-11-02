@@ -49,61 +49,58 @@
 </style>
 
 <body>
-    <div class="container">
-        <div class="profile-sector">
-            <div class="profile-sector-column" style="position: relative;">
-                @{
-                    if (UserManager.GetUserAsync(User).Result.UserPhoto == null)
-                    {
-                        <form method="post" enctype="multipart/form-data">
-                            <input type="file" asp-for="Upload" />
-                            <input type="submit" />
-                        </form>
-                    }
-                    else
-                    {
-                        <div class="usrImgContainer">
-                            <img class="image" style="border: black; border-radius: 7px;" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="No Profile Pic">
-                            <div class="middle">
-                                <div>
-                                    <div class="btn btn-primary">
-                                        Upload
-                                        <input class="btn btn-dark" type="file" name="file"/>
-                                    </div>
-                                </div>
-                                <div style="top: 200px; right: 50px">
-                                    <form method="post">
-                                        <button type="submit" class="btn btn-danger" asp-page-handler="DeletePhoto">Delete Photo</button>
-                                    </form>
-                                </div>
+<div class="container">
+    <div class="profile-sector">
+        <div class="profile-sector-column" style="position: relative;">
+            @{
+                if (UserManager.GetUserAsync(User).Result.UserPhoto == null)
+                {
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" style="margin: 0" class="file btn-dark" asp-for="Upload" />
+                        <button style="margin-top: 10px;" class="btn btn-primary" type="submit">Upload</button>
+                    </form>
+                }
+                else
+                {
+                    <div class="usrImgContainer" style="position: relative;">
+                        <img class="image" style="border: black; border-radius: 7px;" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="No Profile Pic">
+                        <div class="middle" style="position: absolute; top: 200px; left: 130px;">
+                            <form method="post" enctype="multipart/form-data">
+                                <input type="file" class="file" asp-for="Upload" />
+                                <button class="btn btn-primary" type="submit">Upload</button>
                                 
+                            </form>
+                            <div style="margin-top: 10px;">
+                                <form method="post">
+                                    <button id="deleteUserPhoto" type="submit" asp-page-handler="DeletePhoto" class="btn btn-danger">Delete Photo</button>
+                                </form>
                             </div>
                         </div>
-                    }
+                    </div>
                 }
-            </div>
-            <div class="profile-sector-column">
-                <div>Full name</div>
-                <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</div>
-                <hr />
-                <div>Email</div>
-                <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.Email</div>
-                <hr />
-                <div>Phone number</div>
-                <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.PhoneNumber</div>
-                <hr />
-
-                <div>Favourite destinations </div>
-                <hr />
-                <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
-                
-                @*Kuidas teha js-iga nii et alles buttonile clickides tuleks mmuutmise form lahti?*@
-            </div>
-            <div class="profile-sector-column">
-                
-            </div>
+            }
         </div>
+        <div class="profile-sector-column">
+            <div>Full name</div>
+            <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</div>
+            <hr />
+            <div>Email</div>
+            <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.Email</div>
+            <hr />
+            <div>Phone number</div>
+            <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.PhoneNumber</div>
+            <hr />
+
+            <div>Favourite destinations </div>
+            <hr />
+            <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
+        </div>
+        <div class="profile-sector-column">
+                
+        </div>
+    </div>
         
-   </div>
+</div>
+
 </body>
 

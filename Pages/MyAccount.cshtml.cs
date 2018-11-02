@@ -22,10 +22,10 @@ namespace Vancouver.Pages
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
 
-        public MyAccountModel(IHostingEnvironment environment, 
-            SignInManager<ApplicationUser> signInManager, 
+        public MyAccountModel(IHostingEnvironment environment,
+            SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager)
-            
+
         {
             _environment = environment;
             _signInManager = signInManager;
@@ -35,12 +35,19 @@ namespace Vancouver.Pages
 
         
 
-        [BindProperty]
-        public IFormFile Upload { get; set; }
-        [BindProperty]
-        public string FullFileName { get; set; }
-        [BindProperty]
-        public string UserPhotoPath { get; set; }
+        [BindProperty] public IFormFile Upload { get; set; }
+        [BindProperty] public string FullFileName { get; set; }
+        [BindProperty] public string UserPhotoPath { get; set; }
+
+        public async Task OnGet()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var usrImgPath = _environment.ContentRootPath + "wwwroot/uploads/usrImg" + user.UserPhoto;
+            if (!System.IO.File.Exists(usrImgPath))
+            {
+                user.UserPhoto = null;
+            }
+        }
 
         public async Task OnPostAsync()
         {
@@ -53,7 +60,12 @@ namespace Vancouver.Pages
             FullFileName = Path.Combine(file, fileName);
             UserPhotoPath = fileName;
             user.UserPhoto = UserPhotoPath;
-            
+
+            if (System.IO.File.Exists(FullFileName))
+            {
+                System.IO.File.Delete(FullFileName);
+            }
+
             using (var fileStream = new FileStream(FullFileName, FileMode.Create))
             {
                 await Upload.CopyToAsync(fileStream);
@@ -66,11 +78,14 @@ namespace Vancouver.Pages
         public async Task OnPostDeletePhoto()
         {
             var user = await _userManager.GetUserAsync(User);
+            var fullPath = _environment.ContentRootPath + "/wwwroot/uploads/usrImg/" + user.UserPhoto;
+            System.IO.File.Delete(fullPath);
             user.UserPhoto = null;
             await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
+            Response.Redirect("/MyAccount");
         }
-
-    
     }
 }
+
+
