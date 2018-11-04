@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Vancouver.Models;
 
 namespace Vancouver.Areas.Identity.Pages.Account
@@ -66,6 +68,78 @@ namespace Vancouver.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        public async Task<ActionResult> OnPostAjaxLogin(string returnUrl = null)
+        {
+            string ajaxPostEmail = "";
+            string ajaxPostPassword = "";
+            string ajaxPostRemember = "";
+            
+                MemoryStream stream = new MemoryStream();
+                Request.Body.CopyTo(stream);
+                stream.Position = 0;
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string requestBody = reader.ReadToEnd();
+
+                    if (requestBody.Length > 0)
+                    {
+                        var obj = JsonConvert.DeserializeObject<LoginPostData>(requestBody);
+                        if (obj == null)
+                        {
+                            Console.WriteLine("FAIIIIL");
+                        }
+                        if (obj != null)
+                        {
+                            ajaxPostEmail = obj.InputEmail;
+                            ajaxPostPassword = obj.InputPassword;
+                            ajaxPostRemember = obj.InputRemember;
+                        }
+                    }
+                }
+
+            Input.Email = ajaxPostEmail;
+            Input.Password = ajaxPostPassword;
+
+            if(ajaxPostRemember == "on")
+            {
+                Input.RememberMe = true;
+            }
+            else
+            {
+                Input.RememberMe = false;
+            }
+            
+
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    //return LocalRedirect(returnUrl);
+                    return new JsonResult("Login Success!");
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("User account locked out.");
+                    return RedirectToPage("./Lockout");
+                }
+                else
+                {
+                    return new JsonResult("Invalid Credentials.");
+                }
+            
+
+            
+        }
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -99,5 +173,12 @@ namespace Vancouver.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+    }
+
+    public class LoginPostData
+    {
+        public string InputEmail { get; set; }
+        public string InputPassword { get; set; }
+        public string InputRemember { get; set; }
     }
 }

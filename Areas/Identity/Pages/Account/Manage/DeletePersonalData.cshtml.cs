@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using SendGrid;
 using Vancouver.Models;
 
 namespace Vancouver.Areas.Identity.Pages.Account.Manage
@@ -14,15 +16,18 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly IHostingEnvironment _environment;
 
         public DeletePersonalDataModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IHostingEnvironment environment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _environment = environment;
         }
 
         [BindProperty]
@@ -51,6 +56,7 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            DeleteUserPhoto();
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -67,6 +73,7 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
             if (!result.Succeeded)
@@ -80,5 +87,18 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
 
             return Redirect("~/");
         }
+
+        public async void DeleteUserPhoto()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var fullPath = _environment.ContentRootPath + "/wwwroot/uploads/usrImg/" + user.UserPhoto;
+            System.IO.File.Delete(fullPath);
+            user.UserPhoto = null;
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
+        }
     }
+
+
+    
 }

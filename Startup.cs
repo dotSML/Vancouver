@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,6 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEmailSender, EmailService>();
-
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(
@@ -40,6 +40,7 @@ namespace Vancouver
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
                     {
                         //config.SignIn.RequireConfirmedEmail = true;
+                        config.Password.RequireNonAlphanumeric = false;
                     })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<VancouverDbContext>();

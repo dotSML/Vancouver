@@ -1,5 +1,8 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Areas.Identity.Pages.Account
+@using Microsoft.AspNetCore.Identity
 @using Models
+@using SendGrid
+@using Services
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -12,7 +15,6 @@
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <link href="~/css/modalLogin.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -49,121 +51,129 @@
                                 <a class="nav-link" href="/tickettest">My Tickets</a>
                             </li>
                             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-nav ml-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.FirstName!</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button type="submit" class="btn btn-link">Logout</button>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.FirstName!</a>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="submit" class="btn btn-link">Logout</button>
+                                </li>
                             </form>
                         }
                         else
                         {
-                                <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                            @*<li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Log in</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a></li>*@
+                            <li class="nav-item login-nav">
+                                <a class="nav-link cd-signin" href="#0">Log in</a>
+                            </li>
+                            <li class="nav-item login-nav">
+                                <a class="nav-link cd-signup" href="#0">Register</a>
+                            </li>
                         }
-                        
+
                     }
                 </ul>
-
             </div>
         </nav>
 
-        @*<div class="cd-user-modal">
-                <!-- this is the entire modal form, including the background -->
-                <div class="cd-user-modal-container">
-                    <!-- this is the container wrapper -->
-                    <ul class="cd-switcher">
-                        <li><a href="#0">Sign in</a></li>
-                        <li><a href="#0">New account</a></li>
-                    </ul>
 
-                    <div id="cd-login">
-                        <!-- log in form -->
-                        <form class="cd-form">
-                            <p class="fieldset">
-                                <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                                <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
-                                <span class="cd-error-message">Error message here!</span>
-                            </p>
 
-                            <p class="fieldset">
-                                <label class="image-replace cd-password" for="signin-password">Password</label>
-                                <input class="full-width has-padding has-border" id="signin-password" type="text" placeholder="Password">
-                                <a href="#0" class="hide-password">Hide</a>
-                                <span class="cd-error-message">Error message here!</span>
-                            </p>
+        <div class="cd-user-modal">
+            <!-- this is the entire modal form, including the background -->
+            <div class="cd-user-modal-container">
+                <!-- this is the container wrapper -->
+                <ul class="cd-switcher">
+                    <li><a href="#0">Sign in</a></li>
+                    <li><a href="#0">New account</a></li>
+                </ul>
 
-                            <p class="fieldset">
-                                <input type="checkbox" id="remember-me" checked>
-                                <label for="remember-me">Remember me</label>
-                            </p>
+                <div id="cd-login">
+                    <!-- log in form -->
+                    <div class="cd-form">
+                        <p class="fieldset">
+                            <label class="image-replace cd-email" for="signin-email">E-mail</label>
+                            <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                        </p>
 
-                            <p class="fieldset">
-                                <input class="full-width" type="submit" value="Login">
-                            </p>
-                        </form>
+                        <p class="fieldset">
+                            <label class="image-replace cd-password" for="signin-password">Password</label>
+                            <input class="full-width has-padding has-border" id="signin-password" type="password" placeholder="Password">
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
 
-                        <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
-                        <!-- <a href="#0" class="cd-close-form">Close</a> -->
-                    </div> <!-- cd-login -->
+                        <p class="fieldset">
+                            <input type="checkbox" id="remember-me" checked>
+                            <label for="remember-me">Remember me</label>
+                        </p>
 
-                    <div id="cd-signup">
-                        <!-- sign up form -->
-                        <form class="cd-form">
-                            <p class="fieldset">
-                                <label class="image-replace cd-username" for="signup-username">Username</label>
-                                <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
-                                <span class="cd-error-message">Error message here!</span>
-                            </p>
+                        <p class="fieldset">
+                            @*<input class="full-width btn btn-primary" id="loginSubmit" type="submit" value="Login">*@
+                            <input class="full-width has-padding" id="loginSubmit" type="submit" value="Log In"/>
+                        </p>
+                        
+                    </div>
 
-                            <p class="fieldset">
-                                <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                                <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
-                                <span class="cd-error-message">Error message here!</span>
-                            </p>
+                    <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
+                    <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                </div> <!-- cd-login -->
 
-                            <p class="fieldset">
-                                <label class="image-replace cd-password" for="signup-password">Password</label>
-                                <input class="full-width has-padding has-border" id="signup-password" type="text" placeholder="Password">
-                                <a href="#0" class="hide-password">Hide</a>
-                                <span class="cd-error-message">Error message here!</span>
-                            </p>
+                <div id="cd-signup">
+                    <!-- sign up form -->
+                    <form class="cd-form">
+                        <p class="fieldset">
+                            <label class="image-replace cd-username" for="signup-username">Username</label>
+                            <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
 
-                            <p class="fieldset">
-                                <input type="checkbox" id="accept-terms">
-                                <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-                            </p>
+                        <p class="fieldset">
+                            <label class="image-replace cd-email" for="signup-email">E-mail</label>
+                            <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
 
-                            <p class="fieldset">
-                                <input class="full-width has-padding" type="submit" value="Create account">
-                            </p>
-                        </form>
+                        <p class="fieldset">
+                            <label class="image-replace cd-password" for="signup-password">Password</label>
+                            <input class="full-width has-padding has-border" id="signup-password" type="text" placeholder="Password">
+                            <a href="#0" class="hide-password">Hide</a>
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
 
-                        <!-- <a href="#0" class="cd-close-form">Close</a> -->
-                    </div> <!-- cd-signup -->
+                        <p class="fieldset">
+                            <input type="checkbox" id="accept-terms">
+                            <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+                        </p>
 
-                    <div id="cd-reset-password">
-                        <!-- reset password form -->
-                        <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+                        <p class="fieldset">
+                            <input class="full-width has-padding" type="submit" value="Create account">
+                        </p>
+                    </form>
 
-                        <form class="cd-form">
-                            <p class="fieldset">
-                                <label class="image-replace cd-email" for="reset-email">E-mail</label>
-                                <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-                                <span class="cd-error-message">Error message here!</span>
-                            </p>
+                    <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                </div> <!-- cd-signup -->
 
-                            <p class="fieldset">
-                                <input class="full-width has-padding" type="submit" value="Reset password">
-                            </p>
-                        </form>
+                <div id="cd-reset-password">
+                    <!-- reset password form -->
+                    <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
 
-                        <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
-                    </div> <!-- cd-reset-password -->
-                    <a href="#0" class="cd-close-form">Close</a>
-                </div> <!-- cd-user-modal-container -->
-            </div> <!-- cd-user-modal -->*@
+                    <form class="cd-form">
+                        <p class="fieldset">
+                            <label class="image-replace cd-email" for="reset-email">E-mail</label>
+                            <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
+
+                        <p class="fieldset">
+                            <input class="full-width has-padding" type="submit" value="Reset password">
+                        </p>
+                    </form>
+
+                    <p class="cd-form-bottom-message"><a href="">Back to log-in</a></p>
+                </div> <!-- cd-reset-password -->
+                <a href="#0" class="cd-close-form">Close</a>
+            </div> <!-- cd-user-modal-container -->
+        </div> <!-- cd-user-modal -->
+
 
         <div class="container" id="body">
             @RenderBody()
@@ -210,11 +220,49 @@
             })
 
         </script>
+        <script>
+            $('#loginSubmit').on('click', function () {
+                var userEmail = $('#signin-email').val();
+                var userPassword = $('#signin-password').val();
+                var userRemember = $('#remember-me').val();
+                var userObject = new Object();
+                userObject.InputEmail = userEmail;
+                userObject.InputPassword = userPassword;
+                userObject.InputRemember = userRemember;
+
+                var userJson = JSON.stringify(userObject);
+
+                console.log(userJson);
+
+                $.ajax({
+                    type: 'POST',
+                    async: true,
+                    url: '/Identity/Account/Login?handler=AjaxLogin',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    data: userJson,
+                    contentType: "application/json",
+                    success: function (response) {
+                        if (response === "Login Success!") {
+                            console.log("Success!");
+                            location.href = window.location.pathname;
+                        }
+                        if (response === "Invalid Credentials") {
+                            $('#loginErrorMessage').html = "* Invalid credentials";
+                        }
+                    }
+                });
+            })
+        </script>
     </div>
     <script>
         $(document).ready(function () {
             $('#layoutPreload').fadeIn();
         });
     </script>
+    <script src="~/js/js_modalLogin.js"></script>
+
 </body>
 </html>
