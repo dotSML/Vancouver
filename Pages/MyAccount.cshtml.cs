@@ -55,11 +55,19 @@ namespace Vancouver.Pages
             FullFileName = Path.Combine(file, fileName);
             UserPhotoPath = fileName;
             user.UserPhoto = UserPhotoPath;
+            bool directoryExists = System.IO.Directory.Exists(file);
+
+            if (!directoryExists)
+            {
+                Directory.CreateDirectory(file);
+            }
+
 
             if (System.IO.File.Exists(FullFileName))
             {
                 System.IO.File.Delete(FullFileName);
             }
+
 
             using (var fileStream = new FileStream(FullFileName, FileMode.Create))
             {

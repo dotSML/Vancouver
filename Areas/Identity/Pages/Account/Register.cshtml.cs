@@ -113,6 +113,13 @@ namespace Vancouver.Areas.Identity.Pages.Account
                     FullFileName = Path.Combine(file, fileName);
                     UserPhotoPath = fileName;
                     user.UserPhoto = UserPhotoPath;
+                    bool directoryExist = System.IO.Directory.Exists(file);
+
+                    if (!directoryExist)
+                    {
+                        Directory.CreateDirectory(file);
+                    }
+
 
                     using (var fileStream = new FileStream(FullFileName, FileMode.Create))
                     {
