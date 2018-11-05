@@ -91,7 +91,7 @@ namespace Vancouver
         private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrator";
-            string[] roleNames = { adminRoleName, "Manager", "Member" };
+            string[] roleNames = { adminRoleName, "User" };
 
             foreach (string roleName in roleNames)
             {
@@ -99,8 +99,8 @@ namespace Vancouver
             }
 
             // Get these value from "appsettings.json" file.
-            string adminUserEmail = "havilb@ttu.ee";// MUUUUUDAAA EEEMAAAILLLL ÄRA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            string adminPwd = "_AStrongP1@ssword!";
+            string adminUserEmail = "admin@admin.com";//admin email
+            string adminPwd = "4d.min";//admin password
             AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
         }
 
@@ -160,49 +160,5 @@ namespace Vancouver
             Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(appUser, roleName);
             newUserRole.Wait();
         }
-
-
-        //private void CreateRoles(IServiceProvider serviceProvider)
-        //{
-
-        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        //    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        //    Task<IdentityResult> roleResult;
-        //    string email = "havilb@ttu.ee";
-
-        //    //Check that there is an Administrator role and create if not
-        //    Task<bool> hasAdminRole = roleManager.RoleExistsAsync("Administrator");
-        //    hasAdminRole.Wait();
-
-        //    if (!hasAdminRole.Result)
-        //    {
-        //        roleResult = roleManager.CreateAsync(new IdentityRole("Administrator"));
-        //        roleResult.Wait();
-        //    }
-
-        //    //Check if the admin user exists and create it if not
-        //    //Add to the Administrator role
-
-        //    Task<ApplicationUser> testUser = userManager.FindByEmailAsync(email);
-        //    testUser.Wait();
-
-        //    if (testUser.Result == null)
-        //    {
-        //        ApplicationUser administrator = new ApplicationUser();
-        //        administrator.Email = email;
-        //        administrator.UserName = email;
-
-        //        Task<IdentityResult> newUser = userManager.CreateAsync(administrator, "_AStrongP@ssword!");
-        //        newUser.Wait();
-
-        //        if (newUser.Result.Succeeded)
-        //        {
-        //            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(administrator, "Administrator");
-        //            newUserRole.Wait();
-        //        }
-        //    }
-
-        //}
-
     }
 }

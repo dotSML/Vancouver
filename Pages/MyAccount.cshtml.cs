@@ -17,7 +17,6 @@ using Vancouver.Models;
 
 namespace Vancouver.Pages
 {
-    [Authorize(Roles="Administrator, Manager")]
     public class MyAccountModel : PageModel
     {
         private IHostingEnvironment _environment;
