@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ using Vancouver.Models;
 
 namespace Vancouver.Pages
 {
+    [Authorize(Roles="Administrator, Manager")]
     public class MyAccountModel : PageModel
     {
         private IHostingEnvironment _environment;

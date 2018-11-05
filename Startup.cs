@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,11 +45,9 @@ namespace Vancouver
                     })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<VancouverDbContext>();
-
-
+            
 
             services.AddCors();
-
             //.AddDefaultTokenProviders()
 
 
@@ -65,10 +64,11 @@ namespace Vancouver
                 .AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount"); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ICustomersRepository, CustomersRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -86,6 +86,123 @@ namespace Vancouver
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
+            CreateRolesAndAdminUser(serviceProvider);
         }
+        private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
+        {
+            const string adminRoleName = "Administrator";
+            string[] roleNames = { adminRoleName, "Manager", "Member" };
+
+            foreach (string roleName in roleNames)
+            {
+                CreateRole(serviceProvider, roleName);
+            }
+
+            // Get these value from "appsettings.json" file.
+            string adminUserEmail = "havilb@ttu.ee";// MUUUUUDAAA EEEMAAAILLLL ÄRA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            string adminPwd = "_AStrongP1@ssword!";
+            AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
+        }
+
+        /// <summary>
+        /// Create a role if not exists.
+        /// </summary>
+        /// <param name="serviceProvider">Service Provider</param>
+        /// <param name="roleName">Role Name</param>
+        private static void CreateRole(IServiceProvider serviceProvider, string roleName)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
+            roleExists.Wait();
+
+            if (!roleExists.Result)
+            {
+                Task<IdentityResult> roleResult = roleManager.CreateAsync(new IdentityRole(roleName));
+                roleResult.Wait();
+            }
+        }
+
+        /// <summary>
+        /// Add user to a role if the user exists, otherwise, create the user and adds him to the role.
+        /// </summary>
+        /// <param name="serviceProvider">Service Provider</param>
+        /// <param name="userEmail">User Email</param>
+        /// <param name="userPwd">User Password. Used to create the user if not exists.</param>
+        /// <param name="roleName">Role Name</param>
+        private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail,
+            string userPwd, string roleName)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            Task<ApplicationUser> checkAppUser = userManager.FindByEmailAsync(userEmail);
+            checkAppUser.Wait();
+
+            ApplicationUser appUser = checkAppUser.Result;
+
+            if (checkAppUser.Result == null)
+            {
+                ApplicationUser newAppUser = new ApplicationUser
+                {
+                    Email = userEmail,
+                    UserName = userEmail
+                };
+
+                Task<IdentityResult> taskCreateAppUser = userManager.CreateAsync(newAppUser, userPwd);
+                taskCreateAppUser.Wait();
+
+                if (taskCreateAppUser.Result.Succeeded)
+                {
+                    appUser = newAppUser;
+                }
+            }
+
+            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(appUser, roleName);
+            newUserRole.Wait();
+        }
+
+
+        //private void CreateRoles(IServiceProvider serviceProvider)
+        //{
+
+        //    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        //    Task<IdentityResult> roleResult;
+        //    string email = "havilb@ttu.ee";
+
+        //    //Check that there is an Administrator role and create if not
+        //    Task<bool> hasAdminRole = roleManager.RoleExistsAsync("Administrator");
+        //    hasAdminRole.Wait();
+
+        //    if (!hasAdminRole.Result)
+        //    {
+        //        roleResult = roleManager.CreateAsync(new IdentityRole("Administrator"));
+        //        roleResult.Wait();
+        //    }
+
+        //    //Check if the admin user exists and create it if not
+        //    //Add to the Administrator role
+
+        //    Task<ApplicationUser> testUser = userManager.FindByEmailAsync(email);
+        //    testUser.Wait();
+
+        //    if (testUser.Result == null)
+        //    {
+        //        ApplicationUser administrator = new ApplicationUser();
+        //        administrator.Email = email;
+        //        administrator.UserName = email;
+
+        //        Task<IdentityResult> newUser = userManager.CreateAsync(administrator, "_AStrongP@ssword!");
+        //        newUser.Wait();
+
+        //        if (newUser.Result.Succeeded)
+        //        {
+        //            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(administrator, "Administrator");
+        //            newUserRole.Wait();
+        //        }
+        //    }
+
+        //}
+
     }
 }
