@@ -82,7 +82,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            
+
             [BindProperty]
             [Display(Name = "Add a profile picture")]
             public IFormFile UserPhoto { get; set; }
@@ -101,22 +101,24 @@ namespace Vancouver.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber};
+                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
 
-                string extension = Input.UserPhoto.FileName;
-                string[] extensionHelper = extension.Split('.');
-                extension = "." + extensionHelper[1];
-                string fileName = user.Id + extension;
-                var file = _environment.ContentRootPath + "/wwwroot/uploads/usrImg";
-                FullFileName = Path.Combine(file, fileName);
-                UserPhotoPath = fileName;
-                user.UserPhoto = UserPhotoPath;
-
-                using (var fileStream = new FileStream(FullFileName, FileMode.Create))
+                if (Input.UserPhoto != null)
                 {
-                    await Input.UserPhoto.CopyToAsync(fileStream);
-                }
+                    string extension = Input.UserPhoto.FileName;
+                    string[] extensionHelper = extension.Split('.');
+                    extension = "." + extensionHelper[1];
+                    string fileName = user.Id + extension;
+                    var file = _environment.ContentRootPath + "/wwwroot/uploads/usrImg";
+                    FullFileName = Path.Combine(file, fileName);
+                    UserPhotoPath = fileName;
+                    user.UserPhoto = UserPhotoPath;
 
+                    using (var fileStream = new FileStream(FullFileName, FileMode.Create))
+                    {
+                        await Input.UserPhoto.CopyToAsync(fileStream);
+                    }
+                }
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -131,10 +133,10 @@ namespace Vancouver.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = emailToken },
                         protocol: Request.Scheme);
 
-                    await _emailService.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailService.SendEmailAsync(Input.Email, "Confirm your email",
+                        //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    
+
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);

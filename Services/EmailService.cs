@@ -37,7 +37,7 @@ namespace Vancouver.Services
                     emailMessage.From = new MailAddress(/*_configuration["Email:Email"]*/ "vancouver@sml.ee");
                     emailMessage.Subject = subject;
                     emailMessage.Body = message;
-                    client.Send(emailMessage);
+                    //client.Send(emailMessage);
                 }
             }
             await Task.CompletedTask;
