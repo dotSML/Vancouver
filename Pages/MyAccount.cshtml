@@ -18,7 +18,6 @@
     <link href="css/myAccount.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
 </head>
-
 <body>
 <div class="container">
     <div class="profile-sector" id="myAccountContainer">
@@ -27,14 +26,15 @@
                 if (UserManager.GetUserAsync(User).Result.UserPhoto == null)
                 {
                     <form method="post" enctype="multipart/form-data">
-                        <input type="file" style="margin: 0" class="file btn-dark" asp-for="Upload" />
+                        <p>No photo of you yet, add one now :) </p>
+                        <input type="file" style="margin: 0" class="file btn-dark" asp-for="Upload"/>
                         <button style="margin-top: 10px;" class="btn btn-primary" type="submit">Upload</button>
                     </form>
                 }
                 else
                 {
                     <div class="usrImgContainer" style="position: relative; border-radius: 7px;">
-                        <img class="image" style="border: black; border-radius: 0 0 7px 7px;border-collapse: separate" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="No Profile Pic">
+                        <img class="image" style="border: black; border-radius: 0 0 7px 7px;border-collapse: separate" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="~/images/nopic.jpg">
                         <div class="middle" style="position: absolute; top: 200px; left: 130px;">
                             <form method="post" enctype="multipart/form-data">
                                 <div class="input-file-container">  
@@ -64,7 +64,9 @@
             <div>Phone number</div>
             <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.PhoneNumber</div>
             <hr />
-
+            <div>Date of birth</div>
+            <div style="font-size: 18px">@UserManager.GetUserAsync(User).Result.DateOfBirth.Date</div>
+            <hr/>
             <div>Favourite destinations </div>
             <hr />
             <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
