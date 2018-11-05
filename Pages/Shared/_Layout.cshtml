@@ -108,9 +108,9 @@
 
                         <p class="fieldset">
                             @*<input class="full-width btn btn-primary" id="loginSubmit" type="submit" value="Login">*@
-                            <input class="full-width has-padding" id="loginSubmit" type="submit" value="Log In"/>
+                            <input class="full-width has-padding" id="loginSubmit" type="submit" value="Log In" />
                         </p>
-                        
+
                     </div>
 
                     <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
@@ -191,71 +191,8 @@
             </p>
         </div>
         <script src="~/js/js_modalLogin.js"></script>
-        <script>
-            $(document).ready(function () {
-                var pathName = window.location.pathname;
-                console.log($('#aboutActive'));
-
-                if (pathName === "/about") {
-                }
-
-                switch (pathName) {
-                    case '/about':
-                        $(document).remove('active');
-                        $('#aboutNav').addClass('active');
-                        break;
-                    case '/index':
-                        $(document).remove('active');
-                        $('#indexNav').addClass('active');
-                        break;
-                    case '/tickettest':
-                        $(document).remove('active');
-                        $('#myTicketsNav').addClass('active');
-                        break;
-                    case '/MyAccount':
-                        $(document).remove('active');
-                        $('#myAccountNav').addClass('active');
-                        break;
-                }
-            })
-
-        </script>
-        <script>
-            $('#loginSubmit').on('click', function () {
-                var userEmail = $('#signin-email').val();
-                var userPassword = $('#signin-password').val();
-                var userRemember = $('#remember-me').val();
-                var userObject = new Object();
-                userObject.InputEmail = userEmail;
-                userObject.InputPassword = userPassword;
-                userObject.InputRemember = userRemember;
-
-                var userJson = JSON.stringify(userObject);
-
-                console.log(userJson);
-
-                $.ajax({
-                    type: 'POST',
-                    async: true,
-                    url: '/Identity/Account/Login?handler=AjaxLogin',
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader("XSRF-TOKEN",
-                            $('input:hidden[name="__RequestVerificationToken"]').val());
-                    },
-                    data: userJson,
-                    contentType: "application/json",
-                    success: function (response) {
-                        if (response === "Login Success!") {
-                            console.log("Success!");
-                            location.href = window.location.pathname;
-                        }
-                        if (response === "Invalid Credentials") {
-                            $('#loginErrorMessage').html = "* Invalid credentials";
-                        }
-                    }
-                });
-            })
-        </script>
+        <script src="~/js/activeItems.js"></script>
+        <script src="~/js/ajaxLogin.js"></script>
     </div>
     <script>
         $(document).ready(function () {
