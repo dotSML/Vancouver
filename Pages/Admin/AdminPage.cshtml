@@ -1,1 +1,16 @@
-﻿
+﻿@page
+@using Admin
+@model Admin.AdminPageModel
+@{
+    ViewData["Title"] = "AdminPage";
+}
+@Html.AntiForgeryToken();
+
+<head>
+    <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
+    <link href="css/about.css" rel="stylesheet" />
+    <script src="lib/jquery/dist/jquery.js"></script>
+
+</head>
+
+<h1>Hello Admin!</h1>

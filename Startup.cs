@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Vancouver.CustomerFolder;
 using Vancouver.Databases;
+using Vancouver.FlightsFolder;
 using Vancouver.Models;
 using Vancouver.Services;
 
@@ -34,6 +35,7 @@ namespace Vancouver
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEmailSender, EmailService>();
+            services.AddScoped<IFlightsObjectsRepository, FlightsObjectsRepository>();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(
@@ -100,7 +102,7 @@ namespace Vancouver
 
             // Get these value from "appsettings.json" file.
             string adminUserEmail = "admin@admin.com";//admin email
-            string adminPwd = "4d.min";//admin password
+            string adminPwd = "V4n.Couver";//admin password
             AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
         }
 

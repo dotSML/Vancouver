@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using Vancouver.Databases;
+using Vancouver.FlightsFolder;
 using Vancouver.Models;
 
 namespace Vancouver.Pages
@@ -17,12 +18,15 @@ namespace Vancouver.Pages
         private readonly VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
+        private readonly IFlightsObjectsRepository flightsRepository;
 
-        public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IFlightsObjectsRepository fr)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            flightsRepository = fr;
+            var l = flightsRepository.GetObjectsList();
         }
 
         [BindProperty]
@@ -30,6 +34,8 @@ namespace Vancouver.Pages
 
         public ActionResult OnPostGetTicket()
         {
+            
+
             if (_signInManager.IsSignedIn(User))
             {
                 {
