@@ -57,10 +57,9 @@ namespace Vancouver.Pages
             
         }
 
-        public async void OnGet()
+        public void OnGet()
         {
-            rootFlight = await GetResponse();
-            rootFlight.results.
+
         }
 
         public async Task<FlightsResponse.RootObject> GetResponse()
@@ -93,8 +92,6 @@ namespace Vancouver.Pages
 
             var reader = new StreamReader(response.GetResponseStream());
             var data = await reader.ReadToEndAsync();
-            var obj = JsonConvert.DeserializeObject<FlightsResponse.RootObject>(data);
-            obj.results[0].itineraries[0];
 
             return JsonConvert.DeserializeObject<FlightsResponse.RootObject>(data);
         }
