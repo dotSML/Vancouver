@@ -29,6 +29,38 @@ namespace Vancouver.FlightsFolder
         public string farePriceTax { get; set; }
         public string farePriceTotal { get; set; }
         public string ApplicationUserId { get; set; }
-        public IList<FlightsResponse.Flight> IndividualFlight { get; set; }
+        public List<IndividualFlightOutbound> IndFlightOutbound { get; set; }
+        public List<IndividualFlightInbound> IndFlightInbound { get; set; }
     }
+
+    public class IndividualFlightOutbound
+    {
+        public string departs_at { get; set; }
+        public string arrives_at { get; set; }
+        public string origin { get; set; }
+        public string destination { get; set; }
+        public string marketing_airline { get; set; }
+        public string operating_airline { get; set; }
+        public string flight_number { get; set; }
+        public string aircraft { get; set; }
+        public string travel_class { get; set; }
+        public string booking_code { get; set; }
+        public int seats_remaining { get; set; }
+    }
+
+    public class IndividualFlightInbound
+    {
+        public string departs_at { get; set; }
+        public string arrives_at { get; set; }
+        public string origin { get; set; }
+        public string destination { get; set; }
+        public string marketing_airline { get; set; }
+        public string operating_airline { get; set; }
+        public string flight_number { get; set; }
+        public string aircraft { get; set; }
+        public string travel_class { get; set; }
+        public string booking_code { get; set; }
+        public int seats_remaining { get; set; }
+    }
+
 }
