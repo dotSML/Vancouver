@@ -35,19 +35,19 @@
             <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
                 <div class="col-auto" style="">
                     <label class="sr-only" for="autocompleteDepart">Departure</label>
-                    <input autocomplete="off" asp-for="FlightInput.OutboundAirport" type="text" name="departureField" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
+                    <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
                 </div>
                 <div class="col-auto">
                     <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                    <input autocomplete="off" asp-for="FlightInput.InboundAirport" type="text" name="arrivalField" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
+                    <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
                 </div>
                 <div class="col-auto" style="">
                     <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                    <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" name="outboundDate" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
+                    <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
                 </div>
                 <div class="col-auto">
                     <label class="sr-only" for="datepickerInbound">Inbound</label>
-                    <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" name="inboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
+                    <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate"  class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
                 </div>
             </div>
             <div class="row align-items-center" style="padding-bottom: 3px;">
@@ -90,9 +90,20 @@
 </div>
 
 @{
-    
-    
-    
+    if (@Model.ItineraryList != null)
+     {
+          foreach (var item in @Model.ItineraryList)
+          {
+              <h2>@item.originAirportOutbound</h2>
+              <h2>@item.originAirportInbound</h2>
+              <h2>@item.farePriceTotal</h2>
+        }
+    }
+    else
+    {
+        <h1>I got nothing :(</h1>
+    }
+
 
 }
 

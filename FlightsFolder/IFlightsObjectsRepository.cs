@@ -7,7 +7,20 @@ namespace Vancouver.FlightsFolder
 {
     public interface IFlightsObjectsRepository
     {
-        Task<FlightObject> GetObject(string id);
-        Task<IEnumerable<FlightObject>> GetObjectsList();
+        Task<ItineraryObject> GetObject(string id);
+        Task<IEnumerable<ItineraryObject>> GetObjectsList(string origin,
+            string destination,
+            string outboundDate,
+            string inboundDate,
+            string amountOfPassengers,
+            string travelClass,
+            string currency);
+        Task<FlightsResponse.RootObject> GetData(string origin,
+            string destination,
+            string outboundDate,
+            string inboundDate,
+            string amountOfPassengers,
+            string travelClass,
+            string currency);
     }
 }

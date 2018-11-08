@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,28 +17,73 @@ namespace Vancouver.FlightsFolder
         {
             _config = config;
         }
-        private static IList<FlightObject> flights { get; } = new List<FlightObject>();
+        private static IList<ItineraryObject> itineraries { get; } = new List<ItineraryObject>();
+        private FlightsResponse.RootObject FlightsResponse { get; set; }
 
-        public async Task<FlightObject> GetObject(string id)
+        public async Task<ItineraryObject> GetObject(string id)
         {
-            return flights.FirstOrDefault(x => x.Id == id);
+            return itineraries.FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<FlightObject>> GetObjectsList()
+        public class FlightSearchInput
         {
-            var l = await JsonToObjectsList("TLL", "SEA", "2018-11-10", "2018-11-25", "1", "ECONOMY", "EUR");
+            public string Origin { get; set; }
+            public string Destination { get; set; }
+            public string OutboundDate { get; set; }
+            public string InboundDate { get; set; }
+            public string AmountOfPassengers { get; set; }
+            public string TravelClass { get; set; }
+            public string Currency { get; set; }
+        }
 
-            flights.Clear();
-            foreach (var i in l)
+        public async Task<IEnumerable<ItineraryObject>> GetFlightsList()
+        {
+            return null;
+        }
+
+        public async Task<IEnumerable<ItineraryObject>> GetObjectsList(string origin,
+            string destination,
+            string outboundDate,
+            string inboundDate,
+            string amountOfPassengers,
+            string travelClass,
+            string currency)
+        {
+            var rootObj = await GetData(origin, destination, outboundDate, inboundDate, amountOfPassengers, travelClass, currency);
+
+            itineraries.Clear();
+            for(int i = 0;  i <= 10; i++ )
             {
-                flights.Add(i);
+                //flights.Add(new FlightObject());
+                itineraries.Add(
+                    new ItineraryObject()
+                    {
+                        originAirportOutbound = rootObj.results[i].itineraries[0].outbound.flights[0].origin.airport,
+                        originAirportInbound = rootObj.results[i].itineraries[0].inbound.flights[0].origin.airport,
+                        departureTimeOutbound =
+                            rootObj.results[i].itineraries[0].outbound.flights[0].departs_at.ToString(),
+                        departureTimeInbound =
+                            rootObj.results[i].itineraries[0].inbound.flights[0].departs_at.ToString(),
+                        arrivalAirportOutbound = rootObj.results[i].itineraries[0].outbound.flights[0]
+                            .destination.ToString(),
+                        arrivalAirportInbound = rootObj.results[i].itineraries[0].inbound.flights[0]
+                            .destination.ToString(),
+                        arrivalTimeOutbound = rootObj.results[i].itineraries[0].outbound.flights[0].arrives_at,
+                        arrivalTimeInbound = rootObj.results[i].itineraries[0].inbound.flights[0].arrives_at,
+                        fareClass = rootObj.results[i].itineraries[0].outbound.flights[0].booking_info.travel_class,
+                        farePriceTotal = rootObj.results[i].fare.total_price,
+                        farePriceTax = rootObj.results[i].fare.price_per_adult.tax,
+                        fareCurrency = rootObj.currency,
+                        farePricePerPassenger = rootObj.results[0].fare.price_per_adult.ToString(),
+                    });
 
             }
 
-            return new FlightObjectsList(l);
+            return new FlightObjectsList(itineraries);
+            
         }
 
-        public async Task<IEnumerable<FlightObject>> JsonToObjectsList(
+        public async Task<FlightsResponse.RootObject> GetData(
             string origin,
             string destination,
             string outboundDate,
@@ -62,7 +108,8 @@ namespace Vancouver.FlightsFolder
             var reader = new StreamReader(response.GetResponseStream());
             var data = await reader.ReadToEndAsync();
 
-            return JsonConvert.DeserializeObject<IEnumerable<FlightObject>>(data);
+            return JsonConvert.DeserializeObject<FlightsResponse.RootObject>(data);
+            
         }
     }
 }

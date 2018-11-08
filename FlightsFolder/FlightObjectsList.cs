@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Vancouver.FlightsFolder
 {
-    public class FlightObjectsList : List<FlightObject>
+    public class FlightObjectsList : List<ItineraryObject>
     {
-        public FlightObjectsList(IEnumerable<FlightObject> items)
+        public FlightObjectsList(IEnumerable<ItineraryObject> items)
         {
             if (items is null) return;
             foreach (var item in items)

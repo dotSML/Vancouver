@@ -6,9 +6,8 @@ using Newtonsoft.Json;
 
 namespace Vancouver.FlightsFolder
 {
-    public class FlightObject
+    public class ItineraryObject
     {
-        [JsonProperty("")]
         public string Id { get; set; }
         public string departureTimeOutbound { get; set; }
         public string departureTimeInbound { get; set; }
@@ -30,5 +29,6 @@ namespace Vancouver.FlightsFolder
         public string farePriceTax { get; set; }
         public string farePriceTotal { get; set; }
         public string ApplicationUserId { get; set; }
+        public IList<FlightsResponse.Flight> IndividualFlight { get; set; }
     }
 }

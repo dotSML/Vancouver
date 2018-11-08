@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Update;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Vancouver.Databases;
@@ -20,15 +21,15 @@ namespace Vancouver.Pages
         private readonly VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
-        private readonly IFlightsObjectsRepository flightsRepository;
-        public FlightInputModel FlightInput { get; set; }
+        private readonly IFlightsObjectsRepository _flightsRepository;
         private IConfiguration _config;
         
-
+        
         public class FlightInputModel
         {
-            public string OutboundAirport { get; set; }
-            public string InboundAirport { get; set; }
+            [BindProperty]
+            public string Origin { get; set; }
+            public string Destination { get; set; }
             public string OutboundDate { get; set; }
             public string InboundDate { get; set; }
             public string AmountOfPassengers { get; set; }
@@ -37,70 +38,44 @@ namespace Vancouver.Pages
             public string FareOption { get; set; }
         }
 
-        public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration config)
+        [BindProperty]
+        public FlightInputModel FlightInput { get; set; }
+
+        public List<FlightObjectsList> ObjectList { get; set; }
+
+        public IEnumerable<ItineraryObject> ItineraryList { get; set; }
+
+        public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration config, IFlightsObjectsRepository flightsRepository)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
+            _flightsRepository = flightsRepository;
         }
 
         [BindProperty]
         public Ticket Ticket { get; set; }
 
-        [BindProperty]
-        public FlightsResponse ResponseFlight { get; set; }
-        public FlightsResponse.RootObject rootFlight { get; set; }
+        
 
-        public void OnPost()
+
+        public async Task<ActionResult> OnPost()
         {
-            
+            ItineraryList = await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
+                    FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency);
+            return Page();
         }
 
-        public void OnGet()
+        public async void OnGet()
         {
-
         }
 
-        public async Task<FlightsResponse.RootObject> GetResponse()
-        {
-            rootFlight = await JsonToObjectsList("TLL", "SEA", "2018-11-10", "2018-11-25", "1", "ECONOMY", "EUR");
-            return rootFlight;
-        }
-
-        public async Task<FlightsResponse.RootObject> JsonToObjectsList(
-            string origin,
-            string destination,
-            string outboundDate,
-            string inboundDate,
-            string amountOfPassengers,
-            string travelClass,
-            string currency
-        )
-        {
-            var requestUrl = @"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
-                             _config["FlightSearchAPI:Key"] + "&origin=" + origin + "&destination=" +
-                             destination + "&departure_date=" + outboundDate + "&return_date=" + inboundDate +
-                             "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass;
-            var request =
-                WebRequest.Create(requestUrl);
-            //@"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
-            //_config["FlightSearchAPI:Key"] + "&origin=" + origin + "&destination=" +
-            //destination + "&departure_date=" + outboundDate + "&return_date=" + inboundDate +
-            //"&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass);
-            var response = await request.GetResponseAsync().ConfigureAwait(false);
-
-            var reader = new StreamReader(response.GetResponseStream());
-            var data = await reader.ReadToEndAsync();
-
-            return JsonConvert.DeserializeObject<FlightsResponse.RootObject>(data);
-        }
+        
 
 
         public ActionResult OnPostGetTicket()
         {
-            
-
             if (_signInManager.IsSignedIn(User))
             {
                 {
