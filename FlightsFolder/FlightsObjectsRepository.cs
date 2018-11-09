@@ -133,6 +133,7 @@ namespace Vancouver.FlightsFolder
                 itineraries.Add(
                     new ItineraryObject()
                     {
+                        Id = Guid.NewGuid().ToString(),
                         originAirportOutbound = getFlightsOutbound[0].origin.airport,
                         originAirportInbound = getFlightsInbound[0].origin.airport,
                         departureTimeOutbound = getFlightsOutbound[0].departs_at.Split("T")[1],
@@ -173,9 +174,14 @@ namespace Vancouver.FlightsFolder
             string currency
             )
         {
+            if (inboundDate != null)
+            {
+                inboundDate = "&return_date=" + inboundDate;
+            }
+
             var requestUrl = @"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
                              _config["FlightSearchAPI:Key"] + "&origin=" + origin + "&destination=" +
-                             destination + "&departure_date=" + outboundDate + "&return_date=" + inboundDate +
+                             destination + "&departure_date=" + outboundDate + inboundDate +
                              "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass + "&number_of_results = 25";
             var request =
                 WebRequest.Create(requestUrl);
