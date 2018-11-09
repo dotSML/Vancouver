@@ -53,6 +53,7 @@ namespace Vancouver.FlightsFolder
                     obj.results[i].itineraries[0].inbound.flights[b].destination.airport + ", ";
             }
 
+            layoverCitiesInboundLooped = layoverCitiesInboundLooped.Remove(layoverCitiesInboundLooped.Length - 2);
             return layoverCitiesInboundLooped;
         }
 
@@ -65,6 +66,7 @@ namespace Vancouver.FlightsFolder
                     obj.results[i].itineraries[0].outbound.flights[a].destination.airport + ", ";
             }
 
+            layoverCitiesOutboundLooped = layoverCitiesOutboundLooped.Remove(layoverCitiesOutboundLooped.Length - 2);
             return layoverCitiesOutboundLooped;
         }
 

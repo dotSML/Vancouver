@@ -28,66 +28,76 @@
     @Html.AntiForgeryToken()
 </head>
 <body>
-    <div class="container vertical-center" style="position: relative;">
-        <div id="searchBar" class="flightSearchBox" style="position: relative; display: none;">
-            <div class="blurWrapper"></div>
-            <form method="post">
-                <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
-                    <div class="col-auto" style="">
-                        <label class="sr-only" for="autocompleteDepart">Departure</label>
-                        <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
-                    </div>
-                    <div class="col-auto">
-                        <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                        <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
-                    </div>
-                    <div class="col-auto" style="">
-                        <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                        <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
-                    </div>
-                    <div class="col-auto">
-                        <label class="sr-only" for="datepickerInbound">Inbound</label>
-                        <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
-                    </div>
+<div class="container vertical-center" style="position: relative;">
+    <div id="searchBar" class="flightSearchBox" style="position: relative; display: none;">
+        <div class="blurWrapper"></div>
+        <form method="post">
+            <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
+                <div class="col-auto" style="">
+                    <label class="sr-only" for="autocompleteDepart">Departure</label>
+                    <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
+                    <span asp-validation-for="FlightInput.Origin" class="text-danger"></span>
                 </div>
-                <div class="row align-items-center" style="padding-bottom: 3px;">
-                    <div class="col-auto" style="">
-                        <select class="form-control" asp-for="FlightInput.TravelClass" id="fareClass" autocomplete="off">
-                            <option selected="selected" value="ECONOMY">Economy Class</option>
-                            <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
-                            <option value="BUSINESS">Business Class</option>
-                            <option value="FIRST">First Class</option>
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                        <select class="form-control" asp-for="FlightInput.FareOption" id="fareOption" onchange="selectChangedDatepicker()" autocomplete="off">
-                            <option selected="selected" val="1">Round Trip</option>
-                            <option val="2">One Way</option>
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                        <select class="form-control" asp-for="FlightInput.AmountOfPassengers" id="passengers" autocomplete="off">
-                            <option selected="selected">1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                        <select class="form-control" asp-for="FlightInput.Currency" id="fareCurrency" autocomplete="off">
-                            <option selected="selected">EUR</option>
-                            <option>USD</option>
-                        </select>
-                    </div>
-                    <div class="col-auto" style="" id="searchFlights">
-                        <button class="btn btn-primary" type="submit" id="aspSearchBtn">Search</button>
-                    </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="autocompleteArrive">Arrival</label>
+                    <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Arrival">
                 </div>
-            </form>
-        </div>
+                <div class="col-auto" style="">
+                    <label class="sr-only" for="datepickerOutbound">Outbound</label>
+                    <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Outbound">
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="datepickerInbound">Inbound</label>
+                    <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Inbound">
+                </div>
+            </div>
+            <div class="row align-items-center" style="padding-bottom: 3px;">
+                <div class="col-auto" style="">
+                    <select class="form-control" asp-for="FlightInput.TravelClass" id="fareClass" autocomplete="off">
+                        <option selected="selected" value="ECONOMY">Economy Class</option>
+                        <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
+                        <option value="BUSINESS">Business Class</option>
+                        <option value="FIRST">First Class</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select class="form-control" asp-for="FlightInput.FareOption" id="fareOption" onchange="selectChangedDatepicker()" autocomplete="off">
+                        <option selected="selected" val="1">Round Trip</option>
+                        <option val="2">One Way</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select class="form-control" asp-for="FlightInput.AmountOfPassengers" id="passengers" autocomplete="off">
+                        <option selected="selected">1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select class="form-control" asp-for="FlightInput.Currency" id="fareCurrency" autocomplete="off">
+                        <option selected="selected">EUR</option>
+                        <option>USD</option>
+                    </select>
+                </div>
+                <div class="col-auto" style="" id="searchFlights">
+                    <button class="btn btn-primary" type="submit" id="aspSearchBtn">Search</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#aspSearchBtn').on('click',
+            function() {
+                $('#loading').fadeIn();
+            });
+    })
+</script>
 
 @{
     var idCount = 0;
@@ -343,7 +353,7 @@
         }
                     else
                     {
-                    <h1 style="color: white;">I got nothing :(</h1>
+                    
                     }
 
 

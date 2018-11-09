@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,14 +28,22 @@ namespace Vancouver.Pages
         
         public class FlightInputModel
         {
-            [BindProperty]
+            [Required]
+            [MaxLength(3)]
             public string Origin { get; set; }
+            [Required]
+            [MaxLength(3)]
             public string Destination { get; set; }
+            [Required]
             public string OutboundDate { get; set; }
             public string InboundDate { get; set; }
+            [Required]
             public string AmountOfPassengers { get; set; }
+            [Required]
             public string TravelClass { get; set; }
+            [Required]
             public string Currency { get; set; }
+            [Required]
             public string FareOption { get; set; }
         }
 
