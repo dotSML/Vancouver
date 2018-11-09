@@ -19,5 +19,6 @@ namespace Vancouver.Databases
         public DbSet<Invoice> AllSoldTickets { get; set; }
         public DbSet<CustomerTravelHistory> AllCustomerTravelHistories { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

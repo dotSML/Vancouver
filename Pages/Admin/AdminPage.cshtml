@@ -14,3 +14,11 @@
 </head>
 
 <h1>Hello Admin!</h1>
+@*@foreach (var user in Model.OnGetUsers())
+    {
+        <table>
+        <tr>
+            <th>@user.FirstName</th>
+        </tr>
+        </table>
+    }*@
