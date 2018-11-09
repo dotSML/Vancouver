@@ -18,12 +18,13 @@ namespace Vancouver.Pages.Admin
         private readonly VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
-
-        public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly ApplicationDbContext _applicationUsers;
+        public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext applicationUsers)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _applicationUsers = applicationUsers;
         }
         public void OnGetAsync()
         {

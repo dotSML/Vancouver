@@ -40,6 +40,9 @@ namespace Vancouver
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
                     {
                         //config.SignIn.RequireConfirmedEmail = true;
