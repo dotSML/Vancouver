@@ -91,41 +91,41 @@ namespace Vancouver.FlightsFolder
                 var getFlightsOutbound = rootObj.results[i].itineraries[0].outbound.flights;
                 var getFlightsInbound = rootObj.results[i].itineraries[0].inbound.flights;
 
-                for (int x = 0; x < getFlightsOutbound.Count; x++)
+                foreach (var flight in rootObj.results[i].itineraries[0].outbound.flights)
                 {
                     outboundLegs.Add(
                         new IndividualFlightOutbound()
                         {
-                            origin = getFlightsOutbound[x].origin.airport,
-                            destination = getFlightsOutbound[x].destination.airport,
-                            travel_class = getFlightsOutbound[x].booking_info.travel_class,
-                            flight_number = getFlightsOutbound[x].flight_number,
-                            booking_code = getFlightsOutbound[x].booking_info.booking_code,
-                            aircraft = getFlightsOutbound[x].aircraft,
-                            arrives_at = getFlightsOutbound[x].arrives_at.Split("T")[1],
-                            departs_at = getFlightsOutbound[x].departs_at.Split("T")[1],
-                            seats_remaining = getFlightsOutbound[x].booking_info.seats_remaining,
-                            marketing_airline = getFlightsOutbound[x].marketing_airline,
-                            operating_airline = getFlightsOutbound[x].operating_airline,
+                            originInd = flight.origin.airport,
+                            destinationInd = flight.destination.airport,
+                            travel_class = flight.booking_info.travel_class,
+                            flight_number = flight.flight_number,
+                            booking_code = flight.booking_info.booking_code,
+                            aircraft = flight.aircraft,
+                            arrives_at = flight.arrives_at.Split("T")[1],
+                            departs_at = flight.departs_at.Split("T")[1],
+                            seats_remaining = flight.booking_info.seats_remaining,
+                            marketing_airline = flight.marketing_airline,
+                            operating_airline = flight.operating_airline
                         });
                 }
 
-                for (int y = 0; y < getFlightsInbound.Count; y++)
+                foreach (var flight in getFlightsInbound)
                 {
                     inboundLegs.Add(
                         new IndividualFlightInbound()
                         {
-                            origin = getFlightsInbound[y].origin.airport,
-                            destination = getFlightsInbound[y].destination.airport,
-                            travel_class = getFlightsInbound[y].booking_info.travel_class,
-                            flight_number = getFlightsInbound[y].flight_number,
-                            booking_code = getFlightsInbound[y].booking_info.booking_code,
-                            aircraft = getFlightsInbound[y].aircraft,
-                            arrives_at = getFlightsInbound[y].arrives_at.Split("T")[1],
-                            departs_at = getFlightsInbound[y].departs_at.Split("T")[1],
-                            seats_remaining = getFlightsInbound[y].booking_info.seats_remaining,
-                            marketing_airline = getFlightsInbound[y].marketing_airline,
-                            operating_airline = getFlightsInbound[y].operating_airline,
+                            originInd = flight.origin.airport,
+                            destinationInd = flight.destination.airport,
+                            travel_class = flight.booking_info.travel_class,
+                            flight_number = flight.flight_number,
+                            booking_code = flight.booking_info.booking_code,
+                            aircraft = flight.aircraft,
+                            arrives_at = flight.arrives_at.Split("T")[1],
+                            departs_at = flight.departs_at.Split("T")[1],
+                            seats_remaining = flight.booking_info.seats_remaining,
+                            marketing_airline = flight.marketing_airline,
+                            operating_airline = flight.operating_airline,
                         });
                 }
 
@@ -139,8 +139,8 @@ namespace Vancouver.FlightsFolder
                         departureTimeInbound = getFlightsInbound[0].departs_at.Split("T")[1],
                         arrivalAirportOutbound = getFlightsOutbound[flightsCountOutbound - 1].destination.airport,
                         arrivalAirportInbound = getFlightsInbound[flightsCountInbound - 1].destination.airport,
-                        arrivalTimeOutbound = getFlightsOutbound[0].arrives_at.Split("T")[1],
-                        arrivalTimeInbound = getFlightsInbound[0].arrives_at.Split("T")[1],
+                        arrivalTimeOutbound = getFlightsOutbound[getFlightsOutbound.Count - 1].arrives_at.Split("T")[1],
+                        arrivalTimeInbound = getFlightsInbound[getFlightsInbound.Count - 1].arrives_at.Split("T")[1],
                         tripDurationOutbound = rootObj.results[i].itineraries[0].outbound.duration,
                         tripDurationInbound = rootObj.results[i].itineraries[0].inbound.duration,
                         layoverStopAmountOutbound = (flightsCountOutbound - 1).ToString(),
@@ -152,8 +152,8 @@ namespace Vancouver.FlightsFolder
                         farePriceTax = rootObj.results[i].fare.price_per_adult.tax,
                         fareCurrency = rootObj.currency,
                         farePricePerPassenger = rootObj.results[i].fare.price_per_adult.total_fare,
-                        IndFlightOutbound = outboundLegs,
-                        IndFlightInbound = inboundLegs
+                        IndFlightOutbound = new List<IndividualFlightOutbound>(outboundLegs),
+                        IndFlightInbound = new List<IndividualFlightInbound>(inboundLegs)
                     });
                 
 

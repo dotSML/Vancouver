@@ -37,8 +37,8 @@ namespace Vancouver.FlightsFolder
     {
         public string departs_at { get; set; }
         public string arrives_at { get; set; }
-        public string origin { get; set; }
-        public string destination { get; set; }
+        public string originInd { get; set; }
+        public string destinationInd { get; set; }
         public string marketing_airline { get; set; }
         public string operating_airline { get; set; }
         public string flight_number { get; set; }
@@ -52,8 +52,8 @@ namespace Vancouver.FlightsFolder
     {
         public string departs_at { get; set; }
         public string arrives_at { get; set; }
-        public string origin { get; set; }
-        public string destination { get; set; }
+        public string originInd { get; set; }
+        public string destinationInd { get; set; }
         public string marketing_airline { get; set; }
         public string operating_airline { get; set; }
         public string flight_number { get; set; }
