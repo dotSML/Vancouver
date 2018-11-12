@@ -10,7 +10,7 @@ namespace Vancouver.Aids
 {
     public class UserRoles
     {
-        public static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
+        public  void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrator";
             string[] roleNames = { adminRoleName, "User" };
@@ -21,7 +21,7 @@ namespace Vancouver.Aids
             }
 
             string adminUserEmail = "admin@admin.com";//admin email
-            string adminPwd = "V4n.Couver";//admin password
+            string adminPwd = "P@ssword123";//admin password
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             ApplicationUser adminUser = new ApplicationUser
             {
@@ -30,7 +30,7 @@ namespace Vancouver.Aids
             userManager.CreateAsync(adminUser, adminPwd);
             AddUserToRole(serviceProvider, adminUserEmail, adminRoleName);
         }
-        public static void CreateRole(IServiceProvider serviceProvider, string roleName)
+        private static void CreateRole(IServiceProvider serviceProvider, string roleName)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -43,7 +43,7 @@ namespace Vancouver.Aids
                 roleResult.Wait();
             }
         }
-        public static void AddUserToRole(IServiceProvider serviceProvider, string userEmail, string roleName)
+        private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail, string roleName)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 

@@ -24,12 +24,4 @@ namespace Vancouver.Models
         public List<Ticket> Tickets { get; set; }
 
     }
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
-        
-    }
-
 }

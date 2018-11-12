@@ -29,20 +29,30 @@
                 </th>
             </tr>
             <tbody>
-                @foreach (var user in Model.ApplicationUserList)
-                {
-                    <tr>
-                        <td>
-                            @user.Id
-                        </td>
-                        <td>
-                            @user.FirstName @user.LastName
-                        </td>
-                        <td>
-                            @user.DateOfBirth
-                        </td>
-                    </tr>
-                }</tbody>
+            @foreach (var user in Model.ApplicationUserList)
+            {
+                <tr>
+                    <td>
+                        @user.Id
+                    </td>
+                    <td>
+                        @user.FirstName @user.LastName
+                    </td>
+                    <td>
+                        @user.DateOfBirth
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button asp-page-handler="AddAdminRole"
+                                    asp-route-id="@user.Id" class="btn btn-danger">Add As Admin</button>
+                        </form>
+                    </td>
+                </tr>
+            }</tbody>
+           
 </table>
     </div>
 }

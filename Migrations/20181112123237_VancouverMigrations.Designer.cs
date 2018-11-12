@@ -10,14 +10,14 @@ using Vancouver.Databases;
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    [Migration("20181108092127_FlightTest")]
-    partial class FlightTest
+    [Migration("20181112123237_VancouverMigrations")]
+    partial class VancouverMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

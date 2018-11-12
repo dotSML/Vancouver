@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Vancouver.Aids;
 using Vancouver.Databases;
 using Vancouver.Models;
@@ -19,15 +20,16 @@ namespace Vancouver.Pages.Admin
         private readonly VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
-        public IServiceProvider provider;
+        public IServiceProvider _provider;
+        public string Message { get; set; }
         public IEnumerable<ApplicationUser> ApplicationUserList { get; set; }
-        public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IServiceProvider provider)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _provider = provider;
         }
-        
 
         public async Task<ActionResult> OnGet()
         {
@@ -35,9 +37,28 @@ namespace Vancouver.Pages.Admin
             return Page();
         }
 
-        //public async Task<IActionResult> OnPostAddAdminRole()
-        //{
-        //    UserRoles.AddUserToRole(provider, );
-        //}
+
+        [HttpPost]
+        public async Task<IActionResult> OnPostAddAdminRole(string id)
+        {
+            AddNewUserToRole(_provider, id, "Administrator");
+            return Page();
+        }
+        private void AddNewUserToRole(IServiceProvider serviceProvider, string id,
+            string roleName)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            Task<ApplicationUser> checkAppUser = userManager.FindByIdAsync(id);
+            checkAppUser.Wait();
+            if (checkAppUser.Result == null)
+            {
+                Message = "User not found";
+            }
+            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(checkAppUser.Result, roleName);
+            newUserRole.Wait();
+
+        }
     }
+
 }
