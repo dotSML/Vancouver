@@ -1,0 +1,13 @@
+﻿.table {
+    width: 100%;
+    background-color: hsla(27, 34%, 65%, 0.2);
+}
+
+.th{
+    width: 25%;
+    color: azure;
+}
+.td {
+    width: 25%;
+    color: azure;
+}

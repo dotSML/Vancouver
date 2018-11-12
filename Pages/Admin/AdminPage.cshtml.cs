@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Vancouver.Aids;
 using Vancouver.Databases;
 using Vancouver.Models;
 
@@ -17,6 +19,7 @@ namespace Vancouver.Pages.Admin
         private readonly VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
+        public IServiceProvider provider;
         public IEnumerable<ApplicationUser> ApplicationUserList { get; set; }
         public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
@@ -32,6 +35,9 @@ namespace Vancouver.Pages.Admin
             return Page();
         }
 
-        
+        //public async Task<IActionResult> OnPostAddAdminRole()
+        //{
+        //    UserRoles.AddUserToRole(provider, );
+        //}
     }
 }

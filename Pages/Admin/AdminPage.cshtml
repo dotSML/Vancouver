@@ -1,5 +1,6 @@
 ﻿@page
 @using Admin
+@using Microsoft.AspNetCore.Identity
 @model Admin.AdminPageModel
 @{
     ViewData["Title"] = "AdminPage";
@@ -8,26 +9,40 @@
 
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
-    <link href="css/about.css" rel="stylesheet" />
+    <link href="css/adminPage.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
 
 </head>
 
-<h1>Hello Admin!</h1>
-@*@foreach (var user in Model.OnGetUsers())
-    {
+<h1 style="color:azure">Hello Admin!</h1>
+    <div class="table" style="background-color: hsla(27, 34%, 65%, 0.2); color: azure">
         <table>
-        <tr>
-            <th>@user.FirstName</th>
-        </tr>
-        </table>
-    }*@
-
-@{
-    foreach (var user in Model.ApplicationUserList)
-    {
-        <thead>
-
-        </thead>
-    
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Date of Birth
+                </th>
+            </tr>
+            <tbody>
+                @foreach (var user in Model.ApplicationUserList)
+                {
+                    <tr>
+                        <td>
+                            @user.Id
+                        </td>
+                        <td>
+                            @user.FirstName @user.LastName
+                        </td>
+                        <td>
+                            @user.DateOfBirth
+                        </td>
+                    </tr>
+                }</tbody>
+</table>
+    </div>
 }
