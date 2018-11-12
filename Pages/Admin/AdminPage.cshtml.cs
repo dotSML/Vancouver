@@ -14,26 +14,24 @@ namespace Vancouver.Pages.Admin
     [Authorize(Roles = "Administrator")]
     public class AdminPageModel : PageModel
     {
-
         private readonly VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
-        private readonly ApplicationDbContext _applicationUsers;
-        public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext applicationUsers)
+        public IEnumerable<ApplicationUser> ApplicationUserList { get; set; }
+        public AdminPageModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
-            _applicationUsers = applicationUsers;
         }
-        public void OnGetAsync()
+        
+
+        public async Task<ActionResult> OnGet()
         {
-           
+            ApplicationUserList = _context.Users.ToList();
+            return Page();
         }
 
-        public async Task<List<ApplicationUser>> OnGetUsers()
-        {
-           return await _context.ApplicationUsers.ToListAsync();
-        }
+        
     }
 }

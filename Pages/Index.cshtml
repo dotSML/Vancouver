@@ -107,246 +107,247 @@
             foreach (var item in @Model.ItineraryList)
             {
                 
+                <div class="flightResults">
+<div class="vertical-center roundTrip" id="#  flightResultRoundtripId  " style="margin-top: 25px; min-height: 100%;">
+<div class="container acrylic" style="border-radius: 7px;">
+<div class="row" style="color: white; border-bottom: dotted; min-height: 8vh;">
+    <div id="flightInfoAirline" class="col-2 align-self-center">
+        <div style="margin-left: 10px;">
+            <img src="" style="border-radius: 3px;">
+        </div>
+        //airlineOutbound
+    </div>
+    <div class="col-2 align-self-center" style="width: 60%">
+        <span id="flightInfoDepartureTime" class="itinerary-time">
+            @item.departureTimeOutbound
+        </span><br />
+        <span id="flightInfoOriginAirport" style="font-weight: bold;">
+            @item.originAirportOutbound
+        </span>
+    </div>
+    <div class="col-2 align-self-center" style="width: 60%;">
+        <div id="flightInfoDuration" style="font-size: 13px">
+            @item.tripDurationOutbound.Split(":")[0]h @item.tripDurationOutbound.Split(":")[1]m
+        </div>
+        <div style="font-size: 10px;">
+            <span id="flightInfoLayovers" style="color: red;">
+                @item.layoverStopAmountOutbound stops
+            </span>
+            <div id="flightInfoLayoverCitiesOutbound" style="font-size: 10px; font-weight: bold;">
+                @item.layoverCitiesOutbound
+            </div>
+        </div>
+    </div>
+    <div class="col-2 align-self-center" style="width: 60%">
+        <span id="flightInfoArrivalTime" class="itinerary-time">
+            @item.arrivalTimeOutbound
+        </span><br />
+        <span id="flightInfoArrivalAirport" style="font-weight: bold;">
+            @item.arrivalAirportOutbound
+        </span>
+    </div>
+    <div class="col-2 align-self-center"></div>
+    <div class="col-1 align-self-center">
+        <button class="btn btn-success getFlightBtn" data-target="@item.Id" style="color:white; left: 50px">
+            @item.farePricePerPassenger @item.fareCurrency
+        </button>
+    </div>
+</div>
+<div id="outboundFlights" class="row" style="color: white; height: 8vh;">
+    <div id="flightInfoAirline" class="col-2 align-self-center">
+        //airlineInbound
+        <div style="margin-left: 10px">
+            <img src="" style="border-radius: 3px;">
+        </div>
+    </div>
+    <div class="col-2 align-self-center">
+        <span id="flightInfoDepartureTime" class="itinerary-time">
+            @item.departureTimeInbound
+        </span><br />
+        <span id="flightInfoOriginAirport" style="font-weight: bold;">
+            @item.originAirportInbound
+        </span>
+    </div>
+    <div class="col-2 align-self-center" style="width: 60%">
+        <div id="flightInfoDuration" style="font-size: 13px">
+            @item.tripDurationInbound.Split(":")[0]h @item.tripDurationInbound.Split(":")[1]m
+        </div>
+        <div style="font-size: 10px;">
+            <span id="flightInfoLayovers" style="color: red;">
+                @item.layoverStopAmountInbound  stops
+            </span>
+            <div id="flightInfoLayoverCitiesInbound" style="font-size: 10px; font-weight: bold;">
+                @item.layoverCitiesInbound
+            </div>
+        </div>
+    </div>
+    <div class="col-2 align-self-center" style="width: 60%">
+        <span id="flightInfoArrivalTime" class="itinerary-time">
+            @item.arrivalTimeInbound
+        </span><br />
+        <span id="flightInfoArrivalAirport" style="font-weight: bold;">
+            @item.arrivalAirportInbound
+        </span>
+    </div>
+    <div class="col-2 align-self-center"></div>
+    <div class="col-1 align-self-center">
+        <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@item.Id" style="color:white; left: 50px">Details</button>
+    </div>
+</div>
+<div id="flightDetails">
+    <div id="flight-@item.Id" class="flightDetailsClass" style="display: none;">
 
-                <div class="vertical-center roundTrip" id="#  flightResultRoundtripId  " style="margin-top: 25px; min-height: 100%;">
-                <div class="container acrylic" style="border-radius: 7px;">
-                <div class="row" style="color: white; border-bottom: dotted; min-height: 8vh;">
-                    <div id="flightInfoAirline" class="col-2 align-self-center">
-                        <div style="margin-left: 10px;">
-                            <img src="" style="border-radius: 3px;">
-                        </div>
-                        //airlineOutbound
-                    </div>
-                    <div class="col-2 align-self-center" style="width: 60%">
-                        <span id="flightInfoDepartureTime" class="itinerary-time">
-                            @item.departureTimeOutbound
-                        </span><br />
-                        <span id="flightInfoOriginAirport" style="font-weight: bold;">
-                            @item.originAirportOutbound
-                        </span>
-                    </div>
-                    <div class="col-2 align-self-center" style="width: 60%;">
-                        <div id="flightInfoDuration" style="font-size: 13px">
-                            @item.tripDurationOutbound.Split(":")[0]h @item.tripDurationOutbound.Split(":")[1]m
-                        </div>
-                        <div style="font-size: 10px;">
-                            <span id="flightInfoLayovers" style="color: red;">
-                                @item.layoverStopAmountOutbound stops
-                            </span>
-                            <div id="flightInfoLayoverCitiesOutbound" style="font-size: 10px; font-weight: bold;">
-                                @item.layoverCitiesOutbound
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center" style="width: 60%">
-                        <span id="flightInfoArrivalTime" class="itinerary-time">
-                            @item.arrivalTimeOutbound
-                        </span><br />
-                        <span id="flightInfoArrivalAirport" style="font-weight: bold;">
-                            @item.arrivalAirportOutbound
-                        </span>
-                    </div>
-                    <div class="col-2 align-self-center"></div>
-                    <div class="col-1 align-self-center">
-                        <button class="btn btn-success getFlightBtn" data-target="@item.Id" style="color:white; left: 50px">
-                            @item.farePricePerPassenger @item.fareCurrency
-                        </button>
+        <div class="row" style="border-bottom: solid 1px white; height: 15px;">
+            <div class="col align-self-center" style="font-size: 10px; color: white;">
+                Outbound flights
+            </div>
+        </div>
+        @foreach (var outboundLeg in @item.IndFlightOutbound)
+        {
+            <div class="row" style="color: white; min-height: 7vh;">
+                <div id="outboundLegsInfo">
+                </div>
+                <div id="flightLegInfoAirline" class="col-2 align-self-center">
+                    <div style="margin-left: 10px;">
+                        <img src="  airlineLogoRequestUrlOutboundLeg  " style="border-radius: 3px;">
                     </div>
                 </div>
-                <div id="outboundFlights" class="row" style="color: white; height: 8vh;">
-                    <div id="flightInfoAirline" class="col-2 align-self-center">
-                        //airlineInbound
-                        <div style="margin-left: 10px">
-                            <img src="" style="border-radius: 3px;">
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <span id="flightInfoDepartureTime" class="itinerary-time">
-                            @item.departureTimeInbound
-                        </span><br />
-                        <span id="flightInfoOriginAirport" style="font-weight: bold;">
-                            @item.originAirportInbound
-                        </span>
-                    </div>
-                    <div class="col-2 align-self-center" style="width: 60%">
-                        <div id="flightInfoDuration" style="font-size: 13px">
-                            @item.tripDurationInbound.Split(":")[0]h @item.tripDurationInbound.Split(":")[1]m
-                        </div>
-                        <div style="font-size: 10px;">
-                            <span id="flightInfoLayovers" style="color: red;">
-                                @item.layoverStopAmountInbound  stops
-                            </span>
-                            <div id="flightInfoLayoverCitiesInbound" style="font-size: 10px; font-weight: bold;">
-                                @item.layoverCitiesInbound
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center" style="width: 60%">
-                        <span id="flightInfoArrivalTime" class="itinerary-time">
-                            @item.arrivalTimeInbound
-                        </span><br />
-                        <span id="flightInfoArrivalAirport" style="font-weight: bold;">
-                            @item.arrivalAirportInbound
-                        </span>
-                    </div>
-                    <div class="col-2 align-self-center"></div>
-                    <div class="col-1 align-self-center">
-                        <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@item.Id" style="color:white; left: 50px">Details</button>
+                <div class="col-1 align-self-center">
+                    <span id="flightLegDepartureTime" class="itinerary-time">
+                        @outboundLeg.departs_at
+                    </span><br />
+                    <span id="flightLegOriginAirport">
+                        @outboundLeg.originInd
+                    </span>
+                </div>
+                <div class="col-1 align-self-center">
+                    <div id="flightLegDuration" style="font-size: 13px">
+                        N/A
                     </div>
                 </div>
-                <div id="flightDetails">
-                    <div id="flight-@item.Id" class="flightDetailsClass" style="display: none;">
-
-                        <div class="row" style="border-bottom: solid 1px white; height: 15px;">
-                            <div class="col align-self-center" style="font-size: 10px; color: white;">
-                                Outbound flights
-                            </div>
-                        </div>
-                        @foreach (var outboundLeg in @item.IndFlightOutbound)
-                        {
-                            <div class="row" style="color: white; min-height: 7vh;">
-                                <div id="outboundLegsInfo">
-                                </div>
-                                <div id="flightLegInfoAirline" class="col-2 align-self-center">
-                                    <div style="margin-left: 10px;">
-                                        <img src="  airlineLogoRequestUrlOutboundLeg  " style="border-radius: 3px;">
-                                    </div>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                    <span id="flightLegDepartureTime" class="itinerary-time">
-                                        @outboundLeg.departs_at
-                                    </span><br />
-                                    <span id="flightLegOriginAirport">
-                                        @outboundLeg.originInd
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                    <div id="flightLegDuration" style="font-size: 13px">
-                                        N/A
-                                    </div>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                    <span id="flightLegArrivalTime" class="itinerary-time">
-                                        @outboundLeg.arrives_at
-                                    </span><br />
-                                    <span id="flightLegArrivalAirport">
-                                        @outboundLeg.destinationInd
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                    <span style="font-size: 11px;">
-                                        Flight No.
-                                    </span> <br>
-                                    <span style="font-weight: bold; font-size: 13px;">
-                                        @outboundLeg.flight_number
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                    <span style="font-size: 11px;">
-                                        Aircraft
-                                    </span> <br>
-                                    <span style="font-weight: bold; font-size: 13px;">
-                                        @outboundLeg.aircraft
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                    <span style="font-size: 11px;">
-                                        Travel Class
-                                    </span> <br>
-                                    <span style="font-weight: bold; font-size: 13px;">
-                                        @outboundLeg.travel_class
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                </div>
-                            </div>
-                        }
-                        <div class="row" style="border-bottom: solid 1px white; height: 15px;">
-                            <div class="col align-self-center" style="font-size: 10px; color: white;">
-                                Inbound flights
-                            </div>
-                        </div>
-                        @foreach (var inboundLeg in @item.IndFlightInbound)
-                        {
-                            <div class="row" style="color: white; min-height: 7vh;">
-                                <div>
-                                </div>
-                                <div class="col-2 align-self-center">
-                                    <div style="margin-left: 10px;">
-                                        <img src="  airlineLogoRequestUrlInboundLeg  " style="border-radius: 3px;">
-                                    </div>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                    <span class="itinerary-time">
-                                        @inboundLeg.departs_at
-                                    </span><br/>
-                                    <span id="flightLegOriginAirport">
-                                        @inboundLeg.originInd
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                    <div id="flightLegDuration" style="font-size: 13px">
-                                        N/A
-                                    </div>
-                                </div>
-                                <div class="col-1 align-self-center">
-                                    <span id="flightLegArrivalTime" class="itinerary-time">
-                                        @inboundLeg.arrives_at
-                                    </span><br/>
-                                    <span id="flightLegArrivalAirport">
-                                        @inboundLeg.destinationInd
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                    <span style="font-size: 11px;">
-                                        Flight No.
-                                    </span> <br>
-                                    <span style="font-weight: bold; font-size: 13px;">
-                                        @inboundLeg.flight_number
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                    <span style="font-size: 11px;">
-                                        Aircraft
-                                    </span> <br>
-                                    <span style="font-weight: bold; font-size: 13px;">
-                                        @inboundLeg.aircraft
-                                    </span>
-                                </div>
-                                <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                    <span style="font-size: 11px;">
-                                        Travel Class
-                                    </span> <br>
-                                    <span style="font-weight: bold; font-size: 13px;">
-                                        @inboundLeg.travel_class
-                                    </span>
-                                </div>
-                                <div class="col-5 align-self-center"></div>
-                                <div class="col-1 align-self-center">
-                                </div>
-                            </div>
-                        }
-                        <div class="row" style="color: white; border-top: dotted;">
-                            <div id="farePriceDetailsTotal" class="col-3 align self-center" style="font-size: 11px;">
-                                Total price for all passengers: <span style="color: green; font-size: 12px">
-                                    @item.farePriceTotal
-                                </span>
-                            </div>
-                            <div id="farePriceDetailsPP" class="col-3 align self-center" style="font-size: 11px;">
-                                Price per passenger: <span style="color: green; font-size: 12px">
-                                    @item.farePricePerPassenger
-                                </span>
-                            </div>
-                            <div id="farePriceDetailsPPtax" class="col-3 align self-center" style="font-size: 11px;">
-                                Tax per passenger:
-                                <span style="color: green; font-size: 12px">
-                                    @item.farePriceTax
-                                </span>
-                            </div>
-                        </div>
+                <div class="col-1 align-self-center">
+                    <span id="flightLegArrivalTime" class="itinerary-time">
+                        @outboundLeg.arrives_at
+                    </span><br />
+                    <span id="flightLegArrivalAirport">
+                        @outboundLeg.destinationInd
+                    </span>
+                </div>
+                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                    <span style="font-size: 11px;">
+                        Flight No.
+                    </span> <br>
+                    <span style="font-weight: bold; font-size: 13px;">
+                        @outboundLeg.flight_number
+                    </span>
+                </div>
+                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                    <span style="font-size: 11px;">
+                        Aircraft
+                    </span> <br>
+                    <span style="font-weight: bold; font-size: 13px;">
+                        @outboundLeg.aircraft
+                    </span>
+                </div>
+                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                    <span style="font-size: 11px;">
+                        Travel Class
+                    </span> <br>
+                    <span style="font-weight: bold; font-size: 13px;">
+                        @outboundLeg.travel_class
+                    </span>
+                </div>
+                <div class="col-1 align-self-center">
+                </div>
+            </div>
+        }
+        <div class="row" style="border-bottom: solid 1px white; height: 15px;">
+            <div class="col align-self-center" style="font-size: 10px; color: white;">
+                Inbound flights
+            </div>
+        </div>
+        @foreach (var inboundLeg in @item.IndFlightInbound)
+        {
+            <div class="row" style="color: white; min-height: 7vh;">
+                <div>
+                </div>
+                <div class="col-2 align-self-center">
+                    <div style="margin-left: 10px;">
+                        <img src="  airlineLogoRequestUrlInboundLeg  " style="border-radius: 3px;">
                     </div>
                 </div>
-                </div> 
+                <div class="col-1 align-self-center">
+                    <span class="itinerary-time">
+                        @inboundLeg.departs_at
+                    </span><br/>
+                    <span id="flightLegOriginAirport">
+                        @inboundLeg.originInd
+                    </span>
+                </div>
+                <div class="col-1 align-self-center">
+                    <div id="flightLegDuration" style="font-size: 13px">
+                        N/A
+                    </div>
+                </div>
+                <div class="col-1 align-self-center">
+                    <span id="flightLegArrivalTime" class="itinerary-time">
+                        @inboundLeg.arrives_at
+                    </span><br/>
+                    <span id="flightLegArrivalAirport">
+                        @inboundLeg.destinationInd
+                    </span>
+                </div>
+                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                    <span style="font-size: 11px;">
+                        Flight No.
+                    </span> <br>
+                    <span style="font-weight: bold; font-size: 13px;">
+                        @inboundLeg.flight_number
+                    </span>
+                </div>
+                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                    <span style="font-size: 11px;">
+                        Aircraft
+                    </span> <br>
+                    <span style="font-weight: bold; font-size: 13px;">
+                        @inboundLeg.aircraft
+                    </span>
+                </div>
+                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                    <span style="font-size: 11px;">
+                        Travel Class
+                    </span> <br>
+                    <span style="font-weight: bold; font-size: 13px;">
+                        @inboundLeg.travel_class
+                    </span>
+                </div>
+                <div class="col-5 align-self-center"></div>
+                <div class="col-1 align-self-center">
+                </div>
+            </div>
+        }
+        <div class="row" style="color: white; border-top: dotted;">
+            <div id="farePriceDetailsTotal" class="col-3 align self-center" style="font-size: 11px;">
+                Total price for all passengers: <span style="color: green; font-size: 12px">
+                    @item.farePriceTotal
+                </span>
+            </div>
+            <div id="farePriceDetailsPP" class="col-3 align self-center" style="font-size: 11px;">
+                Price per passenger: <span style="color: green; font-size: 12px">
+                    @item.farePricePerPassenger
+                </span>
+            </div>
+            <div id="farePriceDetailsPPtax" class="col-3 align self-center" style="font-size: 11px;">
+                Tax per passenger:
+                <span style="color: green; font-size: 12px">
+                    @item.farePriceTax
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</div> 
+</div>
                 </div>
 
             }
