@@ -50,9 +50,10 @@ namespace Vancouver.Pages
         [BindProperty]
         public FlightInputModel FlightInput { get; set; }
 
-        public List<FlightObjectsList> ObjectList { get; set; }
 
         public IEnumerable<ItineraryObject> ItineraryList { get; set; }
+        
+
 
         public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration config, IFlightsObjectsRepository flightsRepository)
         {
@@ -66,18 +67,32 @@ namespace Vancouver.Pages
         [BindProperty]
         public Ticket Ticket { get; set; }
 
-        
+        public IEnumerable<ItineraryObject> NewItineraryList { get; set; }
 
 
         public async Task<ActionResult> OnPost()
         {
-             ItineraryList = await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
-                    FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency);
+             ItineraryList = new List<ItineraryObject>(await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
+                 FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency));
+            NewItineraryList = ItineraryList;
             return Page();
         }
 
         public async void OnGet()
         {
+        }
+
+
+        public ActionResult OnPostAddTicket(ItineraryObject postObject)
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = _userManager.GetUserId(User);
+                postObject.ApplicationUserId = userId;
+                var ticket = postObject;
+
+            }
+            return Page();
         }
 
         

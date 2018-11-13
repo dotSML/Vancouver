@@ -47,27 +47,45 @@ namespace Vancouver.FlightsFolder
         public string GetLayoverCitiesInbound(FlightsResponse.RootObject obj, int i)
         {
             var layoverCitiesInboundLooped = "";
-            for (var b = 0; b < obj.results[i].itineraries[0].outbound.flights.Count - 1; b++)
-            {
-                layoverCitiesInboundLooped +=
-                    obj.results[i].itineraries[0].inbound.flights[b].destination.airport + ", ";
-            }
 
-            layoverCitiesInboundLooped = layoverCitiesInboundLooped.Remove(layoverCitiesInboundLooped.Length - 2);
-            return layoverCitiesInboundLooped;
+            if (obj.results[i].itineraries[0].inbound.flights.Count > 1)
+            {
+                for (var b = 0; b < obj.results[i].itineraries[0].inbound.flights.Count - 1; b++)
+                {
+                    layoverCitiesInboundLooped +=
+                        obj.results[i].itineraries[0].inbound.flights[b].destination.airport + ", ";
+                }
+
+                layoverCitiesInboundLooped = layoverCitiesInboundLooped.Remove(layoverCitiesInboundLooped.Length - 2);
+                return layoverCitiesInboundLooped;
+            }
+            else
+            {
+                layoverCitiesInboundLooped = "Direct";
+                return layoverCitiesInboundLooped;
+            }
         }
 
         public string GetLayoverCitiesOutbound(FlightsResponse.RootObject obj, int i)
         {
             var layoverCitiesOutboundLooped = "";
-            for (var a = 0; a < obj.results[i].itineraries[0].outbound.flights.Count - 1; a++)
+            if (obj.results[i].itineraries[0].outbound.flights.Count > 1)
             {
-                layoverCitiesOutboundLooped +=
-                    obj.results[i].itineraries[0].outbound.flights[a].destination.airport + ", ";
-            }
+                for (var a = 0; a < obj.results[i].itineraries[0].outbound.flights.Count - 1; a++)
+                {
+                    layoverCitiesOutboundLooped +=
+                        obj.results[i].itineraries[0].outbound.flights[a].destination.airport + ", ";
+                }
 
-            layoverCitiesOutboundLooped = layoverCitiesOutboundLooped.Remove(layoverCitiesOutboundLooped.Length - 2);
-            return layoverCitiesOutboundLooped;
+                layoverCitiesOutboundLooped =
+                    layoverCitiesOutboundLooped.Remove(layoverCitiesOutboundLooped.Length - 2);
+                return layoverCitiesOutboundLooped;
+            }
+            else
+            {
+                layoverCitiesOutboundLooped = "Direct";
+                return layoverCitiesOutboundLooped;
+            }
         }
 
         public async Task<IEnumerable<ItineraryObject>> GetObjectsList(string origin,
