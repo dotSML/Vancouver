@@ -90,70 +90,12 @@ namespace Vancouver.Pages
                 var userId = _userManager.GetUserId(User);
                 postObject.ApplicationUserId = userId;
                 var ticket = postObject;
+                _context.Tickets.Add(ticket);
+                _context.SaveChangesAsync();
 
             }
             return Page();
         }
-
-        
-
-
-        public ActionResult OnPostGetTicket()
-        {
-            if (_signInManager.IsSignedIn(User))
-            {
-                {
-                    MemoryStream stream = new MemoryStream();
-                    Request.Body.CopyTo(stream);
-                    stream.Position = 0;
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        string requestBody = reader.ReadToEnd();
-                        if (requestBody.Length > 0)
-                        {
-                            var obj = JsonConvert.DeserializeObject<Ticket>(requestBody);
-                            if (obj != null)
-                            {
-                                var ticket = new Ticket
-                                {
-                                    originAirportOutbound = obj.originAirportOutbound,
-                                    originAirportInbound = obj.originAirportInbound,
-                                    tripDurationOutbound = obj.tripDurationOutbound,
-                                    tripDurationInbound = obj.tripDurationInbound,
-                                    layoverStopAmountOutbound = obj.layoverStopAmountOutbound,
-                                    layoverStopAmountInbound = obj.layoverStopAmountInbound,
-                                    layoverCitiesOutbound = obj.layoverCitiesOutbound,
-                                    layoverCitiesInbound = obj.layoverCitiesInbound,
-                                    arrivalAirportOutbound = obj.arrivalAirportOutbound,
-                                    arrivalAirportInbound = obj.arrivalAirportInbound,
-                                    arrivalTimeOutbound = obj.arrivalTimeOutbound,
-                                    arrivalTimeInbound = obj.arrivalTimeInbound,
-                                    farePricePerPassenger = obj.farePricePerPassenger,
-                                    fareClass = obj.fareClass,
-                                    fareCurrency = obj.fareCurrency,
-                                    farePriceTax = obj.farePriceTax,
-                                    farePriceTotal = obj.farePriceTotal,
-                                    departureTimeOutbound = obj.departureTimeOutbound,
-                                    departureTimeInbound = obj.departureTimeInbound,
-                                    ApplicationUserId = _userManager.GetUserId(User)
-
-                                };
-
-                                _context.Tickets.Add(ticket);
-                                _context.SaveChangesAsync();
-                            }
-                        }
-                    }
-                }
-                var jsonSuccess = "SUCCESS!";
-                return new JsonResult(jsonSuccess);
-            }
-            else
-            {
-                return new JsonResult("IDKWHATHAPPENJESD");
-            }
-        }
-
         
     }
 

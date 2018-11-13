@@ -13,6 +13,22 @@
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <link href="~/css/myTickets.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            border-radius: 7px;
+            text-align: left;
+            padding: 8px;
+        }
+
+        
+    </style>
 </head>
 <body>
 <div class="ticketContainer">
@@ -22,33 +38,82 @@
         @{
             if (SignInManager.IsSignedIn(User))
             {
-                if (Model.Tickets.Count > 0)
+                if (@Model.Tickets.Any())
                 {
-                    foreach (var ticket in Model.Tickets)
+
+                    for (int i = 0; @Model.Tickets.Count() > i; i++)
                     {
-                        if (UserManager.GetUserId(User) == ticket.ApplicationUserId)
+                        if (UserManager.GetUserId(User) == @Model.Tickets.ElementAt(i).ApplicationUserId)
                         {
-                            <div class="col auto" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
-                                <p>Ticket ID: @ticket.TicketId</p>
-                                <p>User ID: @ticket.ApplicationUserId</p>
-                                <p>Origin Outbound: @ticket.originAirportOutbound</p>
-                                <p>Arrival Outbound: @ticket.arrivalAirportOutbound</p>
-                                <p>Origin Outbound: @ticket.originAirportOutbound</p>
-                                <p>Origin Inbound: @ticket.originAirportInbound</p>
-                                <p>Departure Time Outbound: @ticket.departureTimeOutbound</p>
-                                <p>Arrvial Time Outbound: @ticket.arrivalTimeOutbound</p>
-                                <p>Departure Time Inbound: @ticket.arrivalTimeInbound</p>
-                                <p>Arrival Time Inbound: @ticket.arrivalTimeInbound</p> <br/>
-                                <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@ticket.farePriceTotal</span></p>
-                                <form method="post">
-                                    <label asp-for="@ticket.TicketId">
-                                        <button asp-page-handler="delete" asp-route-id="@ticket.TicketId" class="btn btn-danger">Delete</button>
-                                    </label>
-                                </form>
+                            <div class="container" style="color: white; border-radius: 7px; border: 2px white solid; background-color: rgba(15, 15, 15, 0.8); box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.4); padding: 10px; margin: 5px;">
+                                <div class="row">
+                                    <div class="col auto">
+                                        <p>Ticket ID: @Model.Tickets.ElementAt(i).Id</p>
+                                        <p>User ID: @Model.Tickets.ElementAt(i).ApplicationUserId</p>
+                                        <p>Origin Outbound: @Model.Tickets.ElementAt(i).originAirportOutbound</p>
+                                        <p>Arrival Outbound: @Model.Tickets.ElementAt(i).arrivalAirportOutbound</p>
+                                        <p>Origin Outbound: @Model.Tickets.ElementAt(i).originAirportOutbound</p>
+                                        <p>Origin Inbound: @Model.Tickets.ElementAt(i).originAirportInbound</p>
+                                        <p>Departure Time Outbound: @Model.Tickets.ElementAt(i).departureTimeOutbound</p>
+                                        <p>Arrvial Time Outbound: @Model.Tickets.ElementAt(i).arrivalTimeOutbound</p>
+                                        <p>Departure Time Inbound: @Model.Tickets.ElementAt(i).arrivalTimeInbound</p>
+                                        <p>Arrival Time Inbound: @Model.Tickets.ElementAt(i).arrivalTimeInbound</p> <br/>
+                                        <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@Model.Tickets.ElementAt(i).farePriceTotal</span></p>
+                                        <form method="post">
+                                            <label asp-for="@Model.Tickets.ElementAt(i).Id">
+                                                <button asp-page-handler="delete" asp-route-id="@Model.Tickets.ElementAt(i).Id" class="btn btn-danger">Delete</button>
+                                            </label>
+                                        </form>
+                                    </div>
+                                    <div class="col auto">
+                                    <table style="padding: 10px;">
+                                        <thead>Outbound</thead>
+                                        <tr>
+                                            <th style="margin: 5px;">Origin</th>
+                                            <th>Destination</th>
+                                            <th>Aircraft</th>
+                                            <th>Booking code</th>
+                                        </tr>
+                                        
+                                        @for (int l = 0; @Model.Tickets.ElementAt(i).IndFlightOutbound.Count() > l; l++)
+                                        {
+                                            <tr>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].originInd</td>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].destinationInd</td>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].aircraft</td>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].booking_code</td>
+                                            </tr>
+                                            
+                                        }
+                                    </table>
+                                    <table>
+                                        <thead>Inbound</thead>
+                                        <tr>
+                                            <th>Origin</th>
+                                            <th>Destination</th>
+                                            <th>Aircraft</th>
+                                            <th>Booking code</th>
+                                        </tr>
+                                            @for (int k = 0; @Model.Tickets.ElementAt(i).IndFlightInbound.Count() > k; k++)
+                                            {
+                                                <tr>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].originInd</td>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].destinationInd</td>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].aircraft</td>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].booking_code</td>
+                                                </tr>
+
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+
+                            
                         }
                         else
                         {
+                            <p>IDK WHAT HAPPENED</p>
                         }
                     }
                 }

@@ -11,7 +11,6 @@
 @model IndexModel
 @inject UserManager<ApplicationUser> UserManager
 @inject IFlightsObjectsRepository fr
-@inject IRetreiveFlightService RetreiveFlightService
 @{
     ViewData["Title"] = "Vancouver Flights";
 }
@@ -176,7 +175,8 @@
                 @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalTimeOutbound)
                 @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeInbound)
                 @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeOutbound)
-                
+                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationOutbound)
+                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationInbound)
             </button>
         
     </div>
@@ -294,8 +294,8 @@
                     <span style="font-size: 11px;">
                         Travel Class
                     </span> <br>
-                            <label asp-for="@Model.ItineraryList.ElementAt(x).IndFlightOutbound.ElementAt(x).travel_class" style="font-weight: bold; font-size: 13px;">
-                                @Model.ItineraryList.ElementAt(x).IndFlightOutbound.ElementAt(x).travel_class
+                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).travel_class" style="font-weight: bold; font-size: 13px;">
+                                @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).travel_class
                             </label>
                 </div>
                 <div class="col-1 align-self-center">

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Vancouver.Databases;
+using Vancouver.FlightsFolder;
 using Vancouver.Models;
 
 namespace Vancouver.Pages
@@ -22,11 +23,17 @@ namespace Vancouver.Pages
         [BindProperty]
         public Ticket Ticket { get; set; }
 
-        public IList<Ticket> Tickets { get; set; }
+        public IEnumerable<ItineraryObject> Tickets { get; set; }
+        public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
+        public List<IndividualFlightInbound> IndFlightsInbound { get; set; }
 
         public async Task OnGetAsync()
         {
-            Tickets = await _context.Tickets.AsNoTracking().ToListAsync();
+            Tickets = await _context.Tickets
+                .Include(i => i.IndFlightOutbound)
+                .Include(i => i.IndFlightInbound)
+                .AsNoTracking().ToListAsync();
+            
         }
 
         public async Task<IActionResult> OnPostDelete(string id)
