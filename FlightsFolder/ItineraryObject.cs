@@ -36,6 +36,7 @@ namespace Vancouver.FlightsFolder
     public class IndividualFlightOutbound
     {
         public string Id { get; set; }
+        public int orderPos { get; set; }
         public string departs_at { get; set; }
         public string arrives_at { get; set; }
         public string originInd { get; set; }
@@ -52,6 +53,7 @@ namespace Vancouver.FlightsFolder
     public class IndividualFlightInbound
     {
         public string Id { get; set; }
+        public int orderPos { get; set; }
         public string departs_at { get; set; }
         public string arrives_at { get; set; }
         public string originInd { get; set; }

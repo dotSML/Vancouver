@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -61,7 +62,7 @@ namespace Vancouver.FlightsFolder
             }
             else
             {
-                layoverCitiesInboundLooped = "Direct";
+                layoverCitiesInboundLooped = "DIRECT";
                 return layoverCitiesInboundLooped;
             }
         }
@@ -83,7 +84,7 @@ namespace Vancouver.FlightsFolder
             }
             else
             {
-                layoverCitiesOutboundLooped = "Direct";
+                layoverCitiesOutboundLooped = "DIRECT";
                 return layoverCitiesOutboundLooped;
             }
         }
@@ -103,6 +104,7 @@ namespace Vancouver.FlightsFolder
             itineraries.Clear();
             for(int i = 0;  i < 25; i++ )
             {
+                
                 outboundLegs.Clear();
                 inboundLegs.Clear();
                 var flightsCountOutbound = rootObj.results[i].itineraries[0].outbound.flights.Count;
@@ -111,41 +113,43 @@ namespace Vancouver.FlightsFolder
                 var getFlightsOutbound = rootObj.results[i].itineraries[0].outbound.flights;
                 var getFlightsInbound = rootObj.results[i].itineraries[0].inbound.flights;
 
-                foreach (var flight in rootObj.results[i].itineraries[0].outbound.flights)
+                for (int u = 0; getFlightsOutbound.Count > u; u++)
                 {
                     outboundLegs.Add(
                         new IndividualFlightOutbound()
                         {
-                            originInd = flight.origin.airport,
-                            destinationInd = flight.destination.airport,
-                            travel_class = flight.booking_info.travel_class,
-                            flight_number = flight.flight_number,
-                            booking_code = flight.booking_info.booking_code,
-                            aircraft = flight.aircraft,
-                            arrives_at = flight.arrives_at.Split("T")[1],
-                            departs_at = flight.departs_at.Split("T")[1],
-                            seats_remaining = flight.booking_info.seats_remaining,
-                            marketing_airline = flight.marketing_airline,
-                            operating_airline = flight.operating_airline
+                            originInd = getFlightsOutbound[u].origin.airport,
+                            destinationInd = getFlightsOutbound[u].destination.airport,
+                            travel_class = getFlightsOutbound[u].booking_info.travel_class,
+                            flight_number = getFlightsOutbound[u].flight_number,
+                            booking_code = getFlightsOutbound[u].booking_info.booking_code,
+                            aircraft = getFlightsOutbound[u].aircraft,
+                            arrives_at = getFlightsOutbound[u].arrives_at.Split("T")[1],
+                            departs_at = getFlightsOutbound[u].departs_at.Split("T")[1],
+                            seats_remaining = getFlightsOutbound[u].booking_info.seats_remaining,
+                            marketing_airline = getFlightsOutbound[u].marketing_airline,
+                            operating_airline = getFlightsOutbound[u].operating_airline,
+                            orderPos = u
                         });
                 }
 
-                foreach (var flight in getFlightsInbound)
+                for (var c = 0; getFlightsInbound.Count > c; c++)
                 {
                     inboundLegs.Add(
                         new IndividualFlightInbound()
                         {
-                            originInd = flight.origin.airport,
-                            destinationInd = flight.destination.airport,
-                            travel_class = flight.booking_info.travel_class,
-                            flight_number = flight.flight_number,
-                            booking_code = flight.booking_info.booking_code,
-                            aircraft = flight.aircraft,
-                            arrives_at = flight.arrives_at.Split("T")[1],
-                            departs_at = flight.departs_at.Split("T")[1],
-                            seats_remaining = flight.booking_info.seats_remaining,
-                            marketing_airline = flight.marketing_airline,
-                            operating_airline = flight.operating_airline,
+                            originInd = getFlightsInbound[c].origin.airport,
+                            destinationInd = getFlightsInbound[c].destination.airport,
+                            travel_class = getFlightsInbound[c].booking_info.travel_class,
+                            flight_number = getFlightsInbound[c].flight_number,
+                            booking_code = getFlightsInbound[c].booking_info.booking_code,
+                            aircraft = getFlightsInbound[c].aircraft,
+                            arrives_at = getFlightsInbound[c].arrives_at.Split("T")[1],
+                            departs_at = getFlightsInbound[c].departs_at.Split("T")[1],
+                            seats_remaining = getFlightsInbound[c].booking_info.seats_remaining,
+                            marketing_airline = getFlightsInbound[c].marketing_airline,
+                            operating_airline = getFlightsInbound[c].operating_airline,
+                            orderPos = c
                         });
                 }
 
