@@ -71,8 +71,10 @@
                                         <tr>
                                             <th style="margin: 5px;">Origin</th>
                                             <th>Destination</th>
+                                            <th>Flight number</th>
                                             <th>Aircraft</th>
                                             <th>Booking code</th>
+                                            <th>Order position</th>
                                         </tr>
                                         
                                         
@@ -80,8 +82,9 @@
                                         @for (int l = 0; @Model.Tickets.ElementAt(i).IndFlightOutbound.Count() > l; l++)
                                         {
                                             <tr>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].originInd</td>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].destinationInd</td>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].originInd <br/> @Model.Tickets.ElementAt(i).IndFlightOutbound[l].departs_at</td>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].destinationInd <br/> @Model.Tickets.ElementAt(i).IndFlightOutbound[l].arrives_at</td>
+                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].flight_number</td>
                                                 <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].aircraft</td>
                                                 <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].booking_code</td>
                                                 <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].orderPos</td>
@@ -94,14 +97,17 @@
                                         <tr>
                                             <th>Origin</th>
                                             <th>Destination</th>
+                                            <th>Flight number</th>
                                             <th>Aircraft</th>
                                             <th>Booking code</th>
+                                            <th>Order position</th>
                                         </tr>
                                         @for (int k = 0; @Model.Tickets.ElementAt(i).IndFlightInbound.Count() > k; k++)
                                             {
                                                 <tr>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].originInd</td>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].destinationInd</td>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].originInd <br/> @Model.Tickets.ElementAt(i).IndFlightInbound[k].departs_at</td>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].destinationInd <br /> @Model.Tickets.ElementAt(i).IndFlightInbound[k].arrives_at</td>
+                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].flight_number</td>
                                                     <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].aircraft</td>
                                                     <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].booking_code</td>
                                                     <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].orderPos</td>
