@@ -58,7 +58,7 @@
                                         <p>Arrvial Time Outbound: @Model.Tickets.ElementAt(i).arrivalTimeOutbound</p>
                                         <p>Departure Time Inbound: @Model.Tickets.ElementAt(i).arrivalTimeInbound</p>
                                         <p>Arrival Time Inbound: @Model.Tickets.ElementAt(i).arrivalTimeInbound</p> <br/>
-                                        <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@Model.Tickets.ElementAt(i).farePriceTotal</span></p>
+                                        <p>Total Fare Price: <span style="font-size: 25px; color: green; font-weight: bold">@Model.Tickets.ElementAt(i).farePriceTotal @Model.Tickets.ElementAt(i).fareCurrency</span></p>
                                         <form method="post">
                                             <label asp-for="@Model.Tickets.ElementAt(i).Id">
                                                 <button asp-page-handler="delete" asp-route-id="@Model.Tickets.ElementAt(i).Id" class="btn btn-danger">Delete</button>
@@ -75,6 +75,8 @@
                                             <th>Booking code</th>
                                         </tr>
                                         
+                                        
+
                                         @for (int l = 0; @Model.Tickets.ElementAt(i).IndFlightOutbound.Count() > l; l++)
                                         {
                                             <tr>
@@ -95,7 +97,7 @@
                                             <th>Aircraft</th>
                                             <th>Booking code</th>
                                         </tr>
-                                            @for (int k = 0; @Model.Tickets.ElementAt(i).IndFlightInbound.Count() > k; k++)
+                                        @for (int k = 0; @Model.Tickets.ElementAt(i).IndFlightInbound.Count() > k; k++)
                                             {
                                                 <tr>
                                                     <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].originInd</td>

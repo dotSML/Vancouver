@@ -177,8 +177,8 @@ namespace Vancouver.FlightsFolder
                         farePriceTax = rootObj.results[i].fare.price_per_adult.tax,
                         fareCurrency = rootObj.currency,
                         farePricePerPassenger = rootObj.results[i].fare.price_per_adult.total_fare,
-                        IndFlightOutbound = new List<IndividualFlightOutbound>(outboundLegs),
-                        IndFlightInbound = new List<IndividualFlightInbound>(inboundLegs)
+                        IndFlightOutbound = new List<IndividualFlightOutbound>(outboundLegs).OrderBy(o => o.orderPos).ToList(),
+                        IndFlightInbound = new List<IndividualFlightInbound>(inboundLegs).OrderBy(o => o.orderPos).ToList()
                     });
                 
 

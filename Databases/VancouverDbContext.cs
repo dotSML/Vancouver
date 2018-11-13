@@ -16,10 +16,14 @@ namespace Vancouver.Databases
         {
         }
 
+        
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Invoice> AllSoldTickets { get; set; }
         public DbSet<CustomerTravelHistory> AllCustomerTravelHistories { get; set; }
         public DbSet<ItineraryObject> Tickets { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        
     }
 }

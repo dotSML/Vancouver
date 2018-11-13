@@ -92,8 +92,10 @@ namespace Vancouver.Pages
                 var ticket = postObject;
                 _context.Tickets.Add(ticket);
                 _context.SaveChangesAsync();
+                return Redirect("/tickettest");
 
             }
+
             return Page();
         }
         

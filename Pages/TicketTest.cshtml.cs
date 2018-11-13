@@ -40,6 +40,8 @@ namespace Vancouver.Pages
         {
 
             var ticket =  await _context.Tickets.FindAsync(id);
+            
+
             if (ticket != null)
             {
                 _context.Tickets.Remove(ticket);
