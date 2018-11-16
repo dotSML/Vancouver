@@ -48,6 +48,8 @@ namespace Vancouver.FlightsFolder
         public string travel_class { get; set; }
         public string booking_code { get; set; }
         public int seats_remaining { get; set; }
+        public string terminalOrg { get; set; }
+        public string terminalDes { get; set; }
         public ItineraryObject Itinerary { get; set; }
     }
 
@@ -66,6 +68,8 @@ namespace Vancouver.FlightsFolder
         public string travel_class { get; set; }
         public string booking_code { get; set; }
         public int seats_remaining { get; set; }
+        public string terminalOrg { get; set; }
+        public string terminalDes { get; set; }
         public ItineraryObject Itinerary { get; set; }
     }
 

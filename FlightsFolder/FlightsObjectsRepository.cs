@@ -125,12 +125,14 @@ namespace Vancouver.FlightsFolder
                             flight_number = getFlightsOutbound[u].flight_number,
                             booking_code = getFlightsOutbound[u].booking_info.booking_code,
                             aircraft = getFlightsOutbound[u].aircraft,
-                            arrives_at = getFlightsOutbound[u].arrives_at.Split("T")[1],
-                            departs_at = getFlightsOutbound[u].departs_at.Split("T")[1],
+                            arrives_at = getFlightsOutbound[u].arrives_at,
+                            departs_at = getFlightsOutbound[u].departs_at,
                             seats_remaining = getFlightsOutbound[u].booking_info.seats_remaining,
                             marketing_airline = getFlightsOutbound[u].marketing_airline,
                             operating_airline = getFlightsOutbound[u].operating_airline,
-                            orderPos = u
+                            orderPos = u,
+                            terminalOrg = getFlightsOutbound[u].origin.terminal,
+                            terminalDes = getFlightsOutbound[u].destination.terminal
                         });
                 }
 
@@ -145,12 +147,14 @@ namespace Vancouver.FlightsFolder
                             flight_number = getFlightsInbound[c].flight_number,
                             booking_code = getFlightsInbound[c].booking_info.booking_code,
                             aircraft = getFlightsInbound[c].aircraft,
-                            arrives_at = getFlightsInbound[c].arrives_at.Split("T")[1],
-                            departs_at = getFlightsInbound[c].departs_at.Split("T")[1],
+                            arrives_at = getFlightsInbound[c].arrives_at,
+                            departs_at = getFlightsInbound[c].departs_at,
                             seats_remaining = getFlightsInbound[c].booking_info.seats_remaining,
                             marketing_airline = getFlightsInbound[c].marketing_airline,
                             operating_airline = getFlightsInbound[c].operating_airline,
-                            orderPos = c
+                            orderPos = c,
+                            terminalOrg = getFlightsInbound[c].origin.terminal,
+                            terminalDes = getFlightsInbound[c].destination.terminal
                         });
                 }
 

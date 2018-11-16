@@ -256,6 +256,8 @@
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].departs_at)
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].destinationInd)
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].orderPos)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalDes)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalOrg)
 
                                             <div class="row" style="color: white; min-height: 7vh;">
                                                 <div id="outboundLegsInfo">
@@ -333,6 +335,8 @@
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].operating_airline)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].seats_remaining)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].orderPos)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalOrg)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
                                             <div class="row" style="color: white; min-height: 7vh;">
                                                 <div>
                                                 </div>
