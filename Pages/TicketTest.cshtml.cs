@@ -33,6 +33,7 @@ namespace Vancouver.Pages
                 .Include(i => i.IndFlightOutbound)
                 .Include(i => i.IndFlightInbound)
                 .AsNoTracking().ToListAsync();
+
             
         }
 

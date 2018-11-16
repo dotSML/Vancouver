@@ -74,20 +74,19 @@
                                             <th>Flight number</th>
                                             <th>Aircraft</th>
                                             <th>Booking code</th>
-                                            <th>Order position</th>
                                         </tr>
-                                        
                                         
 
                                         @for (int l = 0; @Model.Tickets.ElementAt(i).IndFlightOutbound.Count() > l; l++)
                                         {
+                                            var outboundFlights = @Model.Tickets.ElementAt(i).IndFlightOutbound.OrderBy(y => y.orderPos).ToList();
+                                            
                                             <tr>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].originInd <br/> @Model.Tickets.ElementAt(i).IndFlightOutbound[l].departs_at</td>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].destinationInd <br/> @Model.Tickets.ElementAt(i).IndFlightOutbound[l].arrives_at</td>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].flight_number</td>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].aircraft</td>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].booking_code</td>
-                                                <td>@Model.Tickets.ElementAt(i).IndFlightOutbound[l].orderPos</td>
+                                                <td>@outboundFlights[l].originInd <br/> @outboundFlights[l].departs_at</td>
+                                                <td>@outboundFlights[l].destinationInd <br/> @outboundFlights[l].arrives_at</td>
+                                                <td>@outboundFlights[l].flight_number</td>
+                                                <td>@outboundFlights[l].aircraft</td>
+                                                <td>@outboundFlights[l].booking_code</td>
                                             </tr>
                                             
                                         }
@@ -100,17 +99,16 @@
                                             <th>Flight number</th>
                                             <th>Aircraft</th>
                                             <th>Booking code</th>
-                                            <th>Order position</th>
                                         </tr>
                                         @for (int k = 0; @Model.Tickets.ElementAt(i).IndFlightInbound.Count() > k; k++)
-                                            {
+                                        {
+                                            var inboundFlights = @Model.Tickets.ElementAt(i).IndFlightInbound.OrderBy(p => p.orderPos).ToList();
                                                 <tr>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].originInd <br/> @Model.Tickets.ElementAt(i).IndFlightInbound[k].departs_at</td>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].destinationInd <br /> @Model.Tickets.ElementAt(i).IndFlightInbound[k].arrives_at</td>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].flight_number</td>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].aircraft</td>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].booking_code</td>
-                                                    <td>@Model.Tickets.ElementAt(i).IndFlightInbound[k].orderPos</td>
+                                                    <td>@inboundFlights[k].originInd <br/> @inboundFlights[k].departs_at</td>
+                                                    <td>@inboundFlights[k].destinationInd <br /> @inboundFlights[k].arrives_at</td>
+                                                    <td>@inboundFlights[k].flight_number</td>
+                                                    <td>@inboundFlights[k].aircraft</td>
+                                                    <td>@inboundFlights[k].booking_code</td>
                                                 </tr>
 
                                             }
