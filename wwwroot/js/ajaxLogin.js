@@ -1,4 +1,6 @@
 ﻿$('#loginSubmit').on('click', function () {
+    $('#ajaxLoginLoading').show();
+    $('#ajaxLoginError').hide();
     var userEmail = $('#signin-email').val();
     var userPassword = $('#signin-password').val();
     var userRemember = $('#remember-me').val();
@@ -21,14 +23,18 @@
         },
         data: userJson,
         contentType: "application/json",
+        
         success: function (response) {
+            //$('#ajaxLoginLoading').hide();
             if (response === "Login Success!") {
                 console.log("Success!");
                 location.href = window.location.pathname;
             }
-            if (response === "Invalid Credentials") {
-                $('#loginErrorMessage').html = "* Invalid credentials";
+            if (response === "Invalid Credentials.") {
+                $('#ajaxLoginLoading').hide();
+                $('#ajaxLoginError').show();
             }
         }
     });
 });
+

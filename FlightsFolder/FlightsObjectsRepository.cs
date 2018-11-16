@@ -98,11 +98,12 @@ namespace Vancouver.FlightsFolder
             string currency)
         {
             var rootObj = await GetData(origin, destination, outboundDate, inboundDate, amountOfPassengers, travelClass, currency);
+            var rootObjCount = rootObj.results.Count;
             var outboundLegs = new List<IndividualFlightOutbound>();
             var inboundLegs = new List<IndividualFlightInbound>();
 
             itineraries.Clear();
-            for(int i = 0;  i < 25; i++ )
+            for(int i = 0;  i < rootObjCount; i++ )
             {
                 
                 outboundLegs.Clear();
@@ -206,7 +207,7 @@ namespace Vancouver.FlightsFolder
             var requestUrl = @"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
                              _config["FlightSearchAPI:Key"] + "&origin=" + origin + "&destination=" +
                              destination + "&departure_date=" + outboundDate + inboundDate +
-                             "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass + "&number_of_results = 25";
+                             "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass + "&number_of_results = 20";
             var request =
                 WebRequest.Create(requestUrl);
             var response = await request.GetResponseAsync().ConfigureAwait(false);

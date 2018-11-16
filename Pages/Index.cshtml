@@ -41,7 +41,6 @@
                 <div class="col-auto" style="">
                     <label class="sr-only" for="autocompleteDepart">Departure</label>
                     <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Departure">
-                    <span asp-validation-for="FlightInput.Origin" class="text-danger"></span>
                 </div>
                 <div class="col-auto">
                     <label class="sr-only" for="autocompleteArrive">Arrival</label>
@@ -95,10 +94,21 @@
     </div>
 </div>
 
+<div id="aspValidation" class="container" style="border-radius: 7px; padding: 5px; margin-top: 30px; ">
+    <span asp-validation-for="FlightInput.Origin" class="text-danger"></span>
+    <span asp-validation-for="FlightInput.Destination" class="text-danger"></span>    
+    <span asp-validation-for="FlightInput.OutboundDate" class="text-danger"></span>
+    <span asp-validation-for="FlightInput.InboundDate" class="text-danger"></span>
+</div>
+
+
+
+
 <script>
     $(document).ready(function() {
         $('#aspSearchBtn').on('click',
-            function() {
+            function () {
+                $('#aspValidation').fadeOut();
                 $('#allFlightResults').fadeOut();
                 $('#loading').fadeIn();
             });
@@ -136,12 +146,12 @@
                                     </div>
                                     <div class="col-2 align-self-center" style="width: 60%;">
                                         <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationOutbound" id="flightInfoDuration" style="font-size: 13px">
-                                            @Model.ItineraryList.ElementAt(i).tripDurationOutbound
+                                            @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[1]m
                                         </label>
                                         <div style="font-size: 10px;">
                                             <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound" id="flightInfoLayovers" style="color: red;">
                                                 @Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound stops
-                                            </label>
+                                            </label><br/>
                                             <label asp-for="@Model.ItineraryList.ElementAt(i).layoverCitiesOutbound" id="flightInfoLayoverCitiesOutbound" style="font-size: 10px; font-weight: bold;">
                                                 @Model.ItineraryList.ElementAt(i).layoverCitiesOutbound
                                             </label>
@@ -199,12 +209,12 @@
                                     </div>
                                     <div class="col-2 align-self-center" style="width: 60%">
                                         <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationInbound" id="flightInfoDuration" style="font-size: 13px">
-                                            @Model.ItineraryList.ElementAt(i).tripDurationInbound
+                                            @Model.ItineraryList.ElementAt(i).tripDurationInbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationInbound.Split(":")[1]m
                                         </label>
                                         <div style="font-size: 10px;">
                                             <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountInbound" id="flightInfoLayovers" style="color: red;">
                                                 @Model.ItineraryList.ElementAt(i).layoverStopAmountInbound  stops
-                                            </label>
+                                            </label><br/>
                                             <label asp-for="@Model.ItineraryList.ElementAt(i).layoverCitiesInbound" id="flightInfoLayoverCitiesInbound" style="font-size: 10px; font-weight: bold;">
                                                 @Model.ItineraryList.ElementAt(i).layoverCitiesInbound
                                             </label>
@@ -417,20 +427,12 @@
 
     }
 </div>
+       <div id="loading" class="d-flexLoading align-items-center justify-content-center h-100" style="margin-top: 80px; display: none !important;">
 
-                    
-
-
-
-                    <div id="loading" class="d-flexLoading align-items-center justify-content-center h-100" style="margin-top: 80px; display: none !important;">
-
-                        <div id="made-with-love" style="height: 150px; width: 150px;">
-                            <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                 viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-                            <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;" />
-
-
-
+            <div id="made-with-love" style="height: 150px; width: 150px;">
+                  <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                  <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity:0.5;" />
                             <circle fill="#fff" stroke="#e74c3c" stroke-width="3" cx="8" cy="54" r="6">
                             <animateTransform attributeName="transform"
                                               dur="2s"
@@ -438,13 +440,10 @@
                                               from="0 50 48"
                                               to="360 50 52"
                                               repeatCount="indefinite" />
-
-
-
-                </circle>
-            </svg>
-                        </div>
-                    </div>
+                            </circle>
+                  </svg>
+            </div>
+       </div>
 
                     <div id="errorMessage" style="display: none">
                         <h2 style="color: white;">You broke it...</h2>

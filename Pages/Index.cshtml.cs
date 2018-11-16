@@ -72,9 +72,14 @@ namespace Vancouver.Pages
 
         public async Task<ActionResult> OnPost()
         {
-             ItineraryList = new List<ItineraryObject>(await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
-                 FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency));
-            NewItineraryList = ItineraryList;
+            if (ModelState.IsValid)
+            {
+                ItineraryList = new List<ItineraryObject>(await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
+                    FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency));
+                NewItineraryList = ItineraryList;
+                return Page();
+            }
+
             return Page();
         }
 
