@@ -39,15 +39,18 @@ namespace Vancouver.Pages
         public async Task<IActionResult> OnPostDelete(string id)
         {
 
-            var ticket =  await _context.Tickets.FindAsync(id);
-            
+            var ticket = _context.Tickets
+                .Include(b => b.IndFlightOutbound)
+                .Include(b => b.IndFlightInbound)
+                .FirstOrDefault(b => b.Id == id);
 
             if (ticket != null)
             {
                 _context.Tickets.Remove(ticket);
-                await _context.SaveChangesAsync();
-
+                _context.SaveChanges();
             }
+
+
 
             return RedirectToPage();
         }
