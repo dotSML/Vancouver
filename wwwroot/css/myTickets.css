@@ -8,9 +8,46 @@
     url('BebasNeueFont/BebasNeue Regular.otf') format('svg'); /* Legacy iOS */
 }
 
+@font-face {
+    font-family: BebasNeue;
+    src: url("BebasNeueFont/BebasNeue Regular.otf")
+}
+
 .ticketContainer{
     margin-left: 50px;
     margin-right: 50px;
 }
+.tripHeading {
+    color: white;
+}
+hr.thickLine {
+    width: 120%;
+    height: 12px;
+    border-top: 1px solid black;
+    margin-bottom: 0;
+}
+.dates {
+    border: 1px solid white;
+    border-radius: 7px;
+    max-width: 200px;
+    text-align: center;
+    padding: 2px;
+    background-color: white;
+    font-family: BebasNeue;
+}
+.datesHeading {
+    padding: 0;
+    margin: 0;
+    color: #fa3f2d;
+}
+.itineraryDuration {
+    color: white;
+    font-size: 20px;
+}
+
+.itineraryObject {
+    margin-bottom: 100px;
+}
+
 
 
