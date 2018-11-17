@@ -9,6 +9,7 @@ namespace Vancouver.FlightsFolder
     public class ItineraryObject
     {
         public string Id { get; set; }
+        public int AmountOfPassengers { get; set; }
         public string departureTimeOutbound { get; set; }
         public string departureTimeInbound { get; set; }
         public string originAirportOutbound { get; set; }

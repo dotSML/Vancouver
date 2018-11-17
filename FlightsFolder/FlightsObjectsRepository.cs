@@ -163,6 +163,7 @@ namespace Vancouver.FlightsFolder
                     new ItineraryObject()
                     {
                         Id = Guid.NewGuid().ToString(),
+                        AmountOfPassengers = Int32.Parse(amountOfPassengers),
                         originAirportOutbound = getFlightsOutbound[0].origin.airport,
                         originAirportInbound = getFlightsInbound[0].origin.airport,
                         departureTimeOutbound = getFlightsOutbound[0].departs_at,

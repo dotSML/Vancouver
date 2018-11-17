@@ -124,7 +124,10 @@
 
             for (int i = 0; i < @Model.ItineraryList.Count(); i++)
             {
-
+                var airlineItineraryOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound[0].marketing_airline;
+                var airhexLogosItineraryOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryOutbound + "_50_50_s.png";
+                var airlineItineraryInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound[0].marketing_airline;
+                var airhexLogosItineraryInbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryInbound + "_50_50_s.png";
                 <form method="post">
                     <div class="flightResults">
                         <div class="vertical-center roundTrip" id="#@Model.ItineraryList.ElementAt(i).Id" style="margin-top: 25px; min-height: 100%;">
@@ -132,9 +135,8 @@
                                 <div class="row" style="color: white; border-bottom: dotted; min-height: 8vh;">
                                     <div id="flightInfoAirline" class="col-2 align-self-center">
                                         <div style="margin-left: 10px;">
-                                            <img src="" style="border-radius: 3px;">
+                                            <img src="@airhexLogosItineraryOutbound" style="border-radius: 3px;">
                                         </div>
-                                        //airlineOutbound
                                     </div>
                                     <div class="col-2 align-self-center" style="width: 60%">
                                         <label id="flightInfoDepartureTime" class="itinerary-time" asp-for="@Model.ItineraryList.ElementAt(i).departureTimeOutbound">
@@ -167,7 +169,7 @@
                                     </div>
                                     <div class="col-2 align-self-center"></div>
                                     <div class="col-1 align-self-center">
-                                        <button type="submit" asp-page-handler="AddTicket" asp-route-id="@Model.ItineraryList.ElementAt(i).Id" class="btn btn-success getFlightBtn" data-target="@Model.ItineraryList.ElementAt(i).Id" style="color: white; left: 50px">
+                                        <button type="submit" asp-page-handler="ItineraryOrder" asp-route-id="@Model.ItineraryList.ElementAt(i).Id" class="btn btn-success getFlightBtn" data-target="@Model.ItineraryList.ElementAt(i).Id" style="color: white; left: 50px">
                                             @Model.ItineraryList.ElementAt(i).farePricePerPassenger
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).originAirportOutbound)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).originAirportInbound)
@@ -188,15 +190,15 @@
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeOutbound)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationOutbound)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).AmountOfPassengers)
                                         </button>
 
                                     </div>
                                 </div>
                                 <div id="outboundFlights" class="row" style="color: white; height: 8vh;">
                                     <div id="flightInfoAirline" class="col-2 align-self-center">
-                                        //airlineInbound
                                         <div style="margin-left: 10px">
-                                            <img src="" style="border-radius: 3px;">
+                                            <img src="@airhexLogosItineraryInbound" style="border-radius: 3px;">
                                         </div>
                                     </div>
                                     <div class="col-2 align-self-center">
@@ -259,12 +261,15 @@
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalDes)
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalOrg)
 
+                                            var airlineOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).marketing_airline;
+                                            var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
+
                                             <div class="row" style="color: white; min-height: 7vh;">
                                                 <div id="outboundLegsInfo">
                                                 </div>
                                                 <div id="flightLegInfoAirline" class="col-2 align-self-center">
                                                     <div style="margin-left: 10px;">
-                                                        <img src="  airlineLogoRequestUrlOutboundLeg  " style="border-radius: 3px;">
+                                                        <img src="@airhexLogosOutbound" style="border-radius: 3px;">
                                                     </div>
                                                 </div>
                                                 <div class="col-1 align-self-center">
@@ -337,12 +342,14 @@
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].orderPos)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalOrg)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
+                                            var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(y).marketing_airline;
+                                            var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
                                             <div class="row" style="color: white; min-height: 7vh;">
                                                 <div>
                                                 </div>
                                                 <div class="col-2 align-self-center">
                                                     <div style="margin-left: 10px;">
-                                                        <img src="  airlineLogoRequestUrlInboundLeg  " style="border-radius: 3px;">
+                                                        <img src="@airhexLogosInbound" style="border-radius: 3px;">
                                                     </div>
                                                 </div>
                                                 <div class="col-1 align-self-center">

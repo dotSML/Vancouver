@@ -10,12 +10,12 @@ namespace Vancouver.CustomerFolder
     public class CustomersRepository : ICustomersRepository
     {
         private readonly DbSet<Customer> dbSet;
-        private readonly DbContext db;
+        private readonly DbContext _context;
 
-        public CustomersRepository(VancouverDbContext c)
+        public CustomersRepository(VancouverDbContext context)
         {
-            db = c;
-            dbSet = c?.Customers;
+            _context = context;
+            dbSet = context?.Customers;
         }
         public async Task<Customer> GetObject(string id)
         {
@@ -36,17 +36,17 @@ namespace Vancouver.CustomerFolder
         public async Task AddObject(Customer o)
         {
             dbSet.Add(o);
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateObject(Customer o)
         {
             dbSet.Update(o);
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         public async Task DeleteObject(Customer o)
         {
             dbSet.Remove(o);
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
     }

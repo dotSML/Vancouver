@@ -20,8 +20,6 @@ namespace Vancouver.Pages
             _context = context;
         }
 
-        [BindProperty]
-        public Ticket Ticket { get; set; }
 
         public IEnumerable<ItineraryObject> Tickets { get; set; }
         public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }

@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Vancouver.Databases;
 using Vancouver.FlightsFolder;
 using Vancouver.Models;
+using Vancouver.Services;
 
 namespace Vancouver.Pages
 {
@@ -23,6 +24,7 @@ namespace Vancouver.Pages
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
         private readonly IFlightsObjectsRepository _flightsRepository;
+        private readonly ITicketPurchaseService _ticketPurchaseService;
         private IConfiguration _config;
         
         
@@ -55,17 +57,20 @@ namespace Vancouver.Pages
         
 
 
-        public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration config, IFlightsObjectsRepository flightsRepository)
+        public IndexModel(VancouverDbContext context, UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager, 
+            IConfiguration config, 
+            IFlightsObjectsRepository flightsRepository,
+            ITicketPurchaseService ticketPurchaseService)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
             _flightsRepository = flightsRepository;
+            _ticketPurchaseService = ticketPurchaseService;
         }
 
-        [BindProperty]
-        public Ticket Ticket { get; set; }
 
         public IEnumerable<ItineraryObject> NewItineraryList { get; set; }
 
@@ -87,6 +92,12 @@ namespace Vancouver.Pages
         {
         }
 
+        public ActionResult OnPostItineraryOrder(ItineraryObject postObject)
+        {
+            var itinerary = postObject;
+            _ticketPurchaseService.SetTicketData(itinerary);
+            return RedirectToPage("OrderProcessing");
+        }
 
         public ActionResult OnPostAddTicket(ItineraryObject postObject)
         {

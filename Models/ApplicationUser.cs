@@ -21,7 +21,6 @@ namespace Vancouver.Models
 
         public string UserPhoto { get; set; }
 
-        public List<Ticket> Tickets { get; set; }
 
     }
 }
