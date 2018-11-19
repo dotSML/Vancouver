@@ -81,7 +81,6 @@ namespace Vancouver.Pages
             {
                 ItineraryList = new List<ItineraryObject>(await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
                     FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency));
-                NewItineraryList = ItineraryList;
                 return Page();
             }
 
@@ -94,26 +93,13 @@ namespace Vancouver.Pages
 
         public ActionResult OnPostItineraryOrder(ItineraryObject postObject)
         {
-            var itinerary = postObject;
-            _ticketPurchaseService.SetTicketData(itinerary);
-            return RedirectToPage("OrderProcessing");
+             var itinerary = postObject;
+             _ticketPurchaseService.SetTicketData(itinerary);
+             return RedirectToPage("OrderProcessing");
+            
         }
 
-        public ActionResult OnPostAddTicket(ItineraryObject postObject)
-        {
-            if (_signInManager.IsSignedIn(User))
-            {
-                var userId = _userManager.GetUserId(User);
-                postObject.ApplicationUserId = userId;
-                var ticket = postObject;
-                _context.Tickets.Add(ticket);
-                _context.SaveChangesAsync();
-                return Redirect("/tickettest");
-
-            }
-
-            return Page();
-        }
+        
         
     }
 

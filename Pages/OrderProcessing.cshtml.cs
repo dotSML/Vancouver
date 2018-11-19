@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Vancouver.CustomerFolder;
 using Vancouver.FlightsFolder;
+using Vancouver.Models;
 using Vancouver.Services;
 
 namespace Vancouver.Pages
@@ -19,11 +21,22 @@ namespace Vancouver.Pages
         }
 
         public ItineraryObject OrderObject { get; set; }
+        public Customer Customer { get; set; }
+        public Order Order { get; set; }
 
         public void OnGet()
         {
             var ticket = _ticketPurchaseService.GetTicketData();
-            OrderObject = ticket;
+            if (ticket != null)
+            {
+                OrderObject = ticket;
+            }
+        }
+
+
+
+        public void OnPost(Order PostOrder)
+        {
 
         }
     }

@@ -342,7 +342,8 @@
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].orderPos)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalOrg)
                                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
-                                            var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(y).marketing_airline;
+
+                                            var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).marketing_airline;
                                             var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
                                             <div class="row" style="color: white; min-height: 7vh;">
                                                 <div>
