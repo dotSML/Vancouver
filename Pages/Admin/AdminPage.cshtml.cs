@@ -31,9 +31,22 @@ namespace Vancouver.Pages.Admin
             _provider = provider;
         }
 
+
+        public IList<string> Roles { get; set; }
+
         public async Task<ActionResult> OnGet()
         {
             ApplicationUserList = _context.Users.ToList();
+
+            foreach (var user in ApplicationUserList)
+            {
+                Roles = await _userManager.GetRolesAsync(user);
+
+            }
+
+
+
+
             return Page();
         }
 

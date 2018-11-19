@@ -1,10 +1,12 @@
 ﻿@page
 @using Admin
 @using Microsoft.AspNetCore.Identity
+@using Vancouver.Models
 @model Admin.AdminPageModel
 @{
     ViewData["Title"] = "AdminPage";
 }
+@inject UserManager<ApplicationUser> UserManager
 @Html.AntiForgeryToken();
 
 <head>
@@ -29,7 +31,7 @@
                 </th>
             </tr>
             <tbody>
-            @foreach (var user in Model.ApplicationUserList)
+            @foreach (var user in @Model.ApplicationUserList)
             {
                 <tr>
                     <td>
@@ -45,13 +47,25 @@
                         @user.Email
                     </td>
                     <td>
+                        @{
+                            var roles = await UserManager.GetRolesAsync(user);
+                            foreach (var role in roles)
+                            {
+                                <span>@role</span>
+                            }
+                        }
+
+                    </td>
+                    <td>
                         <form method="post">
                             <button asp-page-handler="AddAdminRole"
                                     asp-route-id="@user.Id" class="btn btn-danger">Add As Admin</button>
                         </form>
                     </td>
                 </tr>
-            }</tbody>
+                
+            }
+            </tbody>
            
 </table>
     </div>

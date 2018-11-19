@@ -21,6 +21,5 @@ namespace Vancouver.Models
 
         public string UserPhoto { get; set; }
 
-
     }
 }
