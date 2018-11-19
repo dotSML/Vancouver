@@ -38,15 +38,6 @@ namespace Vancouver.Pages.Admin
         {
             ApplicationUserList = _context.Users.ToList();
 
-            foreach (var user in ApplicationUserList)
-            {
-                Roles = await _userManager.GetRolesAsync(user);
-
-            }
-
-
-
-
             return Page();
         }
 
@@ -55,25 +46,30 @@ namespace Vancouver.Pages.Admin
         [HttpPost]
         public async Task<IActionResult> OnPostAddAdminRole(string id)
         {
-             AddNewUserToRole(id, "Administrator");
+            await AddNewRoleToUser(id, "Administrator");
             return RedirectToPage("AdminPage", "OnGet");
         }
 
 
-        private async void AddNewUserToRole(string id,
+        private async Task<ActionResult> AddNewRoleToUser(string id,
             string roleName)
         {
-            var user = _userManager.FindByIdAsync(id).Result;
-            RolesToRemove = new List<string>(await _userManager.GetRolesAsync(user));
+            var user = await _userManager.FindByIdAsync(id);
 
-            await _userManager.RemoveFromRolesAsync(user, RolesToRemove);
+            RolesToRemove = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in RolesToRemove)
+            {
+                var result = await _userManager.RemoveFromRoleAsync(user, role);
+            }
+
             if (user == null)
             {
                 Message = "User not found";
             }
             await _userManager.AddToRoleAsync(user, roleName);
 
-
+            return RedirectToPage("AdminPage", "OnGet");
         }
     }
 

@@ -215,7 +215,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-
+                    var roleResult = await _userManager.AddToRoleAsync(user, "User");
                     _logger.LogInformation("User created a new account with password.");
 
                     var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
