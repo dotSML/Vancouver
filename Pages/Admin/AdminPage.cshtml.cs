@@ -50,26 +50,29 @@ namespace Vancouver.Pages.Admin
             return Page();
         }
 
+        public IList<string> RolesToRemove { get; set; }
 
         [HttpPost]
         public async Task<IActionResult> OnPostAddAdminRole(string id)
         {
-            AddNewUserToRole(_provider, id, "Administrator");
-            return Page();
+             AddNewUserToRole(id, "Administrator");
+            return RedirectToPage("AdminPage", "OnGet");
         }
-        private void AddNewUserToRole(IServiceProvider serviceProvider, string id,
+
+
+        private async void AddNewUserToRole(string id,
             string roleName)
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var user = _userManager.FindByIdAsync(id).Result;
+            RolesToRemove = new List<string>(await _userManager.GetRolesAsync(user));
 
-            Task<ApplicationUser> checkAppUser = userManager.FindByIdAsync(id);
-            checkAppUser.Wait();
-            if (checkAppUser.Result == null)
+            await _userManager.RemoveFromRolesAsync(user, RolesToRemove);
+            if (user == null)
             {
                 Message = "User not found";
             }
-            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(checkAppUser.Result, roleName);
-            newUserRole.Wait();
+            await _userManager.AddToRoleAsync(user, roleName);
+
 
         }
     }
