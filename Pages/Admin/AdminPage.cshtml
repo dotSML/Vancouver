@@ -17,9 +17,9 @@
 </head>
 
 <h1 style="color:azure">Hello Admin!</h1>
-<div class="table" style="background-color: hsla(27, 34%, 65%, 0.2); color: azure">
+<div class="table" style="background-color: hsla(27, 34%, 65%, 0.2); color: azure;">
     <table>
-        <tr>
+        <tr style="background-color: hsla(27, 34%, 65%, 0.3)">
             <th>
                 ID
             </th>
@@ -29,6 +29,14 @@
             <th>
                 Date of Birth
             </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Role
+            </th>
+            <th></th>
+            <th></th>
         </tr>
         <tbody>
             @foreach (var user in @Model.ApplicationUserList)
