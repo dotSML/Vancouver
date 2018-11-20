@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Vancouver.Aids;
 using Vancouver.Databases;
 using Vancouver.Models;
 
@@ -30,9 +27,6 @@ namespace Vancouver.Pages.Admin
             _signInManager = signInManager;
             _provider = provider;
         }
-
-
-        public IList<string> Roles { get; set; }
 
         public async Task<ActionResult> OnGet()
         {

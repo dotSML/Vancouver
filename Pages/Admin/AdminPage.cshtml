@@ -17,20 +17,20 @@
 </head>
 
 <h1 style="color:azure">Hello Admin!</h1>
-    <div class="table" style="background-color: hsla(27, 34%, 65%, 0.2); color: azure">
-        <table>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Date of Birth
-                </th>
-            </tr>
-            <tbody>
+<div class="table" style="background-color: hsla(27, 34%, 65%, 0.2); color: azure">
+    <table>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Date of Birth
+            </th>
+        </tr>
+        <tbody>
             @foreach (var user in @Model.ApplicationUserList)
             {
                 <tr>
@@ -57,22 +57,32 @@
 
                     </td>
                     <td>
-                        <form method="post">
-                            <button asp-page-handler="AddAdminRole"
-                                    asp-route-id="@user.Id" class="btn btn-danger">Add As Admin</button>
-                        </form>
-                    </td>
-                    <td>
+                        @if (user.Email != "admin@admin.com")
+                        {
+                            <form method="post">
+                                <button asp-page-handler="AddAdminRole"
+                                        asp-route-id="@user.Id" class="btn btn-danger">
+                                    Add As Admin
+                                </button>
+                            </form>
+                        }
+                </td>
+                <td>
+                    @if (user.Email != "admin@admin.com")
+                    {
                         <form method="post">
                             <button asp-page-handler="RemoveAdminRole"
-                                    asp-route-id="@user.Id" class="btn btn-danger">Remove As Admin</button>
+                                    asp-route-id="@user.Id" class="btn btn-danger">
+                                Remove As Admin
+                            </button>
                         </form>
-                    </td>
-                </tr>
-                
-            }
-            </tbody>
-           
-</table>
-    </div>
+                    }
+            </td>
+        </tr>
+
+    }
+        </tbody>
+
+    </table>
+</div>
 }
