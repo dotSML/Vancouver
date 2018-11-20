@@ -49,6 +49,12 @@ namespace Vancouver.Pages.Admin
             await AddNewRoleToUser(id, "Administrator");
             return RedirectToPage("AdminPage", "OnGet");
         }
+        [HttpPost]
+        public async Task<IActionResult> OnPostRemoveAdminRole(string id)
+        {
+            await AddNewRoleToUser(id, "User");
+            return RedirectToPage("AdminPage", "OnGet");
+        }
 
 
         private async Task<ActionResult> AddNewRoleToUser(string id,
@@ -71,6 +77,7 @@ namespace Vancouver.Pages.Admin
 
             return RedirectToPage("AdminPage", "OnGet");
         }
+       
     }
 
 }

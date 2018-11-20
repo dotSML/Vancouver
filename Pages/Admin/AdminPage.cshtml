@@ -62,6 +62,12 @@
                                     asp-route-id="@user.Id" class="btn btn-danger">Add As Admin</button>
                         </form>
                     </td>
+                    <td>
+                        <form method="post">
+                            <button asp-page-handler="RemoveAdminRole"
+                                    asp-route-id="@user.Id" class="btn btn-danger">Remove As Admin</button>
+                        </form>
+                    </td>
                 </tr>
                 
             }
