@@ -11,15 +11,14 @@
 
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
-    <link href="css/adminPage.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
 
 </head>
 
 <h1 style="color:azure">Hello Admin!</h1>
-<div class="table" style="background-color: hsla(27, 34%, 65%, 0.2); color: azure;">
+<div class="table">
     <table>
-        <tr style="background-color: hsla(27, 34%, 65%, 0.3)">
+        <tr>
             <th>
                 ID
             </th>
@@ -64,28 +63,29 @@
                         }
 
                     </td>
-                    <td>
-                        @if (user.Email != "admin@admin.com")
-                        {
-                            <form method="post">
-                                <button asp-page-handler="AddAdminRole"
-                                        asp-route-id="@user.Id" class="btn btn-danger">
-                                    Add As Admin
-                                </button>
-                            </form>
-                        }
-                </td>
-                <td>
-                    @if (user.Email != "admin@admin.com")
-                    {
-                        <form method="post">
-                            <button asp-page-handler="RemoveAdminRole"
-                                    asp-route-id="@user.Id" class="btn btn-danger">
-                                Remove As Admin
-                            </button>
-                        </form>
-                    }
+                    
+        @if (user.Email != "admin@admin.com")
+        {
+            <td>
+
+                <form method="post">
+                    <button asp-page-handler="AddAdminRole"
+                            asp-route-id="@user.Id" class="btn btn-danger">
+                        Add As Admin
+                    </button>
+                </form>
+                }
             </td>
+            <td>
+                <form method="post">
+                    <button asp-page-handler="RemoveAdminRole"
+                            asp-route-id="@user.Id" class="btn btn-danger">
+                        Remove As Admin
+                    </button>
+                </form>
+
+            </td>
+        }
         </tr>
 
     }

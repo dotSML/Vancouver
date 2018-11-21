@@ -340,7 +340,7 @@ svg {
 }
 
 table {
-  border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 caption {
@@ -1644,9 +1644,13 @@ pre code {
 }
 
 .table {
-  width: 100%;
-  margin-bottom: 1rem;
-  background-color: transparent;
+    width: 100%;
+    margin-bottom: 1rem;
+    width: 100%;
+    background-color: hsla(27, 34%, 65%, 0.2);
+    border: 3px;
+    border-color: azure;
+    color: azure;
 }
 
 .table th,
@@ -1654,6 +1658,7 @@ pre code {
   padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
+    color: azure;
 }
 
 .table thead th {
