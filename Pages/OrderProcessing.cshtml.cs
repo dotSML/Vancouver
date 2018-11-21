@@ -19,14 +19,15 @@ namespace Vancouver.Pages
         {
             _ticketPurchaseService = ticketPurchaseService;
         }
-
+        [BindProperty]
         public ItineraryObject OrderObject { get; set; }
-        public Customer Customer { get; set; }
+        public List<Customer> Customers { get; set; }
+        [BindProperty]
         public Order Order { get; set; }
 
         public void OnGet()
         {
-            var ticket = _ticketPurchaseService.GetTicketData();
+            var ticket = _ticketPurchaseService.GetItineraryTicketData();
             if (ticket != null)
             {
                 OrderObject = ticket;
@@ -35,9 +36,10 @@ namespace Vancouver.Pages
 
 
 
-        public void OnPost(Order PostOrder)
+        public void OnPost(List<Customer> customers)
         {
-
+            Order.Customer = new List<Customer>(customers);
+            Order.OrderItinerary = _ticketPurchaseService.GetItineraryTicketData();
         }
     }
 }

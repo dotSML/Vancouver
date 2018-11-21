@@ -94,7 +94,7 @@ namespace Vancouver.Pages
         public ActionResult OnPostItineraryOrder(ItineraryObject postObject)
         {
              var itinerary = postObject;
-             _ticketPurchaseService.SetTicketData(itinerary);
+             _ticketPurchaseService.SetItineraryTicketData(itinerary);
              return RedirectToPage("OrderProcessing");
             
         }
