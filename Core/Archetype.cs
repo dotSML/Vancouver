@@ -1,6 +1,7 @@
 ﻿using System;
-using Open.Aids;
-namespace Open.Core {
+using Vancouver.Aids;
+
+namespace Vancouver.Core {
     public abstract class Archetype {
         protected internal string
             getString(ref string field, string value = Constants.Unspecified) {

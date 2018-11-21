@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using Open.Core;
+using Vancouver.Core;
 using Vancouver.Models;
 
 namespace Vancouver.CustomerFolder
