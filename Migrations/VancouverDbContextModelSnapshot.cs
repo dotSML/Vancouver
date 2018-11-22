@@ -15,7 +15,7 @@ namespace Vancouver.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -136,11 +136,17 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("OrderId");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Customers");
                 });
@@ -389,6 +395,49 @@ namespace Vancouver.Migrations
                     b.ToTable("AllSoldTickets");
                 });
 
+            modelBuilder.Entity("Vancouver.Models.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("OrderItineraryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderItineraryId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Passport", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Customers");
+
+                    b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("PassportNumber")
+                        .IsRequired();
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Customers")
+                        .IsUnique()
+                        .HasFilter("[Customers] IS NOT NULL");
+
+                    b.ToTable("Passport");
+                });
+
             modelBuilder.Entity("Vancouver.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentID")
@@ -480,6 +529,13 @@ namespace Vancouver.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Vancouver.CustomerFolder.Customer", b =>
+                {
+                    b.HasOne("Vancouver.Models.Order")
+                        .WithMany("Customer")
+                        .HasForeignKey("OrderId");
+                });
+
             modelBuilder.Entity("Vancouver.FlightsFolder.IndividualFlightInbound", b =>
                 {
                     b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "Itinerary")
@@ -506,6 +562,20 @@ namespace Vancouver.Migrations
                     b.HasOne("Vancouver.Models.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentID");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Order", b =>
+                {
+                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "OrderItinerary")
+                        .WithMany()
+                        .HasForeignKey("OrderItineraryId");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Passport", b =>
+                {
+                    b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
+                        .WithOne("Passport")
+                        .HasForeignKey("Vancouver.Models.Passport", "Customers");
                 });
 
             modelBuilder.Entity("Vancouver.Models.Payment", b =>

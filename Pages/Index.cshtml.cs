@@ -71,10 +71,6 @@ namespace Vancouver.Pages
             _ticketPurchaseService = ticketPurchaseService;
         }
 
-
-        public IEnumerable<ItineraryObject> NewItineraryList { get; set; }
-
-
         public async Task<ActionResult> OnPost()
         {
             if (ModelState.IsValid)

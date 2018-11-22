@@ -10,14 +10,14 @@ using Vancouver.Databases;
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    [Migration("20181113114037_TicketsMigration")]
-    partial class TicketsMigration
+    [Migration("20181122105207_PassportMigration")]
+    partial class PassportMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -138,11 +138,17 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("OrderId");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Customers");
                 });
@@ -152,7 +158,7 @@ namespace Vancouver.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ItineraryObjectId");
+                    b.Property<string>("ItineraryId");
 
                     b.Property<string>("aircraft");
 
@@ -170,15 +176,21 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("operating_airline");
 
+                    b.Property<int>("orderPos");
+
                     b.Property<string>("originInd");
 
                     b.Property<int>("seats_remaining");
+
+                    b.Property<string>("terminalDes");
+
+                    b.Property<string>("terminalOrg");
 
                     b.Property<string>("travel_class");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItineraryObjectId");
+                    b.HasIndex("ItineraryId");
 
                     b.ToTable("IndividualFlightInbound");
                 });
@@ -188,7 +200,7 @@ namespace Vancouver.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ItineraryObjectId");
+                    b.Property<string>("ItineraryId");
 
                     b.Property<string>("aircraft");
 
@@ -206,15 +218,21 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("operating_airline");
 
+                    b.Property<int>("orderPos");
+
                     b.Property<string>("originInd");
 
                     b.Property<int>("seats_remaining");
+
+                    b.Property<string>("terminalDes");
+
+                    b.Property<string>("terminalOrg");
 
                     b.Property<string>("travel_class");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItineraryObjectId");
+                    b.HasIndex("ItineraryId");
 
                     b.ToTable("IndividualFlightOutbound");
                 });
@@ -223,6 +241,8 @@ namespace Vancouver.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AmountOfPassengers");
 
                     b.Property<string>("ApplicationUserId");
 
@@ -362,6 +382,64 @@ namespace Vancouver.Migrations
                     b.ToTable("AllCustomerTravelHistories");
                 });
 
+            modelBuilder.Entity("Vancouver.Models.Invoice", b =>
+                {
+                    b.Property<int>("InvoiceID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PaymentID");
+
+                    b.HasKey("InvoiceID");
+
+                    b.HasIndex("PaymentID");
+
+                    b.ToTable("AllSoldTickets");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("OrderItineraryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderItineraryId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Passport", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Customers");
+
+                    b.Property<DateTime>("DateOfBirth");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("PassportNumber")
+                        .IsRequired();
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Customers")
+                        .IsUnique()
+                        .HasFilter("[Customers] IS NOT NULL");
+
+                    b.ToTable("Passport");
+                });
+
             modelBuilder.Entity("Vancouver.Models.Payment", b =>
                 {
                     b.Property<int>("PaymentID")
@@ -406,78 +484,6 @@ namespace Vancouver.Migrations
                     b.HasIndex("BankLinkId");
 
                     b.ToTable("PaymentMethod");
-                });
-
-            modelBuilder.Entity("Vancouver.Models.Ticket", b =>
-                {
-                    b.Property<string>("TicketId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<string>("arrivalAirportInbound");
-
-                    b.Property<string>("arrivalAirportOutbound");
-
-                    b.Property<string>("arrivalTimeInbound");
-
-                    b.Property<string>("arrivalTimeOutbound");
-
-                    b.Property<string>("departureTimeInbound");
-
-                    b.Property<string>("departureTimeOutbound");
-
-                    b.Property<string>("fareClass");
-
-                    b.Property<string>("fareCurrency");
-
-                    b.Property<string>("farePricePerPassenger");
-
-                    b.Property<string>("farePriceTax");
-
-                    b.Property<string>("farePriceTotal");
-
-                    b.Property<string>("layoverCitiesInbound");
-
-                    b.Property<string>("layoverCitiesOutbound");
-
-                    b.Property<string>("layoverStopAmountInbound");
-
-                    b.Property<string>("layoverStopAmountOutbound");
-
-                    b.Property<string>("originAirportInbound");
-
-                    b.Property<string>("originAirportOutbound");
-
-                    b.Property<string>("tripDurationInbound");
-
-                    b.Property<string>("tripDurationOutbound");
-
-                    b.HasKey("TicketId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Ticket");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Ticket");
-                });
-
-            modelBuilder.Entity("Vancouver.Models.Invoice", b =>
-                {
-                    b.HasBaseType("Vancouver.Models.Ticket");
-
-                    b.Property<int>("InvoiceID");
-
-                    b.Property<int?>("PaymentID");
-
-                    b.HasIndex("PaymentID");
-
-                    b.ToTable("Invoice");
-
-                    b.HasDiscriminator().HasValue("Invoice");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -525,18 +531,25 @@ namespace Vancouver.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Vancouver.CustomerFolder.Customer", b =>
+                {
+                    b.HasOne("Vancouver.Models.Order")
+                        .WithMany("Customer")
+                        .HasForeignKey("OrderId");
+                });
+
             modelBuilder.Entity("Vancouver.FlightsFolder.IndividualFlightInbound", b =>
                 {
-                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject")
+                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "Itinerary")
                         .WithMany("IndFlightInbound")
-                        .HasForeignKey("ItineraryObjectId");
+                        .HasForeignKey("ItineraryId");
                 });
 
             modelBuilder.Entity("Vancouver.FlightsFolder.IndividualFlightOutbound", b =>
                 {
-                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject")
+                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "Itinerary")
                         .WithMany("IndFlightOutbound")
-                        .HasForeignKey("ItineraryObjectId");
+                        .HasForeignKey("ItineraryId");
                 });
 
             modelBuilder.Entity("Vancouver.Models.CustomerTravelHistory", b =>
@@ -544,6 +557,27 @@ namespace Vancouver.Migrations
                     b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Invoice", b =>
+                {
+                    b.HasOne("Vancouver.Models.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentID");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Order", b =>
+                {
+                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "OrderItinerary")
+                        .WithMany()
+                        .HasForeignKey("OrderItineraryId");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.Passport", b =>
+                {
+                    b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
+                        .WithOne("Passport")
+                        .HasForeignKey("Vancouver.Models.Passport", "Customers");
                 });
 
             modelBuilder.Entity("Vancouver.Models.Payment", b =>
@@ -560,7 +594,7 @@ namespace Vancouver.Migrations
                         .WithMany()
                         .HasForeignKey("PaymentMethodId");
 
-                    b.HasOne("Vancouver.Models.Ticket", "Ticket")
+                    b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId");
                 });
@@ -570,20 +604,6 @@ namespace Vancouver.Migrations
                     b.HasOne("Vancouver.Models.BankLink", "BankLink")
                         .WithMany()
                         .HasForeignKey("BankLinkId");
-                });
-
-            modelBuilder.Entity("Vancouver.Models.Ticket", b =>
-                {
-                    b.HasOne("Vancouver.Models.ApplicationUser", "User")
-                        .WithMany("Tickets")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("Vancouver.Models.Invoice", b =>
-                {
-                    b.HasOne("Vancouver.Models.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentID");
                 });
 #pragma warning restore 612, 618
         }

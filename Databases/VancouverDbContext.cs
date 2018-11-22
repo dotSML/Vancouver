@@ -21,6 +21,7 @@ namespace Vancouver.Databases
         public DbSet<CustomerTravelHistory> AllCustomerTravelHistories { get; set; }
         public DbSet<ItineraryObject> Tickets { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         
     }

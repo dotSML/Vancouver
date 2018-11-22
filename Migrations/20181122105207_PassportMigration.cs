@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Vancouver.Migrations
 {
-    public partial class VancouverMigrations : Migration
+    public partial class PassportMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,21 +26,21 @@ namespace Vancouver.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
                     Id = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
@@ -64,17 +64,35 @@ namespace Vancouver.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Tickets",
                 columns: table => new
                 {
-                    CustomerId = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    AmountOfPassengers = table.Column<int>(nullable: false),
+                    departureTimeOutbound = table.Column<string>(nullable: true),
+                    departureTimeInbound = table.Column<string>(nullable: true),
+                    originAirportOutbound = table.Column<string>(nullable: true),
+                    originAirportInbound = table.Column<string>(nullable: true),
+                    tripDurationOutbound = table.Column<string>(nullable: true),
+                    tripDurationInbound = table.Column<string>(nullable: true),
+                    layoverStopAmountOutbound = table.Column<string>(nullable: true),
+                    layoverStopAmountInbound = table.Column<string>(nullable: true),
+                    layoverCitiesOutbound = table.Column<string>(nullable: true),
+                    layoverCitiesInbound = table.Column<string>(nullable: true),
+                    arrivalTimeOutbound = table.Column<string>(nullable: true),
+                    arrivalTimeInbound = table.Column<string>(nullable: true),
+                    arrivalAirportOutbound = table.Column<string>(nullable: true),
+                    arrivalAirportInbound = table.Column<string>(nullable: true),
+                    farePricePerPassenger = table.Column<string>(nullable: true),
+                    fareClass = table.Column<string>(nullable: true),
+                    fareCurrency = table.Column<string>(nullable: true),
+                    farePriceTax = table.Column<string>(nullable: true),
+                    farePriceTotal = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,6 +221,109 @@ namespace Vancouver.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IndividualFlightInbound",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    orderPos = table.Column<int>(nullable: false),
+                    departs_at = table.Column<string>(nullable: true),
+                    arrives_at = table.Column<string>(nullable: true),
+                    originInd = table.Column<string>(nullable: true),
+                    destinationInd = table.Column<string>(nullable: true),
+                    marketing_airline = table.Column<string>(nullable: true),
+                    operating_airline = table.Column<string>(nullable: true),
+                    flight_number = table.Column<string>(nullable: true),
+                    aircraft = table.Column<string>(nullable: true),
+                    travel_class = table.Column<string>(nullable: true),
+                    booking_code = table.Column<string>(nullable: true),
+                    seats_remaining = table.Column<int>(nullable: false),
+                    terminalOrg = table.Column<string>(nullable: true),
+                    terminalDes = table.Column<string>(nullable: true),
+                    ItineraryId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IndividualFlightInbound", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IndividualFlightInbound_Tickets_ItineraryId",
+                        column: x => x.ItineraryId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IndividualFlightOutbound",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    orderPos = table.Column<int>(nullable: false),
+                    departs_at = table.Column<string>(nullable: true),
+                    arrives_at = table.Column<string>(nullable: true),
+                    originInd = table.Column<string>(nullable: true),
+                    destinationInd = table.Column<string>(nullable: true),
+                    marketing_airline = table.Column<string>(nullable: true),
+                    operating_airline = table.Column<string>(nullable: true),
+                    flight_number = table.Column<string>(nullable: true),
+                    aircraft = table.Column<string>(nullable: true),
+                    travel_class = table.Column<string>(nullable: true),
+                    booking_code = table.Column<string>(nullable: true),
+                    seats_remaining = table.Column<int>(nullable: false),
+                    terminalOrg = table.Column<string>(nullable: true),
+                    terminalDes = table.Column<string>(nullable: true),
+                    ItineraryId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IndividualFlightOutbound", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IndividualFlightOutbound_Tickets_ItineraryId",
+                        column: x => x.ItineraryId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    OrderItineraryId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Tickets_OrderItineraryId",
+                        column: x => x.OrderItineraryId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerId = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    OrderId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.ForeignKey(
+                        name: "FK_Customers_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AllCustomerTravelHistories",
                 columns: table => new
                 {
@@ -226,42 +347,26 @@ namespace Vancouver.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
+                name: "Passport",
                 columns: table => new
                 {
-                    TicketId = table.Column<string>(nullable: false),
-                    departureTimeOutbound = table.Column<string>(nullable: true),
-                    departureTimeInbound = table.Column<string>(nullable: true),
-                    originAirportOutbound = table.Column<string>(nullable: true),
-                    originAirportInbound = table.Column<string>(nullable: true),
-                    tripDurationOutbound = table.Column<string>(nullable: true),
-                    tripDurationInbound = table.Column<string>(nullable: true),
-                    layoverStopAmountOutbound = table.Column<string>(nullable: true),
-                    layoverStopAmountInbound = table.Column<string>(nullable: true),
-                    layoverCitiesOutbound = table.Column<string>(nullable: true),
-                    layoverCitiesInbound = table.Column<string>(nullable: true),
-                    arrivalTimeOutbound = table.Column<string>(nullable: true),
-                    arrivalTimeInbound = table.Column<string>(nullable: true),
-                    arrivalAirportOutbound = table.Column<string>(nullable: true),
-                    arrivalAirportInbound = table.Column<string>(nullable: true),
-                    farePricePerPassenger = table.Column<string>(nullable: true),
-                    fareClass = table.Column<string>(nullable: true),
-                    fareCurrency = table.Column<string>(nullable: true),
-                    farePriceTax = table.Column<string>(nullable: true),
-                    farePriceTotal = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false),
-                    InvoiceID = table.Column<int>(nullable: true),
-                    PaymentID = table.Column<int>(nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    PassportNumber = table.Column<string>(nullable: false),
+                    Customers = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.TicketId);
+                    table.PrimaryKey("PK_Passport", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        name: "FK_Passport_Customers_Customers",
+                        column: x => x.Customers,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -303,7 +408,26 @@ namespace Vancouver.Migrations
                         name: "FK_Payment_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Tickets",
-                        principalColumn: "TicketId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AllSoldTickets",
+                columns: table => new
+                {
+                    InvoiceID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PaymentID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AllSoldTickets", x => x.InvoiceID);
+                    table.ForeignKey(
+                        name: "FK_AllSoldTickets_Payment_PaymentID",
+                        column: x => x.PaymentID,
+                        principalTable: "Payment",
+                        principalColumn: "PaymentID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -311,6 +435,11 @@ namespace Vancouver.Migrations
                 name: "IX_AllCustomerTravelHistories_CustomerId",
                 table: "AllCustomerTravelHistories",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AllSoldTickets_PaymentID",
+                table: "AllSoldTickets",
+                column: "PaymentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -352,6 +481,33 @@ namespace Vancouver.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_OrderId",
+                table: "Customers",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IndividualFlightInbound_ItineraryId",
+                table: "IndividualFlightInbound",
+                column: "ItineraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IndividualFlightOutbound_ItineraryId",
+                table: "IndividualFlightOutbound",
+                column: "ItineraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderItineraryId",
+                table: "Orders",
+                column: "OrderItineraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Passport_Customers",
+                table: "Passport",
+                column: "Customers",
+                unique: true,
+                filter: "[Customers] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payment_BankLinkId",
                 table: "Payment",
                 column: "BankLinkId");
@@ -375,54 +531,15 @@ namespace Vancouver.Migrations
                 name: "IX_PaymentMethod_BankLinkId",
                 table: "PaymentMethod",
                 column: "BankLinkId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_PaymentID",
-                table: "Tickets",
-                column: "PaymentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_ApplicationUserId",
-                table: "Tickets",
-                column: "ApplicationUserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Tickets_Payment_PaymentID",
-                table: "Tickets",
-                column: "PaymentID",
-                principalTable: "Payment",
-                principalColumn: "PaymentID",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payment_Customers_CustomerId",
-                table: "Payment");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Tickets_AspNetUsers_ApplicationUserId",
-                table: "Tickets");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payment_BankLink_BankLinkId",
-                table: "Payment");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_PaymentMethod_BankLink_BankLinkId",
-                table: "PaymentMethod");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payment_PaymentMethod_PaymentMethodId",
-                table: "Payment");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Payment_Tickets_TicketId",
-                table: "Payment");
-
             migrationBuilder.DropTable(
                 name: "AllCustomerTravelHistories");
+
+            migrationBuilder.DropTable(
+                name: "AllSoldTickets");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -440,25 +557,37 @@ namespace Vancouver.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "IndividualFlightInbound");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "IndividualFlightOutbound");
+
+            migrationBuilder.DropTable(
+                name: "Passport");
+
+            migrationBuilder.DropTable(
+                name: "Payment");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "BankLink");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "PaymentMethod");
 
             migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Payment");
+                name: "BankLink");
+
+            migrationBuilder.DropTable(
+                name: "Tickets");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Vancouver.Core;
 using Vancouver.Models;
 
@@ -14,18 +15,18 @@ namespace Vancouver.CustomerFolder
         private DateTime validFrom = DateTime.MinValue;
         private DateTime validTo = DateTime.MaxValue;
 
+        [Key]
+        public string CustomerId { get; set; }
 
-        public string CustomerId {
-            get => getString(ref customerId);
-            set => customerId = value;
-        }
         [DisplayName("First Name")]
+        [Required]
         public string FirstName
         {
             get => getString(ref firstName);
             set => firstName = value;
         }
         [DisplayName("Last Name")]
+        [Required]
         public string LastName
         {
             get => getString(ref lastName);
@@ -36,11 +37,9 @@ namespace Vancouver.CustomerFolder
             get => getString(ref email);
             set => email = value;
         }
-        public DateTime DateOfBirth
-        {
-            get => getMinValue(ref validFrom, ref validTo);
-            set => setValue(ref validFrom, value);
-        }
+        
+
+        public Passport Passport { get; set; }
 
         //public Address Address { get; set; }
         //public Contact Contact { get; set; }

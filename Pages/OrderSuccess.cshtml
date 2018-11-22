@@ -1,0 +1,13 @@
+﻿@page
+@model Vancouver.Pages.OrderSuccessModel
+@{
+    ViewData["Title"] = "OrderSuccess";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>OrderSuccess</h2>
+
+<div style="color: white; font-size: 30px;">
+<h1>You have successfully completed order from @Model.CompletedOrder.OrderItinerary.originAirportOutbound to @Model.CompletedOrder.OrderItinerary.originAirportInbound </h1>
+<h2>You can look up your itinerary from /tickettest by using your Itinerary ID - <strong>@Model.CompletedOrder.OrderItinerary.Id</strong></h2>
+</div>

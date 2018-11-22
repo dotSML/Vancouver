@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Vancouver.FlightsFolder;
 using Vancouver.CustomerFolder;
+using Vancouver.Databases;
+using Vancouver.Models;
 
 namespace Vancouver.Services
 {
@@ -13,12 +15,17 @@ namespace Vancouver.Services
         ItineraryObject GetItineraryTicketData();
         void SetItineraryCustomersData(List<Customer> customers);
         List<Customer> GetItineraryCustomersData();
+        void SetOrderData(Order order);
+        Order GetOrderData();
+
     }
 
     public class TicketPurchaseService : ITicketPurchaseService
     {
         public ItineraryObject Itinerary { get; set; }
         public List<Customer> Customers { get; set; }
+        public Order Order { get; set; }
+
 
         public void SetItineraryCustomersData(List<Customer> customers)
         {
@@ -39,6 +46,18 @@ namespace Vancouver.Services
         {
             return Itinerary;
         }
+
+        public void SetOrderData(Order order)
+        {
+            Order = order;
+        }
+
+        public Order GetOrderData()
+        {
+            return Order;
+        }
+
+        
 
     }
 }
