@@ -22,6 +22,8 @@ namespace Vancouver.Pages
         public void OnGet()
         {
             CompletedOrder = _ticketPurchaseService.GetOrderData();
+            _ticketPurchaseService.ClearOrderData();
+            
         }
     }
 }

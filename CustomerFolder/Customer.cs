@@ -38,7 +38,7 @@ namespace Vancouver.CustomerFolder
             set => email = value;
         }
         
-
+        public ApplicationUser User { get; set; }
         public Passport Passport { get; set; }
 
         //public Address Address { get; set; }

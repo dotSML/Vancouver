@@ -83,7 +83,7 @@ namespace Vancouver.Pages
             return Page();
         }
 
-        public async void OnGet()
+        public void OnGet()
         {
         }
 

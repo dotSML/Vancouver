@@ -52,34 +52,15 @@ namespace Vancouver.Pages
 
         }
 
-        public async Task<IActionResult> OnPostDelete(string id)
-        {
-
-            var ticket = _context.Tickets
-                .Include(b => b.IndFlightOutbound)
-                .Include(b => b.IndFlightInbound)
-                .FirstOrDefault(b => b.Id == id);
-
-            if (ticket != null)
-            {
-                _context.Tickets.Remove(ticket);
-                _context.SaveChanges();
-            }
-
-
-
-            return RedirectToPage();
-        }
-
-        public async Task<ActionResult> OnPost(ItinerarySearchModel ItinerarySearch)
+        public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
         {
             var order = _context.Orders.Include(x => x.OrderItinerary).Include(x => x.Customer);
             CustomerOrder = order.Single(x => x.OrderItinerary.Id == ItinerarySearch.ItineraryId);
-            
-                
+
+
             return Page();
         }
 
-        
+
     }
 }

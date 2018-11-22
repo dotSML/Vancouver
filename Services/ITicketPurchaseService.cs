@@ -17,6 +17,7 @@ namespace Vancouver.Services
         List<Customer> GetItineraryCustomersData();
         void SetOrderData(Order order);
         Order GetOrderData();
+        void ClearOrderData();
 
     }
 
@@ -57,6 +58,12 @@ namespace Vancouver.Services
             return Order;
         }
 
+        public void ClearOrderData()
+        {
+            Customers = null;
+            Order = null;
+            Itinerary = null;
+        }
         
 
     }

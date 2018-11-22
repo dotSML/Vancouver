@@ -5,9 +5,10 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 @{
-    ViewData["Title"] = "OrderProcessing";
+    ViewData["Title"] = "Itinerary " + @Model.OrderObject.originAirportOutbound + "-" + @Model.OrderObject.originAirportInbound;
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+
 
 <head>
     <link rel="stylesheet" href="css/OrderProcessing.css" />

@@ -7,7 +7,7 @@
 @model MyAccountModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "MyAccount";
+    ViewData["Title"] = "My Account";
 }
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -65,14 +65,15 @@
             <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.PhoneNumber</div>
             <hr />
             <div>Date of birth</div>
-            <div style="font-size: 18px">@UserManager.GetUserAsync(User).Result.DateOfBirth.Date</div>
+            <div style="font-size: 18px">@UserManager.GetUserAsync(User).Result.DateOfBirth.Date.ToString("d")</div>
             <hr/>
-            <div>Favourite destinations </div>
+            <div>Favorite destinations </div>
             <hr />
             <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
         </div>
         <div class="profile-sector-column">
-                
+            <div>Travelers</div>
+
         </div>
     </div>
         
@@ -85,7 +86,7 @@
         the_return = document.querySelector(".file-return");
       
     button.addEventListener( "keydown", function( event ) {  
-        if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+        if ( event.keyCode === 13 || event.keyCode === 32 ) {  
             fileInput.focus();  
         }  
     });

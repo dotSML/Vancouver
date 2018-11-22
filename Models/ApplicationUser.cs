@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Vancouver.CustomerFolder;
 using Vancouver.Databases;
 
 namespace Vancouver.Models
@@ -20,6 +22,7 @@ namespace Vancouver.Models
         public DateTime DateOfBirth { get; set; }
 
         public string UserPhoto { get; set; }
-
+        [ForeignKey("Customers")]
+        public Customer Customer { get; set; }
     }
 }

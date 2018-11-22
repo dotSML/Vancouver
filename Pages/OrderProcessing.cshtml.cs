@@ -25,11 +25,8 @@ namespace Vancouver.Pages
         [BindProperty]
         public ItineraryObject OrderObject { get; set; }
         public List<Customer> Customers { get; set; }
-        public List<Passport> Passports { get; set; }
         [BindProperty]
         public Order Order { get; set; }
-        [BindProperty]
-        public Passport Passport { get; set; }
 
         public void OnGet()
         {
@@ -51,7 +48,7 @@ namespace Vancouver.Pages
                 _ticketPurchaseService.SetOrderData(Order);
                 _context.Orders.Add(Order);
                 _context.SaveChanges();
-                return RedirectToPage("OrderSuccess");
+                return RedirectToPage("OrderSuccess", Order.Id);
             }
             else
             {
