@@ -18,12 +18,16 @@ namespace Vancouver.Pages
         {
             _ticketPurchaseService = ticketPurchaseService;
         }
+        public string Reference { get; set; }
+
+        
 
         public void OnGet()
         {
             CompletedOrder = _ticketPurchaseService.GetOrderData();
             _ticketPurchaseService.ClearOrderData();
-            
+
+
         }
     }
 }

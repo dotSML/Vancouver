@@ -24,7 +24,7 @@
  else
  {
      var currency = @Model.OrderObject.fareCurrency;
-     <div class="container orderContainer">
+     <div class="container orderContainer niceShadow">
          <div class="orderForm">
              <h1 style="font-size: 30px;">Your itinerary @Model.OrderObject.originAirportOutbound - @Model.OrderObject.arrivalAirportOutbound / Total: <span class="priceSpan">@Model.OrderObject.farePriceTotal@currency</span> Tax: <span class="priceSpan">@Model.OrderObject.farePriceTax@currency</span></h1>
              <h4>@Model.OrderObject.AmountOfPassengers passengers</h4>
@@ -187,7 +187,7 @@
                  {
                      var travellerNumber = @i + 1;
                      <div class="col-auto">
-                         <h2 style="margin-bottom: 20px;">Traveller @travellerNumber</h2>
+                         <h4>Traveller @travellerNumber</h4>
 
                          <div class="form-group">
                              <div style="max-width:80%">
@@ -198,17 +198,17 @@
                              </div>
                          </div>
                      </div>
-                     <div class="col auto">
+                     <div class="col-auto">
                          <h4>Passport</h4>
                          <div class="form-group">
                              <div style="max-width: 80%">
-                                 <label asp-for="Customers[i].Passport.PassportNumber"></label>
+                                 <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
                                  <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control"/>
                                  <label asp-for="Customers[i].Passport.DateOfBirth">Passport DOB</label>
                                  <input asp-for="Customers[i].Passport.DateOfBirth" type="date" class="form-control"/>
-                                 <label asp-for="Customers[i].Passport.ValidFrom">Passport Valid From</label>
+                                 <label asp-for="Customers[i].Passport.ValidFrom">Passport issue date</label>
                                  <input asp-for="Customers[i].Passport.ValidFrom" type="date" class="form-control"/>
-                                 <label asp-for="Customers[i].Passport.ValidTo">Passport Valid To</label>
+                                 <label asp-for="Customers[i].Passport.ValidTo">Passport expiry date</label>
                                  <input asp-for="Customers[i].Passport.ValidTo" type="date" class="form-control"/>
                              </div>
                          </div>

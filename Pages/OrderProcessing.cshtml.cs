@@ -22,11 +22,16 @@ namespace Vancouver.Pages
             _ticketPurchaseService = ticketPurchaseService;
             _context = context;
         }
+
+        
+
+
         [BindProperty]
         public ItineraryObject OrderObject { get; set; }
         public List<Customer> Customers { get; set; }
         [BindProperty]
         public Order Order { get; set; }
+        public string RandomReference { get; set; }
 
         public void OnGet()
         {
@@ -36,7 +41,7 @@ namespace Vancouver.Pages
                 OrderObject = ticket;
             }
         }
-
+        
 
 
         public ActionResult OnPost(List<Customer> customers)
@@ -44,7 +49,13 @@ namespace Vancouver.Pages
             if (customers != null)
             {
                 Order.Customer = new List<Customer>(customers);
+                RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
+                while (_context.Orders.FirstOrDefault(x => x.BookingReference == RandomReference) != null)
+                {
+                    RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
+                }
                 Order.OrderItinerary = _ticketPurchaseService.GetItineraryTicketData();
+                Order.BookingReference = RandomReference;
                 _ticketPurchaseService.SetOrderData(Order);
                 _context.Orders.Add(Order);
                 _context.SaveChanges();

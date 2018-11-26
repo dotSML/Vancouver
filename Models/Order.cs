@@ -10,6 +10,7 @@ namespace Vancouver.Models
     public class Order
     {
         public string Id { get; set; }
+        public string BookingReference { get; set; }
         public ItineraryObject OrderItinerary { get; set; }
         public List<Customer> Customer { get; set; }
     }

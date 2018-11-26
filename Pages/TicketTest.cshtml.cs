@@ -55,7 +55,7 @@ namespace Vancouver.Pages
         public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
         {
             var order = _context.Orders.Include(x => x.OrderItinerary).Include(x => x.Customer);
-            CustomerOrder = order.Single(x => x.OrderItinerary.Id == ItinerarySearch.ItineraryId);
+            CustomerOrder = order.Single(x => x.BookingReference == ItinerarySearch.ItineraryId);
 
 
             return Page();

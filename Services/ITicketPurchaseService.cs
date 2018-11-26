@@ -18,6 +18,7 @@ namespace Vancouver.Services
         void SetOrderData(Order order);
         Order GetOrderData();
         void ClearOrderData();
+        string GetRandomBookingRef(int length);
 
     }
 
@@ -26,6 +27,8 @@ namespace Vancouver.Services
         public ItineraryObject Itinerary { get; set; }
         public List<Customer> Customers { get; set; }
         public Order Order { get; set; }
+        private static Random random = new Random();
+
 
 
         public void SetItineraryCustomersData(List<Customer> customers)
@@ -64,7 +67,14 @@ namespace Vancouver.Services
             Order = null;
             Itinerary = null;
         }
-        
+
+        public string GetRandomBookingRef(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
 
     }
 }

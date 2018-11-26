@@ -1,0 +1,44 @@
+﻿body {
+}
+
+.itineraryInfo{
+    display: flex;
+    border-radius: 7px;
+    color: white;
+}
+
+.itineraryContainer{
+    border-radius: 7px;
+    background: rgba(15, 15, 15, 0.8);
+    padding: 10px;
+}
+
+.itineraryCard{
+    color: black;
+}
+
+.successHeader{
+    color: white;
+}
+
+.itineraryTitle{
+    border: 2px solid black; 
+    border-radius: 7px;
+    display: inline-block;
+    padding: 3px;
+}
+
+.itineraryDate{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.itineraryCardsRow{
+    margin-top: 12px;
+}
+
+.bookingReference{
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+}

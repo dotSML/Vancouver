@@ -37,6 +37,8 @@ namespace Vancouver.CustomerFolder
             get => getString(ref email);
             set => email = value;
         }
+
+        public bool Primary { get; set; }
         
         public ApplicationUser User { get; set; }
         public Passport Passport { get; set; }

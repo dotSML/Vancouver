@@ -5,21 +5,55 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+
 <head>
-    <link rel="stylesheet" href="css/bootstrapIndex.css"/>
+    <link rel="stylesheet" href="css/bootstrapIndex.css" />
+    <link rel="stylesheet" href="css/orderSuccess.css" />
 </head>
 
-<h2>OrderSuccess</h2>
 
 @if (@Model.CompletedOrder != null)
 {
-    <div style="color: white; font-size: 30px;">
-        <h1>You have successfully completed order from @Model.CompletedOrder.OrderItinerary.originAirportOutbound to @Model.CompletedOrder.OrderItinerary.originAirportInbound </h1>
-        <h2>You can look up your itinerary from /TicketTest by using your Itinerary ID - <span style="font-weight: bold;">@Model.CompletedOrder.OrderItinerary.Id</span></h2>
+    <div class="container niceShadow itineraryContainer">
+        <h3 class="successHeader">You have successfully completed order for your itinerary!</h3>
+        <div class="itineraryInfo">
+            <div class="row itineraryCardsRow">
+                <div class="col md-4">
+                    <div class="card itineraryCard niceShadow" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title itineraryTitle"><strong>@Model.CompletedOrder.OrderItinerary.originAirportOutbound-@Model.CompletedOrder.OrderItinerary.arrivalAirportOutbound</strong></h5>
+                            <h5 class="itineraryDate">@Model.CompletedOrder.OrderItinerary.departureTimeOutbound.Split("T")[0]</h5>
+                            <p class="card-text">Departure time - <strong>@Model.CompletedOrder.OrderItinerary.departureTimeOutbound.Split("T")[1]</strong></p>
+                            <p class="card-text">Arrival time - <strong>@Model.CompletedOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</strong></p>
+                            <p class="card-text">Passengers - <strong>@Model.CompletedOrder.OrderItinerary.AmountOfPassengers</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col md-4">
+                    <div class="card itineraryCard niceShadow" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title itineraryTitle"><strong>@Model.CompletedOrder.OrderItinerary.originAirportInbound-@Model.CompletedOrder.OrderItinerary.arrivalAirportInbound</strong></h5>
+                            <h5 class="itineraryDate">@Model.CompletedOrder.OrderItinerary.departureTimeInbound.Split("T")[0]</h5>
+                            <p class="card-text">Departure time - <strong>@Model.CompletedOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</strong></p>
+                            <p class="card-text">Arrival time - <strong>@Model.CompletedOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</strong></p>
+                            <p class="card-text">Passengers - <strong>@Model.CompletedOrder.OrderItinerary.AmountOfPassengers</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col md-4">
+                    <div class="container">
+                        <div>
+                            <p>Please save your booking number for future reference</p>
+                        </div>
+                        <div class="bookingReference" style="margin: auto;">@Model.CompletedOrder.BookingReference</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 else
 {
-     @RedirectToPage("Index")
+    <h2>Something went wrong!</h2>
 }
 
