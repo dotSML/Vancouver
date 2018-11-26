@@ -135,7 +135,8 @@ namespace Vancouver.Areas.Identity.Pages.Account
                 }
             }
 
-            Input.DateOfBirth = DateTime.ParseExact(ajaxPostDateOfBirth, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            Input.DateOfBirth = DateTime.ParseExact(ajaxPostDateOfBirth,
+                new string[] {"dd/MM/yyyy", "d/M/yyyy", "d/MM/yyyy", "dd/M/yyyy"}, CultureInfo.InvariantCulture);
             Input.FirstName = ajaxPostFirstName;
             Input.LastName = ajaxPostLastName;
             Input.Email = ajaxPostEmail;
