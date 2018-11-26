@@ -367,7 +367,7 @@ namespace Vancouver.Migrations
                     b.ToTable("BankLink");
                 });
 
-            modelBuilder.Entity("Vancouver.Models.CustomerTravelHistory", b =>
+            modelBuilder.Entity("Vancouver.Models.UserTravelHistory", b =>
                 {
                     b.Property<int>("CustomerTravelHistoryId")
                         .ValueGeneratedOnAdd()
@@ -569,7 +569,7 @@ namespace Vancouver.Migrations
                         .HasForeignKey("Vancouver.Models.ApplicationUser", "Customers");
                 });
 
-            modelBuilder.Entity("Vancouver.Models.CustomerTravelHistory", b =>
+            modelBuilder.Entity("Vancouver.Models.UserTravelHistory", b =>
                 {
                     b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
                         .WithMany()

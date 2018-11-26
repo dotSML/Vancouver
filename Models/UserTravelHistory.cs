@@ -6,7 +6,7 @@ using Vancouver.CustomerFolder;
 
 namespace Vancouver.Models
 {
-    public class CustomerTravelHistory
+    public class UserTravelHistory
     {
         public int CustomerTravelHistoryId { get; set; }
         public Customer Customer { get; set; }
