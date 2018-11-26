@@ -14,83 +14,84 @@
     <script src="lib/jquery/dist/jquery.js"></script>
 
 </head>
-
-<h1 style="color:azure">Hello Admin!</h1>
-<div class="table">
-    <table>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Date of Birth
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Role
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tbody>
-            @foreach (var user in @Model.ApplicationUserList)
-            {
-                <tr>
-                    <td>
-                        @user.Id
-                    </td>
-                    <td>
-                        @user.FirstName @user.LastName
-                    </td>
-                    <td>
-                        @user.DateOfBirth
-                    </td>
-                    <td>
-                        @user.Email
-                    </td>
-                    <td>
-                        @{
-                            var roles = await UserManager.GetRolesAsync(user);
-                            foreach (var role in roles)
-                            {
-                                <span>@role</span>
+<div class="container niceShadow" style="display: block; padding: 10px;">
+    <h1 style="color:azure">Hello Admin!</h1>
+    <div class="table" style="width: 100% !important;">
+        <table style="display: block;">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Date of Birth
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tbody>
+                @foreach (var user in @Model.ApplicationUserList)
+                {
+                    <tr>
+                        <td>
+                            @user.Id
+                        </td>
+                        <td>
+                            @user.FirstName @user.LastName
+                        </td>
+                        <td>
+                            @user.DateOfBirth
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @{
+                                var roles = await UserManager.GetRolesAsync(user);
+                                foreach (var role in roles)
+                                {
+                                    <span>@role</span>
+                                }
                             }
+
+                        </td>
+
+                        @if (user.Email != "admin@admin.com")
+                        {
+                            <td>
+
+                                <form method="post">
+                                    <button asp-page-handler="AddAdminRole"
+                                            asp-route-id="@user.Id" class="btn btn-danger">
+                                        Add As Admin
+                                    </button>
+                                </form>
+
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <button asp-page-handler="RemoveAdminRole"
+                                            asp-route-id="@user.Id" class="btn btn-danger">
+                                        Remove As Admin
+                                    </button>
+                                </form>
+
+                            </td>
                         }
+                    </tr>
 
-                    </td>
-                    
-        @if (user.Email != "admin@admin.com")
-        {
-            <td>
-
-                <form method="post">
-                    <button asp-page-handler="AddAdminRole"
-                            asp-route-id="@user.Id" class="btn btn-danger">
-                        Add As Admin
-                    </button>
-                </form>
                 }
-            </td>
-            <td>
-                <form method="post">
-                    <button asp-page-handler="RemoveAdminRole"
-                            asp-route-id="@user.Id" class="btn btn-danger">
-                        Remove As Admin
-                    </button>
-                </form>
+            </tbody>
 
-            </td>
-        }
-        </tr>
-
-    }
-        </tbody>
-
-    </table>
+        </table>
+    </div>
 </div>
 }

@@ -51,6 +51,13 @@
                             <li id="myTicketsNav" class="nav-item">
                                 <a class="nav-link" href="/tickettest">My Tickets</a>
                             </li>
+                            @if (User.IsInRole("Administrator"))
+                             {
+                                 <li class="nav-item">
+                                 <a class="nav-link" href="/Admin/AdminPage">Admin panel</a>
+                                 </li>
+                                 
+                             }
                             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-nav ml-auto">
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.FirstName!</a>
