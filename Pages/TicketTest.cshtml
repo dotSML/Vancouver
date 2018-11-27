@@ -11,8 +11,8 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 <head>
-    <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
-    <link href="~/css/myTickets.css" rel="stylesheet" />
+    <link href="~/css/bootstrapIndex.css" rel="stylesheet"/>
+    <link href="~/css/myTickets.css" rel="stylesheet"/>
     <link href="css/boardingPass.css" rel="stylesheet"/>
     <script src="lib/jquery/dist/jquery.js"></script>
     <style>
@@ -28,87 +28,72 @@
             text-align: left;
             padding: 8px;
         }
-        
-
-        
     </style>
 </head>
 <body>
-    
-    @{
-        if (SignInManager.IsSignedIn(User))
+
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        if (@Model.Tickets.Any())
         {
-            if (@Model.Tickets.Any())
+            for (int i = 0; @Model.Tickets.Count() > i; i++)
             {
-
-                for (int i = 0; @Model.Tickets.Count() > i; i++)
+                if (UserManager.GetUserId(User) == @Model.Tickets.ElementAt(i).ApplicationUserId)
                 {
-                    if (UserManager.GetUserId(User) == @Model.Tickets.ElementAt(i).ApplicationUserId)
-                    {
-                        
-
-
-
-
-
-                    }
-                    else
-                    {
-                        <p>IDK WHAT HAPPENED</p>
-                    }
                 }
-            }
-            else
-            {
-                
+                else
+                {
+                    <p>IDK WHAT HAPPENED</p>
+                }
             }
         }
         else
         {
-            <p style="font-size: 25px; color: white;">Search for your trips by entering the itinerary ID</p>
-            <form method="post" style="color: white; max-width: 50%">
-                <div class="form-group">
-                    <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
-                    <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" />
-                    @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
+        }
+    }
+    else
+    {
+        <p style="font-size: 25px; color: white;">Search for your trips by entering the itinerary ID</p>
+        <form method="post" style="color: white; max-width: 50%">
+            <div class="form-group">
+                <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
+                <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control"/>
+                @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
                     <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
-                    <input type="submit" class="btn btn-primary" value="Search"/>
-                </div>
-            </form>
+                <input type="submit" class="btn btn-primary" value="Search"/>
+            </div>
+        </form>
 
 
-            if (@Model.CustomerOrder != null)
-            {
-                <div style="color: white; border: 1px solid white; border-radius: 7px;">
+        if (@Model.CustomerOrder != null)
+        {
+            <div style="color: white; border: 1px solid white; border-radius: 7px;">
                 <h1>RESULT</h1>
                 <h2>Customers</h2>
                 @foreach (var customer in @Model.CustomerOrder.Customer)
-                 {
-                     <p>First name: @customer.FirstName</p>
-                     <p>Last name: @customer.LastName</p>
-                 }
-                <p>To: @Model.CustomerOrder.OrderItinerary.originAirportOutbound</p>     
+                {
+                    <p>First name: @customer.FirstName</p>
+                    <p>Last name: @customer.LastName</p>
+                }
+                <p>To: @Model.CustomerOrder.OrderItinerary.originAirportOutbound</p>
                 @*<p>From: @Model.CustomerOrder.OrderItinerary.originAirportInbound</p>*@
                 <p>Outbound date: @Model.CustomerOrder.OrderItinerary.departureTimeOutbound.Split("T")[0]</p>
                 @*<p>Inbound date: @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>*@
-                </div>                                  
-            }
+            </div>
         }
-
-
-
     }
-    <script>
-
-
-        $(document).on('click', '.boardingButton', function (e) {
+}
+<script>
+    $(document).on('click',
+        '.boardingButton',
+        function(e) {
             var target = $($(this).data('target'));
             console.log(target);
             target.slideToggle("fast");
             target.addClass('passCollapse');
 
-        })
-
-    </script>
+        });
+</script>
 
 </body>
