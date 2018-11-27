@@ -22,8 +22,6 @@ namespace Vancouver.FlightsFolder
         }
         private static IList<ItineraryObject> itineraries { get; } = new List<ItineraryObject>();
         private FlightsResponse.RootObject FlightsResponse { get; set; }
-        List<IndividualFlightOutbound> IndOutbounds = new List<IndividualFlightOutbound>();
-        List<IndividualFlightInbound> IndInbounds = new List<IndividualFlightInbound>();
 
         public async Task<ItineraryObject> GetObject(string id)
         {
@@ -102,6 +100,10 @@ namespace Vancouver.FlightsFolder
             string currency)
         {
             var rootObj = await GetData(origin, destination, outboundDate, inboundDate, amountOfPassengers, travelClass, currency);
+            if (rootObj == null)
+            {
+                return null;
+            }
             var rootObjCount = rootObj.results.Count;
             var outboundLegs = new List<IndividualFlightOutbound>();
             var inboundLegs = new List<IndividualFlightInbound>();
@@ -254,12 +256,22 @@ namespace Vancouver.FlightsFolder
                              "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass + "&number_of_results = 20";
             var request =
                 WebRequest.Create(requestUrl);
-            var response = await request.GetResponseAsync().ConfigureAwait(false);
 
-            var reader = new StreamReader(response.GetResponseStream());
-            var data = await reader.ReadToEndAsync();
+            try
+            {
+                var response = await request.GetResponseAsync().ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<FlightsResponse.RootObject>(data);
+                var reader = new StreamReader(response.GetResponseStream());
+                var data = await reader.ReadToEndAsync();
+
+                return JsonConvert.DeserializeObject<FlightsResponse.RootObject>(data);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+            
             
         }
     }

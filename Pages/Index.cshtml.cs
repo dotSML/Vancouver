@@ -52,7 +52,7 @@ namespace Vancouver.Pages
         [BindProperty]
         public FlightInputModel FlightInput { get; set; }
 
-
+        public string Error { get; set; }
         public IEnumerable<ItineraryObject> ItineraryList { get; set; }
         
 
@@ -75,9 +75,20 @@ namespace Vancouver.Pages
         {
             if (ModelState.IsValid)
             {
-                ItineraryList = new List<ItineraryObject>(await _flightsRepository.GetObjectsList(FlightInput.Origin, FlightInput.Destination,
-                    FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers, FlightInput.TravelClass, FlightInput.Currency));
-                return Page();
+                var itineraryResponse = await _flightsRepository.GetObjectsList(FlightInput.Origin,
+                    FlightInput.Destination,
+                    FlightInput.OutboundDate, FlightInput.InboundDate, FlightInput.AmountOfPassengers,
+                    FlightInput.TravelClass, FlightInput.Currency);
+                if (itineraryResponse != null)
+                {
+                    ItineraryList = new List<ItineraryObject>(itineraryResponse);
+                    return Page();
+                }
+                else
+                {
+                    Error = "No results found, please try again!";
+                    return Page();
+                }
             }
 
             return Page();

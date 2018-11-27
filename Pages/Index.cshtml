@@ -30,6 +30,7 @@
     <link href="~/css/bootstrapIndex.css" rel="stylesheet"/>
     <link href="~/js/datepicker/dist/datepicker.css" rel="stylesheet"/>
     <link href="~/css/acrylicMaterial.css" rel="stylesheet"/>
+    <link href="~/css/flightResults.css" rel="stylesheet"/>
     @Html.AntiForgeryToken()
 </head>
 <body>
@@ -94,11 +95,15 @@
     </div>
 </div>
 
-<div id="aspValidation" class="container" style="border-radius: 7px; padding: 5px; margin-top: 30px;">
+<div id="aspValidation" class="container">
     <span asp-validation-for="FlightInput.Origin" class="text-danger"></span>
     <span asp-validation-for="FlightInput.Destination" class="text-danger"></span>
     <span asp-validation-for="FlightInput.OutboundDate" class="text-danger"></span>
     <span asp-validation-for="FlightInput.InboundDate" class="text-danger"></span>
+    @if (@Model.Error != null)
+    {
+        <div class="text-danger">@Model.Error</div>
+    }
 </div>
 
 
@@ -266,7 +271,7 @@
                         @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalOrg)
 
                         var airlineOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).marketing_airline;
-    var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
+                        var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
 
                         <div class="row" style="color: white; min-height: 7vh;">
                             <div id="outboundLegsInfo">
@@ -351,7 +356,7 @@
                             @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
 
                             var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).marketing_airline;
-    var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
+                            var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
                             <div class="row" style="color: white; min-height: 7vh;">
                                 <div>
                                 </div>
@@ -486,6 +491,18 @@
 
 <script>
     $(document).ready(function () {
+        $('#searchBar').fadeIn();
+
+        $('#fareOption').click(function selectChangedDatepicker() {
+            if ($('#fareOption').val() === "One Way") {
+                $('#datepickerInbound').val('');
+                $('#datepickerInbound').attr('disabled', true);
+            } else {
+                $('#datepickerInbound').attr('disabled', false);
+            }
+        });
+
+        
         $('#aspSearchBtn').on('click',
             function () {
 
@@ -508,20 +525,7 @@
 </script>
 
 
-<script>
-    $(document).ready(function() {
-        $('#searchBar').fadeIn();
 
-        $('#fareOption').click(function selectChangedDatepicker() {
-            if ($('#fareOption').val() === "One Way") {
-                $('#datepickerInbound').val('');
-                $('#datepickerInbound').attr('disabled', true);
-            } else {
-                $('#datepickerInbound').attr('disabled', false);
-            }
-        });
-    });
-</script>
 
 <script src="~/js/searchFlights.js"></script>
 <script src="~/js/showFlightDetails.js"></script>
