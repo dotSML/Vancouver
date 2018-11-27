@@ -40,7 +40,6 @@ namespace Vancouver.CustomerFolder
 
         public bool Primary { get; set; }
         
-        public ApplicationUser User { get; set; }
         public Passport Passport { get; set; }
 
         //public Address Address { get; set; }

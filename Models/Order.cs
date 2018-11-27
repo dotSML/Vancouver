@@ -15,6 +15,5 @@ namespace Vancouver.Models
         public string BookingReference { get; set; }
         public ItineraryObject OrderItinerary { get; set; }
         public List<Customer> Customer { get; set; }
-        public string ApplicationUserId { get; set; }
     }
 }

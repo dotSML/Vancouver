@@ -29,17 +29,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col md-4">
-                    <div class="card itineraryCard niceShadow" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title itineraryTitle"><strong>@Model.CompletedOrder.OrderItinerary.originAirportInbound-@Model.CompletedOrder.OrderItinerary.arrivalAirportInbound</strong></h5>
-                            <h5 class="itineraryDate">@Model.CompletedOrder.OrderItinerary.departureTimeInbound.Split("T")[0]</h5>
-                            <p class="card-text">Departure time - <strong>@Model.CompletedOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</strong></p>
-                            <p class="card-text">Arrival time - <strong>@Model.CompletedOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</strong></p>
-                            <p class="card-text">Passengers - <strong>@Model.CompletedOrder.OrderItinerary.AmountOfPassengers</strong></p>
+                
+                @if (@Model.CompletedOrder.OrderItinerary.IndFlightInbound != null)
+                {
+                    <div class="col md-4">
+                        <div class="card itineraryCard niceShadow" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title itineraryTitle"><strong>@Model.CompletedOrder.OrderItinerary.originAirportInbound-@Model.CompletedOrder.OrderItinerary.arrivalAirportInbound</strong></h5>
+                                <h5 class="itineraryDate">@Model.CompletedOrder.OrderItinerary.departureTimeInbound.Split("T")[0]</h5>
+                                <p class="card-text">Departure time - <strong>@Model.CompletedOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</strong></p>
+                                <p class="card-text">Arrival time - <strong>@Model.CompletedOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</strong></p>
+                                <p class="card-text">Passengers - <strong>@Model.CompletedOrder.OrderItinerary.AmountOfPassengers</strong></p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 <div class="col md-4">
                     <div class="container">
                         <div>

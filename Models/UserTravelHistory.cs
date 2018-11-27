@@ -8,7 +8,7 @@ namespace Vancouver.Models
 {
     public class UserTravelHistory
     {
-        public int CustomerTravelHistoryId { get; set; }
+        public string Id { get; set; }
         public Customer Customer { get; set; }
         public string AirportFrom { get; set; } // peaks Airport class olema
         public string AirportTo { get; set; } // peaks Airport class olema

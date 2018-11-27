@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
@@ -89,6 +90,9 @@ namespace Vancouver.FlightsFolder
             }
         }
 
+        
+
+
         public async Task<IEnumerable<ItineraryObject>> GetObjectsList(string origin,
             string destination,
             string outboundDate,
@@ -102,6 +106,8 @@ namespace Vancouver.FlightsFolder
             var outboundLegs = new List<IndividualFlightOutbound>();
             var inboundLegs = new List<IndividualFlightInbound>();
 
+            
+
             itineraries.Clear();
             for(int i = 0;  i < rootObjCount; i++ )
             {
@@ -109,10 +115,8 @@ namespace Vancouver.FlightsFolder
                 outboundLegs.Clear();
                 inboundLegs.Clear();
                 var flightsCountOutbound = rootObj.results[i].itineraries[0].outbound.flights.Count;
-                var flightsCountInbound = rootObj.results[i].itineraries[0].inbound.flights.Count;
-
                 var getFlightsOutbound = rootObj.results[i].itineraries[0].outbound.flights;
-                var getFlightsInbound = rootObj.results[i].itineraries[0].inbound.flights;
+                
 
                 for (int u = 0; getFlightsOutbound.Count > u; u++)
                 {
@@ -136,58 +140,93 @@ namespace Vancouver.FlightsFolder
                         });
                 }
 
-                for (var c = 0; getFlightsInbound.Count > c; c++)
+
+                if (inboundDate != null)
                 {
-                    inboundLegs.Add(
-                        new IndividualFlightInbound()
+                    var flightsCountInbound = rootObj.results[i].itineraries[0].inbound.flights.Count;
+                    var getFlightsInbound = rootObj.results[i].itineraries[0].inbound.flights;
+
+
+                    for (var c = 0; getFlightsInbound.Count > c; c++)
+                    {
+                        inboundLegs.Add(
+                            new IndividualFlightInbound()
+                            {
+                                originInd = getFlightsInbound[c].origin.airport,
+                                destinationInd = getFlightsInbound[c].destination.airport,
+                                travel_class = getFlightsInbound[c].booking_info.travel_class,
+                                flight_number = getFlightsInbound[c].flight_number,
+                                booking_code = getFlightsInbound[c].booking_info.booking_code,
+                                aircraft = getFlightsInbound[c].aircraft,
+                                arrives_at = getFlightsInbound[c].arrives_at,
+                                departs_at = getFlightsInbound[c].departs_at,
+                                seats_remaining = getFlightsInbound[c].booking_info.seats_remaining,
+                                marketing_airline = getFlightsInbound[c].marketing_airline,
+                                operating_airline = getFlightsInbound[c].operating_airline,
+                                orderPos = c,
+                                terminalOrg = getFlightsInbound[c].origin.terminal,
+                                terminalDes = getFlightsInbound[c].destination.terminal
+                            });
+                    }
+
+
+
+
+
+                    itineraries.Add(
+                        new ItineraryObject()
                         {
-                            originInd = getFlightsInbound[c].origin.airport,
-                            destinationInd = getFlightsInbound[c].destination.airport,
-                            travel_class = getFlightsInbound[c].booking_info.travel_class,
-                            flight_number = getFlightsInbound[c].flight_number,
-                            booking_code = getFlightsInbound[c].booking_info.booking_code,
-                            aircraft = getFlightsInbound[c].aircraft,
-                            arrives_at = getFlightsInbound[c].arrives_at,
-                            departs_at = getFlightsInbound[c].departs_at,
-                            seats_remaining = getFlightsInbound[c].booking_info.seats_remaining,
-                            marketing_airline = getFlightsInbound[c].marketing_airline,
-                            operating_airline = getFlightsInbound[c].operating_airline,
-                            orderPos = c,
-                            terminalOrg = getFlightsInbound[c].origin.terminal,
-                            terminalDes = getFlightsInbound[c].destination.terminal
+                            Id = Guid.NewGuid().ToString(),
+                            AmountOfPassengers = Int32.Parse(amountOfPassengers),
+                            originAirportOutbound = getFlightsOutbound[0].origin.airport,
+                            originAirportInbound = getFlightsInbound[0].origin.airport,
+                            departureTimeOutbound = getFlightsOutbound[0].departs_at,
+                            departureTimeInbound = getFlightsInbound[0].departs_at,
+                            arrivalAirportOutbound = getFlightsOutbound[flightsCountOutbound - 1].destination.airport,
+                            arrivalAirportInbound = getFlightsInbound[flightsCountInbound - 1].destination.airport,
+                            arrivalTimeOutbound = getFlightsOutbound[getFlightsOutbound.Count - 1].arrives_at,
+                            arrivalTimeInbound = getFlightsInbound[getFlightsInbound.Count - 1].arrives_at,
+                            tripDurationOutbound = rootObj.results[i].itineraries[0].outbound.duration,
+                            tripDurationInbound = rootObj.results[i].itineraries[0].inbound.duration,
+                            layoverStopAmountOutbound = (flightsCountOutbound - 1).ToString(),
+                            layoverStopAmountInbound = (flightsCountInbound - 1).ToString(),
+                            layoverCitiesOutbound = GetLayoverCitiesOutbound(rootObj, i),
+                            layoverCitiesInbound = GetLayoverCitiesInbound(rootObj, i),
+                            fareClass = getFlightsOutbound[0].booking_info.travel_class,
+                            farePriceTotal = rootObj.results[i].fare.total_price,
+                            farePriceTax = rootObj.results[i].fare.price_per_adult.tax,
+                            fareCurrency = rootObj.currency,
+                            farePricePerPassenger = rootObj.results[i].fare.price_per_adult.total_fare,
+                            IndFlightOutbound = new List<IndividualFlightOutbound>(outboundLegs)
+                                .OrderBy(o => o.orderPos).ToList(),
+                            IndFlightInbound = new List<IndividualFlightInbound>(inboundLegs).OrderBy(o => o.orderPos)
+                                .ToList()
+                        });
+
+                }
+                else
+                {
+                    itineraries.Add(
+                        new ItineraryObject()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            AmountOfPassengers = Int32.Parse(amountOfPassengers),
+                            originAirportOutbound = getFlightsOutbound[0].origin.airport,
+                            departureTimeOutbound = getFlightsOutbound[0].departs_at,
+                            arrivalAirportOutbound = getFlightsOutbound[flightsCountOutbound - 1].destination.airport,
+                            arrivalTimeOutbound = getFlightsOutbound[getFlightsOutbound.Count - 1].arrives_at,
+                            tripDurationOutbound = rootObj.results[i].itineraries[0].outbound.duration,
+                            layoverStopAmountOutbound = (flightsCountOutbound - 1).ToString(),
+                            layoverCitiesOutbound = GetLayoverCitiesOutbound(rootObj, i),
+                            fareClass = getFlightsOutbound[0].booking_info.travel_class,
+                            farePriceTotal = rootObj.results[i].fare.total_price,
+                            farePriceTax = rootObj.results[i].fare.price_per_adult.tax,
+                            fareCurrency = rootObj.currency,
+                            farePricePerPassenger = rootObj.results[i].fare.price_per_adult.total_fare,
+                            IndFlightOutbound = new List<IndividualFlightOutbound>(outboundLegs)
+                                .OrderBy(o => o.orderPos).ToList()
                         });
                 }
-
-
-                itineraries.Add(
-                    new ItineraryObject()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        AmountOfPassengers = Int32.Parse(amountOfPassengers),
-                        originAirportOutbound = getFlightsOutbound[0].origin.airport,
-                        originAirportInbound = getFlightsInbound[0].origin.airport,
-                        departureTimeOutbound = getFlightsOutbound[0].departs_at,
-                        departureTimeInbound = getFlightsInbound[0].departs_at,
-                        arrivalAirportOutbound = getFlightsOutbound[flightsCountOutbound - 1].destination.airport,
-                        arrivalAirportInbound = getFlightsInbound[flightsCountInbound - 1].destination.airport,
-                        arrivalTimeOutbound = getFlightsOutbound[getFlightsOutbound.Count - 1].arrives_at,
-                        arrivalTimeInbound = getFlightsInbound[getFlightsInbound.Count - 1].arrives_at,
-                        tripDurationOutbound = rootObj.results[i].itineraries[0].outbound.duration,
-                        tripDurationInbound = rootObj.results[i].itineraries[0].inbound.duration,
-                        layoverStopAmountOutbound = (flightsCountOutbound - 1).ToString(),
-                        layoverStopAmountInbound = (flightsCountInbound - 1).ToString(),
-                        layoverCitiesOutbound = GetLayoverCitiesOutbound(rootObj, i),
-                        layoverCitiesInbound = GetLayoverCitiesInbound(rootObj, i),
-                        fareClass = getFlightsOutbound[0].booking_info.travel_class,
-                        farePriceTotal = rootObj.results[i].fare.total_price,
-                        farePriceTax = rootObj.results[i].fare.price_per_adult.tax,
-                        fareCurrency = rootObj.currency,
-                        farePricePerPassenger = rootObj.results[i].fare.price_per_adult.total_fare,
-                        IndFlightOutbound = new List<IndividualFlightOutbound>(outboundLegs).OrderBy(o => o.orderPos).ToList(),
-                        IndFlightInbound = new List<IndividualFlightInbound>(inboundLegs).OrderBy(o => o.orderPos).ToList()
-                    });
-                
-
             }
 
             return new FlightObjectsList(itineraries);

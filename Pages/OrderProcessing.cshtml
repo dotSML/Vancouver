@@ -109,72 +109,76 @@
                              Inbound flights
                          </div>
                      </div>
-                     @for (int y = 0; y < @Model.OrderObject.IndFlightInbound.Count; y++)
+                     @if (@Model.OrderObject.IndFlightInbound != null)
                      {
-                         var airlineInbound = @Model.OrderObject.IndFlightOutbound.ElementAt(y).marketing_airline;
-                         var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
-                         <div class="row" style="color: white; min-height: 7vh;">
-                             <div>
-                             </div>
-                             <div class="col-2 align-self-center">
-                                 <div style="margin-left: 10px;">
-                                     <img src="@airhexLogosInbound" style="border-radius: 3px;">
-                                 </div>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
-                                 </label><br/>
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).originInd" id="flightLegOriginAirport">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).originInd
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <div id="flightLegDuration" style="font-size: 13px">
-                                     N/A
-                                 </div>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at" id="flightLegArrivalTime" class="itinerary-time">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
-                                 </label><br/>
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd" id="flightLegArrivalAirport">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                 <span style="font-size: 11px;">
-                                     Flight No.
-                                 </span> <br>
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number" style="font-weight: bold; font-size: 13px;">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                 <span style="font-size: 11px;">
-                                     Aircraft
-                                 </span> <br>
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft" style="font-weight: bold; font-size: 13px;">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                 <span style="font-size: 11px;">
-                                     Travel Class
-                                 </span> <br>
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class" style="font-weight: bold; font-size: 13px;">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center" style="margin-left: 100px">
-                                 <span style="font-size: 11px;">
-                                     Date
-                                 </span> <br/>
-                                 <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" style="font-weight: bold; font-size: 13px;">
-                                     @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[0]
-                                 </label>
-                             </div>
-                         </div>
+
+                         @for (int y = 0; y < @Model.OrderObject.IndFlightInbound.Count; y++)
+                          {
+                              var airlineInbound = @Model.OrderObject.IndFlightOutbound.ElementAt(y).marketing_airline;
+                              var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
+                              <div class="row" style="color: white; min-height: 7vh;">
+                                  <div>
+                                  </div>
+                                  <div class="col-2 align-self-center">
+                                      <div style="margin-left: 10px;">
+                                          <img src="@airhexLogosInbound" style="border-radius: 3px;">
+                                      </div>
+                                  </div>
+                                  <div class="col-1 align-self-center">
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
+                                      </label><br/>
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).originInd" id="flightLegOriginAirport">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).originInd
+                                      </label>
+                                  </div>
+                                  <div class="col-1 align-self-center">
+                                      <div id="flightLegDuration" style="font-size: 13px">
+                                          N/A
+                                      </div>
+                                  </div>
+                                  <div class="col-1 align-self-center">
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at" id="flightLegArrivalTime" class="itinerary-time">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
+                                      </label><br/>
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd" id="flightLegArrivalAirport">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd
+                                      </label>
+                                  </div>
+                                  <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                      <span style="font-size: 11px;">
+                                          Flight No.
+                                      </span> <br>
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number" style="font-weight: bold; font-size: 13px;">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number
+                                      </label>
+                                  </div>
+                                  <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                      <span style="font-size: 11px;">
+                                          Aircraft
+                                      </span> <br>
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft" style="font-weight: bold; font-size: 13px;">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft
+                                      </label>
+                                  </div>
+                                  <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                      <span style="font-size: 11px;">
+                                          Travel Class
+                                      </span> <br>
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class" style="font-weight: bold; font-size: 13px;">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class
+                                      </label>
+                                  </div>
+                                  <div class="col-1 align-self-center" style="margin-left: 100px">
+                                      <span style="font-size: 11px;">
+                                          Date
+                                      </span> <br/>
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" style="font-weight: bold; font-size: 13px;">
+                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[0]
+                                      </label>
+                                  </div>
+                              </div>
+                          }
                      }
 
                  </div>
