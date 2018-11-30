@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Vancouver.Core;
 using Vancouver.Models;
 
@@ -41,6 +42,8 @@ namespace Vancouver.CustomerFolder
         public bool Primary { get; set; }
         
         public Passport Passport { get; set; }
+        
+        public string ApplicationUserId { get; set; }
 
         //public Address Address { get; set; }
         //public Contact Contact { get; set; }

@@ -107,22 +107,19 @@
 </div>
 
 
-
-
 <div id="flightResults">
 
 @{
 
-                if (@Model.ItineraryList != null)
-                {
-                    for (int i = 0; i < @Model.ItineraryList.Count(); i++)
-                    {
-                        var airlineItineraryOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound[0].marketing_airline;
-                        var airhexLogosItineraryOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryOutbound + "_50_50_s.png";
+    if (@Model.ItineraryList != null)
+    {
+        for (int i = 0; i < @Model.ItineraryList.Count(); i++)
+        {
+            var airlineItineraryOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound[0].marketing_airline;
+            var airhexLogosItineraryOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryOutbound + "_50_50_s.png";
 
-                        var currency = @Model.ItineraryList.ElementAt(i).fareCurrency;
-                        
-                        
+            var currency = @Model.ItineraryList.ElementAt(i).fareCurrency;
+
 
             <form method="post">
             <div class="vertical-center" id="#@Model.ItineraryList.ElementAt(i).Id" style="margin-top: 25px; min-height: 100%;">
@@ -164,7 +161,7 @@
                 </div>
                 <div class="col-2 align-self-center">
                     @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound == null)
-            {
+                    {
                         <div class="col-1 align-self-center">
                             <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@Model.ItineraryList.ElementAt(i).Id" style="color: white; left: 50px">Details</button>
                         </div>
@@ -201,8 +198,8 @@
 
             @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound != null)
             {
-            var airlineItineraryInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound[0].marketing_airline;
-            var airhexLogosItineraryInbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryInbound + "_50_50_s.png";
+                var airlineItineraryInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound[0].marketing_airline;
+                var airhexLogosItineraryInbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryInbound + "_50_50_s.png";
                 <div id="inboundFlights" class="row" style="color: white; border-top: dotted; height: 8vh;">
                     <div id="flightInfoAirline" class="col-2 align-self-center">
                         <div style="margin-left: 10px">
@@ -332,7 +329,7 @@
                     }
 
                     @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound != null)
-    {
+                    {
                         <div class="row" style="border-bottom: solid 1px white; height: 15px;">
                             <div class="col align-self-center" style="font-size: 10px; color: white;">
                                 Inbound flights
@@ -438,12 +435,11 @@
                     </div>
                 </div>
             </div>
-         </div>
-       </div>
-    </form>
+            </div>
+            </div>
+            </form>
         }
     }
-    
 }
 </div>
 
@@ -490,7 +486,7 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#searchBar').fadeIn();
 
         $('#fareOption').click(function selectChangedDatepicker() {
@@ -502,9 +498,9 @@
             }
         });
 
-        
+
         $('#aspSearchBtn').on('click',
-            function () {
+            function() {
 
                 //if ($('#datepickerInbound').val('')) {
                 //    $('#fareOption').val('One Way');
@@ -514,17 +510,14 @@
                 //    $('#flightResults').fadeOut();
                 //    $('#loading').fadeIn();
                 //} else {}
-                    $('#aspValidation').fadeOut();
-                    $('#flightResults').fadeOut();
-                    $('#loading').fadeIn();
-                
+                $('#aspValidation').fadeOut();
+                $('#flightResults').fadeOut();
+                $('#loading').fadeIn();
 
-                
+
             });
     })
 </script>
-
-
 
 
 <script src="~/js/searchFlights.js"></script>

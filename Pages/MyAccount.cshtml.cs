@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -22,15 +23,18 @@ namespace Vancouver.Pages
         private IHostingEnvironment _environment;
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
+        public VancouverDbContext _context;
 
         public MyAccountModel(IHostingEnvironment environment,
             SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            VancouverDbContext context)
 
         {
             _environment = environment;
             _signInManager = signInManager;
             _userManager = userManager;
+            _context = context;
 
         }
 
@@ -39,10 +43,14 @@ namespace Vancouver.Pages
         [BindProperty] public IFormFile Upload { get; set; }
         [BindProperty] public string FullFileName { get; set; }
         [BindProperty] public string UserPhotoPath { get; set; }
+        [BindProperty] public Customer Traveler { get; set; }
+        public IEnumerable<Customer> Travelers { get; set; }
 
         public void OnGet()
         {
-            
+            var userId = _userManager.GetUserId(User);
+            Travelers = _context.Customers.Include(x => x.Passport).Where(r => r.ApplicationUserId == userId).ToList();
+
         }
 
         public async Task OnPostAsync()
@@ -87,6 +95,16 @@ namespace Vancouver.Pages
             user.UserPhoto = null;
             await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
+            Response.Redirect("/MyAccount");
+        }
+
+        public async Task OnPostAddTraveler(Customer traveler)
+        {
+            var travelerObject = traveler;
+            var user = await _userManager.GetUserAsync(User);
+            travelerObject.ApplicationUserId = user.Id;
+            _context.Add(travelerObject);
+            _context.SaveChanges();
             Response.Redirect("/MyAccount");
         }
     }

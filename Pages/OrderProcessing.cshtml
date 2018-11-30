@@ -185,7 +185,7 @@ if (SignInManager.IsSignedIn(User))
              <hr/>
              <h2 style="font-size: 25px; margin-bottom: 30px;">Travellers</h2>
              <form method="post">
-                 <div class="row">
+                 <div class="row" style="border-top: 1px solid white; border-bottom: 1px solid white; margin-bottom: 10px">
                      @for (int i = 0; i < @Model.OrderObject.AmountOfPassengers; i++)
                      {
                          var travellerNumber = @i + 1;
@@ -198,6 +198,7 @@ if (SignInManager.IsSignedIn(User))
                                      <input asp-for="Customers[i].FirstName" type="text" class="form-control"/>
                                      <label asp-for="Customers[i].LastName">Last name</label>
                                      <input asp-for="Customers[i].LastName" type="text" class="form-control"/>
+                                     <input asp-for="Customers[i].Primary" type="checkbox" class="form-control"/>
                                  </div>
                              </div>
                          </div>

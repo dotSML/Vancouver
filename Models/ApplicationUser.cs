@@ -22,7 +22,6 @@ namespace Vancouver.Models
         public DateTime DateOfBirth { get; set; }
 
         public string UserPhoto { get; set; }
-        [ForeignKey("Customers")]
-        public Customer Customer { get; set; }
+        
     }
 }
