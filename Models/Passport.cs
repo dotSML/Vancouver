@@ -17,7 +17,6 @@ namespace Vancouver.Models
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public DateTime DateOfBirth { get; set; }
-        [Required]
         public string PassportNumber { get; set; }
         [ForeignKey("Customers")]
         public Customer Customer { get; set; }

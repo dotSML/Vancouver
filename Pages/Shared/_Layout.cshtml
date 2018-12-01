@@ -142,7 +142,7 @@
 
                         <p class="fieldset">
                             <label class="image-replace cd-dateofbirth" for="signup-dateofbirth">Date of birth</label>
-                            <input class="full-width has-padding has-border" required id="signup-dateofbirth" type="date" placeholder="Date of birth">
+                            <input class="full-width has-padding has-border" required id="signup-dateofbirth" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date of birth">
                             <span class="cd-error-message">Error message here!</span>
                         </p>
 

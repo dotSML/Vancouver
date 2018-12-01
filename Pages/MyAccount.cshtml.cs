@@ -49,8 +49,7 @@ namespace Vancouver.Pages
         public void OnGet()
         {
             var userId = _userManager.GetUserId(User);
-            Travelers = _context.Customers.Include(x => x.Passport).Where(r => r.ApplicationUserId == userId).ToList();
-
+            Travelers =  _context.Customers.Include(x => x.Passport).Where(r => r.ApplicationUserId == userId).ToList();
         }
 
         public async Task OnPostAsync()
@@ -103,9 +102,29 @@ namespace Vancouver.Pages
             var travelerObject = traveler;
             var user = await _userManager.GetUserAsync(User);
             travelerObject.ApplicationUserId = user.Id;
+            
             _context.Add(travelerObject);
             _context.SaveChanges();
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
             Response.Redirect("/MyAccount");
+        }
+
+        public async Task OnPostDeleteTraveler(string id)
+        {
+            var traveler =_context.Customers.Include(p => p.Passport).FirstOrDefault(x => x.CustomerId == id);
+            if (traveler != null)
+            {
+                _context.Customers.Remove(traveler);
+                await _context.SaveChangesAsync();
+            }
+
+            Response.Redirect("/MyAccount");
+        }
+
+        public async Task OnPostEditTraveler(Customer traveler)
+        {
+
         }
     }
 }

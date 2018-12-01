@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vancouver.Databases;
 
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    partial class VancouverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181201121422_UserDOBUpdate")]
+    partial class UserDOBUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -407,7 +409,8 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PassportNumber");
+                    b.Property<string>("PassportNumber")
+                        .IsRequired();
 
                     b.Property<DateTime>("ValidFrom");
 

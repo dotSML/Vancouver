@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Vancouver.Core;
 using Vancouver.Models;
@@ -33,6 +34,10 @@ namespace Vancouver.CustomerFolder
             get => getString(ref lastName);
             set => lastName = value;
         }
+
+        
+        public DateTime DateOfBirth { get; set; }
+
         public string Email
         {
             get => getString(ref email);

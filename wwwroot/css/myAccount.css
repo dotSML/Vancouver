@@ -145,3 +145,34 @@ h3, h5 {
     -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
 }
+
+.travelerBtn {
+    padding: 3px;
+    margin-right: 3px;
+}
+
+.travelerCard {
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    color: black;
+    width: 400px;
+}
+
+.travelerForm {
+    display: none;
+}
+
+.passportForm {
+    display: none;
+}
+
+.passportBtn {
+    
+}
+
+.passportAddCard li {
+    padding: 2px;
+    height: 73px;
+    border-bottom: 0;
+}
