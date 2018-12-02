@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Vancouver.CustomerFolder;
 using Vancouver.Databases;
 using Vancouver.FlightsFolder;
@@ -14,13 +17,20 @@ namespace Vancouver.Pages
 {
     public class OrderProcessingModel : PageModel
     {
+        public SignInManager<ApplicationUser> _signInManager;
+        public UserManager<ApplicationUser> _userManager;
         private readonly ITicketPurchaseService _ticketPurchaseService;
         private VancouverDbContext _context;
 
-        public OrderProcessingModel(ITicketPurchaseService ticketPurchaseService, VancouverDbContext context)
+        public OrderProcessingModel(ITicketPurchaseService ticketPurchaseService, 
+            VancouverDbContext context,
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
         {
             _ticketPurchaseService = ticketPurchaseService;
             _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         
@@ -29,9 +39,11 @@ namespace Vancouver.Pages
         [BindProperty]
         public ItineraryObject OrderObject { get; set; }
         public List<Customer> Customers { get; set; }
+        public List<Customer> SavedTravelers { get; set; }
         [BindProperty]
         public Order Order { get; set; }
         public string RandomReference { get; set; }
+        public Customer SelectedCustomer { get; set; }
 
         public void OnGet()
         {
@@ -40,6 +52,14 @@ namespace Vancouver.Pages
             {
                 OrderObject = ticket;
             }
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = _userManager.GetUserId(User);
+                var savedUsers = _context.Customers.Include(x => x.Passport).Where(x => x.ApplicationUserId == userId).ToList();
+                SavedTravelers = savedUsers;
+            }
+
         }
         
 

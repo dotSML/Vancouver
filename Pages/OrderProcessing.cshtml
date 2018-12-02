@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Linq
 @using Microsoft.AspNetCore.Identity
 @using Models
 @model Vancouver.Pages.OrderProcessingModel
@@ -17,11 +18,6 @@
 
 @if (@Model.OrderObject != null)
 {
-if (SignInManager.IsSignedIn(User))
- {
- }
- else
- {
      var currency = @Model.OrderObject.fareCurrency;
      <div class="container orderContainer niceShadow">
          <div class="orderForm">
@@ -111,7 +107,7 @@ if (SignInManager.IsSignedIn(User))
                              </div>
                          </div>
 
-                         @for (int y = 0; y < @Model.OrderObject.IndFlightInbound.Count; y++)
+                         for (int y = 0; y < @Model.OrderObject.IndFlightInbound.Count; y++)
                          {
                              var airlineInbound = @Model.OrderObject.IndFlightOutbound.ElementAt(y).marketing_airline;
                              var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
@@ -183,6 +179,7 @@ if (SignInManager.IsSignedIn(User))
                  </div>
              </div>
              <hr/>
+             
              <h2 style="font-size: 25px; margin-bottom: 30px;">Travellers</h2>
              <form method="post">
                  <div class="row" style="border-top: 1px solid white; border-bottom: 1px solid white; margin-bottom: 10px">
@@ -191,14 +188,32 @@ if (SignInManager.IsSignedIn(User))
                          var travellerNumber = @i + 1;
                          <div class="col-auto">
                              <h4>Traveller @travellerNumber</h4>
-
                              <div class="form-group">
                                  <div style="max-width: 80%">
-                                     <label asp-for="Customers[i].FirstName">First name</label>
-                                     <input asp-for="Customers[i].FirstName" type="text" class="form-control"/>
-                                     <label asp-for="Customers[i].LastName">Last name</label>
-                                     <input asp-for="Customers[i].LastName" type="text" class="form-control"/>
-                                     <input asp-for="Customers[i].Primary" type="checkbox" class="form-control"/>
+                                     @if (SignInManager.IsSignedIn(User))
+                                     {
+                                         if (@Model.SavedTravelers != null)
+                                         {
+                                             <select class="form-control" name="listbox" id="listbox">
+                                                 @foreach (var item in @Model.SavedTravelers)
+                                                 {
+
+                                                     <option value="@item.FirstName @item.LastName">
+                                                         @item.FirstName @item.LastName
+                                                     </option>                  
+                                                 }
+                                             </select>
+                                         }
+                                            
+                                     }
+                                     else
+                                     {
+                                         <label asp-for="Customers[i].FirstName">First name</label>
+                                         <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
+                                         <label asp-for="Customers[i].LastName">Last name</label>
+                                         <input asp-for="Customers[i].LastName" type="text" class="form-control" />
+                                         <input asp-for="Customers[i].Primary" type="checkbox" class="form-control" />
+                                     }
                                  </div>
                              </div>
                          </div>
@@ -226,7 +241,6 @@ if (SignInManager.IsSignedIn(User))
          </div>
      </div>
  }
-}
 else
 {
     <h1 style="color: white;">Something unexpected happened, please try again.</h1>

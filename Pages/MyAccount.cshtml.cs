@@ -125,7 +125,6 @@ namespace Vancouver.Pages
 
         public ActionResult OnPostUpdateTraveler()
         {
-            
             {
                 MemoryStream stream = new MemoryStream();
                 Request.Body.CopyTo(stream);
@@ -140,8 +139,6 @@ namespace Vancouver.Pages
                         if (obj != null)
                         {
                             var traveler = _context.Customers.Include(x => x.Passport).AsNoTracking().FirstOrDefault(x => x.CustomerId == obj.CustomerId);
-                            
-                           
                             var updatedTraveler = obj;
 
                             _context.Customers.Update(updatedTraveler);
