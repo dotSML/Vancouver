@@ -10,7 +10,7 @@ namespace Vancouver.CustomerFolder
     public class CustomersRepository : ICustomersRepository
     {
         private readonly DbSet<Customer> dbSet;
-        private readonly DbContext _context;
+        private readonly VancouverDbContext _context;
 
         public CustomersRepository(VancouverDbContext context)
         {
@@ -19,8 +19,7 @@ namespace Vancouver.CustomerFolder
         }
         public async Task<Customer> GetObject(string id)
         {
-            //var o = await dbSet.FirstOrDefaultAsync(
-            //    x => x.CustomerId == id);
+            var c = await _context.Customers.FirstOrDefaultAsync(x => x.CustomerId == id);
             return new Customer();
         }
         public List<Customer> GetObjectsList()

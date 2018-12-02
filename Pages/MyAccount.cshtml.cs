@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Vancouver.CustomerFolder;
 using Vancouver.Databases;
 using Vancouver.Models;
@@ -122,10 +123,38 @@ namespace Vancouver.Pages
             Response.Redirect("/MyAccount");
         }
 
-        public async Task OnPostEditTraveler(Customer traveler)
+        public ActionResult OnPostUpdateTraveler()
         {
+            
+            {
+                MemoryStream stream = new MemoryStream();
+                Request.Body.CopyTo(stream);
+                stream.Position = 0;
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string requestBody = reader.ReadToEnd();
+                    if (requestBody.Length > 0)
+                    {
+                        
+                        var obj = JsonConvert.DeserializeObject<Customer>(requestBody);
+                        if (obj != null)
+                        {
+                            var traveler = _context.Customers.Include(x => x.Passport).AsNoTracking().FirstOrDefault(x => x.CustomerId == obj.CustomerId);
+                            
+                           
+                            var updatedTraveler = obj;
 
+                            _context.Customers.Update(updatedTraveler);
+                            _context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            
+            return new JsonResult("Success!");
         }
+
+        
     }
 }
 

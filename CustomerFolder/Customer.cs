@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Vancouver.Core;
@@ -46,7 +48,7 @@ namespace Vancouver.CustomerFolder
 
         public bool Primary { get; set; }
         
-        public Passport Passport { get; set; }
+        public Passport Passport{ get; set; }
         
         public string ApplicationUserId { get; set; }
 

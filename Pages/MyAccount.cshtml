@@ -12,7 +12,7 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager 
-
+@Html.AntiForgeryToken()
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <link href="css/myAccount.css" rel="stylesheet" />
@@ -85,58 +85,59 @@
                              <div class="col-md-3"><button class="btn btn-dark openTravelerCard travelerBtn" data-target="#traveler-@i">Details</button></div>
                              <div class="col-md-2">
                                  <form method="post">
-                                     <button class="btn btn-primary travelerBtn" data-target="#traveler-@i">Edit</button>
-                                 </form>
-                             </div>
-                             
-                             <div class="col-md-2">
-                                 <form method="post">
                                      <button class="btn btn-danger  travelerBtn" type="submit" asp-page-handler="DeleteTraveler" asp-route-id="@Model.Travelers.ElementAt(i).CustomerId" data-target="#traveler-@i">Remove</button>
                                  </form>
                              </div>
                          </div>
 
-                         <div class="card travelerCard" id="traveler-@i">
-                             <div class="card-body">
-                                 <div class="row">
-                                     <div class="col-md-6">
-                                         <ul class="list-group list-group-flush">
-                                             <li class="list-group-item"><small>First name</small> <br />@Model.Travelers.ElementAt(i).FirstName</li>
-                                             <li class="list-group-item"><small>Last name</small> <br />@Model.Travelers.ElementAt(i).LastName</li>
-                                             <li class="list-group-item"><small>Date of Birth</small><br /> @Model.Travelers.ElementAt(i).DateOfBirth.ToString("d")</li>
-                                             <li class="list-group-item"><small>Email</small><br />@Model.Travelers.ElementAt(i).Email</li>
-                                             <li class="list-group-item"><button class="btn btn-primary editTraveler" data-target="#traveler-@i">Edit</button> <button class="btn btn-success">Save</button></li>
-                                         </ul>
-                                     </div>
-                                     @if (@Model.Travelers.ElementAt(i).Passport != null)
-                                     {
-                                         <div class="col-md-6">
-                                             <ul class="list-group list-group-flush">
-                                                 <li class="list-group-item"><small>Passport No</small> <br/>@Model.Travelers.ElementAt(i).Passport.PassportNumber</li>
-                                                 <li class="list-group-item"><small>Passport DOB</small> <br/>@Model.Travelers.ElementAt(i).Passport.DateOfBirth</li>
-                                                 <li class="list-group-item"><small>Issue date</small><br/> @Model.Travelers.ElementAt(i).Passport.ValidFrom</li>
-                                                 <li class="list-group-item"><small>Expiry date</small><br/>@Model.Travelers.ElementAt(i).Passport.ValidTo</li>
-                                             </ul>
-                                         </div>
-                                     }
-                                     else
-                                     {
-                                         <div class="col-md-6">
-                                             <form method="post">
-                                                 <ul class="list-group list-group-flush passportAddCard">
-                                                     <li class="list-group-item" style="height: 73px;"><small>Passport No</small> <br/><input asp-for="@Model.Traveler.Passport.PassportNumber" class="form-control" type="text" placeholder="Passport Number"/></li>
-                                                     <li class="list-group-item"><small>Passport DOB</small> <br/><input asp-for="@Model.Traveler.Passport.DateOfBirth" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Date of Birth"/></li>
-                                                     <li class="list-group-item"><small>Issue date</small><br/> <input asp-for="@Model.Traveler.Passport.ValidFrom" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Issue date"/></li>
-                                                     <li class="list-group-item"><small>Expiry date</small><br/><input asp-for="@Model.Traveler.Passport.ValidTo" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Expiry date"/></li>
-                                                 </ul>
-                                             </form>
-                                         </div>
-                                     }
-                                 </div>
-                             </div>
-                         </div>
-                         <hr/>
-
+                        <form method="post">
+                            <div class="card travelerCard" id="traveler-@i">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="travelerId" style="display: none;">@Model.Travelers.ElementAt(i).CustomerId</li>
+                                                <li class="travelerUser" style="display: none;">@Model.Travelers.ElementAt(i).ApplicationUserId</li>
+                                                <li class="list-group-item"><small>First name</small> <br/>
+                                                    <div class="travelerCardData travelerFirstName">@Model.Travelers.ElementAt(i).FirstName</div></li>
+                                                <li class="list-group-item"><small>Last name</small> <br/>
+                                                    <div class="travelerCardData travelerLastName">@Model.Travelers.ElementAt(i).LastName</div></li>
+                                                <li class="list-group-item"><small>Date of Birth</small><br/>
+                                                    <div class="travelerCardData travelerDob">@Model.Travelers.ElementAt(i).DateOfBirth.ToString("d")</div></li>
+                                                <li class="list-group-item"><small>Email</small><br/>
+                                                    <div class="travelerCardData travelerEmail">@Model.Travelers.ElementAt(i).Email</div></li>
+                                                <li class="list-group-item">
+                                                    <div class="btn btn-primary editTraveler" data-target="#traveler-@i">Edit</div>
+                                                    <div class="btn btn-success saveTraveler" data-target="#traveler-@i">Save</div></li>
+                                            </ul>
+                                        </div>
+                                        @if (@Model.Travelers.ElementAt(i).Passport != null)
+                                        {
+                                            <div class="col-md-6">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><small>Passport No</small> <br/><div class="travelerCardData passportNo">@Model.Travelers.ElementAt(i).Passport.PassportNumber</div></li>
+                                                    <li class="list-group-item"><small>Passport DOB</small> <br/><div class="travelerCardData passportDob">@Model.Travelers.ElementAt(i).Passport.DateOfBirth.ToString("d")</div></li>
+                                                    <li class="list-group-item"><small>Issue date</small><br/><div class="travelerCardData passportIssue">@Model.Travelers.ElementAt(i).Passport.ValidFrom.ToString("d")</div></li>
+                                                    <li class="list-group-item"><small>Expiry date</small><br/><div class="travelerCardData passportExpiry">@Model.Travelers.ElementAt(i).Passport.ValidTo.ToString("d")</div></li>
+                                                </ul>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-6">
+                                                    <ul class="list-group list-group-flush passportAddCard">
+                                                        <li class="list-group-item" style="height: 73px;"><small>Passport No</small> <br/><input asp-for="@Model.Traveler.Passport.PassportNumber" class="form-control" type="text" placeholder="Passport Number"/></li>
+                                                        <li class="list-group-item"><small>Passport DOB</small> <br/><input asp-for="@Model.Traveler.Passport.DateOfBirth" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Date of Birth"/></li>
+                                                        <li class="list-group-item"><small>Issue date</small><br/> <input asp-for="@Model.Traveler.Passport.ValidFrom" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Issue date"/></li>
+                                                        <li class="list-group-item"><small>Expiry date</small><br/><input asp-for="@Model.Traveler.Passport.ValidTo" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Expiry date"/></li>
+                                                    </ul>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                        </form>
                      }
                 }
             </div>
@@ -163,26 +164,105 @@
         
 </div>
 
+
 <script>
-    $(document).on('click', '.editTraveler', function() {
-        var data = $((this).data('target'));
-        data.attr(
-            )
-    })
+    var active = 0;
+    $(document).on('click',
+        '.editTraveler',
+        function () {
+            if (active === 0) {
+                var data = $($(this).data('target'));
+                $('.travelerCardData').each(function () {
+                    var t = $(this).text();
+                    $(this).html($('<input type="text" class="form-control" value=' + t +' />', { 'value': t }));
+                    active = 1;
+                });
+            }
+            else if (active === 1) {
+                var data = $($(this).data('target'));
+                console.log(data);
+                $('.travelerCardData').each(function() {
+                    var inp = $(this).find('input');
+                    if (inp.length) {
+                        $(this).text(inp.val());
+                        active = 0;
+                    }
+                    
+                });
+            }
+        });
 </script>
 
+
+
+
 <script>
-    $.ajax({
-        type: "POST",
-        url: "/MyAccount?handler=EditTraveler",
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(response) {
+    function closeEdit() {
+        var data = $($(this).data('target'));
+        console.log(data);
+        $('.travelerCardData').each(function() {
+            var inp = $(this).find('input');
+            if (inp.length) {
+                $(this).text(inp.val());
+                active = 0;
+            }
+                    
+        });
+    }
 
-        }
+    $(document).on('click',
+        '.saveTraveler',
+        function () {
+            var myElement = $($(this).data('target'));
+            closeEdit(myElement);
+            var travelerId = myElement.find('.travelerId').text();
+            var travelerUser = myElement.find('.travelerUser').text();
+            var travelerFirst = myElement.find('.travelerFirstName').text();
+            var travelerLast = myElement.find('.travelerLastName').text();
+            var travelerDob = myElement.find('.travelerDob').text();
+            var travelerEmail = myElement.find('.travelerEmail').text();
+
+            var passportNo = myElement.find('.passportNo').text();
+            var passportDob = myElement.find('.passportDob').text();
+            var passportIssue = myElement.find('.passportIssue').text();
+            var passportExpiry = myElement.find('.passportExpiry').text();
 
 
-    })
+            var postDataCustomer = {
+                CustomerId: travelerId,
+                ApplicationUserId: travelerUser,
+                FirstName: travelerFirst,
+                LastName: travelerLast,
+                DateOfBirth: travelerDob,
+                Email: travelerEmail,
+                Passport: {
+                    PassportNumber: passportNo,
+                    DateOfBirth: passportDob,
+                    ValidFrom: passportIssue,
+                    ValidTo: passportExpiry
+                    
+                }
+            };
+
+            
+
+            $.ajax({
+                type: "POST",
+                url: "/MyAccount?handler=UpdateTraveler",
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(postDataCustomer),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                    success: function(response) {
+                        alert("Changed");
+                    }
+                
+            });
+        });
+
 </script>
 
 <script>
