@@ -44,6 +44,8 @@ namespace Vancouver.Pages
         public Order Order { get; set; }
         public string RandomReference { get; set; }
         public Customer SelectedCustomer { get; set; }
+        [BindProperty]
+        public List<string> SavedTravelersIds { get; set; }
 
         public void OnGet()
         {
@@ -61,30 +63,59 @@ namespace Vancouver.Pages
             }
 
         }
-        
 
+        public List<Customer> CustomerCleanup(List<Customer> customersToSort)
+        {
+            var customerList = new List<Customer>(customersToSort);
+
+            for (int i = 0; i < customersToSort.Count; i++)
+            {
+                if (customersToSort[i].FirstName == "Unspecified" & customersToSort[i].LastName == "Unspecified")
+                {
+                    customerList.RemoveAt(i);
+                }
+            }
+
+            return customerList;
+        }
 
         public ActionResult OnPost(List<Customer> customers)
         {
-            if (customers != null)
+            customers = CustomerCleanup(customers);
+            if (_signInManager.IsSignedIn(User))
             {
-                Order.Customer = new List<Customer>(customers);
-                RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
-                while (_context.Orders.FirstOrDefault(x => x.BookingReference == RandomReference) != null)
+                foreach (var savedTraveler in SavedTravelersIds)
                 {
-                    RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
+                    var traveler = _context.Customers.FirstOrDefault(x => x.CustomerId == savedTraveler);
+                    if (traveler != null)
+                    {
+                        customers.Add(traveler);
+                    }
                 }
-                Order.OrderItinerary = _ticketPurchaseService.GetItineraryTicketData();
-                Order.BookingReference = RandomReference;
-                _ticketPurchaseService.SetOrderData(Order);
-                _context.Orders.Add(Order);
-                _context.SaveChanges();
-                return RedirectToPage("OrderSuccess", Order.Id);
+            }
+
+            if (customers != null & customers?.Count > 0)
+            {
+                 Order.Customer = new List<Customer>(customers);
+                 RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
+                 while (_context.Orders.FirstOrDefault(x => x.BookingReference == RandomReference) != null)
+                 {
+                     RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
+                 }
+                 Order.OrderItinerary = _ticketPurchaseService.GetItineraryTicketData();
+                 Order.BookingReference = RandomReference;
+                 _ticketPurchaseService.SetOrderData(Order);
+                 _context.Orders.Add(Order);
+                 _context.SaveChanges();
+                 return RedirectToPage("OrderSuccess", Order.Id);
             }
             else
             {
-                return RedirectToPage("Index");
+               return RedirectToPage("Index");
             }
+            
+
+            
 
 
             
