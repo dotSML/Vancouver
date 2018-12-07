@@ -35,21 +35,25 @@
 @{
     if (SignInManager.IsSignedIn(User))
     {
-        if (@Model.Tickets.Any())
+        if (@Model.UserOrders.Any())
         {
-            for (int i = 0; @Model.Tickets.Count() > i; i++)
+            for (int i = 0; i < @Model.UserOrders.Count(); i++)
             {
-                if (UserManager.GetUserId(User) == @Model.Tickets.ElementAt(i).ApplicationUserId)
-                {
-                }
-                else
-                {
-                    <p>IDK WHAT HAPPENED</p>
-                }
+                <div class="container" style="color: white;">
+                    @foreach (var traveler in @Model.UserOrders.ElementAt(i).Customer)
+                    {
+                        <h2>@traveler.FirstName @traveler.LastName</h2>
+                    }
+                    <h2>@Model.UserOrders.ElementAt(i).OrderItinerary.originAirportOutbound - @Model.UserOrders.ElementAt(i).OrderItinerary.arrivalAirportOutbound</h2>
+                <hr/>
+                </div>
+
             }
+
         }
         else
         {
+            <p>WTF</p>
         }
     }
     else
@@ -84,16 +88,6 @@
         }
     }
 }
-<script>
-    $(document).on('click',
-        '.boardingButton',
-        function(e) {
-            var target = $($(this).data('target'));
-            console.log(target);
-            target.slideToggle("fast");
-            target.addClass('passCollapse');
 
-        });
-</script>
 
 </body>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,10 +16,16 @@ namespace Vancouver.Pages
     public class TicketTestModel : PageModel
     {
         public VancouverDbContext _context;
+        public UserManager<ApplicationUser> _userManager;
+        public SignInManager<ApplicationUser> _signInManager;
 
-        public TicketTestModel(VancouverDbContext context)
+        public TicketTestModel(VancouverDbContext context, 
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public class ItinerarySearchModel
@@ -31,6 +38,7 @@ namespace Vancouver.Pages
         public ItinerarySearchModel ItinerarySearch { get; set; }
         public IEnumerable<ItineraryObject> Tickets { get; set; }
         public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Order> UserOrders { get; set; }
         public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
         public List<IndividualFlightInbound> IndFlightsInbound { get; set; }
         public Order CustomerOrder { get; set; }
@@ -47,6 +55,14 @@ namespace Vancouver.Pages
                 .Include(x => x.Customer)
                 .AsNoTracking().ToListAsync();
 
+            if (_signInManager.IsSignedIn(User))
+            {
+                UserOrders = await _context.Orders
+                    .Include(x => x.OrderItinerary)
+                    .Include(x => x.Customer).Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
+                    .AsNoTracking().ToListAsync();
+            }
+            
 
 
 

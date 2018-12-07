@@ -103,6 +103,8 @@ namespace Vancouver.Pages
             var travelerObject = traveler;
             var user = await _userManager.GetUserAsync(User);
             travelerObject.ApplicationUserId = user.Id;
+            travelerObject.Passport = traveler.Passport;
+            travelerObject.PassportId = traveler.PassportId;
             
             _context.Add(travelerObject);
             _context.SaveChanges();
@@ -117,6 +119,7 @@ namespace Vancouver.Pages
             if (traveler != null)
             {
                 _context.Customers.Remove(traveler);
+                
                 await _context.SaveChangesAsync();
             }
 
@@ -139,6 +142,7 @@ namespace Vancouver.Pages
                         if (obj != null)
                         {
                             var traveler = _context.Customers.Include(x => x.Passport).AsNoTracking().FirstOrDefault(x => x.CustomerId == obj.CustomerId);
+                           
                             var updatedTraveler = obj;
 
                             _context.Customers.Update(updatedTraveler);

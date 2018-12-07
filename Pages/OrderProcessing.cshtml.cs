@@ -68,22 +68,27 @@ namespace Vancouver.Pages
         {
             var customerList = new List<Customer>(customersToSort);
 
-            for (int i = 0; i < customersToSort.Count; i++)
+            if (customerList != null)
             {
-                if (customersToSort[i].FirstName == "Unspecified" & customersToSort[i].LastName == "Unspecified")
+                for (int i = 0; i < customersToSort.Count; i++)
                 {
-                    customerList.RemoveAt(i);
+                    if (customersToSort[i].FirstName == "Unspecified" & customersToSort[i].LastName == "Unspecified")
+                    {
+                        customerList.RemoveAt(i);
+                    }
                 }
             }
+            
 
             return customerList;
         }
 
         public ActionResult OnPost(List<Customer> customers)
         {
-            customers = CustomerCleanup(customers);
+            var userId = "";
             if (_signInManager.IsSignedIn(User))
             {
+                userId = _userManager.GetUserId(User);
                 foreach (var savedTraveler in SavedTravelersIds)
                 {
                     var traveler = _context.Customers.FirstOrDefault(x => x.CustomerId == savedTraveler);
@@ -105,6 +110,7 @@ namespace Vancouver.Pages
                  Order.OrderItinerary = _ticketPurchaseService.GetItineraryTicketData();
                  Order.BookingReference = RandomReference;
                  _ticketPurchaseService.SetOrderData(Order);
+                Order.OrderItinerary.ApplicationUserId = userId;
                  _context.Orders.Add(Order);
                  _context.SaveChanges();
                  return RedirectToPage("OrderSuccess", Order.Id);
