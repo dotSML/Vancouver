@@ -104,7 +104,6 @@ namespace Vancouver.Pages
             var user = await _userManager.GetUserAsync(User);
             travelerObject.ApplicationUserId = user.Id;
             travelerObject.Passport = traveler.Passport;
-            travelerObject.PassportId = traveler.PassportId;
             
             _context.Add(travelerObject);
             _context.SaveChanges();
