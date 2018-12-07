@@ -38,7 +38,7 @@
 
 .fixedFlightSearchBox {
     position: fixed !important;
-    background: rgba(0, 0, 0, 0.8) !important;
+    background: hsla(206, 46%, 25%, 0.2);
     border-radius: 7px;
     margin-left: 62px;
     display: flex;
@@ -49,23 +49,22 @@
 .blurWrapper {
     filter: blur(8px);
     -moz-filter: blur(8px);
-    background-color: rgba(25, 25, 25, 0.6);
+    background: hsla(206, 46%, 25%, 0.2);
     display: block;
     height: 100%;
     width: 100%;
-    top:0;
-    bottom:0;
+    top: 0;
+    bottom: 0;
     left: 0;
-    right:0;
-    position:absolute;
-    
+    right: 0;
+    position: absolute;
 }
 
 .flightSearchBox {
-    background: rgba(0, 0, 0, 0.3);
+    background: hsla(28, 22%, 83%, 0.5);
     border-radius: 7px;
     max-width: 88.5%;
-    margin:auto;
+    margin: auto;
     display: flex;
     z-index: 1000 !important;
 }
