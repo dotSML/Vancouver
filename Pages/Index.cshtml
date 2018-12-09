@@ -139,10 +139,10 @@
                     </label>
                 </div>
                 <div class="col-2 align-self-center" style="width: 60%;">
-                    <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationOutbound" id="flightInfoDuration" style="font-size: 0.8em;">
+                    <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationOutbound" id="flightInfoDuration" style="font-size: 0.9em;">
                         @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[1]m
                     </label>
-                    <div style="font-size: 0.8em;">
+                    <div style="font-size: 0.9em;">
                         <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound" id="flightInfoLayovers" style="color: red;">
                             @Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound stops
                         </label><br/>

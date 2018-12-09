@@ -9,11 +9,9 @@
   background: hsla(28, 22%, 83%, 0.5);
   border-radius: 7px;
   color: black;
-  font-size: 1em;
+  font-size: 0.8em;
 }
-.timeFont{
-  font-size: 1em;
-}
+
 
 .activeItem {
     color: white !important;
