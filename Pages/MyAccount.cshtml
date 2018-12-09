@@ -21,14 +21,17 @@
 </head>
 <body>
 <div class="container">
-    <div class="profile-sector" id="myAccountContainer">
+    <div class="profile-sector niceShadow" style="z-index: 1000;" id="myAccountContainer">
+        <div class="blurWrapper"></div>
+
         <div class="profile-sector-column" style="position: relative;">
+
             @{
                 if (UserManager.GetUserAsync(User).Result.UserPhoto == null)
                 {
                     <form method="post" enctype="multipart/form-data">
                         <p>No photo of you yet, add one now :) </p>
-                        <input type="file" style="margin: 0" class="file btn-dark" asp-for="Upload"/>
+                        <input type="file" style="margin: 0" class="file btn-dark" asp-for="Upload" />
                         <button style="margin-top: 10px;" class="btn btn-primary" type="submit">Upload</button>
                     </form>
                 }
@@ -38,7 +41,7 @@
                         <img class="image" style="border: black; border-radius: 0 0 7px 7px;border-collapse: separate" src="~/uploads/usrImg/@UserManager.GetUserAsync(User).Result.UserPhoto" alt="~/images/nopic.jpg">
                         <div class="middle" style="position: absolute; top: 200px; left: 130px;">
                             <form method="post" enctype="multipart/form-data">
-                                <div class="input-file-container">  
+                                <div class="input-file-container">
                                     <input type="file" asp-for="Upload" class="input-file" id="my-file">
                                     <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
                                     <button class="btn btn-primary" id="submitImage" type="submit" disabled style="display: none;">Update Photo</button>
@@ -67,7 +70,7 @@
             <hr />
             <div>Date of birth</div>
             <div style="font-size: 18px">@UserManager.GetUserAsync(User).Result.DateOfBirth.Date.ToString("d")</div>
-            <hr/>
+            <hr />
             <div>Favorite destinations </div>
             <hr />
             <a class="btn btn-dark" href="/Identity/Account/Manage">Manage Profile</a>
@@ -80,16 +83,17 @@
                     for (int i = 0; i < @Model.Travelers.Count(); i++)
                     {
 
-                         <div class="row">
-                             <div class="col-md-5">
-                                 <h2 style="font-size: 18px;">@Model.Travelers.ElementAt(i).FirstName @Model.Travelers.ElementAt(i).LastName</h2></div>
-                             <div class="col-md-3"><button class="btn btn-dark openTravelerCard travelerBtn" data-target="#traveler-@i">Details</button></div>
-                             <div class="col-md-2">
-                                 <form method="post">
-                                     <button class="btn btn-danger  travelerBtn" type="submit" asp-page-handler="DeleteTraveler" asp-route-id="@Model.Travelers.ElementAt(i).CustomerId" data-target="#traveler-@i">Remove</button>
-                                 </form>
-                             </div>
-                         </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h2 style="font-size: 18px;">@Model.Travelers.ElementAt(i).FirstName @Model.Travelers.ElementAt(i).LastName</h2>
+                            </div>
+                            <div class="col-md-3"><button class="btn btn-dark openTravelerCard travelerBtn" data-target="#traveler-@i">Details</button></div>
+                            <div class="col-md-2">
+                                <form method="post">
+                                    <button class="btn btn-danger  travelerBtn" type="submit" asp-page-handler="DeleteTraveler" asp-route-id="@Model.Travelers.ElementAt(i).CustomerId" data-target="#traveler-@i">Remove</button>
+                                </form>
+                            </div>
+                        </div>
 
                         <form method="post">
                             <div class="card travelerCard" id="traveler-@i">
@@ -99,64 +103,73 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="travelerId" style="display: none;">@Model.Travelers.ElementAt(i).CustomerId</li>
                                                 <li class="travelerUser" style="display: none;">@Model.Travelers.ElementAt(i).ApplicationUserId</li>
-                                                <li class="list-group-item"><small>First name</small> <br/>
-                                                    <div class="travelerCardData travelerFirstName">@Model.Travelers.ElementAt(i).FirstName</div></li>
-                                                <li class="list-group-item"><small>Last name</small> <br/>
-                                                    <div class="travelerCardData travelerLastName">@Model.Travelers.ElementAt(i).LastName</div></li>
-                                                <li class="list-group-item"><small>Date of Birth</small><br/>
-                                                    <div class="travelerCardData travelerDob">@Model.Travelers.ElementAt(i).DateOfBirth.ToString("d")</div></li>
-                                                <li class="list-group-item"><small>Email</small><br/>
-                                                    <div class="travelerCardData travelerEmail">@Model.Travelers.ElementAt(i).Email</div></li>
+                                                <li class="list-group-item">
+                                                    <small>First name</small> <br />
+                                                    <div class="travelerCardData travelerFirstName">@Model.Travelers.ElementAt(i).FirstName</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <small>Last name</small> <br />
+                                                    <div class="travelerCardData travelerLastName">@Model.Travelers.ElementAt(i).LastName</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <small>Date of Birth</small><br />
+                                                    <div class="travelerCardData travelerDob">@Model.Travelers.ElementAt(i).DateOfBirth.ToString("d")</div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <small>Email</small><br />
+                                                    <div class="travelerCardData travelerEmail">@Model.Travelers.ElementAt(i).Email</div>
+                                                </li>
                                                 <li class="list-group-item">
                                                     <div class="btn btn-primary editTraveler" data-target="#traveler-@i">Edit</div>
-                                                    <div class="btn btn-success saveTraveler" data-target="#traveler-@i">Save</div></li>
+                                                    <div class="btn btn-success saveTraveler" data-target="#traveler-@i">Save</div>
+                                                </li>
                                             </ul>
                                         </div>
                                         @if (@Model.Travelers.ElementAt(i).Passport != null)
                                         {
                                             <div class="col-md-6">
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><small>Passport No</small> <br/><div class="travelerCardData passportNo">@Model.Travelers.ElementAt(i).Passport.PassportNumber</div></li>
-                                                    <li class="list-group-item"><small>Passport DOB</small> <br/><div class="travelerCardData passportDob">@Model.Travelers.ElementAt(i).Passport.DateOfBirth.ToString("d")</div></li>
-                                                    <li class="list-group-item"><small>Issue date</small><br/><div class="travelerCardData passportIssue">@Model.Travelers.ElementAt(i).Passport.ValidFrom.ToString("d")</div></li>
-                                                    <li class="list-group-item"><small>Expiry date</small><br/><div class="travelerCardData passportExpiry">@Model.Travelers.ElementAt(i).Passport.ValidTo.ToString("d")</div></li>
+                                                    <li class="list-group-item"><small>Passport No</small> <br /><div class="travelerCardData passportNo">@Model.Travelers.ElementAt(i).Passport.PassportNumber</div></li>
+                                                    <li class="list-group-item"><small>Passport DOB</small> <br /><div class="travelerCardData passportDob">@Model.Travelers.ElementAt(i).Passport.DateOfBirth.ToString("d")</div></li>
+                                                    <li class="list-group-item"><small>Issue date</small><br /><div class="travelerCardData passportIssue">@Model.Travelers.ElementAt(i).Passport.ValidFrom.ToString("d")</div></li>
+                                                    <li class="list-group-item"><small>Expiry date</small><br /><div class="travelerCardData passportExpiry">@Model.Travelers.ElementAt(i).Passport.ValidTo.ToString("d")</div></li>
                                                 </ul>
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="col-md-6">
-                                                    <ul class="list-group list-group-flush passportAddCard">
-                                                        <li class="list-group-item" style="height: 73px;"><small>Passport No</small> <br/><input asp-for="@Model.Traveler.Passport.PassportNumber" class="form-control" type="text" placeholder="Passport Number"/></li>
-                                                        <li class="list-group-item"><small>Passport DOB</small> <br/><input asp-for="@Model.Traveler.Passport.DateOfBirth" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Date of Birth"/></li>
-                                                        <li class="list-group-item"><small>Issue date</small><br/> <input asp-for="@Model.Traveler.Passport.ValidFrom" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Issue date"/></li>
-                                                        <li class="list-group-item"><small>Expiry date</small><br/><input asp-for="@Model.Traveler.Passport.ValidTo" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Expiry date"/></li>
-                                                    </ul>
+                                                <ul class="list-group list-group-flush passportAddCard">
+                                                    <li class="list-group-item" style="height: 73px;"><small>Passport No</small> <br /><input asp-for="@Model.Traveler.Passport.PassportNumber" class="form-control" type="text" placeholder="Passport Number" /></li>
+                                                    <li class="list-group-item"><small>Passport DOB</small> <br /><input asp-for="@Model.Traveler.Passport.DateOfBirth" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Date of Birth" /></li>
+                                                    <li class="list-group-item"><small>Issue date</small><br /> <input asp-for="@Model.Traveler.Passport.ValidFrom" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Issue date" /></li>
+                                                    <li class="list-group-item"><small>Expiry date</small><br /><input asp-for="@Model.Traveler.Passport.ValidTo" class="form-control" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Expiry date" /></li>
+                                                </ul>
                                             </div>
                                         }
                                     </div>
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                         </form>
-                     }
+                    }
                 }
             </div>
             <button class="btn btn-primary" id="addTraveler">Add traveler</button>
             <form method="post">
                 <div class="container travelerForm">
-                    <input type="text" class="form-control" asp-for="@Model.Traveler.FirstName" placeholder="First Name"/>
-                    <input type="text" class="form-control" asp-for="@Model.Traveler.LastName" placeholder="Last Name"/>
-                    <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" placeholder="Date of Birth" asp-for="@Model.Traveler.DateOfBirth"/>
-                    <input type="text" class="form-control" asp-for="@Model.Traveler.Email" placeholder="Email"/>
+                    <input type="text" class="form-control" asp-for="@Model.Traveler.FirstName" placeholder="First Name" />
+                    <input type="text" class="form-control" asp-for="@Model.Traveler.LastName" placeholder="Last Name" />
+                    <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" placeholder="Date of Birth" asp-for="@Model.Traveler.DateOfBirth" />
+                    <input type="text" class="form-control" asp-for="@Model.Traveler.Email" placeholder="Email" />
                     <button type="submit" class="btn btn-success" asp-page-handler="AddTraveler">Add</button>
                     <div class="btn btn-primary passportBtn">Add Passport</div>
                     <div class="passportForm" id="passportInput">
-                    <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" asp-for="@Model.Traveler.Passport.DateOfBirth" placeholder="Date of Birth"/>
-                    <input type="text" class="form-control" asp-for="@Model.Traveler.Passport.PassportNumber" placeholder="Passport number"/>
-                    <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" asp-for="@Model.Traveler.Passport.ValidFrom" placeholder="Issue date"/>
-                    <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" asp-for="@Model.Traveler.Passport.ValidTo" placeholder="Expiry date"/>
-                    
+                        <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" asp-for="@Model.Traveler.Passport.DateOfBirth" placeholder="Date of Birth" />
+                        <input type="text" class="form-control" asp-for="@Model.Traveler.Passport.PassportNumber" placeholder="Passport number" />
+                        <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" asp-for="@Model.Traveler.Passport.ValidFrom" placeholder="Issue date" />
+                        <input onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control" asp-for="@Model.Traveler.Passport.ValidTo" placeholder="Expiry date" />
+
                     </div>
                 </div>
             </form>

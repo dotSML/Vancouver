@@ -1,8 +1,9 @@
 .acrylic {
     backdrop-filter: blur(35px) saturate(125%);
     -webkit-backdrop-filter: blur(35px);
-    background-color: rgba(20,20,20,0.9);
     border-radius: 7px;
+    z-index: -100;
+    filter: blur(20px);
     
 }
 
