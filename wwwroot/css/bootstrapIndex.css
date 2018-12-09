@@ -3,7 +3,16 @@
 .niceShadow {
     -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 15px 0px #000000bf;
+}
+#flightResultRow{
+  background: hsla(28, 22%, 83%, 0.5);
+  border-radius: 7px;
+  color: black;
+  font-size: 1em;
+}
+.timeFont{
+  font-size: 1em;
 }
 
 .activeItem {
@@ -28,7 +37,7 @@
 
 .itinerary-time {
     font-size: 1.1em;
-    color: white;
+    color: black;
 }
 
 .itinerary-iata {
@@ -790,6 +799,7 @@ pre code {
   -ms-flex: 0 0 16.666667%;
   flex: 0 0 16.666667%;
   max-width: 16.666667%;
+  font-size: 1.3em;
 }
 
 .col-3 {
