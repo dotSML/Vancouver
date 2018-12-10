@@ -132,7 +132,7 @@ namespace Vancouver
         /// Add user to a role if the user exists, otherwise, create the user and adds him to the role.
         /// </summary>
         /// <param name="serviceProvider">Service Provider</param>
-        /// <param name="userEmail">User Email</param>
+        /// <param name="userEmail">User Username</param>
         /// <param name="userPwd">User Password. Used to create the user if not exists.</param>
         /// <param name="roleName">Role Name</param>
         private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail,

@@ -71,7 +71,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "Username")]
             public string Email { get; set; }
 
             [DataType(DataType.PhoneNumber)]
@@ -164,7 +164,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                     values: new { userId = user.Id, code = emailToken },
                     protocol: Request.Scheme);
 
-                //await _emailService.SendEmailAsync(Input.Email, "Confirm your email",
+                //await _emailService.SendEmailAsync(Input.Username, "Confirm your email",
                 //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
@@ -233,7 +233,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = emailToken },
                         protocol: Request.Scheme);
 
-                    //await _emailService.SendEmailAsync(Input.Email, "Confirm your email",
+                    //await _emailService.SendEmailAsync(Input.Username, "Confirm your email",
                         //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 

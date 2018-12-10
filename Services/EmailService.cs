@@ -22,19 +22,19 @@ namespace Vancouver.Services
             {
                 var credential = new NetworkCredential
                 {
-                    UserName = /*_configuration["Email:Email"],*/ "vancouver@sml.ee",
-                    Password = /*_configuration["Email:Password"]*/ "CheapFlights123"
+                    UserName = /*_configuration["Username:Username"],*/ "vancouver@sml.ee",
+                    Password = /*_configuration["Username:Password"]*/ "CheapFlights123"
                 };
 
                 client.Credentials = credential;
-                client.Host = /*_configuration["Email:Host"];*/ "smtp.zone.ee";
-                client.Port = /*int.Parse(_configuration["Email:Port"]*/ 587;
+                client.Host = /*_configuration["Username:Host"];*/ "smtp.zone.ee";
+                client.Port = /*int.Parse(_configuration["Username:Port"]*/ 587;
                 client.EnableSsl = true;
 
                 using (var emailMessage = new MailMessage())
                 {
                     emailMessage.To.Add(new MailAddress(email));
-                    emailMessage.From = new MailAddress(/*_configuration["Email:Email"]*/ "vancouver@sml.ee");
+                    emailMessage.From = new MailAddress(/*_configuration["Username:Username"]*/ "vancouver@sml.ee");
                     emailMessage.Subject = subject;
                     emailMessage.Body = message;
                     //client.Send(emailMessage);

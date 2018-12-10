@@ -40,8 +40,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -70,7 +69,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
         public async Task<ActionResult> OnPostAjaxLogin(string returnUrl = null)
         {
-            string ajaxPostEmail = "";
+            string ajaxPostUsername = "";
             string ajaxPostPassword = "";
             string ajaxPostRemember = "";
             
@@ -90,14 +89,14 @@ namespace Vancouver.Areas.Identity.Pages.Account
                         }
                         if (obj != null)
                         {
-                            ajaxPostEmail = obj.InputEmail;
+                            ajaxPostUsername = obj.InputUsername;
                             ajaxPostPassword = obj.InputPassword;
                             ajaxPostRemember = obj.InputRemember;
                         }
                     }
                 }
 
-            Input.Email = ajaxPostEmail;
+            Input.Username = ajaxPostUsername;
             Input.Password = ajaxPostPassword;
 
             if(ajaxPostRemember == "on")
@@ -115,7 +114,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -148,7 +147,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -177,7 +176,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
     public class LoginPostData
     {
-        public string InputEmail { get; set; }
+        public string InputUsername { get; set; }
         public string InputPassword { get; set; }
         public string InputRemember { get; set; }
     }

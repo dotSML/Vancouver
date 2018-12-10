@@ -10,14 +10,14 @@ using Vancouver.Databases;
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    [Migration("20181130103052_CustomersToUsers")]
-    partial class CustomersToUsers
+    [Migration("20181210133726_VancouverDbMigrations")]
+    partial class VancouverDbMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -138,6 +138,8 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
+                    b.Property<DateTime>("DateOfBirth");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName")
@@ -148,11 +150,15 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("OrderId");
 
+                    b.Property<string>("PassportId");
+
                     b.Property<bool>("Primary");
 
                     b.HasKey("CustomerId");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("PassportId");
 
                     b.ToTable("Customers");
                 });
@@ -399,26 +405,19 @@ namespace Vancouver.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Customers");
-
                     b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("PassportNumber")
-                        .IsRequired();
+                    b.Property<string>("PassportNumber");
 
                     b.Property<DateTime>("ValidFrom");
 
                     b.Property<DateTime>("ValidTo");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Customers")
-                        .IsUnique()
-                        .HasFilter("[Customers] IS NOT NULL");
 
                     b.ToTable("Passport");
                 });
@@ -541,6 +540,10 @@ namespace Vancouver.Migrations
                     b.HasOne("Vancouver.Models.Order")
                         .WithMany("Customer")
                         .HasForeignKey("OrderId");
+
+                    b.HasOne("Vancouver.Models.Passport", "Passport")
+                        .WithMany()
+                        .HasForeignKey("PassportId");
                 });
 
             modelBuilder.Entity("Vancouver.FlightsFolder.IndividualFlightInbound", b =>
@@ -569,13 +572,6 @@ namespace Vancouver.Migrations
                     b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "OrderItinerary")
                         .WithMany()
                         .HasForeignKey("OrderItineraryId");
-                });
-
-            modelBuilder.Entity("Vancouver.Models.Passport", b =>
-                {
-                    b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
-                        .WithOne("Passport")
-                        .HasForeignKey("Vancouver.Models.Passport", "Customers");
                 });
 
             modelBuilder.Entity("Vancouver.Models.Payment", b =>

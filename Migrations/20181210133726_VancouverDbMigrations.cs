@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Vancouver.Migrations
 {
-    public partial class PassportMigration : Migration
+    public partial class VancouverDbMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,6 +61,23 @@ namespace Vancouver.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BankLink", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Passport",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    PassportNumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Passport", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -289,6 +306,7 @@ namespace Vancouver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    BookingReference = table.Column<string>(nullable: true),
                     OrderItineraryId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -309,7 +327,11 @@ namespace Vancouver.Migrations
                     CustomerId = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
+                    Primary = table.Column<bool>(nullable: false),
+                    PassportId = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
                     OrderId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -321,14 +343,19 @@ namespace Vancouver.Migrations
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Customers_Passport_PassportId",
+                        column: x => x.PassportId,
+                        principalTable: "Passport",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "AllCustomerTravelHistories",
                 columns: table => new
                 {
-                    CustomerTravelHistoryId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     CustomerId = table.Column<string>(nullable: true),
                     AirportFrom = table.Column<string>(nullable: true),
                     AirportTo = table.Column<string>(nullable: true),
@@ -337,34 +364,10 @@ namespace Vancouver.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AllCustomerTravelHistories", x => x.CustomerTravelHistoryId);
+                    table.PrimaryKey("PK_AllCustomerTravelHistories", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AllCustomerTravelHistories_Customers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Passport",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    ValidFrom = table.Column<DateTime>(nullable: false),
-                    ValidTo = table.Column<DateTime>(nullable: false),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    PassportNumber = table.Column<string>(nullable: false),
-                    Customers = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Passport", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Passport_Customers_Customers",
-                        column: x => x.Customers,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
@@ -486,6 +489,11 @@ namespace Vancouver.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_PassportId",
+                table: "Customers",
+                column: "PassportId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_IndividualFlightInbound_ItineraryId",
                 table: "IndividualFlightInbound",
                 column: "ItineraryId");
@@ -499,13 +507,6 @@ namespace Vancouver.Migrations
                 name: "IX_Orders_OrderItineraryId",
                 table: "Orders",
                 column: "OrderItineraryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Passport_Customers",
-                table: "Passport",
-                column: "Customers",
-                unique: true,
-                filter: "[Customers] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payment_BankLinkId",
@@ -563,9 +564,6 @@ namespace Vancouver.Migrations
                 name: "IndividualFlightOutbound");
 
             migrationBuilder.DropTable(
-                name: "Passport");
-
-            migrationBuilder.DropTable(
                 name: "Payment");
 
             migrationBuilder.DropTable(
@@ -582,6 +580,9 @@ namespace Vancouver.Migrations
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Passport");
 
             migrationBuilder.DropTable(
                 name: "BankLink");
