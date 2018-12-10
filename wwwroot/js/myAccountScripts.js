@@ -48,7 +48,7 @@ $(document).on('click',
         var travelerLast = myElement.find('.travelerLastName').text();
         var travelerDob = myElement.find('.travelerDob').text();
         var travelerEmail = myElement.find('.travelerEmail').text();
-
+        
         var passportNo = myElement.find('.passportNo').text();
         var passportDob = myElement.find('.passportDob').text();
         var passportIssue = myElement.find('.passportIssue').text();

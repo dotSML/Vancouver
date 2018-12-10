@@ -59,6 +59,9 @@
             }
         </div>
         <div class="profile-sector-column">
+            <div>Username</div>
+            <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.UserName</div>
+            <hr />
             <div>Full name</div>
             <div style="font-size: 18px;">@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</div>
             <hr />

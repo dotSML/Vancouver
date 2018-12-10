@@ -54,6 +54,10 @@ namespace Vancouver.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "First name")]
             public string FirstName { get; set; }
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
@@ -101,6 +105,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAjaxRegister(string returnUrl = null)
         {
             string ajaxPostEmail = "";
+            string ajaxPostUsername = "";
             string ajaxPostFirstName = "";
             string ajaxPostLastName = "";
             string ajaxPostDateOfBirth = "";
@@ -129,6 +134,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                         ajaxPostLastName = obj.InputLastName;
                         ajaxPostDateOfBirth = obj.InputDateOfBirth;
                         ajaxPostEmail = obj.InputEmail;
+                        ajaxPostUsername = obj.InputUsername;
                         ajaxPostPassword = obj.InputPassword;
                         ajaxPostAgree = obj.InputAcceptTerms;
                     }
@@ -141,8 +147,9 @@ namespace Vancouver.Areas.Identity.Pages.Account
             Input.LastName = ajaxPostLastName;
             Input.Email = ajaxPostEmail;
             Input.Password = ajaxPostPassword;
+            Input.Username = ajaxPostUsername;
 
-            var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
+            var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)
@@ -187,7 +194,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
+                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, DateOfBirth = Input.DateOfBirth, UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
 
                 if (Input.UserPhoto != null)
                 {
@@ -251,6 +258,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
     public class RegisterPostData
     {
         public string InputEmail { get; set; }
+        public string InputUsername { get; set; }
         public string InputPassword { get; set; }
         public string InputDateOfBirth { get; set; }
         public string InputFirstName { get; set; }

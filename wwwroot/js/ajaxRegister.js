@@ -1,5 +1,6 @@
 ﻿$('#registerSubmit').on('click', function () {
     $('#ajaxRegisterError').hide();
+    var userUsername = $('#signup-username').val();
     var userFirstName = $('#signup-firstName').val();
     var userLastName = $('#signup-lastName').val();
     var userEmail = $('#signup-email').val();
@@ -13,6 +14,7 @@
 
 
     var userObject = new Object();
+    userObject.inputUsername = userUsername;
     userObject.InputEmail = userEmail;
     userObject.InputPassword = userPassword;
     userObject.InputDateOfBirth = userDayOfBirth;
