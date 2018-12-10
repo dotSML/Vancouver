@@ -53,26 +53,27 @@
         }
         else
         {
-            <p>WTF</p>
+            <p>Something went wrong :'( </p>
         }
     }
     else
     {
-        <p style="font-size: 25px; color: white;">Search for your trips by entering the itinerary ID</p>
-        <form method="post" style="color: white; max-width: 50%">
+        <div class="itineraryIDSearchBox niceShadow">
+             <p style="font-size: 25px; ;">Search for your trips by entering the itinerary ID</p>
+        <form method="post" style="max-width: 50%">
             <div class="form-group">
                 <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
-                <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control"/>
+                <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" style="margin-bottom: 10px;"/>
                 @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
                     <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
                 <input type="submit" class="btn btn-primary" value="Search"/>
             </div>
         </form>
-
-
+        </div>
+       
         if (@Model.CustomerOrder != null)
         {
-            <div style="color: white; border: 1px solid white; border-radius: 7px;">
+            <div class="bookingReferenceResults niceShadow">
                 <h1>RESULT</h1>
                 <h2>Customers</h2>
                 @foreach (var customer in @Model.CustomerOrder.Customer)
