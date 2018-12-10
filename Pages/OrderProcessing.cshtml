@@ -32,13 +32,13 @@
                          </div>
                      </div>
                      <div class="row" style="color: black; height: 60px;  border-bottom: solid 1px gray;">
-                     <div class="col-1 align-self-center">Flight Carrier</div>
-                     <div class="col-1 align-self-center">Departure Time and Airport</div>
+                     <div class="col-1 align-self-center">Carrier</div>
+                     <div class="col-1 align-self-center">Departure</div>
                      <div class="col-1 align-self-center">Duration</div>
-                     <div class="col-1 align-self-center">Arrival Time and Airport</div>
+                     <div class="col-1 align-self-center">Arrival</div>
                      <div class="col-1 align-self-center">Flight Number</div>
                      <div class="col-1 align-self-center">Aircraft</div>
-                     <div class="col-1 align-self-center">Travel Class</div>
+                     <div class="col-2 align-self-center">Travel Class</div>
                      <div class="col-1 align-self-center">Flight Date</div>
                      </div>
                      @for (int x = 0; x < @Model.OrderObject.IndFlightOutbound.Count; x++)
@@ -55,10 +55,10 @@
                                  </div>
                              </div>
                              <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" id="flightLegDepartureTime" class="itinerary-time">
+                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" class="itinerary-time">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1]
                                  </label><br />
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd" id="flightLegOriginAirport">
+                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd" class="flightInfoAirport">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd
                                  </label>
                              </div>
@@ -71,27 +71,27 @@
                                  <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).arrives_at" id="flightLegArrivalTime" class="itinerary-time">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).arrives_at.Split("T")[1]
                                  </label><br />
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd" id="flightLegArrivalAirport">
+                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd" class="flightInfoAirport">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd
                                  </label>
                              </div>
                              <div class="col-1 align-self-center">
-                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number" style="font-weight: bold; font-size: 20px;;">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number" class="indFlightInfo">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number
                                  </label>
                              </div>
                              <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft" style="font-weight: bold; font-size: 20px;;">
+                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft" class="indFlightInfo">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft
                                  </label>
                              </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class" style="font-weight: bold; font-size: 20px;;">
+                             <div class="col-2 align-self-center">
+                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class" class="indFlightInfo">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class
                                  </label>
                              </div>
                              <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" style="font-weight: bold; font-size: 20px;;">
+                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" class="indFlightInfo" style="font-size: 15px;">
                                      @Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at.Split("T")[0]
                                  </label>
                              </div>
@@ -105,13 +105,13 @@
                              </div>
                          </div>
                           <div class="row" style="color: black; height: 60px; border-bottom: solid 1px gray;">
-                            <div class="col-1 align-self-center">Flight Carrier</div>
-                            <div class="col-1 align-self-center">Departure Time and Airport</div>
+                            <div class="col-1 align-self-center">Carrier</div>
+                            <div class="col-1 align-self-center">Departure</div>
                             <div class="col-1 align-self-center">Duration</div>
-                            <div class="col-1 align-self-center">Arrival Time and Airport</div>
+                            <div class="col-1 align-self-center">Arrival</div>
                             <div class="col-1 align-self-center">Flight Number</div>
                             <div class="col-1 align-self-center">Aircraft</div>
-                            <div class="col-1 align-self-center">Travel Class</div>
+                            <div class="col-2 align-self-center">Travel Class</div>
                             <div class="col-1 align-self-center">Flight Date</div>
                             </div>
 
@@ -131,7 +131,7 @@
                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
                                      </label><br />
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).originInd" id="flightLegOriginAirport">
+                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).originInd" class="flightInfoAirport">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).originInd
                                      </label>
                                  </div>
@@ -141,30 +141,30 @@
                                      </div>
                                  </div>
                                  <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at" id="flightLegArrivalTime" class="itinerary-time">
+                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at" class="itinerary-time">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
                                      </label><br />
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd" id="flightLegArrivalAirport">
+                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd" class="flightInfoAirport">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd
                                      </label>
                                  </div>
                                  <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number" style="font-weight: bold; font-size: 20px;;">
+                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number" class="indFlightInfo">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number
                                      </label>
                                  </div>
                                  <div class="col-1 align-self-center">
-                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft" style="font-weight: bold; font-size: 20px;;">
+                                      <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft" class="indFlightInfo">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft
                                      </label>
                                  </div>
-                                 <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class" style="font-weight: bold; font-size: 20px;;">
+                                 <div class="col-md-2 align-self-center">
+                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class" class="indFlightInfo">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class
                                      </label>
                                  </div>
                                  <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" style="font-weight: bold; font-size: 20px;;">
+                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="indFlightInfo" style="font-size: 15px;">
                                          @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[0]
                                      </label>
                                  </div>
