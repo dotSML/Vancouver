@@ -150,7 +150,9 @@ namespace Vancouver
                 ApplicationUser newAppUser = new ApplicationUser
                 {
                     Email = userEmail,
-                    UserName = userEmail
+                    UserName = "AdminUser",
+                    FirstName = "Admin",
+                    LastName = "User"
                 };
 
                 Task<IdentityResult> taskCreateAppUser = userManager.CreateAsync(newAppUser, userPwd);

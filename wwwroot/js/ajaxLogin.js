@@ -1,11 +1,11 @@
 ﻿$('#loginSubmit').on('click', function () {
     $('#ajaxLoginLoading').show();
     $('#ajaxLoginError').hide();
-    var userEmail = $('#signin-email').val();
+    var userUsername = $('#signin-username').val();
     var userPassword = $('#signin-password').val();
     var userRemember = $('#remember-me').val();
     var userObject = new Object();
-    userObject.InputEmail = userEmail;
+    userObject.InputUsername = userUsername;
     userObject.InputPassword = userPassword;
     userObject.InputRemember = userRemember;
 

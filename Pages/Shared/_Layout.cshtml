@@ -99,8 +99,8 @@
                     <!-- log in form -->
                     <div class="cd-form">
                         <p class="fieldset">
-                            <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                            <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                            <label class="image-replace cd-username" for="signin-username">Username</label>
+                            <input class="full-width has-padding has-border" id="signin-username" placeholder="Username">
                         </p>
 
                         <p class="fieldset">
@@ -129,6 +129,12 @@
                 <div id="cd-signup">
                     <!-- sign up form -->
                     <form class="cd-form" id="signup-form">
+
+                        <p class="fieldset">
+                            <label class="image-replace cd-username" for="signup-username">Username</label>
+                            <input class="full-width has-padding has-border" required id="signup-username" placeholder="Username">
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
                         <p class="fieldset">
                             <label for="signup-firstName" class="image-replace">First name</label>
                             <input class="full-width has-padding has-border" required minlength="2" type="text" id="signup-firstName" type="text" placeholder="First name">
@@ -143,7 +149,7 @@
 
                         <p class="fieldset">
                             <label class="image-replace cd-dateofbirth" for="signup-dateofbirth">Date of birth</label>
-                            <input class="full-width has-padding has-border" required id="signup-dateofbirth" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date of birth">
+                            <input class="full-width has-padding has-border" required id="signup-dateofbirth" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" placeholder="Date of birth">
                             <span class="cd-error-message">Error message here!</span>
                         </p>
 
