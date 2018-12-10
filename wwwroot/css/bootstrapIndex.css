@@ -11,8 +11,12 @@
   color: black;
   font-size: 20px !important;
 }
-
-
+#adminTable {
+  background:  hsla(28, 22%, 83%, 0.5) !important;
+  padding: 10px;
+  border-radius: 7px;
+  color: black;
+  }
 
 .activeItem {
     color: white !important;
@@ -1669,28 +1673,28 @@ pre code {
 .table {
     width: 100%;
     margin-bottom: 1rem;
-    width: 100%;
-    background-color: hsla(27, 34%, 65%, 0.2);
     border: 3px;
-    border-color: azure;
-    color: azure;
+    font-size: 17px;
 }
 
 .table th,
 .table td {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 1px solid #dee2e6;
-    color: azure;
+  border-top: 1px solid black;
+    color: black;
+}
+.table th {
+  font-weight: 700;
 }
 
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid black;
 }
 
 .table tbody + tbody {
-  border-top: 2px solid #dee2e6;
+  border-top: 2px solid black;
 }
 
 .table .table {

@@ -7,17 +7,18 @@
     ViewData["Title"] = "AdminPage";
 }
 @inject UserManager<ApplicationUser> UserManager
-@Html.AntiForgeryToken();
+@Html.AntiForgeryToken()
 
 <head>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
 
 </head>
-<div class="container niceShadow" style="padding: 10px;">
-    <h1 style="color:azure">Hello Admin!</h1>
-    <div class="table" style="width: 100% !important;">
-        <table style="display: block; table-layout: fixed;">
+<body style="width: 100%;">
+<div id="adminTable" class="niceShadow" >
+    <h1 style="color:black">Hello Admin!</h1>
+    <div class="table" >
+        <table style="color: black; width: 100%;">
             <tr>
                 <th>
                     ID
@@ -94,4 +95,4 @@
         </table>
     </div>
 </div>
-}
+</body>
