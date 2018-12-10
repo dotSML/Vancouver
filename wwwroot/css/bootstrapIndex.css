@@ -1,5 +1,11 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Nunito');
 
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .niceShadow {
     -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
@@ -40,10 +46,56 @@
 
 .itinerary-time {
     color: black;
+    font-size: 20px;
+}
+
+.flightInfoDuration{
+    font-size: 18px;
+}
+
+.flightInfoLayovers{
+    font-size: 15px;
+    color: red;
+}
+
+.flightInfoLayoverCities{
+    font-size: 15px;
+    font-weight:bold;
+
+}
+
+.flightInfoAirport{
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .itinerary-iata {
     font-weight: bold;
+}
+
+.itineraryResultRow {
+    color: black;
+    min-height: 14%;
+    height: 50%;
+    margin: 3px;
+}
+
+.itineraryResultRow label{
+    margin-bottom: 0;
+}
+
+.flightResultSpacing{
+    margin-top: 25px;
+    min-height: 100%;
+}
+
+.flightResultMainLabel{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.flightResultContainer{
+    border-radius: 7px;
 }
 
 .fixedFlightSearchBox {
@@ -60,6 +112,7 @@
     -webkit-filter: blur(50px);
     filter: blur(50px);
     -moz-filter: blur(50px);
+    box-sizing:border-box;
     background-image: url(../images/aeroplane-aircraft-airplane-8394.jpg);
     display: block;
     opacity: 0.5;
@@ -78,15 +131,23 @@
     content: '';
 }
 
-  
+  input{
+      box-sizing: border-box !important;
+  }
 
 .flightSearchBox {
     background: hsla(28, 22%, 83%, 0.5);
+    box-sizing: border-box;
     border-radius: 7px;
-    max-width: 88.5%;
+    width: 88.5%;
     margin: auto;
     display: flex;
     z-index: 1000 !important;
+}
+
+.flightSearchBox input{
+    box-sizing: border-box;
+    width: 226px !important;
 }
 
     
@@ -122,8 +183,14 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
-.detailsBtn {
+.flightDetailsBtn {
+    color:white;
+    left: 50px;
+}
 
+.getFlightBtn {
+    color:white;
+    left: 50px;
 }
 
 .flightDetailsClass {
@@ -1971,6 +2038,7 @@ pre code {
 
 .form-control {
   display: block;
+  box-sizing: border-box;
   width: 100%;
   height: calc(2.25rem + 2px);
   padding: 0.375rem 0.75rem;
@@ -6861,7 +6929,7 @@ button.bg-dark:focus {
 .align-self-center {
   -ms-flex-item-align: center !important;
   align-self: center !important;
-  min-width: 12.5%;
+  /*min-width: 12.5%;*/
 }
 
 .align-self-baseline {
