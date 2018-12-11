@@ -42,7 +42,7 @@ html {
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-color: hsla(28, 22%, 83%, 0.5);
+    background-color: hsla(28, 22%, 83%, 0.8);
     color: black;
     padding-top: 0.5cm;
     border-radius: 10px;
@@ -86,7 +86,7 @@ html {
 }
 
 .jumbotron {
-    background-color: hsla(28, 22%, 83%, 0.5);
+    background-color: hsla(28, 22%, 83%, 0.8);
     color: black;
     border-radius: 10px;
 }
