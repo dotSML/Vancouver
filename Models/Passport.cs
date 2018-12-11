@@ -17,6 +17,10 @@ namespace Vancouver.Models
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [MinLength(9)]
         public string PassportNumber { get; set; }
         
     }
