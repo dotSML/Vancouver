@@ -11,9 +11,9 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 <head>
-    <link href="~/css/bootstrapIndex.css" rel="stylesheet"/>
-    <link href="~/css/myTickets.css" rel="stylesheet"/>
-    <link href="css/boardingPass.css" rel="stylesheet"/>
+    <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
+    <link href="~/css/myTickets.css" rel="stylesheet" />
+    <link href="css/boardingPass.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
     <style>
         table {
@@ -32,63 +32,77 @@
 </head>
 <body>
 
-@{
-    if (SignInManager.IsSignedIn(User))
-    {
-        if (@Model.UserOrders.Any())
+    @{
+        if (SignInManager.IsSignedIn(User))
         {
-            for (int i = 0; i < @Model.UserOrders.Count(); i++)
+            if (@Model.UserOrders.Any())
             {
-                <div class="container" style="color: white;">
-                    @foreach (var traveler in @Model.UserOrders.ElementAt(i).Customer)
-                    {
-                        <h2>@traveler.FirstName @traveler.LastName</h2>
-                    }
-                    <h2>@Model.UserOrders.ElementAt(i).OrderItinerary.originAirportOutbound - @Model.UserOrders.ElementAt(i).OrderItinerary.arrivalAirportOutbound</h2>
-                <hr/>
-                </div>
+                for (int i = 0; i < @Model.UserOrders.Count(); i++)
+                {
+                    <div class="container" style="color: white;">
+                        @foreach (var traveler in @Model.UserOrders.ElementAt(i).Customer)
+                        {
+                            <h2>@traveler.FirstName @traveler.LastName</h2>
+                        }
+                        <h2>@Model.UserOrders.ElementAt(i).OrderItinerary.originAirportOutbound - @Model.UserOrders.ElementAt(i).OrderItinerary.arrivalAirportOutbound</h2>
+                        <hr />
+                    </div>
+
+                }
 
             }
-
+            else
+            {
+                <p>Something went wrong :'( </p>
+            }
         }
         else
         {
-            <p>Something went wrong :'( </p>
+            <div class="itineraryIDSearchBox niceShadow">
+                <p style="font-size: 25px; ;">Search for your trips by entering the itinerary ID</p>
+                <form method="post" style="max-width: 50%">
+                    <div class="form-group">
+                        <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
+                        <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" style="margin-bottom: 10px;" />
+                        @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
+                            <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
+                        <input type="submit" class="btn btn-primary" value="Search" />
+                    </div>
+                </form>
+            </div>
+
+            if (@Model.CustomerOrder != null)
+            {
+                <div class="bookingReferenceResults niceShadow">
+                    <h1>RESULT</h1>
+                    <div class="col">
+                        <p>@Model.CustomerOrder.OrderItinerary.originAirportOutbound - @Model.CustomerOrder.OrderItinerary.originAirportInbound</p>
+                        <p>Customers</p>
+                        @foreach (var customer in @Model.CustomerOrder.Customer)
+                        {
+                            <p>First name: @customer.FirstName</p>
+                            <p>Last name: @customer.LastName</p>
+                        }
+                        <p>Outbound date: @Model.CustomerOrder.OrderItinerary.departureTimeOutbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.departureTimeOutbound.Split("T")[1]</p>
+                        <p>Trip duration: @Model.CustomerOrder.OrderItinerary.tripDurationOutbound hours</p>
+                        <p>Arrival: @Model.CustomerOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</p>
+                    </div>
+                    <div class="col">
+                        <p>@Model.CustomerOrder.OrderItinerary.arrivalAirportOutbound - @Model.CustomerOrder.OrderItinerary.arrivalAirportInbound</p>
+                        <p>Customers</p>
+                        @foreach (var customer in @Model.CustomerOrder.Customer)
+                        {
+                            <p>First name: @customer.FirstName</p>
+                            <p>Last name: @customer.LastName</p>
+                        }
+                        <p>Outbound date: @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>
+                        <p>Trip duration: @Model.CustomerOrder.OrderItinerary.tripDurationInbound hours</p>
+                        <p>Arrival: @Model.CustomerOrder.OrderItinerary.arrivalTimeInbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</p>
+                    </div>
+                </div>
+            }
         }
     }
-    else
-    {
-        <div class="itineraryIDSearchBox niceShadow">
-             <p style="font-size: 25px; ;">Search for your trips by entering the itinerary ID</p>
-        <form method="post" style="max-width: 50%">
-            <div class="form-group">
-                <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
-                <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" style="margin-bottom: 10px;"/>
-                @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
-                    <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
-                <input type="submit" class="btn btn-primary" value="Search"/>
-            </div>
-        </form>
-        </div>
-       
-        if (@Model.CustomerOrder != null)
-        {
-            <div class="bookingReferenceResults niceShadow">
-                <h1>RESULT</h1>
-                <h2>Customers</h2>
-                @foreach (var customer in @Model.CustomerOrder.Customer)
-                {
-                    <p>First name: @customer.FirstName</p>
-                    <p>Last name: @customer.LastName</p>
-                }
-                <p>To: @Model.CustomerOrder.OrderItinerary.originAirportOutbound</p>
-                @*<p>From: @Model.CustomerOrder.OrderItinerary.originAirportInbound</p>*@
-                <p>Outbound date: @Model.CustomerOrder.OrderItinerary.departureTimeOutbound.Split("T")[0]</p>
-                @*<p>Inbound date: @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>*@
-            </div>
-        }
-    }
-}
 
 
 </body>
