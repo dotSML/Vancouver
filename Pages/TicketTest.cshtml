@@ -75,6 +75,7 @@
             {
                 <div class="bookingReferenceResults niceShadow">
                     <h1>RESULT</h1>
+                    <div class="row">
                     <div class="col">
                         <p>@Model.CustomerOrder.OrderItinerary.originAirportOutbound - @Model.CustomerOrder.OrderItinerary.originAirportInbound</p>
                         <p>Customers</p>
@@ -87,17 +88,18 @@
                         <p>Trip duration: @Model.CustomerOrder.OrderItinerary.tripDurationOutbound hours</p>
                         <p>Arrival: @Model.CustomerOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</p>
                     </div>
-                    <div class="col">
-                        <p>@Model.CustomerOrder.OrderItinerary.arrivalAirportOutbound - @Model.CustomerOrder.OrderItinerary.arrivalAirportInbound</p>
-                        <p>Customers</p>
-                        @foreach (var customer in @Model.CustomerOrder.Customer)
-                        {
-                            <p>First name: @customer.FirstName</p>
-                            <p>Last name: @customer.LastName</p>
-                        }
-                        <p>Outbound date: @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>
-                        <p>Trip duration: @Model.CustomerOrder.OrderItinerary.tripDurationInbound hours</p>
-                        <p>Arrival: @Model.CustomerOrder.OrderItinerary.arrivalTimeInbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</p>
+                        <div class="col">
+                            <p>@Model.CustomerOrder.OrderItinerary.arrivalAirportOutbound - @Model.CustomerOrder.OrderItinerary.arrivalAirportInbound</p>
+                            <p>Customers</p>
+                            @foreach (var customer in @Model.CustomerOrder.Customer)
+                            {
+                                <p>First name: @customer.FirstName</p>
+                                <p>Last name: @customer.LastName</p>
+                            }
+                            <p>Outbound date: @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>
+                            <p>Trip duration: @Model.CustomerOrder.OrderItinerary.tripDurationInbound hours</p>
+                            <p>Arrival: @Model.CustomerOrder.OrderItinerary.arrivalTimeInbound.Split("T")[0] @Model.CustomerOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</p>
+                        </div>
                     </div>
                 </div>
             }
