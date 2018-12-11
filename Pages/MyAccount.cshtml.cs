@@ -25,17 +25,20 @@ namespace Vancouver.Pages
         private SignInManager<ApplicationUser> _signInManager;
         private UserManager<ApplicationUser> _userManager;
         public VancouverDbContext _context;
+        public ICustomersRepository _customersRepository;
 
         public MyAccountModel(IHostingEnvironment environment,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
-            VancouverDbContext context)
+            VancouverDbContext context,
+            ICustomersRepository customersRepository)
 
         {
             _environment = environment;
             _signInManager = signInManager;
             _userManager = userManager;
             _context = context;
+            _customersRepository = customersRepository;
 
         }
 
@@ -103,7 +106,7 @@ namespace Vancouver.Pages
             var travelerObject = traveler;
             var user = await _userManager.GetUserAsync(User);
             travelerObject.ApplicationUserId = user.Id;
-            travelerObject.Passport = traveler.Passport;
+            _customersRepository.SetCustomerPassport(travelerObject);
             
             _context.Add(travelerObject);
             _context.SaveChanges();
@@ -115,9 +118,11 @@ namespace Vancouver.Pages
         public async Task OnPostDeleteTraveler(string id)
         {
             var traveler =_context.Customers.Include(p => p.Passport).FirstOrDefault(x => x.CustomerId == id);
+            var passport = traveler.Passport;
             if (traveler != null)
             {
                 _context.Customers.Remove(traveler);
+                _context.Passports.Remove(passport);
                 
                 await _context.SaveChangesAsync();
             }
@@ -140,8 +145,8 @@ namespace Vancouver.Pages
                         var obj = JsonConvert.DeserializeObject<Customer>(requestBody);
                         if (obj != null)
                         {
-                            var traveler = _context.Customers.Include(x => x.Passport).AsNoTracking().FirstOrDefault(x => x.CustomerId == obj.CustomerId);
-                           
+                            var traveler = _context.Customers.AsNoTracking().FirstOrDefault(x => x.CustomerId == obj.CustomerId);
+
                             var updatedTraveler = obj;
 
                             _context.Customers.Update(updatedTraveler);

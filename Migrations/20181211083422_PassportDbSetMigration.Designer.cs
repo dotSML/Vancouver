@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vancouver.Databases;
 
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    partial class VancouverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181211083422_PassportDbSetMigration")]
+    partial class PassportDbSetMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,7 +402,7 @@ namespace Vancouver.Migrations
 
             modelBuilder.Entity("Vancouver.Models.Passport", b =>
                 {
-                    b.Property<string>("PassportId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateOfBirth");
@@ -415,7 +417,7 @@ namespace Vancouver.Migrations
 
                     b.Property<DateTime>("ValidTo");
 
-                    b.HasKey("PassportId");
+                    b.HasKey("Id");
 
                     b.ToTable("Passports");
                 });

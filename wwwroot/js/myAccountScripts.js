@@ -48,7 +48,8 @@ $(document).on('click',
         var travelerLast = myElement.find('.travelerLastName').text();
         var travelerDob = myElement.find('.travelerDob').text();
         var travelerEmail = myElement.find('.travelerEmail').text();
-        
+
+        var passportId = myElement.find('.passportId').text();
         var passportNo = myElement.find('.passportNo').text();
         var passportDob = myElement.find('.passportDob').text();
         var passportIssue = myElement.find('.passportIssue').text();
@@ -63,6 +64,9 @@ $(document).on('click',
             DateOfBirth: travelerDob,
             Email: travelerEmail,
             Passport: {
+                PassportId: passportId,
+                FirstName: travelerFirst,
+                LastName: travelerLast,
                 PassportNumber: passportNo,
                 DateOfBirth: passportDob,
                 ValidFrom: passportIssue,

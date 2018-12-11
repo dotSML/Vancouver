@@ -132,6 +132,10 @@
                                         {
                                             <div class="col-md-6">
                                                 <ul class="list-group list-group-flush">
+                                                    @if (Model.Travelers.ElementAt(i).Passport.PassportId != null)
+                                                    {
+                                                        <li class="passportId" style="display: none;">@Model.Travelers.ElementAt(i).Passport.PassportId</li>
+                                                    }
                                                     <li class="list-group-item"><small>Passport No</small> <br /><div class="travelerCardData passportNo">@Model.Travelers.ElementAt(i).Passport.PassportNumber</div></li>
                                                     <li class="list-group-item"><small>Passport DOB</small> <br /><div class="travelerCardData passportDob">@Model.Travelers.ElementAt(i).Passport.DateOfBirth.ToString("d")</div></li>
                                                     <li class="list-group-item"><small>Issue date</small><br /><div class="travelerCardData passportIssue">@Model.Travelers.ElementAt(i).Passport.ValidFrom.ToString("d")</div></li>

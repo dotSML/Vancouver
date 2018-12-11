@@ -10,6 +10,7 @@ namespace Vancouver.CustomerFolder
         Task AddObject(Customer o);
         Task UpdateObject(Customer o);
         Task DeleteObject(Customer o);
+        void SetCustomerPassport(Customer o);
 
     }
 }

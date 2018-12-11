@@ -48,5 +48,12 @@ namespace Vancouver.CustomerFolder
             await _context.SaveChangesAsync();
         }
 
+        public void SetCustomerPassport(Customer o)
+        {
+            o.Passport.DateOfBirth = o.DateOfBirth;
+            o.Passport.FirstName = o.FirstName;
+            o.Passport.LastName = o.LastName;
+        }
+
     }
 }
