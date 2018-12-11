@@ -105,20 +105,6 @@ h2 {
 h3 {
     padding-left: 15px  !important;
 }
-h1{
-    color: #f6f346;
-    font-size: 40px;
-    font-weight: 600;
-    text-shadow:
-    -0.5px -0.5px 0 #000000,
-    0.5px -0.5px 0 #000000,
-    -0.5px 0.5px 0 #000000,
-    0.5px 0.5px 0 #000000,  
-    -1px 0 0 #000000,
-    1px 0 0 #000000,
-    0 1px 0 #000000,
-    0 -1px 0 #000000;
-    
-}
+
 
 
