@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Vancouver.CustomerFolder;
 using Vancouver.Databases;
 using Vancouver.FlightsFolder;
 using Vancouver.Models;
@@ -42,6 +43,7 @@ namespace Vancouver.Pages
         public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
         public List<IndividualFlightInbound> IndFlightsInbound { get; set; }
         public Order CustomerOrder { get; set; }
+        public List<Customer> Travelers { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -52,14 +54,13 @@ namespace Vancouver.Pages
 
             Orders = await _context.Orders
                 .Include(x => x.OrderItinerary)
-                .Include(x => x.Customer)
                 .AsNoTracking().ToListAsync();
 
             if (_signInManager.IsSignedIn(User))
             {
                 UserOrders = await _context.Orders
                     .Include(x => x.OrderItinerary)
-                    .Include(x => x.Customer).Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
+                     .Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
                     .AsNoTracking().ToListAsync();
             }
             
@@ -70,7 +71,7 @@ namespace Vancouver.Pages
 
         public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
         {
-            var order = _context.Orders.Include(x => x.OrderItinerary).Include(x => x.Customer);
+            var order = _context.Orders.Include(x => x.OrderItinerary);
             CustomerOrder = order.Single(x => x.BookingReference == ItinerarySearch.ItineraryId);
 
 

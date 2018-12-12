@@ -22,6 +22,7 @@ namespace Vancouver.Databases
         public DbSet<ItineraryObject> Tickets { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderAssignment> OrderAssignments { get; set; }
         public DbSet<Passport> Passports { get; set; }
 
         

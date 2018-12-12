@@ -146,15 +146,11 @@ namespace Vancouver.Migrations
                     b.Property<string>("LastName")
                         .IsRequired();
 
-                    b.Property<string>("OrderId");
-
                     b.Property<string>("PassportId");
 
                     b.Property<bool>("Primary");
 
                     b.HasKey("CustomerId");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("PassportId");
 
@@ -398,6 +394,24 @@ namespace Vancouver.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("Vancouver.Models.OrderAssignment", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CustomerId");
+
+                    b.Property<string>("OrderId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderAssignments");
+                });
+
             modelBuilder.Entity("Vancouver.Models.Passport", b =>
                 {
                     b.Property<string>("PassportId")
@@ -535,10 +549,6 @@ namespace Vancouver.Migrations
 
             modelBuilder.Entity("Vancouver.CustomerFolder.Customer", b =>
                 {
-                    b.HasOne("Vancouver.Models.Order")
-                        .WithMany("Customer")
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("Vancouver.Models.Passport", "Passport")
                         .WithMany()
                         .HasForeignKey("PassportId");
@@ -570,6 +580,17 @@ namespace Vancouver.Migrations
                     b.HasOne("Vancouver.FlightsFolder.ItineraryObject", "OrderItinerary")
                         .WithMany()
                         .HasForeignKey("OrderItineraryId");
+                });
+
+            modelBuilder.Entity("Vancouver.Models.OrderAssignment", b =>
+                {
+                    b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Vancouver.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Vancouver.Models.Payment", b =>

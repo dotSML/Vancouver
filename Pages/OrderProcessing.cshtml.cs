@@ -46,6 +46,7 @@ namespace Vancouver.Pages
         public Customer SelectedCustomer { get; set; }
         [BindProperty]
         public List<string> SavedTravelersIds { get; set; }
+        public List<OrderAssignment> OrderAssignments { get; set; }
 
         public void OnGet()
         {
@@ -70,22 +71,34 @@ namespace Vancouver.Pages
 
             if (customerList != null)
             {
-                for (int i = 0; i < customersToSort.Count; i++)
-                {
-                    if (customersToSort[i].FirstName == "Unspecified" & customersToSort[i].LastName == "Unspecified")
-                    {
-                        customerList.RemoveAt(i);
-                    }
-                }
+                customerList.RemoveAll(x => (x.FirstName == "Unspecified") && (x.LastName == "Unspecified"));
             }
             
 
             return customerList;
         }
 
+        public List<OrderAssignment> OrderToTraveler(List<Customer> customers, Order order)
+        {
+            var orderAssignments = new List<OrderAssignment>();
+
+            for(int i = 0; i < customers.Count(); i++)
+            {
+                orderAssignments.Add(new OrderAssignment
+                {
+                    CustomerId = customers[i].CustomerId,
+                    OrderId = order.Id
+                });
+            }
+
+            return orderAssignments;
+
+        }
+
         public ActionResult OnPost(List<Customer> customers)
         {
             var userId = "";
+            customers = CustomerCleanup(customers);
             if (_signInManager.IsSignedIn(User))
             {
                 userId = _userManager.GetUserId(User);
@@ -96,13 +109,17 @@ namespace Vancouver.Pages
                     {
                         customers.Add(traveler);
                     }
+
                 }
+
+                
             }
 
             if (customers != null & customers?.Count > 0)
             {
-                 Order.Customer = new List<Customer>(customers);
-                 RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
+                
+
+                RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
                  while (_context.Orders.FirstOrDefault(x => x.BookingReference == RandomReference) != null)
                  {
                      RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
@@ -112,7 +129,12 @@ namespace Vancouver.Pages
                  _ticketPurchaseService.SetOrderData(Order);
                 Order.OrderItinerary.ApplicationUserId = userId;
                  _context.Orders.Add(Order);
-                 _context.SaveChanges();
+                var assignOrders = OrderToTraveler(customers, Order);
+                foreach(var assignment in assignOrders)
+                {
+                    _context.OrderAssignments.Add(assignment);
+                }
+                _context.SaveChanges();
                  return RedirectToPage("OrderSuccess", Order.Id);
             }
             else
