@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #e74c3c;
+    background: #CA508B;
     text-align: center;
     font-family: 'Comfortaa', cursive;
 }
@@ -24,7 +24,7 @@ h1 {
     font-size: 34px;
     font-weight: 100;
     text-transform: uppercase;
-    background-color: #e43725;
+    background-color: #CA508B;
     padding: 20px 0;
 }
 h1 b {
@@ -40,7 +40,7 @@ h1 b {
 }
 .made-with-love i {
     font-style: normal;
-    color: #F50057;
+    color: #CA508B;
     font-size: 14px;
     position: relative;
     top: 2px;
