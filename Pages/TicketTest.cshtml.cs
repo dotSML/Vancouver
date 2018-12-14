@@ -36,7 +36,7 @@ namespace Vancouver.Pages
 
         [BindProperty]
         public ItinerarySearchModel ItinerarySearch { get; set; }
-        public IEnumerable<ItineraryObject> Tickets { get; set; }
+        public IEnumerable<ItineraryObject> Itineraries { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<Order> UserOrders { get; set; }
         public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
@@ -45,22 +45,25 @@ namespace Vancouver.Pages
 
         public async Task OnGetAsync()
         {
-            Tickets = await _context.Tickets
+            Itineraries = await _context.Itineraries
                 .Include(i => i.IndFlightOutbound)
                 .Include(i => i.IndFlightInbound)
                 .AsNoTracking().ToListAsync();
 
             Orders = await _context.Orders
                 .Include(x => x.OrderItinerary)
-                .Include(x => x.Customer)
+                //.Include(x => x.Customer)
                 .AsNoTracking().ToListAsync();
 
             if (_signInManager.IsSignedIn(User))
             {
                 UserOrders = await _context.Orders
                     .Include(x => x.OrderItinerary)
-                    .Include(x => x.Customer).Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
+                    .Include(x => x.Tickets).ThenInclude(x => x.Customer).Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
                     .AsNoTracking().ToListAsync();
+
+                var userTickets = await _context.Tickets
+                    .Include(x => x.Customer).ToListAsync();
             }
             
 
@@ -70,7 +73,7 @@ namespace Vancouver.Pages
 
         public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
         {
-            var order = _context.Orders.Include(x => x.OrderItinerary).Include(x => x.Customer);
+            var order = _context.Orders.Include(x => x.OrderItinerary);
             CustomerOrder = order.Single(x => x.BookingReference == ItinerarySearch.ItineraryId);
 
 

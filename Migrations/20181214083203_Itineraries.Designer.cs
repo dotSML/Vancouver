@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vancouver.Databases;
 
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    partial class VancouverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181214083203_Itineraries")]
+    partial class Itineraries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -611,7 +613,7 @@ namespace Vancouver.Migrations
             modelBuilder.Entity("Vancouver.Models.Ticket", b =>
                 {
                     b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
-                        .WithMany("Tickets")
+                        .WithMany("Ticket")
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("Vancouver.Models.Order")

@@ -66,21 +66,29 @@ namespace Vancouver.Pages
 
         public List<Customer> CustomerCleanup(List<Customer> customersToSort)
         {
-            var customerList = new List<Customer>(customersToSort);
-
-            if (customerList != null)
+            if (customersToSort != null)
             {
-                for (int i = 0; i < customersToSort.Count; i++)
-                {
-                    if (customersToSort[i].FirstName == "Unspecified" & customersToSort[i].LastName == "Unspecified")
-                    {
-                        customerList.RemoveAt(i);
-                    }
-                }
+                customersToSort.RemoveAll(x => (x.FirstName == "Unspecified") && (x.LastName == "Unspecified"));
             }
             
 
-            return customerList;
+            return customersToSort;
+        }
+
+        public List<Ticket> GenerateTickets(List<Customer> customers, Order order)
+        {
+            var listOfTickets = new List<Ticket>();
+            for(int i = 0; i < customers.Count; i++)
+            {
+                listOfTickets.Add(
+                    new Ticket
+                    {
+                        Customer = customers[i],
+                        OrderId = order.Id
+                    });
+            }
+
+            return listOfTickets;
         }
 
         public ActionResult OnPost(List<Customer> customers)
@@ -101,7 +109,7 @@ namespace Vancouver.Pages
 
             if (customers != null & customers?.Count > 0)
             {
-                 Order.Customer = new List<Customer>(customers);
+                 customers = new List<Customer>(CustomerCleanup(customers));
                  RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
                  while (_context.Orders.FirstOrDefault(x => x.BookingReference == RandomReference) != null)
                  {
@@ -112,7 +120,8 @@ namespace Vancouver.Pages
                  _ticketPurchaseService.SetOrderData(Order);
                 Order.OrderItinerary.ApplicationUserId = userId;
                  _context.Orders.Add(Order);
-                 _context.SaveChanges();
+                Order.Tickets = GenerateTickets(customers, Order);
+                _context.SaveChanges();
                  return RedirectToPage("OrderSuccess", Order.Id);
             }
             else

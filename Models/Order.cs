@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Vancouver.CustomerFolder;
 using Vancouver.FlightsFolder;
+using Vancouver.Models;
 
 namespace Vancouver.Models
 {
@@ -14,6 +15,6 @@ namespace Vancouver.Models
         public string Id { get; set; }
         public string BookingReference { get; set; }
         public ItineraryObject OrderItinerary { get; set; }
-        public List<Customer> Customer { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }
