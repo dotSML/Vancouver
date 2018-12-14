@@ -38,18 +38,70 @@
         {
             if (@Model.UserOrders.Any())
             {
-                for (int i = 0; i < @Model.UserOrders.Count(); i++)
-                {
-                    <div class="container" style="color: white;">
-                        @foreach (var traveler in @Model.UserOrders.ElementAt(i).Tickets)
-                        {
-                            <h2>@traveler.Customer.FirstName @traveler.Customer.LastName</h2>
-                        }
-                        <h2>@Model.UserOrders.ElementAt(i).OrderItinerary.originAirportOutbound - @Model.UserOrders.ElementAt(i).OrderItinerary.arrivalAirportOutbound</h2>
-                        <hr />
+                var ordersCount = Model.UserOrders.Count();
+
+                
+                    <div class="bookingReferenceResults niceShadow">
+                        <h3>Found results for @ordersCount trips</h3>
                     </div>
 
-                }
+                    for (int i = 0; i < ordersCount; i++)
+                    {
+                        var currentOrder = Model.UserOrders.ElementAt(i);
+                        for (int c = 0; c < currentOrder.Tickets.Count(); c++)
+                        {
+
+                            var currentTicket = Model.UserOrders.ElementAt(i).Tickets.ElementAt(c);
+                            <div class="bookingReferenceResults niceShadow">
+
+                                <h2>Ticket for Passenger @currentTicket.Customer.FirstName @currentTicket.Customer.LastName</h2>
+                                <div class="row">
+                                    <div class="col ticket-col in-or-outbound">
+                                        <div class="row">
+                                            <div class="flight-leg-text">Outbound</div>
+                                            <img src="/images/takeoff right left.png" alt="plane takeoff">
+                                        </div>
+                                    </div>
+                                    <div class="col ticket-col in-or-outbound">
+                                        <div class="row">
+                                            <div class="flight-leg-text">Inbound</div>
+                                            <img src="/images/takeoff left right.png" alt="plane takeoff">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col ticket-col ticket-background">
+                                        <h1>@currentOrder.OrderItinerary.originAirportOutbound - @currentOrder.OrderItinerary.originAirportInbound</h1>
+
+                                        <p>First name: @currentTicket.Customer.FirstName</p>
+                                        <p>Last name: @currentTicket.Customer.LastName</p>
+
+                                        <p>Outbound: @currentOrder.OrderItinerary.departureTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.departureTimeOutbound.Split("T")[1]</p>
+                                        <p>Trip duration: @currentOrder.OrderItinerary.tripDurationOutbound hours</p>
+                                        <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</p>
+                                    </div>
+                                    <div class="col ticket-col ticket-background">
+                                        <h1>@currentOrder.OrderItinerary.arrivalAirportOutbound - @currentOrder.OrderItinerary.arrivalAirportInbound</h1>
+
+                                        <p>First name: @currentTicket.Customer.FirstName</p>
+                                        <p>Last name: @currentTicket.Customer.LastName</p>
+                                        @if (@currentOrder.OrderItinerary.departureTimeInbound != null)
+                                        {
+                                            <p>Inbound: @currentOrder.OrderItinerary.departureTimeInbound.Split("T")[0] @currentOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>
+                                            <p>Trip duration: @currentOrder.OrderItinerary.tripDurationInbound hours</p>
+                                            <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeInbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+
+                
 
             }
             else
@@ -76,9 +128,9 @@
         if (@Model.CustomerOrders != null)
         {
             var ordersCount = Model.CustomerOrders.Count();
-                <div class="bookingReferenceResults niceShadow">
-                    <h3>Found results for @ordersCount trips</h3>
-                </div>
+            <div class="bookingReferenceResults niceShadow">
+                <h3>Found results for @ordersCount trips</h3>
+            </div>
 
             for (int i = 0; i < ordersCount; i++)
             {
@@ -87,55 +139,55 @@
                 {
 
                     var currentTicket = Model.CustomerOrders.ElementAt(i).Tickets.ElementAt(c);
-                <div class="bookingReferenceResults niceShadow">
+                    <div class="bookingReferenceResults niceShadow">
 
-                    <h2>Ticket for Passenger @currentTicket.Customer.FirstName @currentTicket.Customer.LastName</h2>
-                    <div class="row">
-                        <div class="col ticket-col in-or-outbound">
-                            <div class="row">
-                                <div class="flight-leg-text">Outbound</div>
-                                <img src="/images/takeoff right left.png" alt="plane takeoff">
+                        <h2>Ticket for Passenger @currentTicket.Customer.FirstName @currentTicket.Customer.LastName</h2>
+                        <div class="row">
+                            <div class="col ticket-col in-or-outbound">
+                                <div class="row">
+                                    <div class="flight-leg-text">Outbound</div>
+                                    <img src="/images/takeoff right left.png" alt="plane takeoff">
+                                </div>
+                            </div>
+                            <div class="col ticket-col in-or-outbound">
+                                <div class="row">
+                                    <div class="flight-leg-text">Inbound</div>
+                                    <img src="/images/takeoff left right.png" alt="plane takeoff">
+                                </div>
                             </div>
                         </div>
-                        <div class="col ticket-col in-or-outbound">
-                            <div class="row">
-                                <div class="flight-leg-text">Inbound</div>
-                                <img src="/images/takeoff left right.png" alt="plane takeoff">
+
+
+
+                        <div class="row">
+                            <div class="col ticket-col ticket-background">
+                                <h1>@currentOrder.OrderItinerary.originAirportOutbound - @currentOrder.OrderItinerary.originAirportInbound</h1>
+
+                                <p>First name: @currentTicket.Customer.FirstName</p>
+                                <p>Last name: @currentTicket.Customer.LastName</p>
+
+                                <p>Outbound: @currentOrder.OrderItinerary.departureTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.departureTimeOutbound.Split("T")[1]</p>
+                                <p>Trip duration: @currentOrder.OrderItinerary.tripDurationOutbound hours</p>
+                                <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</p>
+                            </div>
+                            <div class="col ticket-col ticket-background">
+                                <h1>@currentOrder.OrderItinerary.arrivalAirportOutbound - @currentOrder.OrderItinerary.arrivalAirportInbound</h1>
+
+                                <p>First name: @currentTicket.Customer.FirstName</p>
+                                <p>Last name: @currentTicket.Customer.LastName</p>
+                                @if (@currentOrder.OrderItinerary.departureTimeInbound != null)
+                                {
+                                    <p>Inbound: @currentOrder.OrderItinerary.departureTimeInbound.Split("T")[0] @currentOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>
+                                    <p>Trip duration: @currentOrder.OrderItinerary.tripDurationInbound hours</p>
+                                    <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeInbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</p>
+                                }
                             </div>
                         </div>
                     </div>
 
-
-
-                    <div class="row">
-                        <div class="col ticket-col ticket-background">
-                            <h1>@currentOrder.OrderItinerary.originAirportOutbound - @currentOrder.OrderItinerary.originAirportInbound</h1>
-
-                            <p>First name: @currentTicket.Customer.FirstName</p>
-                            <p>Last name: @currentTicket.Customer.LastName</p>
-
-                            <p>Outbound: @currentOrder.OrderItinerary.departureTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.departureTimeOutbound.Split("T")[1]</p>
-                            <p>Trip duration: @currentOrder.OrderItinerary.tripDurationOutbound hours</p>
-                            <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</p>
-                        </div>
-                        <div class="col ticket-col ticket-background">
-                            <h1>@currentOrder.OrderItinerary.arrivalAirportOutbound - @currentOrder.OrderItinerary.arrivalAirportInbound</h1>
-
-                            <p>First name: @currentTicket.Customer.FirstName</p>
-                            <p>Last name: @currentTicket.Customer.LastName</p>
-                            @if (@currentOrder.OrderItinerary.departureTimeInbound != null)
-                            {
-                                <p>Inbound: @currentOrder.OrderItinerary.departureTimeInbound.Split("T")[0] @currentOrder.OrderItinerary.departureTimeInbound.Split("T")[1]</p>
-                                <p>Trip duration: @currentOrder.OrderItinerary.tripDurationInbound hours</p>
-                                <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeInbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeInbound.Split("T")[1]</p>
-                            }
-                        </div>
-                    </div>
-                </div>
-
-                    }
                 }
             }
         }
+    }
 </body>
 
