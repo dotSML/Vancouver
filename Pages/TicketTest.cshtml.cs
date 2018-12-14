@@ -41,7 +41,7 @@ namespace Vancouver.Pages
         public IEnumerable<Order> UserOrders { get; set; }
         public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
         public List<IndividualFlightInbound> IndFlightsInbound { get; set; }
-        public Order CustomerOrder { get; set; }
+        public List<Order> CustomerOrders { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -73,8 +73,8 @@ namespace Vancouver.Pages
 
         public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
         {
-            var order = _context.Orders.Include(x => x.OrderItinerary);
-            CustomerOrder = order.Single(x => x.BookingReference == ItinerarySearch.ItineraryId);
+            var order = _context.Orders.Include(x => x.Tickets).ThenInclude(x => x.Customer).Include(x => x.OrderItinerary);
+            CustomerOrders = order.Where(x => x.BookingReference == ItinerarySearch.ItineraryId).ToList();
 
 
             return Page();

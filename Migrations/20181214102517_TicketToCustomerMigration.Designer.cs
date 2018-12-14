@@ -10,8 +10,8 @@ using Vancouver.Databases;
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    [Migration("20181214083203_Itineraries")]
-    partial class Itineraries
+    [Migration("20181214102517_TicketToCustomerMigration")]
+    partial class TicketToCustomerMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -613,7 +613,7 @@ namespace Vancouver.Migrations
             modelBuilder.Entity("Vancouver.Models.Ticket", b =>
                 {
                     b.HasOne("Vancouver.CustomerFolder.Customer", "Customer")
-                        .WithMany("Ticket")
+                        .WithMany("Tickets")
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("Vancouver.Models.Order")
