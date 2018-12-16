@@ -65,7 +65,7 @@
                     var order = Model.UserOrders.ElementAt(i);
                     var airportOut = airportInfoService.GetAirport(order.OrderItinerary.originAirportOutbound);
                     var airportIn = airportInfoService.GetAirport(order.OrderItinerary.arrivalAirportOutbound);
-                    <div class="bookingReferenceResults niceShadow">
+                    <div class="bookingReferenceResults niceShadow" style="margin-top: 80px">
                         <div class="userTrip">
                             <h1>@airportOut.city, @airportOut.country - @airportIn.city, @airportIn.country (<span>@order.OrderItinerary.originAirportOutbound - @order.OrderItinerary.arrivalAirportOutbound</span>)</h1>
                             @*<h3 style="margin: 0; padding-left: 0 !important;">@airportOut.country - @airportIn.country</h3>*@
@@ -101,7 +101,8 @@
 
                                         @for (int o = 0; o < currentTicket.Order.OrderItinerary.IndFlightOutbound.Count(); o++)
                                         {
-                                            var currentIndFlight = currentTicket.Order.OrderItinerary.IndFlightOutbound[o];
+                                            var currentOutboundItinerary = currentTicket.Order.OrderItinerary.IndFlightOutbound.OrderBy(x => x.orderPos).ToList();
+                                            var currentIndFlight = currentOutboundItinerary[o];
                                             <div class="col">
                                                 <h3>@currentIndFlight.originInd - @currentIndFlight.destinationInd</h3>
                                             </div>
@@ -118,8 +119,16 @@
                                     <p>Arrival: @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[0] @currentOrder.OrderItinerary.arrivalTimeOutbound.Split("T")[1]</p>
                                 </div>
                                 <div class="col ticket-col ticket-background">
-                                    <h1>@currentOrder.OrderItinerary.arrivalAirportOutbound - @currentOrder.OrderItinerary.arrivalAirportInbound</h1>
-
+                                    <div class="row">
+                                        @for (int o = 0; o < currentTicket.Order.OrderItinerary.IndFlightInbound.Count(); o++)
+                                        {
+                                            var currentInboundItinerary = currentTicket.Order.OrderItinerary.IndFlightInbound.OrderBy(x => x.orderPos).ToList();
+                                            var currentIndFlight = currentInboundItinerary[o];
+                                            <div class="col">
+                                                <h3>@currentIndFlight.originInd - @currentIndFlight.destinationInd</h3>
+                                            </div>
+                                        }
+                                    </div>
                                     <p>First name: @currentTicket.Customer.FirstName</p>
                                     <p>Last name: @currentTicket.Customer.LastName</p>
                                     @if (@currentOrder.OrderItinerary.departureTimeInbound != null)
