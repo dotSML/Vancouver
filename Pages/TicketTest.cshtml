@@ -37,6 +37,7 @@
         if (SignInManager.IsSignedIn(User))
         {
 
+
             if (@Model.UserOrders.Any())
             {
                 var ordersCount = Model.UserOrders.Count();
@@ -44,7 +45,19 @@
                 <div class="bookingReferenceResults niceShadow" style="margin-bottom: 25px;">
                     <h3>Found results for @ordersCount trips</h3>
                 </div>
-
+                <div class="btn btn-primary" id="addByReferenceBtn">Add trip</div>
+                <div class="itineraryIDSearchBox niceShadow" id="itinerarySearchLoggedIn" style="display: none;">
+                    <p style="font-size: 25px;">Add a trip to your account</p>
+                    <form method="post" style="max-width: 50%">
+                        <div class="form-group">
+                            <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
+                            <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" style="margin-bottom: 10px;" />
+                            @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
+                                <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
+                            <input type="submit" class="btn btn-primary" value="Add" asp-page-handler="TripToAccount" />
+                        </div>
+                    </form>
+                </div>
                 for (int i = 0; i < ordersCount; i++)
                 {
                     var order = Model.UserOrders.ElementAt(i);
@@ -104,7 +117,7 @@
                         </div>
 
                     }
-            
+
                 }
 
 
@@ -201,5 +214,11 @@
             }
         }
     }
+
+    <script>
+        $(document).on('click', '#addByReferenceBtn', function () {
+            $('#itinerarySearchLoggedIn').slideToggle('fast');
+        });
+    </script>
 </body>
 

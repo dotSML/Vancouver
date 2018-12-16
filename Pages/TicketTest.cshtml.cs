@@ -36,6 +36,7 @@ namespace Vancouver.Pages
 
         [BindProperty]
         public ItinerarySearchModel ItinerarySearch { get; set; }
+        public Order OrderToAdd { get; set; }
         public IEnumerable<Order> UserOrders { get; set; }
         public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
         public List<IndividualFlightInbound> IndFlightsInbound { get; set; }
@@ -62,6 +63,22 @@ namespace Vancouver.Pages
             
                    
             return Page();
+        }
+
+        public ActionResult OnPostTripToAccount(ItinerarySearchModel ItinerarySearch)
+        {
+            var orders = _context.Orders.Include(x => x.Tickets).ThenInclude(x => x.Customer).Include(x => x.OrderItinerary);
+            var userId = _userManager.GetUserId(User);
+            OrderToAdd = orders.FirstOrDefault(x => x.BookingReference == ItinerarySearch.ItineraryId);
+
+            if (OrderToAdd != null)
+            {
+                OrderToAdd.OrderItinerary.ApplicationUserId = userId;
+                _context.Orders.Update(OrderToAdd);
+                _context.SaveChanges();
+            }
+
+            return RedirectToPage("/tickettest");
         }
 
 
