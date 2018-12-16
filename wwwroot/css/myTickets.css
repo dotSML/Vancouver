@@ -12,6 +12,11 @@
     font-family: BebasNeue;
     src: url("BebasNeueFont/BebasNeue Regular.otf")
 }
+
+.userTrip{
+    color: black;
+}
+
 .bookingReferenceResults{
     padding: 20px;
     margin: 0px;

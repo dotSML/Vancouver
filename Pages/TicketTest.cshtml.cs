@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Vancouver.Databases;
 using Vancouver.FlightsFolder;
 using Vancouver.Models;
+using Vancouver.Services;
 
 namespace Vancouver.Pages
 {
@@ -18,14 +19,17 @@ namespace Vancouver.Pages
         public VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
+        private readonly IAirportInfoService _airportInfoService; 
 
         public TicketTestModel(VancouverDbContext context, 
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IAirportInfoService airportInfoService)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _airportInfoService = airportInfoService;
         }
 
         public class ItinerarySearchModel
@@ -38,8 +42,6 @@ namespace Vancouver.Pages
         public ItinerarySearchModel ItinerarySearch { get; set; }
         public Order OrderToAdd { get; set; }
         public IEnumerable<Order> UserOrders { get; set; }
-        public List<IndividualFlightOutbound> IndFlightsOutbound { get; set; }
-        public List<IndividualFlightInbound> IndFlightsInbound { get; set; }
         public List<Order> CustomerOrders { get; set; }
 
         public async Task OnGetAsync()
@@ -55,9 +57,8 @@ namespace Vancouver.Pages
                     .ThenInclude(x => x.IndFlightInbound)
                     .Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
                     .AsNoTracking().ToListAsync();
-
-                
             }
+            
         }
 
         public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
