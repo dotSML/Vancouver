@@ -39,16 +39,16 @@
     <div id="searchBar" class="flightSearchBox niceShadow" style="position: relative; display: none;">
         <div class="blurWrapper"></div>
         <form method="post">
-            <div class="row align-items-center" style="padding-top: 3px; padding-bottom: 3px;">
+            <div class="row align-items-center">
                 <div class="col-auto" style="">
                     <div class="searchbar-label">From</div>
                     <label class="sr-only" for="autocompleteDepart">Departure</label>
-                    <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Airport, City">
+                    <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Airport">
                 </div>
                 <div class="col-auto">
                     <div class="searchbar-label">To</div>
                     <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                    <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Airport, City">
+                    <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Airport">
                 </div>
                 <div class="col-auto" style="">
                     <div class="searchbar-label">Depart</div>

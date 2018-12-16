@@ -128,12 +128,12 @@ br{
     z-index: 1;
 }
 .searchbar-label {
-  color: white;
+  color: black;
   font-size: 16px;
   font-weight: 600;
   font-stretch: wider;
   margin: 1px;
-  text-shadow: 1px 1px rgba(0,0,0,0.6);
+  /*text-shadow: 1px 1px rgba(0,0,0,0.6);*/
 }
 
 .blurWrapper {

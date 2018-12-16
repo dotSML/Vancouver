@@ -92,7 +92,18 @@
                             </div>
                             <div class="row">
                                 <div class="col ticket-col ticket-background">
-                                    <h1>@currentOrder.OrderItinerary.originAirportOutbound - @currentOrder.OrderItinerary.originAirportInbound</h1>
+                                    <div class="row">
+
+                                        @for (int o = 0; o < currentTicket.Order.OrderItinerary.IndFlightOutbound.Count(); o++)
+                                        {
+                                            var currentIndFlight = currentTicket.Order.OrderItinerary.IndFlightOutbound[o];
+                                            <div class="col">
+                                                <h3>@currentIndFlight.originInd - @currentIndFlight.destinationInd</h3>
+                                            </div>
+                                        }
+
+                                    </div>
+
 
                                     <p>First name: @currentTicket.Customer.FirstName</p>
                                     <p>Last name: @currentTicket.Customer.LastName</p>

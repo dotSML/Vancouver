@@ -19,7 +19,8 @@ namespace Vancouver.Services
         Order GetOrderData();
         void ClearOrderData();
         string GetRandomBookingRef(int length);
-
+        List<Customer> CustomerCleanup(List<Customer> customersToSort);
+        List<Ticket> GenerateTickets(List<Customer> customers, Order order);
     }
 
     public class TicketPurchaseService : ITicketPurchaseService
@@ -29,7 +30,29 @@ namespace Vancouver.Services
         public Order Order { get; set; }
         private static Random random = new Random();
 
+        public List<Ticket> GenerateTickets(List<Customer> customers, Order order)
+        {
+            var listOfTickets = new List<Ticket>();
+            for (int i = 0; i < customers.Count; i++)
+            {
+                listOfTickets.Add(
+                    new Ticket
+                    {
+                        Customer = customers[i],
+                        Order = order
+                    });
+            }
+            return listOfTickets;
+        }
 
+        public List<Customer> CustomerCleanup(List<Customer> customersToSort)
+        {
+            if (customersToSort != null)
+            {
+                customersToSort.RemoveAll(x => (x.FirstName == "Unspecified") && (x.LastName == "Unspecified"));
+            }
+            return customersToSort;
+        }
 
         public void SetItineraryCustomersData(List<Customer> customers)
         {

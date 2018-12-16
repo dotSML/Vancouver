@@ -48,7 +48,12 @@ namespace Vancouver.Pages
             {
                 UserOrders = await _context.Orders
                     .Include(x => x.OrderItinerary)
-                    .Include(x => x.Tickets).ThenInclude(x => x.Customer).Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
+                    .Include(x => x.Tickets).ThenInclude(x => x.Customer)
+                    .Include(x => x.OrderItinerary)
+                    .ThenInclude(x => x.IndFlightOutbound)
+                    .Include(x => x.OrderItinerary)
+                    .ThenInclude(x => x.IndFlightInbound)
+                    .Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
                     .AsNoTracking().ToListAsync();
 
                 

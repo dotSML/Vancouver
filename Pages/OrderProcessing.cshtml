@@ -190,17 +190,19 @@
                                      {
                                          if (@Model.SavedTravelers != null)
                                          {
-                                     <div class="signedInTravelerForm" id="traveler-@i">
-                                         <select class="form-control selectTraveler" asp-for="SavedTravelersIds[i]" id="">
-                                             <option value="NOVALUE" selected="selected">Select a traveler</option>
-                                             @for (int a = 0; a < @Model.SavedTravelers.Count; a++)
-                                             {
-                                                 <option value="@Model.SavedTravelers[a].CustomerId">@Model.SavedTravelers[a].FirstName @Model.SavedTravelers[a].LastName</option>
+                                     <div class="signedInTravelerForm" id="savedTraveler-@i">
+                                         <div class="selectDiv">
+                                             <select class="form-control selectTraveler" data-target="#savedTraveler-@i" asp-for="SavedTravelersIds[i]">
+                                                 <option value="NOVALUE" selected="selected">Select a traveler</option>
+                                                 @for (int a = 0; a < @Model.SavedTravelers.Count; a++)
+                                                 {
+                                                     <option value="@Model.SavedTravelers[a].CustomerId">@Model.SavedTravelers[a].FirstName @Model.SavedTravelers[a].LastName</option>
 
-                                             }
-                                         </select>
+                                                 }
+                                             </select>
+                                         </div>
                                          <hr />
-                                         <div class="btn btn-primary newTravelerBtn" data-target="#traveler-@i">New traveler?</div>
+                                         <div class="btn btn-primary newTravelerBtn" data-target="#savedTraveler-@i">New traveler?</div>
                                          <div class="container newTravelerForm" style="display: none;">
                                              <label asp-for="Customers[i].FirstName">First name*</label>
                                              <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
@@ -330,6 +332,31 @@ else
 
 
         });
+
+    $('select').change(function () {
+        var test = $(this).closest('.selectDiv');
+        test.find('select option').attr('disabled', '');
+
+        var arr = $.map
+            (
+            test.find("select option:selected"), function (n) {
+                return n.value;
+            }
+            );
+
+        
+        //disable elements
+        $("select option").filter(function () {
+            return $.inArray($(this).val(), arr) > -1; //if value is in the array of selected values
+        }).prop("disabled", true);
+
+        //re-enable elements
+        $("select option").filter(function () {
+            return $.inArray($(this).val(), arr) == -1; //if value is not in the array of selected values
+        }).prop("disabled", false);
+
+
+    })
 
 
 

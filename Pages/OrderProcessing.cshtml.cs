@@ -64,32 +64,6 @@ namespace Vancouver.Pages
 
         }
 
-        public List<Customer> CustomerCleanup(List<Customer> customersToSort)
-        {
-            if (customersToSort != null)
-            {
-                customersToSort.RemoveAll(x => (x.FirstName == "Unspecified") && (x.LastName == "Unspecified"));
-            }
-            
-
-            return customersToSort;
-        }
-
-        public List<Ticket> GenerateTickets(List<Customer> customers, Order order)
-        {
-            var listOfTickets = new List<Ticket>();
-            for(int i = 0; i < customers.Count; i++)
-            {
-                listOfTickets.Add(
-                    new Ticket
-                    {
-                        Customer = customers[i],
-                        Order = order
-                    });
-            }
-
-            return listOfTickets;
-        }
 
         public ActionResult OnPost(List<Customer> customers)
         {
@@ -109,7 +83,7 @@ namespace Vancouver.Pages
 
             if (customers != null & customers?.Count > 0)
             {
-                 customers = new List<Customer>(CustomerCleanup(customers));
+                 customers = new List<Customer>(_ticketPurchaseService.CustomerCleanup(customers));
                  RandomReference = _ticketPurchaseService.GetRandomBookingRef(6);
                  while (_context.Orders.FirstOrDefault(x => x.BookingReference == RandomReference) != null)
                  {
@@ -120,7 +94,7 @@ namespace Vancouver.Pages
                  _ticketPurchaseService.SetOrderData(Order);
                 Order.OrderItinerary.ApplicationUserId = userId;
                  _context.Orders.Add(Order);
-                Order.Tickets = GenerateTickets(customers, Order);
+                Order.Tickets = _ticketPurchaseService.GenerateTickets(customers, Order);
                 _context.SaveChanges();
                  return RedirectToPage("OrderSuccess", Order.Id);
             }
