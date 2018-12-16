@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Vancouver.Models.Address">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAgAAAAAAIIAAAAAAAAAIAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.ApplicationUser">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAg=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.BankLink" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BankLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.Contact" Collapsed="true">
+    <Position X="7.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAACAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Contact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.FavoriteDestination" Collapsed="true">
+    <Position X="1.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAIgAAAAgAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FavoriteDestination.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.Invoice" Collapsed="true">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Invoice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.Order">
+    <Position X="5.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Tickets" />
+      <Property Name="OrderItinerary" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Vancouver.Models.Passport">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAQACAAACAAAAAAAYg=</HashCode>
+      <FileName>Models\Passport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.Payment" Collapsed="true">
+    <Position X="8.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkBAAAAAAAAAAICAAAAAAAAAAAAQBAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Payment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.PaymentMethod" Collapsed="true">
+    <Position X="1.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\PaymentMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Models.Ticket">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ticket.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Customer" />
+      <Property Name="Order" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Vancouver.Models.UserTravelHistory" Collapsed="true">
+    <Position X="8.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAIAAAAAIAAAAAAAAAAIAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\UserTravelHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.CustomerFolder.Customer" Collapsed="true">
+    <Position X="11.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAACBAAACgABAAAAAAIAAQABAAAAAQCACgAAg=</HashCode>
+      <FileName>CustomerFolder\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.FlightsFolder.ItineraryObject" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAIMQIAECAAACABIIFACAAAABBAAAAAQACCQI=</HashCode>
+      <FileName>FlightsFolder\ItineraryObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="System.Collections.Generic.ICollection&lt;T&gt;" Collapsed="true">
+    <Position X="12" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

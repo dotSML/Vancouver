@@ -9,7 +9,7 @@ namespace Vancouver.Models
     public class Ticket
     {
         public string TicketId { get; set; }
-        public string OrderId { get; set; }
+        public Order Order { get; set; }
         public Customer Customer { get; set; }
         
     }

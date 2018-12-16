@@ -84,7 +84,7 @@ namespace Vancouver.Pages
                     new Ticket
                     {
                         Customer = customers[i],
-                        OrderId = order.Id
+                        Order = order
                     });
             }
 
