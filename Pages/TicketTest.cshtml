@@ -19,20 +19,6 @@
     <link href="~/css/myTickets.css" rel="stylesheet" />
     <link href="css/boardingPass.css" rel="stylesheet" />
     <script src="lib/jquery/dist/jquery.js"></script>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            border-radius: 7px;
-            text-align: left;
-            padding: 8px;
-        }
-    </style>
 </head>
 <body>
     @{
@@ -54,8 +40,6 @@
                         <div class="form-group">
                             <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
                             <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" style="margin-bottom: 10px;" />
-                            @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
-                                <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
                             <input type="submit" class="btn btn-primary" value="Add" asp-page-handler="TripToAccount" />
                         </div>
                     </form>
@@ -65,6 +49,7 @@
                     var order = Model.UserOrders.ElementAt(i);
                     var airportOut = airportInfoService.GetAirport(order.OrderItinerary.originAirportOutbound);
                     var airportIn = airportInfoService.GetAirport(order.OrderItinerary.arrivalAirportOutbound);
+                    
                     <div class="bookingReferenceResults niceShadow" style="margin-top: 80px">
                         <div class="userTrip">
                             <h1>@airportOut.city, @airportOut.country - @airportIn.city, @airportIn.country (<span>@order.OrderItinerary.originAirportOutbound - @order.OrderItinerary.arrivalAirportOutbound</span>)</h1>
@@ -72,7 +57,7 @@
                             <hr />
                             <h3>Passengers: @order.Tickets.Count()</h3>
                             <h3>Departure: @order.OrderItinerary.departureTimeOutbound.Split("T")[0]</h3>
-                            <h3>Inbound: @order.OrderItinerary.arrivalTimeInbound.Split("T")[0]</h3>
+                            <h3>Inbound: @order.OrderItinerary.departureTimeInbound?.Split("T")[0]</h3>
                         </div>
                     </div>
                     var currentOrder = Model.UserOrders.ElementAt(i);

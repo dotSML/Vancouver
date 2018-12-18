@@ -10,6 +10,11 @@ br{
     line-height: 70%;
 }
 
+.roundTripDivider{
+    margin:0;
+
+}
+
 .niceShadow {
     -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.75);

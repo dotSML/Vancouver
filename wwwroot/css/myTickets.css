@@ -13,6 +13,19 @@
     src: url("BebasNeueFont/BebasNeue Regular.otf")
 }
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+    text-align: left;
+    padding: 8px;
+}
+
 .userTrip{
     color: black;
 }

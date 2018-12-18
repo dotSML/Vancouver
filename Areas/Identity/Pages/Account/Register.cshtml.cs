@@ -27,6 +27,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailService;
         private IHostingEnvironment _environment;
+        
 
 
         public RegisterModel(
@@ -164,12 +165,12 @@ namespace Vancouver.Areas.Identity.Pages.Account
                     values: new { userId = user.Id, code = emailToken },
                     protocol: Request.Scheme);
 
-                //await _emailService.SendEmailAsync(Input.Username, "Confirm your email",
-                //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                await _emailService.SendEmailAsync(Input.Email, "Confirm your email",
+                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
 
-                //await _signInManager.SignInAsync(user, isPersistent: false);
+                await _signInManager.SignInAsync(user, isPersistent: false);
                 return new JsonResult("Register Success!");
             }
             foreach (var error in result.Errors)
