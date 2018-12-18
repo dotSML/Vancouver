@@ -148,7 +148,7 @@ br{
     box-sizing:border-box;
     background-image: url(../images/aeroplane-aircraft-airplane-8394.jpg);
     display: block;
-    opacity: 0.5;
+    opacity: 0.1;
     height: 100%;
     width: 100%;
     top: 0;
@@ -224,6 +224,11 @@ br{
 .getFlightBtn {
     color:white;
     left: 50px;
+}
+.getFlightBtn :hover{
+  content: "Buy";
+  color:black;
+
 }
 
 .flightDetailsClass {
