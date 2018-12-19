@@ -138,6 +138,7 @@ br{
   font-weight: 600;
   font-stretch: wider;
   margin: 1px;
+  max-width: 90px;
   /*text-shadow: 1px 1px rgba(0,0,0,0.6);*/
 }
 

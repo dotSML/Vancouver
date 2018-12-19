@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js"></script>
     <link href="~/css/airportAC.css" rel="stylesheet"/>
     <link href="~/css/bootstrapIndex.css" rel="stylesheet"/>
-    <link href="~/js/datepicker/dist/datepicker.css" rel="stylesheet"/>
+    <link href="~/css/bootstrap-datepicker.standalone.css" rel="stylesheet"/>
     <link href="~/css/acrylicMaterial.css" rel="stylesheet"/>
     <link href="~/css/flightResults.css" rel="stylesheet"/>
     <link href="~/css/materialBtn.css" rel="stylesheet" />
@@ -53,12 +53,12 @@
                 <div class="col-auto" style="">
                     <div class="searchbar-label">Depart</div>
                     <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                    <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control" data-toggle="datepicker" id="datepickerOutbound" placeholder="Date">
+                    <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control datepicker" data-provide="datepicker" id="datepickerOutbound" placeholder="Date">
                 </div>
                 <div class="col-auto">
                     <div class="searchbar-label">Return</div>
                     <label class="sr-only" for="datepickerInbound">Inbound</label>
-                    <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control" data-toggle="datepicker" id="datepickerInbound" placeholder="Date">
+                    <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control datepicker" data-provide="datepicker" id="datepickerInbound" placeholder="Date">
                 </div>
             </div>
             <div class="row align-items-center" style="padding-bottom: 3px;">
@@ -536,6 +536,14 @@
 
 
             });
+
+        var nowDate = new Date();
+        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+
+        $('.datepicker').datepicker({
+            startDate: today,
+            format: 'yyyy-mm-dd'
+        });
     })
 </script>
 
@@ -543,7 +551,7 @@
 <script src="~/js/searchFlights.js"></script>
 <script src="~/js/showFlightDetails.js"></script>
 <script src="~/lib/jquery.md5.js"></script>
-<script src="~/js/datepicker/flightDatepicker.js"></script>
+<script src="~/js/bootstrap-datepicker.js"></script>
 <script src="~/js/airportsAutoComplete.js"></script>
 </body>
 </html>
