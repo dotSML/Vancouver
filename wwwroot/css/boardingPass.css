@@ -19,8 +19,8 @@ Boarding Pass
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px;
-    height: 382px;
+    width: 300px;
+    height: 330px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
@@ -39,6 +39,8 @@ Boarding Pass
   Strap
   --------------------*/
 }
+
+
 
     .boarding-pass small {
         display: block;

@@ -30,6 +30,16 @@ td, th {
     color: black;
 }
 
+.ticketOverall{
+    margin-top: 15px;
+}
+
+.ticketOverall label{
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
 .bookingReferenceResults{
     padding: 20px;
     margin: 0px;
@@ -119,12 +129,7 @@ img{
     margin-right: 20px;
 }
 
-h2 {
-    padding-left: 15px  !important;
-}
-h3 {
-    padding-left: 15px  !important;
-}
+
 
 
 
