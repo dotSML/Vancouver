@@ -123,15 +123,7 @@ br{
     border-radius: 7px;
 }
 
-.fixedFlightSearchBox {
-    position: fixed !important;
-    background: hsla(206, 46%, 25%, 0.2);
-    border-radius: 7px;
-    margin-left: 62px;
-    display: flex;
-    top: 0px;
-    z-index: 1;
-}
+
 .searchbar-label {
   color: black;
   font-size: 16px;
@@ -177,6 +169,20 @@ br{
     margin: auto;
     display: flex;
     z-index: 1000 !important;
+}
+
+.fixedFlightSearchBox {
+    position: fixed !important;
+    background: hsla(206, 46%, 25%, 0.2);
+    border-radius: 7px;
+    margin-left: 62px;
+    display: flex;
+    top: 0px;
+    z-index: 1000 !important;
+}
+
+.fixedFlightSearchBox input{
+    width: 226px !important;
 }
 
 .flightSearchBox input{

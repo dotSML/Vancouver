@@ -72,7 +72,7 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <div class="searchbar-label">Round-trip/One-way</div>
+                    <div class="searchbar-label">Itinerary</div>
                     <select class="form-control" asp-for="FlightInput.FareOption" id="fareOption" onchange="selectChangedDatepicker()" autocomplete="off">
                         <option selected="selected" val="1">Round Trip</option>
                         <option val="2">One Way</option>
@@ -542,7 +542,8 @@
 
         $('.datepicker').datepicker({
             startDate: today,
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoClose: true
         });
     })
 </script>
