@@ -123,6 +123,12 @@ br{
     border-radius: 7px;
 }
 
+#searchBar {
+    position: relative;
+    display: none;
+    padding-left:3px;
+    padding-right:3px;
+}
 
 .searchbar-label {
   color: black;

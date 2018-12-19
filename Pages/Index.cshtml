@@ -36,29 +36,31 @@
 </head>
 <body>
 <div class="container vertical-center" style="position: relative;">
-    <div id="searchBar" class="flightSearchBox niceShadow" style="position: relative; display: none;">
+    <div id="searchBar" class="flightSearchBox niceShadow">
         <div class="blurWrapper"></div>
         <form method="post">
             <div class="row align-items-center">
-                <div class="col-auto" style="">
+                <div class="col-sm" style="">
                     <div class="searchbar-label">From</div>
                     <label class="sr-only" for="autocompleteDepart">Departure</label>
                     <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Airport">
                 </div>
-                <div class="col-auto">
+                <div class="col-sm">
                     <div class="searchbar-label">To</div>
                     <label class="sr-only" for="autocompleteArrive">Arrival</label>
                     <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Airport">
                 </div>
-                <div class="col-auto" style="">
-                    <div class="searchbar-label">Depart</div>
-                    <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                    <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control datepicker" data-provide="datepicker" id="datepickerOutbound" placeholder="Date">
-                </div>
-                <div class="col-auto">
-                    <div class="searchbar-label">Return</div>
-                    <label class="sr-only" for="datepickerInbound">Inbound</label>
-                    <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control datepicker" data-provide="datepicker" id="datepickerInbound" placeholder="Date">
+                <div class="row input-daterange" id="js_daterange" style="margin-left: 5px;">
+                    <div class="col-sm" style="">
+                        <div class="searchbar-label">Depart</div>
+                        <label class="sr-only" for="datepickerOutbound">Outbound</label>
+                        <input style="display:inline" autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control datepicker" data-provide="datepicker" id="datepickerOutbound" placeholder="Date">
+                    </div>
+                    <div class="col-sm">
+                        <div class="searchbar-label">Return</div>
+                        <label class="sr-only" for="datepickerInbound">Inbound</label>
+                        <input style="display:inline" autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control datepicker" data-provide="datepicker" id="datepickerInbound" placeholder="Date">
+                    </div>
                 </div>
             </div>
             <div class="row align-items-center" style="padding-bottom: 3px;">
@@ -540,7 +542,7 @@
         var nowDate = new Date();
         var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
 
-        $('.datepicker').datepicker({
+        $('#js_daterange').datepicker({
             startDate: today,
             format: 'yyyy-mm-dd',
             autoClose: true
