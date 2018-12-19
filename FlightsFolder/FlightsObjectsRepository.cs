@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
@@ -43,6 +44,15 @@ namespace Vancouver.FlightsFolder
         {
             return null;
         }
+
+
+        public string GetIata(string airport)
+        {
+            var output = airport.Split("(")[1];
+            output = output.Split(")")[0];
+            return output;
+        }
+
 
         public string GetLayoverCitiesInbound(FlightsResponse.RootObject obj, int i)
         {
@@ -99,6 +109,8 @@ namespace Vancouver.FlightsFolder
             string travelClass,
             string currency)
         {
+            origin = GetIata(origin);
+            destination = GetIata(destination);
             var rootObj = await GetData(origin, destination, outboundDate, inboundDate, amountOfPassengers, travelClass, currency);
             if (rootObj == null)
             {

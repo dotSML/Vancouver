@@ -31,10 +31,8 @@ namespace Vancouver.Pages
         public class FlightInputModel
         {
             [Required]
-            [MaxLength(3)]
             public string Origin { get; set; }
             [Required]
-            [MaxLength(3)]
             public string Destination { get; set; }
             [Required]
             public string OutboundDate { get; set; }

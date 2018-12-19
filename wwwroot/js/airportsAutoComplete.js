@@ -131,7 +131,7 @@ function selectIndex(index, object) {
         }
 
         if (results[index].hasOwnProperty('iata')) {
-            object.val(results[index].iata);
+            object.val(results[index].city + ' (' + results[index].iata + ')');
             clearResults(list);
         }
     }
