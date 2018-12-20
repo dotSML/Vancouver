@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
     <GenerateProgramFile>False</GenerateProgramFile>
+    <UserSecretsId>50f55408-e113-48a7-a8e1-ea761e73599a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -1905,6 +1906,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.2.0-preview3-35497" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />

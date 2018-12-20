@@ -68,8 +68,6 @@ namespace Vancouver.Pages
                 .Include(x => x.OrderItinerary).ThenInclude(x => x.IndFlightOutbound)
                 .Include(x => x.OrderItinerary).ThenInclude(x => x.IndFlightInbound)
                 .Where(x => x.BookingReference == ItinerarySearch.ItineraryId).ToList();
-            
-                   
             return Page();
         }
 

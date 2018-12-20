@@ -50,7 +50,14 @@ namespace Vancouver
                     })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<VancouverDbContext>();
-            
+
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            })
+            .AddCookie();
 
             services.AddCors();
             //.AddDefaultTokenProviders()
@@ -87,8 +94,8 @@ namespace Vancouver
             }
 
 
-            //app.UseStatusCodePagesWithRedirects("/errors/notfound");
-
+            app.UseStatusCodePagesWithRedirects("/errors/notfound");
+            app.UseCookieAuthentication();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
