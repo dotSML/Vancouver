@@ -8,7 +8,8 @@ body{
 .profile-sector {
     display: flex;
     width: 100%;
-    background-color: hsla(27, 34%, 65%, 0.2);
+    background-color: hsla(28, 22%, 83%, 0.8);
+    color: black;
     padding: 3vh;
     border-radius: 10px;
     margin: 3vh;

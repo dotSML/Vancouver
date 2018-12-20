@@ -66,20 +66,17 @@ namespace Vancouver
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc()
-                .AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount"); })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            .AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount");  })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ICustomersRepository, CustomersRepository>();
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
 
@@ -95,7 +92,6 @@ namespace Vancouver
 
 
             app.UseStatusCodePagesWithRedirects("/errors/notfound");
-            app.UseCookieAuthentication();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
@@ -112,7 +108,7 @@ namespace Vancouver
             }
 
             // Get these value from "appsettings.json" file.
-            string adminUserEmail = "admin@admin.com";//admin email
+            string adminUserEmail = "admin@admin.com;//admin email";
             string adminPwd = "V4n.Couver";//admin password
             AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
         }
@@ -165,7 +161,7 @@ namespace Vancouver
 
                 Task<IdentityResult> taskCreateAppUser = userManager.CreateAsync(newAppUser, userPwd);
                 taskCreateAppUser.Wait();
-
+                
                 if (taskCreateAppUser.Result.Succeeded)
                 {
                     appUser = newAppUser;
