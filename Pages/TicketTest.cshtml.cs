@@ -56,7 +56,7 @@ namespace Vancouver.Pages
                     .Include(x => x.OrderItinerary)
                     .ThenInclude(x => x.IndFlightInbound)
                     .Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
-                    .AsNoTracking().ToListAsync();
+                    .AsNoTracking().OrderBy(x => x.OrderItinerary.departureTimeOutbound).ToListAsync();
             }
             
         }
@@ -65,6 +65,8 @@ namespace Vancouver.Pages
         {
             var order = _context.Orders.Include(x => x.Tickets).ThenInclude(x => x.Customer).Include(x => x.OrderItinerary);
             CustomerOrders = order.Include(x => x.Tickets).ThenInclude(x => x.Customer)
+                .Include(x => x.OrderItinerary).ThenInclude(x => x.IndFlightOutbound)
+                .Include(x => x.OrderItinerary).ThenInclude(x => x.IndFlightInbound)
                 .Where(x => x.BookingReference == ItinerarySearch.ItineraryId).ToList();
             
                    

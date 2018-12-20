@@ -187,9 +187,9 @@
                  <div class="row" style="border-top: 1px solid black; border-bottom: 1px solid black; margin-bottom: 10px">
                      @for (int i = 0; i < @Model.OrderObject.AmountOfPassengers; i++)
                      {
-                         var travellerNumber = @i + 1;
+                         var travelerNumber = @i + 1;
                          <div class="col-md-5">
-                             <h4>Traveller @travellerNumber</h4>
+                             <h4>Traveler @travelerNumber</h4>
                              <div class="form-group">
                                  <div>
                                      @if (SignInManager.IsSignedIn(User))
@@ -198,7 +198,7 @@
                                          {
                                              <div class="signedInTravelerForm" id="savedTraveler-@i">
                                                  <div class="selectDiv">
-                                                     <select class="form-control selectTraveler" data-target="#savedTraveler-@i" asp-for="SavedTravelersIds[i]">
+                                                     <select class="form-control selectTraveler" id="select-@i" data-target="#savedTraveler-@i" asp-for="SavedTravelersIds[i]">
                                                          <option value="NOVALUE" selected="selected">Select a traveler</option>
                                                          @for (int a = 0; a < @Model.SavedTravelers.Count; a++)
                                                          {
@@ -338,25 +338,25 @@ else
 
         });
 
-    $('select').change(function () {
-        var selectDiv = $(this).closest('.selectDiv');
-        selectDiv.find('select option').attr('disabled', '');
+    //$('select').change(function () {
+    //    var selectDiv = $(this).closest('.selectDiv');
+    //    selectDiv.find('select option').attr('disabled', '');
 
-        var arr = $.map
-            (
-            selectDiv.find("select option:selected"), function (n) {
-                return n.value;
-            });
+    //    var arr = $.map
+    //        (
+    //        selectDiv.find("select option:selected"), function (n) {
+    //            return n.value;
+    //        });
 
-        $("select option").filter(function () {
-            return $.inArray($(this).val(), arr) > -1; //if value is in the array of selected values
-        }).prop("disabled", true);
+    //    $("select option").filter(function () {
+    //        return $.inArray($(this).val(), arr) > -1; 
+    //    }).prop("disabled", true);
 
-        $("select option").filter(function () {
-            return $.inArray($(this).val(), arr) == -1; //if value is not in the array of selected values
-        }).prop("disabled", false);
+    //    $("select option").filter(function () {
+    //        return $.inArray($(this).val(), arr) == -1; 
+    //    }).prop("disabled", false);
 
-    });
+    //});
 
 
 

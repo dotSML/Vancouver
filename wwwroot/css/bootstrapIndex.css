@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+html body{
+    font-family: Nunito;
+}
+
 br{
     line-height: 70%;
 }
