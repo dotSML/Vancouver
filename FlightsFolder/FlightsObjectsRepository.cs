@@ -265,7 +265,7 @@ namespace Vancouver.FlightsFolder
             var requestUrl = @"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=" +
                              _config["FlightSearchAPI:Key"] + "&origin=" + origin + "&destination=" +
                              destination + "&departure_date=" + outboundDate + inboundDate +
-                             "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass + "&number_of_results = 20";
+                             "&adults=" + amountOfPassengers + "&currency=" + currency + "&travel_class=" + travelClass + "&number_of_results=15";
             var request =
                 WebRequest.Create(requestUrl);
 

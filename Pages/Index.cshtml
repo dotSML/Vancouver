@@ -15,6 +15,7 @@
 @inject ITimeZoneService tzService
 @{
     ViewData["Title"] = "Vancouver Flights";
+    tzService.GetTimeZoneList();
 }
 
 
@@ -42,12 +43,12 @@
             <div class="blurWrapper"></div>
             <form method="post">
                 <div class="row align-items-center">
-                    <div class="col">
+                    <div class="col-auto">
                         <div class="searchbar-label">From</div>
                         <label class="sr-only" for="autocompleteDepart">Departure</label>
                         <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Airport">
                     </div>
-                    <div class="col">
+                    <div class="col-auto">
                         <div class="searchbar-label">To</div>
                         <label class="sr-only" for="autocompleteArrive">Arrival</label>
                         <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Airport">

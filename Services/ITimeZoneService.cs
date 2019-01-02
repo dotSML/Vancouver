@@ -10,7 +10,7 @@ namespace Vancouver.Services
     public interface ITimeZoneService
     {
         TimeZoneInfo FindTimeZone(string code);
-        List<TimeZoneObject> GetTimeZoneList();
+        void GetTimeZoneList();
         string GetDuration(string originCode, string arrivalCode, string originTime, string arrivalTime);
         string GetLayoverDuration(string arrivalTime, string departingTime);
     }
@@ -27,14 +27,14 @@ namespace Vancouver.Services
             _airportInfoService = airportInfoService;
         }
 
-        public List<TimeZoneObject> GetTimeZoneList()
+        public void GetTimeZoneList()
         {
             using (StreamReader sr = new StreamReader("wwwroot/timezones.json"))
             {
                 string json = sr.ReadToEnd();
                 TimeZones = JsonConvert.DeserializeObject<List<TimeZoneObject>>(json);
             }
-            return TimeZones;
+            
         }
 
         public string GetDuration(string codeOrigin,string codeArrival , string originTime, string arrivalTime)
@@ -65,9 +65,8 @@ namespace Vancouver.Services
 
         public TimeZoneInfo FindTimeZone(string code)
         {
-            var systemTz = TimeZoneInfo.GetSystemTimeZones();
             var airportTz = _airportInfoService.GetAirportTimeZone(code);
-            var tzList = GetTimeZoneList();
+            var tzList = TimeZones;
             foreach(var tz in tzList)
             {
                 if(tz.utc.Contains(airportTz))
