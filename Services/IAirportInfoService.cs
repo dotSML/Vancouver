@@ -12,6 +12,7 @@ namespace Vancouver.Services
         List<AirportDataObject> JsonToObjectList();
         AirportDataObject GetAirport(string airportCode);
         string GetAirportName(string airportCode);
+        string GetAirportTimeZone(string airportCode);
     }
 
     public class AirportInfoService : IAirportInfoService
@@ -40,6 +41,13 @@ namespace Vancouver.Services
             var airport = GetAirport(airportCode);
             var airportName = airport.name;
             return airportName;
+        }
+
+        public string GetAirportTimeZone(string airportCode)
+        {
+            var airport = GetAirport(airportCode);
+            var airportTz = airport.tz;
+            return airportTz;
         }
 
     }

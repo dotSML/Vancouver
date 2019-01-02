@@ -39,6 +39,7 @@ namespace Vancouver
             services.AddSingleton<IEmailSender, EmailService>();
             services.AddScoped<IFlightsObjectsRepository, FlightsObjectsRepository>();
             services.AddScoped<IAirportInfoService, AirportInfoService>();
+            services.AddScoped<ITimeZoneService, TimeZoneService>();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(

@@ -1,4 +1,5 @@
-﻿@page 
+﻿@page
+
 @using System.IO
 @using System.Linq
 @using System.Net
@@ -11,6 +12,7 @@
 @model IndexModel
 @inject UserManager<ApplicationUser> UserManager
 @inject IFlightsObjectsRepository fr
+@inject ITimeZoneService tzService
 @{
     ViewData["Title"] = "Vancouver Flights";
 }
@@ -26,536 +28,575 @@
     <script src="~/js/datepicker/dist/datepicker.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js"></script>
-    <link href="~/css/airportAC.css" rel="stylesheet"/>
-    <link href="~/css/bootstrapIndex.css" rel="stylesheet"/>
-    <link href="~/css/bootstrap-datepicker.standalone.css" rel="stylesheet"/>
-    <link href="~/css/acrylicMaterial.css" rel="stylesheet"/>
-    <link href="~/css/flightResults.css" rel="stylesheet"/>
+    <link href="~/css/airportAC.css" rel="stylesheet" />
+    <link href="~/css/bootstrapIndex.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-datepicker.standalone.css" rel="stylesheet" />
+    <link href="~/css/acrylicMaterial.css" rel="stylesheet" />
+    <link href="~/css/flightResults.css" rel="stylesheet" />
     <link href="~/css/materialBtn.css" rel="stylesheet" />
     @Html.AntiForgeryToken()
 </head>
 <body>
-<div class="container vertical-center" style="position: relative;">
-    <div id="searchBar" class="flightSearchBox niceShadow">
-        <div class="blurWrapper"></div>
-        <form method="post">
-            <div class="row align-items-center">
-                <div class="col-sm" style="">
-                    <div class="searchbar-label">From</div>
-                    <label class="sr-only" for="autocompleteDepart">Departure</label>
-                    <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Airport">
-                </div>
-                <div class="col-sm">
-                    <div class="searchbar-label">To</div>
-                    <label class="sr-only" for="autocompleteArrive">Arrival</label>
-                    <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Airport">
-                </div>
-                <div class="row input-daterange" id="js_daterange" style="margin-left: 5px;">
-                    <div class="col-sm" style="">
-                        <div class="searchbar-label">Depart</div>
-                        <label class="sr-only" for="datepickerOutbound">Outbound</label>
-                        <input style="display:inline" autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control datepicker" data-provide="datepicker" id="datepickerOutbound" placeholder="Date">
+    <div class="container vertical-center" style="position: relative;">
+        <div id="searchBar" class="flightSearchBox niceShadow">
+            <div class="blurWrapper"></div>
+            <form method="post">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="searchbar-label">From</div>
+                        <label class="sr-only" for="autocompleteDepart">Departure</label>
+                        <input autocomplete="off" asp-for="FlightInput.Origin" type="text" class="form-control js_airports_auto_complete" id="autocompleteDepart" placeholder="Airport">
                     </div>
-                    <div class="col-sm">
-                        <div class="searchbar-label">Return</div>
-                        <label class="sr-only" for="datepickerInbound">Inbound</label>
-                        <input style="display:inline" autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control datepicker" data-provide="datepicker" id="datepickerInbound" placeholder="Date">
+                    <div class="col">
+                        <div class="searchbar-label">To</div>
+                        <label class="sr-only" for="autocompleteArrive">Arrival</label>
+                        <input autocomplete="off" asp-for="FlightInput.Destination" type="text" class="form-control js_airports_auto_complete" id="autocompleteArrive" placeholder="Airport">
+                    </div>
+                    <div class="row align-items-center input-daterange" id="js_daterange">
+                        <div class="col-auto">
+                            <div class="searchbar-label">Depart</div>
+                            <label class="sr-only" for="datepickerOutbound">Outbound</label>
+                            <input autocomplete="off" asp-for="FlightInput.OutboundDate" type="text" class="form-control datepicker" data-provide="datepicker" id="datepickerOutbound" placeholder="Date">
+                        </div>
+                        <div class="col-auto">
+                            <div class="searchbar-label">Return</div>
+                            <label class="sr-only" for="datepickerInbound">Inbound</label>
+                            <input autocomplete="off" type="text" asp-for="FlightInput.InboundDate" class="form-control datepicker" data-provide="datepicker" id="datepickerInbound" placeholder="Date">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row align-items-center" style="padding-bottom: 3px;">
-                <div class="col-auto" style="">
-                    <div class="searchbar-label">Cabin  Class</div>
-                    <select class="form-control" asp-for="FlightInput.TravelClass" id="fareClass" autocomplete="off">
-                        <option selected="selected" value="ECONOMY">Economy Class</option>
-                        <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
-                        <option value="BUSINESS">Business Class</option>
-                        <option value="FIRST">First Class</option>
-                    </select>
+                <div class="row align-items-center">
+                    <div class="col-auto" style="margin: 0 !important;">
+                        <div class="searchbar-label">Cabin  Class</div>
+                        <select class="form-control" asp-for="FlightInput.TravelClass" id="fareClass" autocomplete="off">
+                            <option selected="selected" value="ECONOMY">Economy Class</option>
+                            <option value="PREMIUM_ECONOMY">Premium Economy Class</option>
+                            <option value="BUSINESS">Business Class</option>
+                            <option value="FIRST">First Class</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <div class="searchbar-label">Itinerary</div>
+                        <select class="form-control" asp-for="FlightInput.FareOption" id="fareOption" onchange="selectChangedDatepicker()" autocomplete="off">
+                            <option selected="selected" val="1">Round Trip</option>
+                            <option val="2">One Way</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <div class="searchbar-label">Passengers</div>
+                        <select class="form-control" asp-for="FlightInput.AmountOfPassengers" id="passengers" autocomplete="off">
+                            <option selected="selected">1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <div class="searchbar-label">Currency</div>
+                        <select class="form-control" asp-for="FlightInput.Currency" id="fareCurrency" autocomplete="off">
+                            <option selected="selected">EUR</option>
+                            <option>USD</option>
+                        </select>
+                    </div>
+                    <div class="col-auto" style="margin-top: 25px;" id="searchFlights">
+                        <button class="btn btn-primary" type="submit" id="aspSearchBtn" style="width: 80px;">Search</button>
+                    </div>
                 </div>
-                <div class="col-auto">
-                    <div class="searchbar-label">Itinerary</div>
-                    <select class="form-control" asp-for="FlightInput.FareOption" id="fareOption" onchange="selectChangedDatepicker()" autocomplete="off">
-                        <option selected="selected" val="1">Round Trip</option>
-                        <option val="2">One Way</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <div class="searchbar-label">Passengers</div>
-                    <select class="form-control" asp-for="FlightInput.AmountOfPassengers" id="passengers" autocomplete="off">
-                        <option selected="selected">1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <div class="searchbar-label">Currency</div>
-                    <select class="form-control" asp-for="FlightInput.Currency" id="fareCurrency" autocomplete="off">
-                        <option selected="selected">EUR</option>
-                        <option>USD</option>
-                    </select>
-                </div>
-                <div class="col-auto" style="margin-top: 25px;" id="searchFlights">
-                    <button class="btn btn-primary" type="submit" id="aspSearchBtn" style="width: 80px;">Search</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<div id="aspValidation" class="container">
-    <span asp-validation-for="FlightInput.Origin" class="text-danger"></span>
-    <span asp-validation-for="FlightInput.Destination" class="text-danger"></span>
-    <span asp-validation-for="FlightInput.OutboundDate" class="text-danger"></span>
-    <span asp-validation-for="FlightInput.InboundDate" class="text-danger"></span>
-    @if (@Model.Error != null)
-    {
-        <div class="text-danger">@Model.Error</div>
-    }
-</div>
-
-
-<div id="flightResults">
-
-@{
-
-    if (@Model.ItineraryList != null)
-    {
-        for (int i = 0; i < @Model.ItineraryList.Count(); i++)
+    <div id="aspValidation" class="container">
+        <span asp-validation-for="FlightInput.Origin" class="text-danger"></span>
+        <span asp-validation-for="FlightInput.Destination" class="text-danger"></span>
+        <span asp-validation-for="FlightInput.OutboundDate" class="text-danger"></span>
+        <span asp-validation-for="FlightInput.InboundDate" class="text-danger"></span>
+        @if (@Model.Error != null)
         {
-            var airlineItineraryOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound[0].marketing_airline;
-            var airhexLogosItineraryOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryOutbound + "_50_50_s.png";
+            <div class="text-danger">@Model.Error</div>
+        }
+    </div>
 
-            var currency = @Model.ItineraryList.ElementAt(i).fareCurrency;
+
+    <div id="flightResults">
+
+        @{
+
+            if (@Model.ItineraryList != null)
+            {
+                for (int i = 0; i < @Model.ItineraryList.Count(); i++)
+                {
+                    var airlineItineraryOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound[0].marketing_airline;
+                    var airhexLogosItineraryOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryOutbound + "_50_50_s.png";
+
+                    var currency = @Model.ItineraryList.ElementAt(i).fareCurrency;
 
 
-            <form method="post" id="flightResultRow">
-            <div class="vertical-center flightResultSpacing" id="#@Model.ItineraryList.ElementAt(i).Id">
-                <div class="container flightResultContainer niceShadow">
-                    <div class="row itineraryResultRow">
-                        <div class="col-2 align-self-center">
-                            <div style="margin-left: 10px;">
-                                <img src="@airhexLogosItineraryOutbound" style="border-radius: 3px;">
-                            </div>
-                        </div>
-                        <div class="col-2 align-self-center" style="width: 60%">
-                            <label class="itinerary-time" asp-for="@Model.ItineraryList.ElementAt(i).departureTimeOutbound">
-                                @Model.ItineraryList.ElementAt(i).departureTimeOutbound.Split("T")[1]
-                            </label><br />
-                            <label asp-for="@Model.ItineraryList.ElementAt(i).originAirportOutbound" class="flightResultMainLabel">
-                                @Model.ItineraryList.ElementAt(i).originAirportOutbound
-                            </label>
-                        </div>
-                        <div class="col-2 align-self-center" style="width: 60%;">
-                            <div class="row">
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationOutbound" class="flightInfoDuration">
-                                    @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[1]m
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound" class="flightInfoLayovers">
-                                    @Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound stops
-                                </label>
-                            </div>
-                            <div class="row">
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).layoverCitiesOutbound" class="flightInfoLayoverCities">
-                                    @Model.ItineraryList.ElementAt(i).layoverCitiesOutbound
-                                </label>
-                            </div>
-
-                        </div>
-                        <div class="col-2 align-self-center" style="width: 60%">
-                            <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalTimeOutbound" class="itinerary-time">
-                                @Model.ItineraryList.ElementAt(i).arrivalTimeOutbound.Split("T")[1]
-                            </label><br />
-                            <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalAirportOutbound" class="flightResultMainLabel">
-                                @Model.ItineraryList.ElementAt(i).arrivalAirportOutbound
-                            </label>
-                        </div>
-                        <div class="col-2 align-self-center">
-
-                        </div>
-                        <div class="col-1 align-self-center">
-                            <button type="submit" asp-page-handler="ItineraryOrder" asp-route-id="@Model.ItineraryList.ElementAt(i).Id" class="btn btn-success getFlightBtn" data-target="@Model.ItineraryList.ElementAt(i).Id">
-
-                                @Model.ItineraryList.ElementAt(i).farePricePerPassenger @currency
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).originAirportOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).originAirportInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalAirportOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalAirportInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverCitiesOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverCitiesInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverStopAmountOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverStopAmountInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).farePriceTotal)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).fareClass)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).fareCurrency)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).farePricePerPassenger)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).farePriceTax)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalTimeInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalTimeOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationOutbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationInbound)
-                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).AmountOfPassengers)
-                            </button>
-
-                        </div>
-                    </div>
-                    <hr class="roundTripDivider" />
-                    @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound == null)
-                    {
-                        <div class="col-1 align-self-center">
-                            <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@Model.ItineraryList.ElementAt(i).Id">Details</button>
-                        </div>
-                    }
-
-                    @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound != null)
-                    {
-                        var airlineItineraryInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound[0].marketing_airline;
-                        var airhexLogosItineraryInbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryInbound + "_50_50_s.png";
-                        <div class="row itineraryResultRow">
-                            <div class="col-2 align-self-center">
-                                <div style="margin-left: 10px">
-                                    <img src="@airhexLogosItineraryInbound" style="border-radius: 3px;">
-                                </div>
-                            </div>
-                            <div class="col-2 align-self-center">
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).departureTimeInbound" class="itinerary-time">
-                                    @Model.ItineraryList.ElementAt(i).departureTimeInbound.Split("T")[1]
-                                </label><br />
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).originAirportInbound" class="flightInfoAirport">
-                                    @Model.ItineraryList.ElementAt(i).originAirportInbound
-                                </label>
-                            </div>
-                            <div class="col-2 align-self-center" style="width: 60%">
-                                <div class="row">
-                                    <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationInbound" class="flightInfoDuration">
-                                        @Model.ItineraryList.ElementAt(i).tripDurationInbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationInbound.Split(":")[1]m
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountInbound" class="flightInfoLayovers">
-                                        @Model.ItineraryList.ElementAt(i).layoverStopAmountInbound stops
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label asp-for="@Model.ItineraryList.ElementAt(i).layoverCitiesInbound" class="flightInfoLayoverCities">
-                                        @Model.ItineraryList.ElementAt(i).layoverCitiesInbound
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-2 align-self-center" style="width: 60%">
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalTimeInbound" class="itinerary-time">
-                                    @Model.ItineraryList.ElementAt(i).arrivalTimeInbound.Split("T")[1]
-                                </label><br />
-                                <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalAirportInbound" class="flightInfoAirport">
-                                    @Model.ItineraryList.ElementAt(i).arrivalAirportInbound
-                                </label>
-                            </div>
-                            <div class="col-2 align-self-center"></div>
-                            <div class="col-1 align-self-center">
-                                <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@Model.ItineraryList.ElementAt(i).Id" style="color: white; left: 50px">Details</button>
-                            </div>
-                        </div>
-                    }
-                    <div id="flightDetails">
-                        <div id="flight-@Model.ItineraryList.ElementAt(i).Id" class="flightDetailsClass" style="display: none;">
-
-                            <div class="row" style="border-bottom: solid 1px black; height: 30px; padding: 3px; margin: 3px;">
-                                <div class="col align-self-center" style="font-size: 20px; color: black;">
-                                    Outbound flights
-                                </div>
-                            </div>
-                            @for (int x = 0; x < @Model.ItineraryList.ElementAt(i).IndFlightOutbound.Count; x++)
-                            {
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].aircraft)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].booking_code)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].destinationInd)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].flight_number)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].marketing_airline)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].operating_airline)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].originInd)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].seats_remaining)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].travel_class)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].arrives_at)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].departs_at)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].destinationInd)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].orderPos)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalDes)
-                                @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalOrg)
-
-                                var airlineOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).marketing_airline;
-                                var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
-
-                                <div class="row row-eq-height" style="color: black; min-height: 14%; padding: 3px;">
-                                    <div>
-                                    </div>
+                    <form method="post" id="flightResultRow">
+                        <div class="vertical-center flightResultSpacing" id="#@Model.ItineraryList.ElementAt(i).Id">
+                            <div class="container flightResultContainer niceShadow">
+                                <div class="row itineraryResultRow">
                                     <div class="col-2 align-self-center">
                                         <div style="margin-left: 10px;">
-                                            <img src="@airhexLogosOutbound" style="border-radius: 3px;">
+                                            <img src="@airhexLogosItineraryOutbound" style="border-radius: 3px;">
                                         </div>
                                     </div>
-                                    <div class="col-1 align-self-center">
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).departs_at" class="itinerary-time">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1]
+                                    <div class="col-2 align-self-center" style="width: 60%">
+                                        <label class="itinerary-time" asp-for="@Model.ItineraryList.ElementAt(i).departureTimeOutbound">
+                                            @Model.ItineraryList.ElementAt(i).departureTimeOutbound.Split("T")[1]
                                         </label><br />
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).originInd" class="flightInfoAirport">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).originInd
+                                        <label asp-for="@Model.ItineraryList.ElementAt(i).originAirportOutbound" class="flightResultMainLabel">
+                                            @Model.ItineraryList.ElementAt(i).originAirportOutbound
                                         </label>
                                     </div>
-                                    <div class="col-1 align-self-center">
-                                        <div class="flightInfoDuration">
-                                            N/A
+                                    <div class="col-2 align-self-center" style="width: 60%;">
+                                        <div class="row">
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationOutbound" class="flightInfoDuration">
+                                                @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationOutbound.Split(":")[1]m
+                                            </label>
                                         </div>
-                                    </div>
-                                    <div class="col-1 align-self-center">
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).arrives_at" class="itinerary-time">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).arrives_at.Split("T")[1]
-                                        </label><br />
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).destinationInd" class="flightInfoAirport">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).destinationInd
-                                        </label>
-                                    </div>
-                                    <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                        <span class="indFlightInfoLabel">
-                                            Flight No.
-                                        </span> <br />
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).flight_number" style="font-weight: bold; font-size: 20px;">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).flight_number
-                                        </label>
-                                    </div>
-                                    <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                        <span class="indFlightInfoLabel">
-                                            Aircraft
-                                        </span> <br />
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).aircraft" style="font-weight: bold; font-size: 20px;">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).aircraft
-                                        </label>
-                                    </div>
-                                    <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                        <span class="indFlightInfoLabel">
-                                            Travel Class
-                                        </span> <br />
-                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).travel_class" style="font-weight: bold; font-size: 20px;">
-                                            @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).travel_class
-                                        </label>
-                                    </div>
-                                    <div class="col-1 align-self-center">
-                                    </div>
-                                </div>
-                            }
+                                        <div class="row">
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound" class="flightInfoLayovers">
+                                                @Model.ItineraryList.ElementAt(i).layoverStopAmountOutbound stops
+                                            </label>
+                                        </div>
+                                        <div class="row">
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).layoverCitiesOutbound" class="flightInfoLayoverCities">
+                                                @Model.ItineraryList.ElementAt(i).layoverCitiesOutbound
+                                            </label>
+                                        </div>
 
-                            @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound != null)
-                            {
-                                <div class="row" style="border-bottom: solid 1px black; height: 30px; padding: 3px; margin: 3px;">
-                                    <div class="col align-self-center" style="font-size: 20px; color: black;">
-                                        Inbound flights
+                                    </div>
+                                    <div class="col-2 align-self-center" style="width: 60%">
+                                        <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalTimeOutbound" class="itinerary-time">
+                                            @Model.ItineraryList.ElementAt(i).arrivalTimeOutbound.Split("T")[1]
+                                        </label><br />
+                                        <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalAirportOutbound" class="flightResultMainLabel">
+                                            @Model.ItineraryList.ElementAt(i).arrivalAirportOutbound
+                                        </label>
+                                    </div>
+                                    <div class="col-2 align-self-center">
+
+                                    </div>
+                                    <div class="col-1 align-self-center">
+                                        <button type="submit" asp-page-handler="ItineraryOrder" asp-route-id="@Model.ItineraryList.ElementAt(i).Id" class="btn btn-success getFlightBtn" data-target="@Model.ItineraryList.ElementAt(i).Id">
+
+                                            @Model.ItineraryList.ElementAt(i).farePricePerPassenger @currency
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).originAirportOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).originAirportInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalAirportOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalAirportInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverCitiesOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverCitiesInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverStopAmountOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).layoverStopAmountInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).farePriceTotal)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).fareClass)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).fareCurrency)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).farePricePerPassenger)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).farePriceTax)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalTimeInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).arrivalTimeOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).departureTimeOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationOutbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).tripDurationInbound)
+                                            @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).AmountOfPassengers)
+                                        </button>
+
                                     </div>
                                 </div>
-                                for (int y = 0; y < @Model.ItineraryList.ElementAt(i).IndFlightInbound.Count; y++)
+                                <hr class="roundTripDivider" />
+                                @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound == null)
                                 {
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].aircraft)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].arrives_at)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].departs_at)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].destinationInd)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].originInd)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].flight_number)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].travel_class)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].booking_code)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].marketing_airline)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].operating_airline)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].seats_remaining)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].orderPos)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalOrg)
-                                    @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
+                                    <div class="col-1 align-self-center">
+                                        <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@Model.ItineraryList.ElementAt(i).Id">Details</button>
+                                    </div>
+                                }
 
-                                    var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).marketing_airline;
-                                    var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
-                                    <div class="row" style="color: black; min-height: 14%; padding: 3px;">
-                                        <div>
+                                @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound != null)
+                                {
+                                    var airlineItineraryInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound[0].marketing_airline;
+                                    var airhexLogosItineraryInbound = "https://content.airhex.com/content/logos/airlines_" + airlineItineraryInbound + "_50_50_s.png";
+                                    <div class="row itineraryResultRow">
+                                        <div class="col-2 align-self-center">
+                                            <div style="margin-left: 10px">
+                                                <img src="@airhexLogosItineraryInbound" style="border-radius: 3px;">
+                                            </div>
                                         </div>
                                         <div class="col-2 align-self-center">
-                                            <div style="margin-left: 10px;">
-                                                <img src="@airhexLogosInbound" style="border-radius: 3px;">
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).departureTimeInbound" class="itinerary-time">
+                                                @Model.ItineraryList.ElementAt(i).departureTimeInbound.Split("T")[1]
+                                            </label><br />
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).originAirportInbound" class="flightInfoAirport">
+                                                @Model.ItineraryList.ElementAt(i).originAirportInbound
+                                            </label>
+                                        </div>
+                                        <div class="col-2 align-self-center" style="width: 60%">
+                                            <div class="row">
+                                                <label asp-for="@Model.ItineraryList.ElementAt(i).tripDurationInbound" class="flightInfoDuration">
+                                                    @Model.ItineraryList.ElementAt(i).tripDurationInbound.Split(":")[0]h @Model.ItineraryList.ElementAt(i).tripDurationInbound.Split(":")[1]m
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                <label asp-for="@Model.ItineraryList.ElementAt(i).layoverStopAmountInbound" class="flightInfoLayovers">
+                                                    @Model.ItineraryList.ElementAt(i).layoverStopAmountInbound stops
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                <label asp-for="@Model.ItineraryList.ElementAt(i).layoverCitiesInbound" class="flightInfoLayoverCities">
+                                                    @Model.ItineraryList.ElementAt(i).layoverCitiesInbound
+                                                </label>
                                             </div>
                                         </div>
-                                        <div class="col-1 align-self-center">
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
+                                        <div class="col-2 align-self-center" style="width: 60%">
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalTimeInbound" class="itinerary-time">
+                                                @Model.ItineraryList.ElementAt(i).arrivalTimeInbound.Split("T")[1]
                                             </label><br />
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).originInd" class="flightInfoAirport">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).originInd
+                                            <label asp-for="@Model.ItineraryList.ElementAt(i).arrivalAirportInbound" class="flightInfoAirport">
+                                                @Model.ItineraryList.ElementAt(i).arrivalAirportInbound
                                             </label>
                                         </div>
+                                        <div class="col-2 align-self-center"></div>
                                         <div class="col-1 align-self-center">
-                                            <div style="font-size: 20px;">
-                                                N/A
-                                            </div>
-                                        </div>
-                                        <div class="col-1 align-self-center">
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).arrives_at" class="itinerary-time">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
-                                            </label><br />
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).destinationInd" class="flightInfoAirport">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).destinationInd
-                                            </label>
-                                        </div>
-                                        <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                            <span class="indFlightInfoLabel">
-                                                Flight No.
-                                            </span> <br>
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).flight_number" style="font-weight: bold; font-size: 20px;">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).flight_number
-                                            </label>
-                                        </div>
-                                        <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                            <span class="indFlightInfoLabel">
-                                                Aircraft
-                                            </span> <br>
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).aircraft" style="font-weight: bold; font-size: 20px;">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).aircraft
-                                            </label>
-                                        </div>
-                                        <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                            <span class="indFlightInfoLabel">
-                                                Travel Class
-                                            </span> <br>
-                                            <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).travel_class" style="font-weight: bold; font-size: 20px;">
-                                                @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).travel_class
-                                            </label>
-                                        </div>
-                                        <div class="col-5 align-self-center"></div>
-                                        <div class="col-1 align-self-center">
+                                            <button type="button" class="btn btn-info flightDetailsButton" data-target="#flight-@Model.ItineraryList.ElementAt(i).Id" style="color: white; left: 50px">Details</button>
                                         </div>
                                     </div>
                                 }
-                            }
-                            <div class="row" style="color: black; border-top: dotted;">
-                                <div class="col-3 align self-center" style="font-size: 20px; min-width: 33%;">
-                                    Total price for all passengers:
-                                    <label asp-for="@Model.ItineraryList.ElementAt(i).farePriceTotal" class="itineraryPriceSpan">
-                                        @Model.ItineraryList.ElementAt(i).farePriceTotal
-                                    </label>
-                                </div>
-                                <div class="col-3 align self-center" style="font-size: 20px; min-width: 33%;">
-                                    Price per passenger:
-                                    <label asp-for="@Model.ItineraryList.ElementAt(i).farePricePerPassenger" class="itineraryPriceSpan">
-                                        @Model.ItineraryList.ElementAt(i).farePricePerPassenger
-                                    </label>
-                                </div>
-                                <div class="col-3 align self-center" style="font-size: 20px; min-width: 33%;">
-                                    Tax per passenger:
-                                    <label asp-for="@Model.ItineraryList.ElementAt(i).farePriceTax" class="itineraryPriceSpan">
-                                        @Model.ItineraryList.ElementAt(i).farePriceTax
-                                    </label>
+                                <div id="flightDetails">
+                                    <div id="flight-@Model.ItineraryList.ElementAt(i).Id" class="flightDetailsClass" style="display: none;">
+
+                                        <div class="row" style="border-bottom: solid 1px black; height: 30px; padding: 3px; margin: 3px;">
+                                            <div class="col align-self-center" style="font-size: 20px; color: black;">
+                                                Outbound flights
+                                            </div>
+                                        </div>
+                                        @for (int x = 0; x < @Model.ItineraryList.ElementAt(i).IndFlightOutbound.Count; x++)
+                                        {
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].aircraft)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].booking_code)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].destinationInd)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].flight_number)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].marketing_airline)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].operating_airline)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].originInd)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].seats_remaining)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].travel_class)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].arrives_at)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].departs_at)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].destinationInd)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].orderPos)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalDes)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalOrg)
+
+                                            var airlineOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).marketing_airline;
+                                            var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
+
+                                            if (x > 0)
+                                            {
+                                                var flightBeforeArrives = Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x - 1).arrives_at.Split("T")[1];
+                                                var currentFlightDeparts = Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1];
+                                                <div class="row">
+                                                    <div class="col" style="display:inline-block;">
+                                                        <img src="~/images/flight-transfer.svg" style="height:50px; width:auto;" />
+                                                        <small class="indDuration">@tzService.GetLayoverDuration(flightBeforeArrives, currentFlightDeparts)</small>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="row row-eq-height" style="color: black; min-height: 14%; padding: 3px;">
+                                                <div>
+                                                </div>
+                                                <div class="col-2 align-self-center">
+                                                    <div style="margin-left: 10px;">
+                                                        <img src="@airhexLogosOutbound" style="border-radius: 3px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-1 align-self-center">
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).departs_at" class="itinerary-time">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1]
+                                                    </label><br />
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).originInd" class="flightInfoAirport">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).originInd
+                                                    </label>
+                                                </div>
+                                                <div class="col-1 align-self-center">
+                                                    <div class="flightInfoDuration">
+                                                        @{
+                                                            var originCode = Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).originInd;
+                                                            var arrivalCode = Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).destinationInd;
+                                                            var originTime = Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1];
+                                                            var arrivalTime = Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).arrives_at.Split("T")[1];
+                                                            <p class="indDuration">@tzService.GetDuration(originCode, arrivalCode, originTime, arrivalTime)</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="col-1 align-self-center">
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).arrives_at" class="itinerary-time">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).arrives_at.Split("T")[1]
+                                                    </label><br />
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).destinationInd" class="flightInfoAirport">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).destinationInd
+                                                    </label>
+                                                </div>
+                                                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                                    <span class="indFlightInfoLabel">
+                                                        Flight No.
+                                                    </span> <br />
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).flight_number" style="font-weight: bold; font-size: 20px;">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).flight_number
+                                                    </label>
+                                                </div>
+                                                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                                    <span class="indFlightInfoLabel">
+                                                        Aircraft
+                                                    </span> <br />
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).aircraft" style="font-weight: bold; font-size: 20px;">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).aircraft
+                                                    </label>
+                                                </div>
+                                                <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                                    <span class="indFlightInfoLabel">
+                                                        Travel Class
+                                                    </span> <br />
+                                                    <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).travel_class" style="font-weight: bold; font-size: 20px;">
+                                                        @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).travel_class
+                                                    </label>
+                                                </div>
+                                                <div class="col-1 align-self-center">
+                                                </div>
+                                            </div>
+                                        }
+
+                                        @if (@Model.ItineraryList.ElementAt(i).IndFlightInbound != null)
+                                        {
+                                            <div class="row" style="border-bottom: solid 1px black; height: 30px; padding: 3px; margin: 3px;">
+                                                <div class="col align-self-center" style="font-size: 20px; color: black;">
+                                                    Inbound flights
+                                                </div>
+                                            </div>
+                                            for (int y = 0; y < @Model.ItineraryList.ElementAt(i).IndFlightInbound.Count; y++)
+                                            {
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].aircraft)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].arrives_at)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].departs_at)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].destinationInd)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].originInd)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].flight_number)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].travel_class)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].booking_code)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].marketing_airline)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].operating_airline)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].seats_remaining)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].orderPos)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalOrg)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
+
+                                                var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).marketing_airline;
+                                                var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
+
+                                                if (y > 0)
+                                                {
+                                                    var flightBeforeArrives = Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y - 1).arrives_at.Split("T")[1];
+                                                    var currentFlightDeparts = Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).departs_at.Split("T")[1];
+                                                    <div class="row">
+                                                        <div class="col" style="display:inline-block;">
+                                                            <img src="~/images/flight-transfer.svg" style="height:50px !important; width:auto;" />
+                                                            <small class="indDuration">@tzService.GetLayoverDuration(flightBeforeArrives, currentFlightDeparts)</small>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                <div class="row" style="color: black; min-height: 14%; padding: 3px;">
+                                                    <div>
+                                                    </div>
+                                                    <div class="col-2 align-self-center">
+                                                        <div style="margin-left: 10px;">
+                                                            <img src="@airhexLogosInbound" style="border-radius: 3px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 align-self-center">
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
+                                                        </label><br />
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).originInd" class="flightInfoAirport">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).originInd
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-1 align-self-center">
+                                                        <div style="font-size: 20px;">
+                                                            @{
+                                                                var originCode = Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).originInd;
+                                                                var arrivalCode = Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).destinationInd;
+                                                                var originTime = Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).departs_at.Split("T")[1];
+                                                                var arrivalTime = Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1];
+                                                                <p class="indDuration">@tzService.GetDuration(originCode, arrivalCode, originTime, arrivalTime)</p>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 align-self-center">
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).arrives_at" class="itinerary-time">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
+                                                        </label><br />
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).destinationInd" class="flightInfoAirport">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).destinationInd
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                                        <span class="indFlightInfoLabel">
+                                                            Flight No.
+                                                        </span> <br>
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).flight_number" style="font-weight: bold; font-size: 20px;">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).flight_number
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                                        <span class="indFlightInfoLabel">
+                                                            Aircraft
+                                                        </span> <br>
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).aircraft" style="font-weight: bold; font-size: 20px;">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).aircraft
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-1 align-self-center" style="margin-left: 5px;">
+                                                        <span class="indFlightInfoLabel">
+                                                            Travel Class
+                                                        </span> <br>
+                                                        <label asp-for="@Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).travel_class" style="font-weight: bold; font-size: 20px;">
+                                                            @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).travel_class
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-5 align-self-center"></div>
+                                                    <div class="col-1 align-self-center">
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                        <div class="row" style="color: black; border-top: dotted;">
+                                            <div class="col-3 align self-center" style="font-size: 20px; min-width: 33%;">
+                                                Total price for all passengers:
+                                                <label asp-for="@Model.ItineraryList.ElementAt(i).farePriceTotal" class="itineraryPriceSpan">
+                                                    @Model.ItineraryList.ElementAt(i).farePriceTotal
+                                                </label>
+                                            </div>
+                                            <div class="col-3 align self-center" style="font-size: 20px; min-width: 33%;">
+                                                Price per passenger:
+                                                <label asp-for="@Model.ItineraryList.ElementAt(i).farePricePerPassenger" class="itineraryPriceSpan">
+                                                    @Model.ItineraryList.ElementAt(i).farePricePerPassenger
+                                                </label>
+                                            </div>
+                                            <div class="col-3 align self-center" style="font-size: 20px; min-width: 33%;">
+                                                Tax per passenger:
+                                                <label asp-for="@Model.ItineraryList.ElementAt(i).farePriceTax" class="itineraryPriceSpan">
+                                                    @Model.ItineraryList.ElementAt(i).farePriceTax
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            </form>
+                    </form>
+                }
+            }
         }
-    }
-}
-</div>
+    </div>
 
-<div id="loading" class="d-flexLoading align-items-center justify-content-center h-100" style="margin-top: 80px; display: none !important;">
+    <div id="loading" class="d-flexLoading align-items-center justify-content-center h-100" style="margin-top: 80px; display: none !important;">
 
-    <div id="made-with-love" style="height: 150px; width: 150px;">
-        <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-            <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5;"/>
+        <div id="made-with-love" style="height: 150px; width: 150px;">
+            <svg version="1.1" id="L3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+            <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5;" />
+
             <circle fill="#fff" stroke="#CA508B" stroke-width="3" cx="8" cy="54" r="6">
-                <animateTransform attributeName="transform"
-                                  dur="2s"
-                                  type="rotate"
-                                  from="0 50 48"
-                                  to="360 50 52"
-                                  repeatCount="indefinite"/>
+            <animateTransform attributeName="transform"
+                              dur="2s"
+                              type="rotate"
+                              from="0 50 48"
+                              to="360 50 52"
+                              repeatCount="indefinite" />
+
             </circle>
         </svg>
+        </div>
     </div>
-</div>
 
-<div id="errorMessage" style="display: none">
-    <h2 style="color: white;">You broke it...</h2>
-    <img src="~/images/sad.png"/>
-</div>
-
-
-<script>
-    $(window).scroll(function(event) {
-        var scrollPosition = $(window).scrollTop();
-
-        if (scrollPosition > 95) {
-            $('#searchBar').removeClass('flightSearchBox');
-            $('#searchBar').addClass('fixedFlightSearchBox');
-            $('#flightResults').addClass('pushFlightResultsDown');
-            $('#flightResults').addClass('vertical-center');
-        } else {
-            $('#searchBar').removeClass('fixedFlightSearchBox');
-            $('#searchBar').addClass('flightSearchBox');
-            $('#flightResults').removeClass('pushFlightResultsDown');
-        }
-    });
-</script>
+    <div id="errorMessage" style="display: none">
+        <h2 style="color: white;">You broke it...</h2>
+        <img src="~/images/sad.png" />
+    </div>
 
 
-<script>
-    $(document).ready(function() {
-        $('#searchBar').fadeIn();
+    <script>
+        $(window).scroll(function (event) {
+            var scrollPosition = $(window).scrollTop();
 
-        $('#fareOption').click(function selectChangedDatepicker() {
-            if ($('#fareOption').val() === "One Way") {
-                $('#datepickerInbound').val('');
-                $('#datepickerInbound').attr('disabled', true);
+            if (scrollPosition > 95) {
+                $('#searchBar').removeClass('flightSearchBox');
+                $('#searchBar').addClass('fixedFlightSearchBox');
+                $('#flightResults').addClass('pushFlightResultsDown');
+                $('#flightResults').addClass('vertical-center');
             } else {
-                $('#datepickerInbound').attr('disabled', false);
+                $('#searchBar').removeClass('fixedFlightSearchBox');
+                $('#searchBar').addClass('flightSearchBox');
+                $('#flightResults').removeClass('pushFlightResultsDown');
             }
         });
+    </script>
 
 
-        $('#aspSearchBtn').on('click',
-            function() {
+    <script>
+        $(document).ready(function () {
+            $('#searchBar').fadeIn();
 
-                //if ($('#datepickerInbound').val('')) {
-                //    $('#fareOption').val('One Way');
-                //    $('#fareOption').change();
-                //    $('#datepickerInbound').attr('disabled', true);
-                //    $('#aspValidation').fadeOut();
-                //    $('#flightResults').fadeOut();
-                //    $('#loading').fadeIn();
-                //} else {}
-                $('#aspValidation').fadeOut();
-                $('#flightResults').fadeOut();
-                $('#loading').fadeIn();
-
-
+            $('#fareOption').click(function selectChangedDatepicker() {
+                if ($('#fareOption').val() === "One Way") {
+                    $('#datepickerInbound').val('');
+                    $('#datepickerInbound').attr('disabled', true);
+                } else {
+                    $('#datepickerInbound').attr('disabled', false);
+                }
             });
 
-        var nowDate = new Date();
-        var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
 
-        $('#js_daterange').datepicker({
-            startDate: today,
-            format: 'yyyy-mm-dd',
-            autoClose: true
-        });
-    })
-</script>
+            $('#aspSearchBtn').on('click',
+                function () {
+
+                    //if ($('#datepickerInbound').val('')) {
+                    //    $('#fareOption').val('One Way');
+                    //    $('#fareOption').change();
+                    //    $('#datepickerInbound').attr('disabled', true);
+                    //    $('#aspValidation').fadeOut();
+                    //    $('#flightResults').fadeOut();
+                    //    $('#loading').fadeIn();
+                    //} else {}
+                    $('#aspValidation').fadeOut();
+                    $('#flightResults').fadeOut();
+                    $('#loading').fadeIn();
 
 
-<script src="~/js/searchFlights.js"></script>
-<script src="~/js/showFlightDetails.js"></script>
-<script src="~/lib/jquery.md5.js"></script>
-<script src="~/js/bootstrap-datepicker.js"></script>
-<script src="~/js/airportsAutoComplete.js"></script>
+                });
+
+            var nowDate = new Date();
+            var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
+
+            $('#js_daterange').datepicker({
+                startDate: today,
+                format: 'yyyy-mm-dd',
+                autoClose: true
+            });
+        })
+    </script>
+
+
+    <script src="~/js/searchFlights.js"></script>
+    <script src="~/js/showFlightDetails.js"></script>
+    <script src="~/lib/jquery.md5.js"></script>
+    <script src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/airportsAutoComplete.js"></script>
 </body>
 </html>
 
