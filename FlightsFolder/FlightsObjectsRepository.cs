@@ -158,7 +158,7 @@ namespace Vancouver.FlightsFolder
                             terminalOrg = indOutbound.origin.terminal,
                             terminalDes = indOutbound.destination.terminal,
                             duration = _tzService.GetDuration(indOutbound.origin.airport, indOutbound.destination.airport,
-                            indOutbound.departs_at.Split("T")[1], indOutbound.arrives_at.Split("T")[1])
+                            indOutbound.departs_at.Split("T")[0] + " " + indOutbound.departs_at.Split("T")[1], indOutbound.arrives_at.Split("T")[0] + " " + indOutbound.arrives_at.Split("T")[1])
                         });
                 }
 
@@ -191,7 +191,7 @@ namespace Vancouver.FlightsFolder
                                 terminalOrg = indInbound.origin.terminal,
                                 terminalDes = indInbound.destination.terminal,
                                 duration = _tzService.GetDuration(indInbound.origin.airport, indInbound.destination.airport,
-                                indInbound.departs_at.Split("T")[1], indInbound.arrives_at.Split("T")[1])
+                                indInbound.departs_at.Split("T")[0] + " " + indInbound.departs_at.Split("T")[1], indInbound.arrives_at.Split("T")[0] + " " + indInbound.arrives_at.Split("T")[1])
                             });
                     }
 
