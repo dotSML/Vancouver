@@ -11,15 +11,19 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Vancouver.Services;
 
 namespace Vancouver.FlightsFolder
 {
     public class FlightsObjectsRepository : IFlightsObjectsRepository
     {
         private IConfiguration _config;
-        public FlightsObjectsRepository(IConfiguration config)
+        private ITimeZoneService _tzService;
+
+        public FlightsObjectsRepository(IConfiguration config, ITimeZoneService tzService)
         {
             _config = config;
+            _tzService = tzService;
         }
         private static IList<ItineraryObject> itineraries { get; } = new List<ItineraryObject>();
         private FlightsResponse.RootObject FlightsResponse { get; set; }
@@ -134,23 +138,27 @@ namespace Vancouver.FlightsFolder
 
                 for (int u = 0; getFlightsOutbound.Count > u; u++)
                 {
+                    var indOutbound = getFlightsOutbound[u];
+
                     outboundLegs.Add(
                         new IndividualFlightOutbound()
                         {
-                            originInd = getFlightsOutbound[u].origin.airport,
-                            destinationInd = getFlightsOutbound[u].destination.airport,
-                            travel_class = getFlightsOutbound[u].booking_info.travel_class,
-                            flight_number = getFlightsOutbound[u].flight_number,
-                            booking_code = getFlightsOutbound[u].booking_info.booking_code,
-                            aircraft = getFlightsOutbound[u].aircraft,
-                            arrives_at = getFlightsOutbound[u].arrives_at,
-                            departs_at = getFlightsOutbound[u].departs_at,
-                            seats_remaining = getFlightsOutbound[u].booking_info.seats_remaining,
-                            marketing_airline = getFlightsOutbound[u].marketing_airline,
-                            operating_airline = getFlightsOutbound[u].operating_airline,
+                            originInd = indOutbound.origin.airport,
+                            destinationInd = indOutbound.destination.airport,
+                            travel_class = indOutbound.booking_info.travel_class,
+                            flight_number = indOutbound.flight_number,
+                            booking_code = indOutbound.booking_info.booking_code,
+                            aircraft = indOutbound.aircraft,
+                            arrives_at = indOutbound.arrives_at,
+                            departs_at = indOutbound.departs_at,
+                            seats_remaining = indOutbound.booking_info.seats_remaining,
+                            marketing_airline = indOutbound.marketing_airline,
+                            operating_airline = indOutbound.operating_airline,
                             orderPos = u,
-                            terminalOrg = getFlightsOutbound[u].origin.terminal,
-                            terminalDes = getFlightsOutbound[u].destination.terminal
+                            terminalOrg = indOutbound.origin.terminal,
+                            terminalDes = indOutbound.destination.terminal,
+                            duration = _tzService.GetDuration(indOutbound.origin.airport, indOutbound.destination.airport,
+                            indOutbound.departs_at.Split("T")[1], indOutbound.arrives_at.Split("T")[1])
                         });
                 }
 
@@ -163,23 +171,27 @@ namespace Vancouver.FlightsFolder
 
                     for (var c = 0; getFlightsInbound.Count > c; c++)
                     {
+                        var indInbound = getFlightsInbound[c];
+
                         inboundLegs.Add(
                             new IndividualFlightInbound()
                             {
-                                originInd = getFlightsInbound[c].origin.airport,
-                                destinationInd = getFlightsInbound[c].destination.airport,
-                                travel_class = getFlightsInbound[c].booking_info.travel_class,
-                                flight_number = getFlightsInbound[c].flight_number,
-                                booking_code = getFlightsInbound[c].booking_info.booking_code,
-                                aircraft = getFlightsInbound[c].aircraft,
-                                arrives_at = getFlightsInbound[c].arrives_at,
-                                departs_at = getFlightsInbound[c].departs_at,
-                                seats_remaining = getFlightsInbound[c].booking_info.seats_remaining,
-                                marketing_airline = getFlightsInbound[c].marketing_airline,
-                                operating_airline = getFlightsInbound[c].operating_airline,
+                                originInd = indInbound.origin.airport,
+                                destinationInd = indInbound.destination.airport,
+                                travel_class = indInbound.booking_info.travel_class,
+                                flight_number = indInbound.flight_number,
+                                booking_code = indInbound.booking_info.booking_code,
+                                aircraft = indInbound.aircraft,
+                                arrives_at = indInbound.arrives_at,
+                                departs_at = indInbound.departs_at,
+                                seats_remaining = indInbound.booking_info.seats_remaining,
+                                marketing_airline = indInbound.marketing_airline,
+                                operating_airline = indInbound.operating_airline,
                                 orderPos = c,
-                                terminalOrg = getFlightsInbound[c].origin.terminal,
-                                terminalDes = getFlightsInbound[c].destination.terminal
+                                terminalOrg = indInbound.origin.terminal,
+                                terminalDes = indInbound.destination.terminal,
+                                duration = _tzService.GetDuration(indInbound.origin.airport, indInbound.destination.airport,
+                                indInbound.departs_at.Split("T")[1], indInbound.arrives_at.Split("T")[1])
                             });
                     }
 
