@@ -77,12 +77,13 @@ namespace Vancouver.Pages
             var userId = _userManager.GetUserId(User);
             OrderToAdd = orders.FirstOrDefault(x => x.BookingReference == ItinerarySearch.ItineraryId);
 
-            if (OrderToAdd != null)
+            if (OrderToAdd != null && !_context.Orders.Any(o => o.BookingReference == OrderToAdd.BookingReference))
             {
                 OrderToAdd.OrderItinerary.ApplicationUserId = userId;
                 _context.Orders.Update(OrderToAdd);
                 _context.SaveChanges();
             }
+            
 
             return RedirectToPage("/tickettest");
         }

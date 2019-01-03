@@ -14,8 +14,8 @@
 
 
 <head>
-    <link rel="stylesheet" href="css/OrderProcessing.css"/>
-    <link rel="stylesheet" href="css/bootstrapIndex.css"/>
+    <link rel="stylesheet" href="css/OrderProcessing.css" />
+    <link rel="stylesheet" href="css/bootstrapIndex.css" />
 </head>
 
 @if (@Model.OrderObject != null)
@@ -23,263 +23,285 @@
     var currency = @Model.OrderObject.fareCurrency;
     var airportOut = @AirportInfoService.GetAirport(Model.OrderObject.originAirportOutbound);
     var airportIn = @AirportInfoService.GetAirport(Model.OrderObject.arrivalAirportOutbound);
-     <div class="container orderContainer niceShadow">
-         <div class="orderForm">
-             <h1>Your Itinerary</h1> <h3>@airportOut.name, @airportOut.country (@airportOut.code) - @airportIn.city, @airportIn.country (@airportIn.code)</h3>
-                                     <h2>Total: <span class="priceSpan">@Model.OrderObject.farePriceTotal@currency</span> Tax: <span class="priceSpan">@Model.OrderObject.farePriceTax@currency</span> | Per passenger: <span class="priceSpan">@Model.OrderObject.farePricePerPassenger @Model.OrderObject.fareCurrency</span></h2>
-             
-             <h4>@Model.OrderObject.AmountOfPassengers passenger(s)</h4>
-             <div id="flighdivetails">
-                 <div id="flight-@Model.OrderObject.Id" class="flighdivetailsClass">
+    <div class="container orderContainer niceShadow">
+        <div class="orderForm">
+            <h1>Your Itinerary</h1> <h3>@airportOut.name, @airportOut.country (@airportOut.code) - @airportIn.city, @airportIn.country (@airportIn.code)</h3>
+            <h2>Total: <span class="priceSpan">@Model.OrderObject.farePriceTotal@currency</span> Tax: <span class="priceSpan">@Model.OrderObject.farePriceTax@currency</span> | Per passenger: <span class="priceSpan">@Model.OrderObject.farePricePerPassenger @Model.OrderObject.fareCurrency</span></h2>
 
-                     <div class="row" style="border-bottom: solid 1px black; height: 30px;">
-                         <div class="col align-self-center" style="font-size: 20px; color: black;">
-                             Outbound flights
-                         </div>
-                     </div>
-                     <div class="row" style="color: black; height: 60px;  border-bottom: solid 1px gray;">
-                         <div class="col-1 align-self-center">Carrier</div>
-                         <div class="col-1 align-self-center">Departure</div>
-                         <div class="col-1 align-self-center">Duration</div>
-                         <div class="col-1 align-self-center">Arrival</div>
-                         <div class="col-1 align-self-center">Flight Number</div>
-                         <div class="col-1 align-self-center">Aircraft</div>
-                         <div class="col-2 align-self-center">Travel Class</div>
-                         <div class="col-1 align-self-center">Flight Date</div>
-                     </div>
-                     @for (int x = 0; x < @Model.OrderObject.IndFlightOutbound.Count; x++)
-                     {
-                         var airlineOutbound = @Model.OrderObject.IndFlightOutbound.ElementAt(x).marketing_airline;
-                         var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
+            <h4>@Model.OrderObject.AmountOfPassengers passenger(s)</h4>
+            <div id="flighdivetails">
+                <div id="flight-@Model.OrderObject.Id" class="flighdivetailsClass">
 
-                         <div class="row" style="color: black; min-height: 7vh; padding-bottom: 1vh;">
-                             <div id="outboundLegsInfo">
-                             </div>
-                             <div id="flightLegInfoAirline" class="col-1 align-self-center" style="width: 12.5%;">
-                                 <div style="margin-left: 10px;">
-                                     <img src="@airhexLogosOutbound" style="border-radius: 3px;">
-                                 </div>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" class="itinerary-time">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1]
-                                 </label><br />
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd" class="flightInfoAirport">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <div id="flightLegDuration" style="font-size: 20px;">
-                                     N/A
-                                 </div>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).arrives_at" id="flightLegArrivalTime" class="itinerary-time">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).arrives_at.Split("T")[1]
-                                 </label><br />
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd" class="flightInfoAirport">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number" class="indFlightInfo">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft" class="indFlightInfo">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft
-                                 </label>
-                             </div>
-                             <div class="col-2 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class" class="indFlightInfo">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class
-                                 </label>
-                             </div>
-                             <div class="col-1 align-self-center">
-                                 <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" class="indFlightInfo" style="font-size: 15px;">
-                                     @Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at.Split("T")[0]
-                                 </label>
-                             </div>
-                         </div>
-                     }
-                     @if (@Model.OrderObject.IndFlightInbound != null)
-                     {
-                         <div class="row" style="border-bottom: solid 1px black; height: 30px;">
-                             <div class="col align-self-center" style="font-size: 20px; color: black;">
-                                 Inbound flights
-                             </div>
-                         </div>
-                         <div class="row" style="color: black; height: 60px; border-bottom: solid 1px gray;">
-                             <div class="col-1 align-self-center">Carrier</div>
-                             <div class="col-1 align-self-center">Departure</div>
-                             <div class="col-1 align-self-center">Duration</div>
-                             <div class="col-1 align-self-center">Arrival</div>
-                             <div class="col-1 align-self-center">Flight Number</div>
-                             <div class="col-1 align-self-center">Aircraft</div>
-                             <div class="col-2 align-self-center">Travel Class</div>
-                             <div class="col-1 align-self-center">Flight Date</div>
-                         </div>
+                    <div class="row" style="border-bottom: solid 1px black; height: 30px;">
+                        <div class="col align-self-center" style="font-size: 20px; color: black;">
+                            Outbound flights
+                        </div>
+                    </div>
+                    <div class="row" style="color: black; height: 60px;  border-bottom: solid 1px gray;">
+                        <div class="col-1 align-self-center">Carrier</div>
+                        <div class="col-1 align-self-center">Departure</div>
+                        <div class="col-1 align-self-center">Duration</div>
+                        <div class="col-1 align-self-center">Arrival</div>
+                        <div class="col-1 align-self-center">Flight Number</div>
+                        <div class="col-1 align-self-center">Aircraft</div>
+                        <div class="col-2 align-self-center">Travel Class</div>
+                        <div class="col-1 align-self-center">Flight Date</div>
+                    </div>
+                    @for (int x = 0; x < @Model.OrderObject.IndFlightOutbound.Count; x++)
+                    {
+                        var airlineOutbound = @Model.OrderObject.IndFlightOutbound.ElementAt(x).marketing_airline;
+                        var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
 
-                         for (int y = 0; y < @Model.OrderObject.IndFlightInbound.Count; y++)
-                         {
-                             var airlineInbound = @Model.OrderObject.IndFlightOutbound.ElementAt(y).marketing_airline;
-                             var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
-                             <div class="row" style="color: black; min-height: 7vh; padding-bottom: 1vh;">
-                                 <div>
-                                 </div>
-                                 <div class="col-1 align-self-center" style="width: 12.5%;">
-                                     <div style="margin-left: 10px;">
-                                         <img src="@airhexLogosInbound" style="border-radius: 3px;">
-                                     </div>
-                                 </div>
-                                 <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
-                                     </label><br />
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).originInd" class="flightInfoAirport">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).originInd
-                                     </label>
-                                 </div>
-                                 <div class="col-1 align-self-center">
-                                     <div id="flightLegDuration" style="font-size: 20px;">
-                                         N/A
-                                     </div>
-                                 </div>
-                                 <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at" class="itinerary-time">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
-                                     </label><br />
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd" class="flightInfoAirport">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd
-                                     </label>
-                                 </div>
-                                 <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number" class="indFlightInfo">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number
-                                     </label>
-                                 </div>
-                                 <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft" class="indFlightInfo">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft
-                                     </label>
-                                 </div>
-                                 <div class="col-md-2 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class" class="indFlightInfo">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class
-                                     </label>
-                                 </div>
-                                 <div class="col-1 align-self-center">
-                                     <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="indFlightInfo" style="font-size: 15px;">
-                                         @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[0]
-                                     </label>
-                                 </div>
-                             </div>
-                         }
-                     }
+                        <div class="row" style="color: black; min-height: 7vh; padding-bottom: 1vh;">
+                            <div id="outboundLegsInfo">
+                            </div>
+                            <div id="flightLegInfoAirline" class="col-1 align-self-center" style="width: 12.5%;">
+                                <div style="margin-left: 10px;">
+                                    <img src="@airhexLogosOutbound" style="border-radius: 3px;">
+                                </div>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" class="itinerary-time">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at.Split("T")[1]
+                                </label><br />
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd" class="flightInfoAirport">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).originInd
+                                </label>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <div id="flightLegDuration" style="font-size: 20px;">
+                                    N/A
+                                </div>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).arrives_at" id="flightLegArrivalTime" class="itinerary-time">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).arrives_at.Split("T")[1]
+                                </label><br />
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd" class="flightInfoAirport">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).destinationInd
+                                </label>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number" class="indFlightInfo">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).flight_number
+                                </label>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft" class="indFlightInfo">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).aircraft
+                                </label>
+                            </div>
+                            <div class="col-2 align-self-center">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class" class="indFlightInfo">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).travel_class
+                                </label>
+                            </div>
+                            <div class="col-1 align-self-center">
+                                <label asp-for="@Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at" class="indFlightInfo" style="font-size: 15px;">
+                                    @Model.OrderObject.IndFlightOutbound.ElementAt(x).departs_at.Split("T")[0]
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    @if (@Model.OrderObject.IndFlightInbound != null)
+                    {
+                        <div class="row" style="border-bottom: solid 1px black; height: 30px;">
+                            <div class="col align-self-center" style="font-size: 20px; color: black;">
+                                Inbound flights
+                            </div>
+                        </div>
+                        <div class="row" style="color: black; height: 60px; border-bottom: solid 1px gray;">
+                            <div class="col-1 align-self-center">Carrier</div>
+                            <div class="col-1 align-self-center">Departure</div>
+                            <div class="col-1 align-self-center">Duration</div>
+                            <div class="col-1 align-self-center">Arrival</div>
+                            <div class="col-1 align-self-center">Flight Number</div>
+                            <div class="col-1 align-self-center">Aircraft</div>
+                            <div class="col-2 align-self-center">Travel Class</div>
+                            <div class="col-1 align-self-center">Flight Date</div>
+                        </div>
 
-                 </div>
-             </div>
-             <hr />
+                        for (int y = 0; y < @Model.OrderObject.IndFlightInbound.Count; y++)
+                        {
+                            var airlineInbound = @Model.OrderObject.IndFlightOutbound.ElementAt(y).marketing_airline;
+                            var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
+                            <div class="row" style="color: black; min-height: 7vh; padding-bottom: 1vh;">
+                                <div>
+                                </div>
+                                <div class="col-1 align-self-center" style="width: 12.5%;">
+                                    <div style="margin-left: 10px;">
+                                        <img src="@airhexLogosInbound" style="border-radius: 3px;">
+                                    </div>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="itinerary-time">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[1]
+                                    </label><br />
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).originInd" class="flightInfoAirport">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).originInd
+                                    </label>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <div id="flightLegDuration" style="font-size: 20px;">
+                                        N/A
+                                    </div>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at" class="itinerary-time">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).arrives_at.Split("T")[1]
+                                    </label><br />
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd" class="flightInfoAirport">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).destinationInd
+                                    </label>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number" class="indFlightInfo">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).flight_number
+                                    </label>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft" class="indFlightInfo">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).aircraft
+                                    </label>
+                                </div>
+                                <div class="col-md-2 align-self-center">
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class" class="indFlightInfo">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).travel_class
+                                    </label>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <label asp-for="@Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at" class="indFlightInfo" style="font-size: 15px;">
+                                        @Model.OrderObject.IndFlightInbound.ElementAt(y).departs_at.Split("T")[0]
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    }
 
-             <h2 style="font-size: 25px; margin-bottom: 30px;">Travelers</h2>
-             <form method="post">
-                 <div class="row" style="border-top: 1px solid black; border-bottom: 1px solid black; margin-bottom: 10px">
-                     @for (int i = 0; i < @Model.OrderObject.AmountOfPassengers; i++)
-                     {
-                         var travelerNumber = @i + 1;
-                         <div class="col-md-5">
-                             <h4>Traveler @travelerNumber</h4>
-                             <div class="form-group">
-                                 <div>
-                                     @if (SignInManager.IsSignedIn(User))
-                                     {
-                                         if (@Model.SavedTravelers != null)
-                                         {
-                                             <div class="signedInTravelerForm" id="savedTraveler-@i">
-                                                 <div class="selectDiv">
-                                                     <select class="form-control selectTraveler" id="select-@i" data-target="#savedTraveler-@i" asp-for="SavedTravelersIds[i]">
-                                                         <option value="NOVALUE" selected="selected">Select a traveler</option>
-                                                         @for (int a = 0; a < @Model.SavedTravelers.Count; a++)
-                                                         {
-                                                             <option value="@Model.SavedTravelers[a].CustomerId">@Model.SavedTravelers[a].FirstName @Model.SavedTravelers[a].LastName</option>
-                                                         }
-                                                     </select>
-                                                 </div>
-                                                 <hr />
-                                                 <div class="btn btn-primary newTravelerBtn" data-target="#savedTraveler-@i">New traveler?</div>
-                                                 <div class="container newTravelerForm" style="display: none;">
-                                                     <label asp-for="Customers[i].FirstName">First name*</label>
-                                                     <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
-                                                     <label asp-for="Customers[i].LastName">Last name*</label>
-                                                     <input asp-for="Customers[i].LastName" type="text" class="form-control" />
-                                                     <label asp-for="Customers[i].Email">Email</label>
-                                                     <input asp-for="Customers[i].Email" type="text" class="form-control" />
-                                                     <div class="form-check">
-                                                         <input asp-for="Customers[i].Primary" type="checkbox" id="primary-@i" class="form-check-input" />
-                                                         <label asp-for="Customers[i].Primary" class="form-check-label" for="primary-@i">Primary traveler?</label>
-                                                     </div>
-                                                     <div class="btn btn-primary newTravelerPassportBtn" data-target="#traveler-@i">Add Passport</div>
-                                                     <div class="col-auto newTravelerPassport" id="newTravelerPassport-@i" style="display: none;">
-                                                         <h4>Passport</h4>
-                                                         <div class="form-group">
-                                                             <div style="max-width: 80%">
-                                                                 <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
-                                                                 <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control" />
-                                                                 <label asp-for="Customers[i].Passport.DateOfBirth">Date Of Birth</label>
-                                                                 <input asp-for="Customers[i].Passport.DateOfBirth" type="date" class="form-control" />
-                                                                 <label asp-for="Customers[i].Passport.ValidFrom">Passport issue date</label>
-                                                                 <input asp-for="Customers[i].Passport.ValidFrom" type="date" class="form-control" />
-                                                                 <label asp-for="Customers[i].Passport.ValidTo">Passport expiry date</label>
-                                                                 <input asp-for="Customers[i].Passport.ValidTo" type="date" class="form-control" />
-                                                             </div>
-                                                         </div>
-                                                     </div>
-                                                 </div>
-                                             </div>
+                </div>
+            </div>
+            <hr />
+
+            <h2 style="font-size: 25px; margin-bottom: 30px;">Travelers</h2>
+            <form method="post">
+                <div class="row" style="border-top: 1px solid black; border-bottom: 1px solid black; margin-bottom: 10px">
+                    @for (int i = 0; i < @Model.OrderObject.AmountOfPassengers; i++)
+                    {
+                        var travelerNumber = @i + 1;
+                        <div class="col-md-5">
+                            <h4>Traveler @travelerNumber</h4>
+                            <div class="form-group">
+                                <div>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        if (@Model.SavedTravelers != null)
+                                        {
+                                            if (Model.SavedTravelers.Count() >= (i + 1))
+                                            {
+                                                <div class="signedInTravelerForm" id="savedTraveler-@i">
+                                                    <div class="selectDiv">
+                                                        <select class="form-control selectTraveler" id="select-@i" data-target="#savedTraveler-@i" asp-for="SavedTravelersIds[i]">
+                                                            <option value="NOVALUE" selected="selected">Select a traveler</option>
+                                                            @for (int a = 0; a < @Model.SavedTravelers.Count; a++)
+                                                            {
+                                                                <option value="@Model.SavedTravelers[a].CustomerId">@Model.SavedTravelers[a].FirstName @Model.SavedTravelers[a].LastName</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="btn btn-primary newTravelerBtn" data-target="#savedTraveler-@i">New traveler?</div>
+                                                    <div class="container newTravelerForm" style="display: none;">
+                                                        <label asp-for="Customers[i].FirstName">First name*</label>
+                                                        <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
+                                                        <label asp-for="Customers[i].LastName">Last name*</label>
+                                                        <input asp-for="Customers[i].LastName" type="text" class="form-control" />
+                                                        <label asp-for="Customers[i].Email">Email</label>
+                                                        <input asp-for="Customers[i].Email" type="text" class="form-control" />
+
+                                                        <div class="btn btn-primary newTravelerPassportBtn" data-target="#traveler-@i">Add Passport</div>
+                                                        <div class="col-auto newTravelerPassport" id="newTravelerPassport-@i" style="display: none;">
+                                                            <h4>Passport</h4>
+                                                            <div class="form-group">
+                                                                <div style="max-width: 80%">
+                                                                    <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
+                                                                    <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control" />
+                                                                    <label asp-for="Customers[i].Passport.DateOfBirth">Date Of Birth</label>
+                                                                    <input asp-for="Customers[i].Passport.DateOfBirth" type="date" class="form-control" />
+                                                                    <label asp-for="Customers[i].Passport.ValidFrom">Passport issue date</label>
+                                                                    <input asp-for="Customers[i].Passport.ValidFrom" type="date" class="form-control" />
+                                                                    <label asp-for="Customers[i].Passport.ValidTo">Passport expiry date</label>
+                                                                    <input asp-for="Customers[i].Passport.ValidTo" type="date" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <label asp-for="Customers[i].FirstName">First name</label>
+                                                <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
+                                                <label asp-for="Customers[i].LastName">Last name</label>
+                                                <input asp-for="Customers[i].LastName" type="text" class="form-control" />
 
 
-                                         }
+                                                <div class="col-auto">
+                                                    <h4>Passport</h4>
+                                                    <div class="form-group">
+                                                        <div style="max-width: 80%">
+                                                            <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
+                                                            <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control" />
+                                                            <label asp-for="Customers[i].Passport.DateOfBirth">Date Of Birth</label>
+                                                            <input asp-for="Customers[i].Passport.DateOfBirth" type="date" class="form-control" />
+                                                            <label asp-for="Customers[i].Passport.ValidFrom">Passport issue date</label>
+                                                            <input asp-for="Customers[i].Passport.ValidFrom" type="date" class="form-control" />
+                                                            <label asp-for="Customers[i].Passport.ValidTo">Passport expiry date</label>
+                                                            <input asp-for="Customers[i].Passport.ValidTo" type="date" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
 
-                                     }
-                                     else
-                                     {
-                                         <label asp-for="Customers[i].FirstName">First name</label>
-                                         <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
-                                         <label asp-for="Customers[i].LastName">Last name</label>
-                                         <input asp-for="Customers[i].LastName" type="text" class="form-control" />
-                                         <label asp-for="Customers[i].Primary">Primary traveler?</label>
-                                         <input asp-for="Customers[i].Primary" type="checkbox" style="transform: scale(1.5)" />
+                                        }
 
-                                         <div class="col-auto">
-                                             <h4>Passport</h4>
-                                             <div class="form-group">
-                                                 <div style="max-width: 80%">
-                                                     <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
-                                                     <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control" />
-                                                     <label asp-for="Customers[i].Passport.DateOfBirth">Date Of Birth</label>
-                                                     <input asp-for="Customers[i].Passport.DateOfBirth" type="date" class="form-control" />
-                                                     <label asp-for="Customers[i].Passport.ValidFrom">Passport issue date</label>
-                                                     <input asp-for="Customers[i].Passport.ValidFrom" type="date" class="form-control" />
-                                                     <label asp-for="Customers[i].Passport.ValidTo">Passport expiry date</label>
-                                                     <input asp-for="Customers[i].Passport.ValidTo" type="date" class="form-control" />
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     }
-                                 </div>
-                             </div>
-                         </div>
+                                    }
+                                    else
+                                    {
+                                        <label asp-for="Customers[i].FirstName">First name</label>
+                                        <input asp-for="Customers[i].FirstName" type="text" class="form-control" />
+                                        <label asp-for="Customers[i].LastName">Last name</label>
+                                        <input asp-for="Customers[i].LastName" type="text" class="form-control" />
 
-                         @Html.HiddenFor(x => x.Order);
 
-                     }
-                 </div>
-                 <button type="submit" class="btn btn-primary">Buy</button>
-             </form>
-         </div>
-     </div>
- }
+                                        <div class="col-auto">
+                                            <h4>Passport</h4>
+                                            <div class="form-group">
+                                                <div style="max-width: 80%">
+                                                    <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
+                                                    <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control" />
+                                                    <label asp-for="Customers[i].Passport.DateOfBirth">Date Of Birth</label>
+                                                    <input asp-for="Customers[i].Passport.DateOfBirth" type="date" class="form-control" />
+                                                    <label asp-for="Customers[i].Passport.ValidFrom">Passport issue date</label>
+                                                    <input asp-for="Customers[i].Passport.ValidFrom" type="date" class="form-control" />
+                                                    <label asp-for="Customers[i].Passport.ValidTo">Passport expiry date</label>
+                                                    <input asp-for="Customers[i].Passport.ValidTo" type="date" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        @Html.HiddenFor(x => x.Order);
+
+                    }
+                </div>
+                <button type="submit" class="btn btn-primary">Buy</button>
+            </form>
+        </div>
+    </div>
+}
 else
 {
     <h1 style="color: black;">Something unexpected happened, please try again.</h1>
@@ -291,7 +313,7 @@ else
     var activePassport = 0;
     $(document).on('click',
         '.newTravelerBtn',
-        function() {
+        function () {
             var data = $($(this).data('target'));
 
             if (active === 0) {
@@ -310,26 +332,26 @@ else
                 active = 0;
             }
 
-            
-            
+
+
 
 
         });
 
     $(document).on('click',
         '.newTravelerPassportBtn',
-        function() {
+        function () {
             var data = $($(this).data('target'));
 
             if (activePassport === 0) {
-                
+
                 data.find('.newTravelerPassport').slideDown('slow');
                 data.find('.newTravelerPassportBtn').removeClass('btn btn-primary').addClass('btn btn-danger').html('Close');
                 activePassport = 1;
-                  
+
             }
             else if (activePassport === 1) {
-                
+
                 data.find('.newTravelerPassport').slideUp('slow');
                 data.find('.newTravelerPassportBtn').removeClass('btn btn-danger').addClass('btn btn-primary').html('Add Passport');
                 activePassport = 0;
@@ -338,29 +360,44 @@ else
 
         });
 
-    $('select').change(function () {
-        var selectDiv = $(this).closest('.selectDiv');
-        selectDiv.find('select option').attr('disabled', '');
+    //$('select').change(function () {
+    //    var selectDiv = $(this).closest('.selectDiv');
+    //    selectDiv.find('select option').attr('disabled', '');
 
-        var arr = $.map
-            (
-            selectDiv.find("select option:selected"), function (n) {
-                return n.value;
+    //    var arr = $.map
+    //        (
+    //        selectDiv.find("select option:selected"), function (n) {
+    //            return n.value;
+    //        });
+
+    //    $("select option").filter(function () {
+    //        return $.inArray($(this).val(), arr) > -1;
+    //    }).prop("disabled", "disabled");
+
+    //    $("select option").filter(function () {
+    //        return $.inArray($(this).val(), arr) == -1;
+    //    }).prop("disabled", "");
+
+    //});
+
+    var $selects = $('select');
+    $selects.on('change', function () {
+        $("option", $selects).prop("disabled", false);
+        $selects.each(function () {
+            var $select = $(this),
+                $options = $selects.not($select).find('option'),
+                selectedText = $select.children('option:selected').text();
+            $options.each(function () {
+                if ($(this).text() == selectedText) $(this).prop("disabled", true);
             });
-
-        $("select option").filter(function () {
-            return $.inArray($(this).val(), arr) > -1; 
-        }).prop("disabled", "disabled");
-
-        $("select option").filter(function () {
-            return $.inArray($(this).val(), arr) == -1; 
-        }).prop("disabled", "");
-
+        });
     });
 
+    $selects.eq(0).trigger('change');
 
 
-    
 
-  
+
+
+
 </script>

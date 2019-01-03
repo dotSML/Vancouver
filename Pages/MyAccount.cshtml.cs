@@ -42,7 +42,7 @@ namespace Vancouver.Pages
 
         }
 
-        
+
 
         [BindProperty] public IFormFile Upload { get; set; }
         [BindProperty] public string FullFileName { get; set; }
@@ -52,8 +52,9 @@ namespace Vancouver.Pages
 
         public void OnGet()
         {
+            AddDefaultTraveler();
             var userId = _userManager.GetUserId(User);
-            Travelers =  _context.Customers.Include(x => x.Passport).Where(r => r.ApplicationUserId == userId).ToList();
+            Travelers = _context.Customers.Include(x => x.Passport).Where(r => r.ApplicationUserId == userId).ToList();
         }
 
         public async Task OnPostAsync()
@@ -107,7 +108,7 @@ namespace Vancouver.Pages
             var user = await _userManager.GetUserAsync(User);
             travelerObject.ApplicationUserId = user.Id;
             _customersRepository.SetCustomerPassport(travelerObject);
-            
+
             _context.Add(travelerObject);
             _context.SaveChanges();
             await _userManager.UpdateAsync(user);
@@ -117,13 +118,13 @@ namespace Vancouver.Pages
 
         public async Task OnPostDeleteTraveler(string id)
         {
-            var traveler =_context.Customers.Include(p => p.Passport).FirstOrDefault(x => x.CustomerId == id);
+            var traveler = _context.Customers.Include(p => p.Passport).FirstOrDefault(x => x.CustomerId == id);
             var passport = traveler.Passport;
             if (traveler != null)
             {
                 _context.Customers.Remove(traveler);
                 _context.Passports.Remove(passport);
-                
+
                 await _context.SaveChangesAsync();
             }
 
@@ -141,7 +142,7 @@ namespace Vancouver.Pages
                     string requestBody = reader.ReadToEnd();
                     if (requestBody.Length > 0)
                     {
-                        
+
                         var obj = JsonConvert.DeserializeObject<Customer>(requestBody);
                         if (obj != null)
                         {
@@ -155,12 +156,42 @@ namespace Vancouver.Pages
                     }
                 }
             }
-            
+
             return new JsonResult("Success!");
         }
 
-        
+
+        public void AddDefaultTraveler()
+        {
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = _userManager.GetUserAsync(User);
+                var userTravelers = _context.Customers.Any(x => x.ApplicationUserId == user.Result.Id);
+
+                if (!userTravelers)
+                {
+                    var traveler = new Customer
+                    {
+                        ApplicationUserId = user.Result.Id,
+                        FirstName = user.Result.FirstName,
+                        LastName = user.Result.LastName,
+                        DateOfBirth = user.Result.DateOfBirth,
+                        Email = user.Result.Email,
+                        Primary = true
+                    };
+
+                    _context.Customers.Add(traveler);
+                    _context.SaveChanges();
+                }
+            }
+
+        }
     }
+
 }
+
+
+
 
 
