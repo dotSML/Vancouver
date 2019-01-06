@@ -13,6 +13,7 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject IFlightsObjectsRepository fr
 @inject ITimeZoneService tzService
+@inject IAircraftInfoService aircraftService
 @{
     ViewData["Title"] = "Vancouver Flights";
     tzService.GetTimeZoneList();
@@ -328,7 +329,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-1 align-self-center">
-                                                    <div class="flightInfoDuration">
+                                                    <div class="indDuration">
                                                         @currentIndOutbound.duration
                                                     </div>
                                                 </div>
@@ -341,28 +342,35 @@
                                                     </label>
                                                 </div>
                                                 <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                                    <span class="indFlightInfoLabel">
+                                                    <row class="indFlightInfoLabel">
                                                         Flight No.
-                                                    </span> <br />
-                                                    <label asp-for="@currentIndOutbound.flight_number" style="font-weight: bold; font-size: 20px;">
-                                                        @currentIndOutbound.flight_number
-                                                    </label>
+                                                    </row> 
+                                                    <row>
+                                                        <label asp-for="@currentIndOutbound.flight_number" class="indFlightInfo">
+                                                           @currentIndOutbound.marketing_airline @currentIndOutbound.flight_number
+                                                        </label>
+                                                    </row>
                                                 </div>
                                                 <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                                    <span class="indFlightInfoLabel">
+                                                    <row class="indFlightInfoLabel">
                                                         Aircraft
-                                                    </span> <br />
-                                                    <label asp-for="@currentIndOutbound.aircraft" style="font-weight: bold; font-size: 20px;">
-                                                        @currentIndOutbound.aircraft
-                                                    </label>
+                                                    </row>
+                                                    <row>
+                                                        <label asp-for="@currentIndOutbound.aircraft" class="indFlightInfo">
+                                                            <small class="aircraft">@aircraftService.GetAircraftName(currentIndOutbound.aircraft)</small>
+                                                        </label>
+                                                    </row>
                                                 </div>
                                                 <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                                    <span class="indFlightInfoLabel">
+                                                    <row class="indFlightInfoLabel">
                                                         Travel Class
-                                                    </span> <br />
-                                                    <label asp-for="@currentIndOutbound.travel_class" style="font-weight: bold; font-size: 20px;">
+                                                    </row>
+                                                    <row>
+                                                        <label asp-for="@currentIndOutbound.travel_class" class="indFlightInfo">
                                                         @currentIndOutbound.travel_class
                                                     </label>
+                                                    </row>
+                                                    
                                                 </div>
                                                 <div class="col-1 align-self-center">
                                                 </div>
@@ -419,49 +427,69 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-1 align-self-center">
-                                                        <label asp-for="@currentIndInbound.departs_at" class="itinerary-time">
-                                                            @currentIndInbound.departs_at.Split("T")[1]
-                                                        </label><br />
-                                                        <label asp-for="@currentIndInbound.originInd" class="flightInfoAirport">
-                                                            @currentIndInbound.originInd
-                                                        </label>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.departs_at" class="itinerary-time">
+                                                                @currentIndInbound.departs_at.Split("T")[1]
+                                                            </label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.originInd" class="flightInfoAirport">
+                                                                @currentIndInbound.originInd
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-1 align-self-center">
-                                                        <div style="font-size: 20px;">
+                                                        <div class="indDuration">
                                                             @currentIndInbound.duration
                                                         </div>
                                                     </div>
                                                     <div class="col-1 align-self-center">
-                                                        <label asp-for="@currentIndInbound.arrives_at" class="itinerary-time">
-                                                            @currentIndInbound.arrives_at.Split("T")[1]
-                                                        </label><br />
-                                                        <label asp-for="@currentIndInbound.destinationInd" class="flightInfoAirport">
-                                                            @currentIndInbound.destinationInd
-                                                        </label>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.arrives_at" class="itinerary-time">
+                                                                @currentIndInbound.arrives_at.Split("T")[1]
+                                                            </label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.destinationInd" class="flightInfoAirport">
+                                                                @currentIndInbound.destinationInd
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                                        <span class="indFlightInfoLabel">
-                                                            Flight No.
-                                                        </span> <br>
-                                                        <label asp-for="@currentIndInbound.flight_number" style="font-weight: bold; font-size: 20px;">
-                                                            @currentIndInbound.flight_number
-                                                        </label>
+                                                        <div class="row">
+                                                            <span class="indFlightInfoLabel">
+                                                                Flight No.
+                                                            </span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.flight_number" class="indFlightInfo">
+                                                               @currentIndInbound.marketing_airline @currentIndInbound.flight_number
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                                        <span class="indFlightInfoLabel">
-                                                            Aircraft
-                                                        </span> <br>
-                                                        <label asp-for="@currentIndInbound.aircraft" style="font-weight: bold; font-size: 20px;">
-                                                            @currentIndInbound.aircraft
-                                                        </label>
+                                                        <div class="row">
+                                                            <span class="indFlightInfoLabel">
+                                                                Aircraft
+                                                            </span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.aircraft" class="indFlightInfo">
+                                                                <small>@aircraftService.GetAircraftName(currentIndInbound.aircraft)</small>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-1 align-self-center" style="margin-left: 5px;">
-                                                        <span class="indFlightInfoLabel">
-                                                            Travel Class
-                                                        </span> <br>
-                                                        <label asp-for="@currentIndInbound.travel_class" style="font-weight: bold; font-size: 20px;">
-                                                            @currentIndInbound.travel_class
-                                                        </label>
+                                                        <div class="row">
+                                                            <span class="indFlightInfoLabel">
+                                                                Travel Class
+                                                            </span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label asp-for="@currentIndInbound.travel_class" class="indFlightInfo">
+                                                                @currentIndInbound.travel_class
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     <div class="col-5 align-self-center"></div>
                                                     <div class="col-1 align-self-center">

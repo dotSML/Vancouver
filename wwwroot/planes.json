@@ -1,0 +1,872 @@
+[
+  {
+    "Aircraft": "Aerospatiale/Alenia ATR 42-300",
+    "CRV": "AT4",
+    "S210": "AT43"
+  },
+  {
+    "Aircraft": "Aerospatiale/Alenia ATR 42-500",
+    "CRV": "AT5",
+    "S210": "AT45"
+  },
+  {
+    "Aircraft": "Aerospatiale/Alenia ATR 42-600",
+    "CRV": "ATR",
+    "S210": "AT46"
+  },
+  {
+    "Aircraft": "Aerospatiale/Alenia ATR 72",
+    "CRV": "AT7",
+    "S210": "AT72"
+  },
+  {
+    "Aircraft": "Airbus A300",
+    "CRV": "AB3",
+    "S210": "A30B"
+  },
+  {
+    "Aircraft": "Airbus A300-600",
+    "CRV": "ABY",
+    "S210": "A306"
+  },
+  {
+    "Aircraft": "Airbus A310",
+    "CRV": "310",
+    "S210": "A310"
+  },
+  {
+    "Aircraft": "Airbus A318",
+    "CRV": "318",
+    "S210": "A318"
+  },
+  {
+    "Aircraft": "Airbus A319",
+    "CRV": "319",
+    "S210": "A319"
+  },
+  {
+    "Aircraft": "Airbus A320",
+    "CRV": "320",
+    "S210": "A320"
+  },
+  {
+    "Aircraft": "Airbus A321",
+    "CRV": "321",
+    "S210": "A321"
+  },
+  {
+    "Aircraft": "Airbus A330",
+    "CRV": "330",
+    "S210": null
+  },
+  {
+    "Aircraft": "Airbus A330-200",
+    "CRV": "332",
+    "S210": "A332"
+  },
+  {
+    "Aircraft": "Airbus A330-300",
+    "CRV": "333",
+    "S210": "A333"
+  },
+  {
+    "Aircraft": "Airbus A340",
+    "CRV": "340",
+    "S210": null
+  },
+  {
+    "Aircraft": "Airbus A340-200",
+    "CRV": "342",
+    "S210": "A342"
+  },
+  {
+    "Aircraft": "Airbus A340-300",
+    "CRV": "343",
+    "S210": "A343"
+  },
+  {
+    "Aircraft": "Airbus A340-500",
+    "CRV": "345",
+    "S210": "A345"
+  },
+  {
+    "Aircraft": "Airbus A340-600",
+    "CRV": "346",
+    "S210": "A346"
+  },
+  {
+    "Aircraft": "Airbus A350",
+    "CRV": "350",
+    "S210": null
+  },
+  {
+    "Aircraft": "Airbus A350-1000",
+    "CRV": "351",
+    "S210": "A35K"
+  },
+  {
+    "Aircraft": "Airbus A350-900",
+    "CRV": "359",
+    "S210": "A359"
+  },
+  {
+    "Aircraft": "Airbus A380",
+    "CRV": "380",
+    "S210": null
+  },
+  {
+    "Aircraft": "Airbus A380-800",
+    "CRV": "388",
+    "S210": "A388"
+  },
+  {
+    "Aircraft": "Antonov An-148",
+    "CRV": "A81",
+    "S210": "A148"
+  },
+  {
+    "Aircraft": "Antonov An-158",
+    "CRV": "A58",
+    "S210": "A158"
+  },
+  {
+    "Aircraft": "Antonov AN-72",
+    "CRV": "AN7",
+    "S210": "AN72"
+  },
+  {
+    "Aircraft": "Avro RJ100",
+    "CRV": "AR1",
+    "S210": "RJ1H"
+  },
+  {
+    "Aircraft": "Avro RJ70",
+    "CRV": "AR7",
+    "S210": "RJ70"
+  },
+  {
+    "Aircraft": "Avro RJ85",
+    "CRV": "AR8",
+    "S210": "RJ85"
+  },
+  {
+    "Aircraft": "BAe 146",
+    "CRV": "146",
+    "S210": null
+  },
+  {
+    "Aircraft": "BAe 146-100",
+    "CRV": "141",
+    "S210": "B461"
+  },
+  {
+    "Aircraft": "BAe 146-200",
+    "CRV": "142",
+    "S210": "B462"
+  },
+  {
+    "Aircraft": "BAe 146-300",
+    "CRV": "143",
+    "S210": "B463"
+  },
+  {
+    "Aircraft": "Beechcraft 1900",
+    "CRV": "BEH",
+    "S210": "B190"
+  },
+  {
+    "Aircraft": "Beechcraft Baron",
+    "CRV": null,
+    "S210": "BE58"
+  },
+  {
+    "Aircraft": "Bell 212",
+    "CRV": "BH2",
+    "S210": "B212"
+  },
+  {
+    "Aircraft": "Boeing 707",
+    "CRV": "703",
+    "S210": "B703"
+  },
+  {
+    "Aircraft": "Boeing 717",
+    "CRV": "717",
+    "S210": "B712"
+  },
+  {
+    "Aircraft": "Boeing 720B",
+    "CRV": "B72",
+    "S210": "B720"
+  },
+  {
+    "Aircraft": "Boeing 727",
+    "CRV": "727",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 727-100",
+    "CRV": "721",
+    "S210": "B721"
+  },
+  {
+    "Aircraft": "Boeing 727-200",
+    "CRV": "722",
+    "S210": "B722"
+  },
+  {
+    "Aircraft": "Boeing 737",
+    "CRV": "737",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 737 MAX 8",
+    "CRV": "7M8",
+    "S210": "B38M"
+  },
+  {
+    "Aircraft": "Boeing 737-200",
+    "CRV": "732",
+    "S210": "B732"
+  },
+  {
+    "Aircraft": "Boeing 737-300",
+    "CRV": "733",
+    "S210": "B733"
+  },
+  {
+    "Aircraft": "Boeing 737-400",
+    "CRV": "734",
+    "S210": "B734"
+  },
+  {
+    "Aircraft": "Boeing 737-500",
+    "CRV": "735",
+    "S210": "B735"
+  },
+  {
+    "Aircraft": "Boeing 737-600",
+    "CRV": "736",
+    "S210": "B736"
+  },
+  {
+    "Aircraft": "Boeing 737-700",
+    "CRV": "73G",
+    "S210": "B737"
+  },
+  {
+    "Aircraft": "Boeing 737-800",
+    "CRV": "738",
+    "S210": "B738"
+  },
+  {
+    "Aircraft": "Boeing 737-900",
+    "CRV": "739",
+    "S210": "B739"
+  },
+  {
+    "Aircraft": "Boeing 747",
+    "CRV": "747",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 747-100",
+    "CRV": "741",
+    "S210": "B741"
+  },
+  {
+    "Aircraft": "Boeing 747-200",
+    "CRV": "742",
+    "S210": "B742"
+  },
+  {
+    "Aircraft": "Boeing 747-300",
+    "CRV": "743",
+    "S210": "B743"
+  },
+  {
+    "Aircraft": "Boeing 747-400",
+    "CRV": "744",
+    "S210": "B744"
+  },
+  {
+    "Aircraft": "Boeing 747-8",
+    "CRV": "748",
+    "S210": "B748"
+  },
+  {
+    "Aircraft": "Boeing 747SP",
+    "CRV": "74L",
+    "S210": "B74S"
+  },
+  {
+    "Aircraft": "Boeing 747SR",
+    "CRV": "74R",
+    "S210": "B74R"
+  },
+  {
+    "Aircraft": "Boeing 757",
+    "CRV": "757",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 757-200",
+    "CRV": "752",
+    "S210": "B752"
+  },
+  {
+    "Aircraft": "Boeing 757-300",
+    "CRV": "753",
+    "S210": "B753"
+  },
+  {
+    "Aircraft": "Boeing 757-200W",
+    "CRV": "75W",
+    "S210": "B75W"
+  },
+  {
+    "Aircraft": "Boeing 767",
+    "CRV": "767",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 767-200",
+    "CRV": "762",
+    "S210": "B762"
+  },
+  {
+    "Aircraft": "Boeing 767-300",
+    "CRV": "763",
+    "S210": "B763"
+  },
+  {
+    "Aircraft": "Boeing 767-400",
+    "CRV": "764",
+    "S210": "B764"
+  },
+  {
+    "Aircraft": "Boeing 777",
+    "CRV": "777",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 777-200",
+    "CRV": "772",
+    "S210": "B772"
+  },
+  {
+    "Aircraft": "Boeing 777-200LR",
+    "CRV": "77L",
+    "S210": "B77L"
+  },
+  {
+    "Aircraft": "Boeing 777-300",
+    "CRV": "773",
+    "S210": "B773"
+  },
+  {
+    "Aircraft": "Boeing 777-300ER",
+    "CRV": "77W",
+    "S210": "B77W"
+  },
+  {
+    "Aircraft": "Boeing 787",
+    "CRV": "787",
+    "S210": null
+  },
+  {
+    "Aircraft": "Boeing 787-10",
+    "CRV": "78J",
+    "S210": "B78X"
+  },
+  {
+    "Aircraft": "Boeing 787-8",
+    "CRV": "788",
+    "S210": "B788"
+  },
+  {
+    "Aircraft": "Boeing 787-9",
+    "CRV": "789",
+    "S210": "B789"
+  },
+  {
+    "Aircraft": "Bombardier CS100",
+    "CRV": "CS1",
+    "S210": "BCS1"
+  },
+  {
+    "Aircraft": "Bombardier CS300",
+    "CRV": "CS3",
+    "S210": "BCS3"
+  },
+  {
+    "Aircraft": "Bombardier Global Express",
+    "CRV": "CCX",
+    "S210": "GLEX"
+  },
+  {
+    "Aircraft": "British Aerospace ATP",
+    "CRV": "ATP",
+    "S210": "ATP"
+  },
+  {
+    "Aircraft": "British Aerospace Jetstream 31",
+    "CRV": "J31",
+    "S210": "JS31"
+  },
+  {
+    "Aircraft": "British Aerospace Jetstream 32",
+    "CRV": "J32",
+    "S210": "JS32"
+  },
+  {
+    "Aircraft": "British Aerospace Jetstream 41",
+    "CRV": "J41",
+    "S210": "JS41"
+  },
+  {
+    "Aircraft": "Canadair CL-44",
+    "CRV": "CL4",
+    "S210": "CL44"
+  },
+  {
+    "Aircraft": "Canadair Regional Jet 100",
+    "CRV": "CR1",
+    "S210": "CRJ1"
+  },
+  {
+    "Aircraft": "Canadair Regional Jet 1000",
+    "CRV": "CRK",
+    "S210": "CRJX"
+  },
+  {
+    "Aircraft": "Canadair Regional Jet 200",
+    "CRV": "CR2",
+    "S210": "CRJ2"
+  },
+  {
+    "Aircraft": "Canadair Regional Jet 700",
+    "CRV": "CR7",
+    "S210": "CRJ7"
+  },
+  {
+    "Aircraft": "Canadair Regional Jet 900",
+    "CRV": "CR9",
+    "S210": "CRJ9"
+  },
+  {
+    "Aircraft": "Cessna 172",
+    "CRV": "CN1",
+    "S210": "C172"
+  },
+  {
+    "Aircraft": "Cessna 182 Skylane",
+    "CRV": "CN1",
+    "S210": "C182"
+  },
+  {
+    "Aircraft": "Cessna 208 Caravan",
+    "CRV": "CN1",
+    "S210": "C208"
+  },
+  {
+    "Aircraft": "Cessna 210 Centurion",
+    "CRV": "CN1",
+    "S210": "C210"
+  },
+  {
+    "Aircraft": "Cessna Citation CJ3",
+    "CRV": "CNJ",
+    "S210": "C25B"
+  },
+  {
+    "Aircraft": "Cessna Citation CJ4",
+    "CRV": "CNJ",
+    "S210": "C25C"
+  },
+  {
+    "Aircraft": "Cessna Citation Excel",
+    "CRV": "CNJ",
+    "S210": "C56X"
+  },
+  {
+    "Aircraft": "Cessna Citation I",
+    "CRV": "CNJ",
+    "S210": "C500"
+  },
+  {
+    "Aircraft": "Cessna Citation II",
+    "CRV": "CNJ",
+    "S210": "C550"
+  },
+  {
+    "Aircraft": "Cessna Citation Mustang",
+    "CRV": "CNJ",
+    "S210": "C510"
+  },
+  {
+    "Aircraft": "Cessna Citation Sovereign",
+    "CRV": "CNJ",
+    "S210": "C680"
+  },
+  {
+    "Aircraft": "Cessna Citation X",
+    "CRV": "CNJ",
+    "S210": "C750"
+  },
+  {
+    "Aircraft": "COMAC C-919",
+    "CRV": null,
+    "S210": "C919"
+  },
+  {
+    "Aircraft": "Concorde",
+    "CRV": "SSC",
+    "S210": "CONC"
+  },
+  {
+    "Aircraft": "Dassault Falcon 2000",
+    "CRV": "D20",
+    "S210": "F2TH"
+  },
+  {
+    "Aircraft": "Dassault Falcon 7X",
+    "CRV": "DF7",
+    "S210": "FA7X"
+  },
+  {
+    "Aircraft": "De Havilland Canada DHC-4 Caribou",
+    "CRV": "DHC",
+    "S210": "DHC4"
+  },
+  {
+    "Aircraft": "De Havilland Canada DHC-6 Twin Otter",
+    "CRV": "DHT",
+    "S210": "DHC6"
+  },
+  {
+    "Aircraft": "De Havilland Canada DHC-7 Dash 7",
+    "CRV": "DH7",
+    "S210": "DHC7"
+  },
+  {
+    "Aircraft": "De Havilland Canada DHC-8-300 Dash 8",
+    "CRV": "DH3",
+    "S210": "DH8C"
+  },
+  {
+    "Aircraft": "De Havilland Canada DHC-8-400 Dash 8Q",
+    "CRV": "DH4",
+    "S210": "DH8D"
+  },
+  {
+    "Aircraft": "Douglas DC-10",
+    "CRV": "D10",
+    "S210": "DC10"
+  },
+  {
+    "Aircraft": "Douglas DC-3",
+    "CRV": "D3F",
+    "S210": "DC3"
+  },
+  {
+    "Aircraft": "Douglas DC-6",
+    "CRV": "D6F",
+    "S210": "DC6"
+  },
+  {
+    "Aircraft": "Douglas DC-9-10",
+    "CRV": "D91",
+    "S210": "DC91"
+  },
+  {
+    "Aircraft": "Douglas DC-9-30",
+    "CRV": "D93",
+    "S210": "DC93"
+  },
+  {
+    "Aircraft": "Douglas DC-9-40",
+    "CRV": "D94",
+    "S210": "DC94"
+  },
+  {
+    "Aircraft": "Douglas DC-9-50",
+    "CRV": "D95",
+    "S210": "DC95"
+  },
+  {
+    "Aircraft": "Embraer 170",
+    "CRV": "E70",
+    "S210": "E170"
+  },
+  {
+    "Aircraft": "Embraer 190",
+    "CRV": "E90",
+    "S210": "E190"
+  },
+  {
+    "Aircraft": "Embraer 195",
+    "CRV": "E95",
+    "S210": "E195"
+  },
+  {
+    "Aircraft": "Embraer EMB 110 Bandeirante",
+    "CRV": "EMB",
+    "S210": "E110"
+  },
+  {
+    "Aircraft": "Embraer EMB 120 Brasilia",
+    "CRV": "EM2",
+    "S210": "E120"
+  },
+  {
+    "Aircraft": "Embraer Legacy 600",
+    "CRV": "ER3",
+    "S210": "E35L"
+  },
+  {
+    "Aircraft": "Embraer Phenom 100",
+    "CRV": "EP1",
+    "S210": "E50P"
+  },
+  {
+    "Aircraft": "Embraer Phenom 300",
+    "CRV": "EP3",
+    "S210": "E55P"
+  },
+  {
+    "Aircraft": "Embraer RJ135",
+    "CRV": "ER3",
+    "S210": "E135"
+  },
+  {
+    "Aircraft": "Embraer RJ140",
+    "CRV": "ERD",
+    "S210": "E135"
+  },
+  {
+    "Aircraft": "Embraer RJ145",
+    "CRV": "ER4",
+    "S210": "E145"
+  },
+  {
+    "Aircraft": "Fairchild Dornier 328JET",
+    "CRV": "FRJ",
+    "S210": "J328"
+  },
+  {
+    "Aircraft": "Fairchild Dornier Do.228",
+    "CRV": "D28",
+    "S210": "D228"
+  },
+  {
+    "Aircraft": "Fairchild Dornier Do.328",
+    "CRV": "D38",
+    "S210": "D328"
+  },
+  {
+    "Aircraft": "Fokker 100",
+    "CRV": "100",
+    "S210": "F100"
+  },
+  {
+    "Aircraft": "Fokker 50",
+    "CRV": "F50",
+    "S210": "F50"
+  },
+  {
+    "Aircraft": "Fokker 70",
+    "CRV": "F70",
+    "S210": "F70"
+  },
+  {
+    "Aircraft": "Fokker F27 Friendship",
+    "CRV": "F27",
+    "S210": "F27"
+  },
+  {
+    "Aircraft": "Gulfstream IV",
+    "CRV": "GJ4",
+    "S210": "GLF4"
+  },
+  {
+    "Aircraft": "Gulfstream V",
+    "CRV": "GJ5",
+    "S210": "GLF5"
+  },
+  {
+    "Aircraft": "Harbin Yunshuji Y12",
+    "CRV": "YN2",
+    "S210": "Y12"
+  },
+  {
+    "Aircraft": "Hawker Siddeley HS 748",
+    "CRV": "HS7",
+    "S210": "A748"
+  },
+  {
+    "Aircraft": "Ilyushin IL18",
+    "CRV": "IL8",
+    "S210": "IL18"
+  },
+  {
+    "Aircraft": "Ilyushin IL62",
+    "CRV": "IL6",
+    "S210": "IL62"
+  },
+  {
+    "Aircraft": "Ilyushin IL76",
+    "CRV": "IL7",
+    "S210": "IL76"
+  },
+  {
+    "Aircraft": "Ilyushin IL86",
+    "CRV": "ILW",
+    "S210": "IL86"
+  },
+  {
+    "Aircraft": "Ilyushin IL96",
+    "CRV": "I93",
+    "S210": "IL96"
+  },
+  {
+    "Aircraft": "Learjet 35",
+    "CRV": "LRJ",
+    "S210": "LJ35"
+  },
+  {
+    "Aircraft": "Learjet 60",
+    "CRV": "LRJ",
+    "S210": "LJ60"
+  },
+  {
+    "Aircraft": "Lockheed L-188 Electra",
+    "CRV": "LOE",
+    "S210": "L188"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-11",
+    "CRV": "M11",
+    "S210": "MD11"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-81",
+    "CRV": "M81",
+    "S210": "MD81"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-82",
+    "CRV": "M82",
+    "S210": "MD82"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-83",
+    "CRV": "M83",
+    "S210": "MD83"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-87",
+    "CRV": "M87",
+    "S210": "MD87"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-88",
+    "CRV": "M88",
+    "S210": "MD88"
+  },
+  {
+    "Aircraft": "McDonnell Douglas MD-90",
+    "CRV": "M90",
+    "S210": "MD90"
+  },
+  {
+    "Aircraft": "NAMC YS-11",
+    "CRV": "YS1",
+    "S210": "YS11"
+  },
+  {
+    "Aircraft": "Partenavia P.68",
+    "CRV": "PN6",
+    "S210": "P68"
+  },
+  {
+    "Aircraft": "Pilatus Britten-Norman BN-2A Mk III Trislander",
+    "CRV": "BNT",
+    "S210": "TRIS"
+  },
+  {
+    "Aircraft": "Pilatus Britten-Norman BN-2A/B Islander",
+    "CRV": "BNI",
+    "S210": "BN2P"
+  },
+  {
+    "Aircraft": "Pilatus PC-12",
+    "CRV": "PL2",
+    "S210": "PC12"
+  },
+  {
+    "Aircraft": "Pilatus PC-6 Turbo Porter",
+    "CRV": "PL6",
+    "S210": "PC6T"
+  },
+  {
+    "Aircraft": "Piper PA-31 Navajo",
+    "CRV": "PA2",
+    "S210": "PA31"
+  },
+  {
+    "Aircraft": "Saab 2000",
+    "CRV": "S20",
+    "S210": "SB20"
+  },
+  {
+    "Aircraft": "Saab SF340A/B",
+    "CRV": "SF3",
+    "S210": "SF34"
+  },
+  {
+    "Aircraft": "Shorts SD.360",
+    "CRV": "SH6",
+    "S210": "SH36"
+  },
+  {
+    "Aircraft": "Sikorsky S-61",
+    "CRV": "S61",
+    "S210": "S61"
+  },
+  {
+    "Aircraft": "Sikorsky S-76",
+    "CRV": "S76",
+    "S210": "S76"
+  },
+  {
+    "Aircraft": "Sukhoi Superjet 100-95",
+    "CRV": "SU9",
+    "S210": "SU95"
+  },
+  {
+    "Aircraft": "Tupolev Tu-134",
+    "CRV": "TU3",
+    "S210": "T134"
+  },
+  {
+    "Aircraft": "Tupolev Tu-144",
+    "CRV": null,
+    "S210": "T144"
+  },
+  {
+    "Aircraft": "Tupolev Tu-154",
+    "CRV": "TU5",
+    "S210": "T154"
+  },
+  {
+    "Aircraft": "Tupolev Tu-204",
+    "CRV": "T20",
+    "S210": "T204"
+  },
+  {
+    "Aircraft": "Yakovlev Yak-40",
+    "CRV": "YK4",
+    "S210": "YK40"
+  }
+]

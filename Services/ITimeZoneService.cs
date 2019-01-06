@@ -67,6 +67,7 @@ namespace Vancouver.Services
         {
             var airportTz = _airportInfoService.GetAirportTimeZone(code);
             var tzList = TimeZones;
+            var allTimeZones = TimeZoneInfo.GetSystemTimeZones();
             foreach(var tz in tzList)
             {
                 if(tz.utc.Contains(airportTz))
@@ -79,10 +80,9 @@ namespace Vancouver.Services
             {
                 ZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(TimeZoneObj.value);
             }
-            catch (TimeZoneNotFoundException)
-
+            catch (TimeZoneNotFoundException ex)
             {
-
+                Console.WriteLine(ex);
             }
 
             return ZoneInfo;

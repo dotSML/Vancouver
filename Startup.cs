@@ -40,6 +40,7 @@ namespace Vancouver
             services.AddScoped<IFlightsObjectsRepository, FlightsObjectsRepository>();
             services.AddSingleton<IAirportInfoService, AirportInfoService>();
             services.AddSingleton<ITimeZoneService, TimeZoneService>();
+            services.AddSingleton<IAircraftInfoService, AircraftInfoService>();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddDbContext<VancouverDbContext>(options =>
                 options.UseSqlServer(
