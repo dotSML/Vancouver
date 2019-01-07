@@ -296,6 +296,7 @@
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].orderPos)
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalDes)
                                             @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].terminalOrg)
+                                            @Html.HiddenFor(k => k.ItineraryList.ElementAt(i).IndFlightOutbound[x].duration)
 
                                             var airlineOutbound = @Model.ItineraryList.ElementAt(i).IndFlightOutbound.ElementAt(x).marketing_airline;
                                             var airhexLogosOutbound = "https://content.airhex.com/content/logos/airlines_" + airlineOutbound + "_50_50_s.png";
@@ -344,10 +345,10 @@
                                                 <div class="col-1 align-self-center" style="margin-left: 5px;">
                                                     <row class="indFlightInfoLabel">
                                                         Flight No.
-                                                    </row> 
+                                                    </row>
                                                     <row>
                                                         <label asp-for="@currentIndOutbound.flight_number" class="indFlightInfo">
-                                                           @currentIndOutbound.marketing_airline @currentIndOutbound.flight_number
+                                                            @currentIndOutbound.marketing_airline @currentIndOutbound.flight_number
                                                         </label>
                                                     </row>
                                                 </div>
@@ -367,10 +368,10 @@
                                                     </row>
                                                     <row>
                                                         <label asp-for="@currentIndOutbound.travel_class" class="indFlightInfo">
-                                                        @currentIndOutbound.travel_class
-                                                    </label>
+                                                            @currentIndOutbound.travel_class
+                                                        </label>
                                                     </row>
-                                                    
+
                                                 </div>
                                                 <div class="col-1 align-self-center">
                                                 </div>
@@ -402,6 +403,7 @@
                                                 @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].orderPos)
                                                 @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalOrg)
                                                 @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].terminalDes)
+                                                @Html.HiddenFor(x => x.ItineraryList.ElementAt(i).IndFlightInbound[y].duration)
 
                                                 var airlineInbound = @Model.ItineraryList.ElementAt(i).IndFlightInbound.ElementAt(y).marketing_airline;
                                                 var airhexLogosInbound = "https://content.airhex.com/content/logos/airlines_" + airlineInbound + "_50_50_s.png";
@@ -463,7 +465,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <label asp-for="@currentIndInbound.flight_number" class="indFlightInfo">
-                                                               @currentIndInbound.marketing_airline @currentIndInbound.flight_number
+                                                                @currentIndInbound.marketing_airline @currentIndInbound.flight_number
                                                             </label>
                                                         </div>
                                                     </div>

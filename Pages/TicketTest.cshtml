@@ -135,7 +135,7 @@
                                                     <label>Trip duration</label>
                                                 </div>
                                                 <div class="row">
-                                                    @ticket.Order.OrderItinerary.tripDurationOutbound h
+                                                    @ticket.Order.OrderItinerary.tripDurationOutbound.Split(":")[0]h @ticket.Order.OrderItinerary.tripDurationOutbound.Split(":")[1]m
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -156,7 +156,7 @@
                                                             <header>
                                                                 <div class="flight">
                                                                     <small>flight</small>
-                                                                    <strong>@currentInd.flight_number</strong>
+                                                                    <strong>@currentInd.marketing_airline @currentInd.flight_number</strong>
                                                                 </div>
                                                             </header>
                                                             <section class="cities">
@@ -186,7 +186,7 @@
                                                                     </div>
                                                                     <div class="box">
                                                                         <small>Seat</small>
-                                                                        <strong>14B</strong>
+                                                                        <strong>N/A</strong>
                                                                     </div>
                                                                     <div class="box">
                                                                         <small>Class</small>
@@ -196,7 +196,7 @@
                                                                 <div class="times">
                                                                     <div class="box">
                                                                         <small>Boarding</small>
-                                                                        <strong>11:05</strong>
+                                                                        <strong>-</strong>
                                                                     </div>
                                                                     <div class="box">
                                                                         <small>Departure</small>
@@ -204,7 +204,7 @@
                                                                     </div>
                                                                     <div class="box">
                                                                         <small>Duration</small>
-                                                                        <strong>N/A</strong>
+                                                                        <strong class="passDuration">@currentInd.duration</strong>
                                                                     </div>
                                                                     <div class="box">
                                                                         <small>Arrival</small>
@@ -217,10 +217,6 @@
                                                                     <div class="passenger">
                                                                         <small>passenger</small>
                                                                         <strong>@ticket.Customer.FirstName @ticket.Customer.LastName</strong>
-                                                                    </div>
-                                                                    <div class="date">
-                                                                        <small>Date</small>
-                                                                        <strong>Mon, 1 Jan 2015</strong>
                                                                     </div>
                                                                 </div>
 
@@ -268,7 +264,7 @@
                                                         <label>Trip duration</label>
                                                     </div>
                                                     <div class="row">
-                                                        @ticket.Order.OrderItinerary.tripDurationInbound h
+                                                        @ticket.Order.OrderItinerary.tripDurationInbound.Split(":")[0]h @ticket.Order.OrderItinerary.tripDurationInbound.Split(":")[1]m
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -287,7 +283,7 @@
                                                                 <header>
                                                                     <div class="flight">
                                                                         <small>flight</small>
-                                                                        <strong>@currentInd.flight_number</strong>
+                                                                        <strong>@currentInd.marketing_airline @currentInd.flight_number</strong>
                                                                     </div>
                                                                 </header>
                                                                 <section class="cities">
@@ -335,7 +331,7 @@
                                                                         </div>
                                                                         <div class="box">
                                                                             <small>Duration</small>
-                                                                            <strong>N/A</strong>
+                                                                            <strong class="passDuration">@currentInd.duration</strong>
                                                                         </div>
                                                                         <div class="box">
                                                                             <small>Arrival</small>
@@ -348,10 +344,6 @@
                                                                         <div class="passenger">
                                                                             <small>passenger</small>
                                                                             <strong>@ticket.Customer.FirstName @ticket.Customer.LastName</strong>
-                                                                        </div>
-                                                                        <div class="date">
-                                                                            <small>Date</small>
-                                                                            <strong>Mon, 1 Jan 2015</strong>
                                                                         </div>
                                                                     </div>
 
@@ -398,18 +390,14 @@
                     <div class="form-group">
                         <label asp-for="@Model.ItinerarySearch.ItineraryId">Booking reference</label>
                         <input asp-for="@Model.ItinerarySearch.ItineraryId" type="text" class="form-control" style="margin-bottom: 10px;" />
-                        @*<label asp-for="@Model.ItinerarySearch.LastName">Last name</label>
-                            <input asp-for="@Model.ItinerarySearch.LastName" type="text" class="form-control" />*@
                         <input type="submit" class="btn btn-primary" value="Search" />
                     </div>
                 </form>
             </div>
         }
-
     }
 
     @{
-
         @if (@Model.CustomerOrders != null)
         {
             var ordersCount = Model.CustomerOrders.Count();
@@ -529,7 +517,7 @@
                                                         <header>
                                                             <div class="flight">
                                                                 <small>flight</small>
-                                                                <strong>@currentInd.flight_number</strong>
+                                                                <strong>@currentInd.marketing_airline @currentInd.flight_number</strong>
                                                             </div>
                                                         </header>
                                                         <section class="cities">
@@ -569,7 +557,7 @@
                                                             <div class="times">
                                                                 <div class="box">
                                                                     <small>Boarding</small>
-                                                                    <strong>11:05</strong>
+                                                                    <strong>-</strong>
                                                                 </div>
                                                                 <div class="box">
                                                                     <small>Departure</small>
@@ -577,7 +565,7 @@
                                                                 </div>
                                                                 <div class="box">
                                                                     <small>Duration</small>
-                                                                    <strong>N/A</strong>
+                                                                    <strong class="passDuration">@currentInd.duration</strong>
                                                                 </div>
                                                                 <div class="box">
                                                                     <small>Arrival</small>

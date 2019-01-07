@@ -28,6 +28,8 @@ td, th {
     padding: 8px;
 }
 
+
+
 .userTrip{
     color: black;
 }
@@ -51,6 +53,15 @@ td, th {
     background: hsla(28, 22%, 83%, 0.8);
 
 }
+
+.box{
+    padding: 9px !important;
+}
+
+.passDuration{
+    font-size:12px !important;
+}
+
 .itineraryIDSearchBox{
     background: hsla(28, 22%, 83%, 0.8);
     border-radius: 7px;

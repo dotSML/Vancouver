@@ -177,4 +177,9 @@ h3, h5 {
     padding: 2px;
     height: 73px;
     border-bottom: 0;
+    
+}
+
+.passportAddCard li input{
+    margin: 0;
 }

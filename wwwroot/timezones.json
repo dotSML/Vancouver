@@ -1192,7 +1192,7 @@
     ]
   },
   {
-    "value": "Japan Standard Time",
+    "value": "Tokyo Standard Time",
     "abbr": "JST",
     "offset": 9,
     "isdst": false,
