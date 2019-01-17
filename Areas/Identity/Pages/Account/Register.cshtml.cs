@@ -72,7 +72,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
-            [Display(Name = "Username")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [DataType(DataType.PhoneNumber)]

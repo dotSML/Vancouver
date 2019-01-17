@@ -10,7 +10,9 @@ Body
 .passCollapse.outboundToggle {
     display: none;
 }
-
+.toggleBoardingPasses {
+    min-width: 10em !important;
+}
 /*--------------------
 Boarding Pass
 --------------------*/

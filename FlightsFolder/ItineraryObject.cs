@@ -33,13 +33,4 @@ namespace Vancouver.FlightsFolder
         public List<IndividualFlightOutbound> IndFlightOutbound { get; set; }
         public List<IndividualFlightInbound> IndFlightInbound { get; set; }
     }
-
-    public class IndividualFlightOutbound : IndividualFlight
-    {
-    }
-
-    public class IndividualFlightInbound : IndividualFlight
-    {
-    }
-
 }
