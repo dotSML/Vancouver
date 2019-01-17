@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Vancouver.FlightsFolder.FlightsResponse">
+    <Position X="16" Y="0.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.RootObject" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Itinerary" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.PricePerAdult" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Result" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Fare" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Restrictions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Origin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.BookingInfo2" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Origin2" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Flight" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Flight2" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Destination2" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.BookingInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Outbound" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Destination" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Vancouver.FlightsFolder.FlightsResponse.Inbound" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsResponse.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FlightsFolder\FlightsResponse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.FlightsFolder.ItineraryObject">
+    <Position X="2" Y="1.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAIMQIAECAAACABIIFACAAAABBAAAAAQACCQI=</HashCode>
+      <FileName>FlightsFolder\ItineraryObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.FlightsFolder.IndividualFlightOutbound">
+    <Position X="10.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IRACAQIgAAQAAAAAAAAAAAgQAIEAAAAAEFAIAgAAAAA=</HashCode>
+      <FileName>FlightsFolder\ItineraryObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.FlightsFolder.IndividualFlightInbound">
+    <Position X="13.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IRACAQIgAAQAAAAAAAAAAAgQAIEAAAAAEFAIAgAAAAA=</HashCode>
+      <FileName>FlightsFolder\ItineraryObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.FlightsFolder.FlightsObjectsRepository">
+    <Position X="6" Y="0.5" Width="3" />
+    <NestedTypes>
+      <Class Name="Vancouver.FlightsFolder.FlightsObjectsRepository.FlightSearchInput" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>FlightsFolder\FlightsObjectsRepository.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAIAEAAEAAAoCAAAAACAAAAAAAAAAgIAAACAAAAIAA=</HashCode>
+      <FileName>FlightsFolder\FlightsObjectsRepository.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="itineraries" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Vancouver.FlightsFolder.IFlightsObjectsRepository">
+    <Position X="12.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>FlightsFolder\IFlightsObjectsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

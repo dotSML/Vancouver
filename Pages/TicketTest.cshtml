@@ -511,6 +511,7 @@
                                                 var currentInd = ticket.Order.OrderItinerary.IndFlightOutbound.FirstOrDefault(x => x.orderPos == indO);
                                                 var originAirport = airportInfoService.GetAirport(currentInd.originInd);
                                                 var destinationAirport = airportInfoService.GetAirport(currentInd.destinationInd);
+                                                var outboundFlightDate = ticket.Order.OrderItinerary.departureTimeOutbound.Substring(0, 10);
 
                                                 <div class="col" id="passesOut-@c-pass-@indO" style="width: 350px;">
                                                     <div class="boarding-pass">
@@ -581,7 +582,7 @@
                                                                 </div>
                                                                 <div class="date">
                                                                     <small>Date</small>
-                                                                    <strong>Mon, 1 Jan 2015</strong>
+                                                                    <strong>@outboundFlightDate</strong>
                                                                 </div>
                                                             </div>
 
@@ -643,6 +644,7 @@
                                                     var currentInd = ticket.Order.OrderItinerary.IndFlightInbound.FirstOrDefault(x => x.orderPos == indI);
                                                     var originAirport = airportInfoService.GetAirport(currentInd.originInd);
                                                     var destinationAirport = airportInfoService.GetAirport(currentInd.destinationInd);
+                                                    var inboundFlightDate = ticket.Order.OrderItinerary.departureTimeInbound.Substring(0, 10);
                                                     <div class="col" id="passes-@c-pass-@indI" style="width: 350px">
                                                         <div class="boarding-pass">
                                                             <header>
@@ -712,7 +714,7 @@
                                                                     </div>
                                                                     <div class="date">
                                                                         <small>Date</small>
-                                                                        <strong>Mon, 1 Jan 2015</strong>
+                                                                        <strong>@inboundFlightDate</strong>
                                                                     </div>
                                                                 </div>
 
