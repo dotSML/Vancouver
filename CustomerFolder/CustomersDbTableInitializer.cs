@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Internal;
-using Vancouver.Databases;
+using Vancouver.DbContext;
+using Vancouver.Models;
 
 namespace Vancouver.CustomerFolder
 {

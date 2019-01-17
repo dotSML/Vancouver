@@ -10,12 +10,4 @@ namespace Vancouver.Services
         string GetAircraftName(string aircraftCode);
         AircraftObject GetAircraftObject(string aircraftCode);
     }
-
-    public class AircraftObject
-    {
-        public string Aircraft { get; set; }
-        public string CRV { get; set; }
-        public string S210 { get; set; }
-    }
-
 }

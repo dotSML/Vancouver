@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Vancouver.CustomerFolder;
-using Vancouver.Databases;
+using Vancouver.DbContext;
+using Vancouver.Models;
 
 namespace Vancouver.Pages
 {

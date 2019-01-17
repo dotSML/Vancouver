@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vancouver.CustomerFolder;
-using Vancouver.Databases;
 
 namespace Vancouver.Models
 {

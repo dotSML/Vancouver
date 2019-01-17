@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Vancouver.Databases;
 using Vancouver.Models;
 
 [assembly: HostingStartup(typeof(Vancouver.Areas.Identity.IdentityHostingStartup))]

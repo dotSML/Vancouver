@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Vancouver.Services.AircraftObject">
+    <Position X="14.25" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Services\AircraftObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Services.AirportDataObject">
+    <Position X="12" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAoAAAAAgAAAAgAAIACAAAIAANAACmABAAAAAAACA=</HashCode>
+      <FileName>Services\AirportDataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Services.TimeZoneService">
+    <Position X="19.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAwAgAAIAAAAAAAAgAEAAAAAAIAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Services\TimeZoneService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="TimeZoneObj" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Vancouver.Services.TicketPurchaseService">
+    <Position X="16.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAEABAIAIAAAIAAIBAAAAAAAAJIAAAAAAAQBAAIAAAA=</HashCode>
+      <FileName>Services\TicketPurchaseService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Vancouver.Services.AircraftInfoService">
+    <Position X="14.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAA=</HashCode>
+      <FileName>Services\AircraftInfoService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Vancouver.Services.EmailService">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAA=</HashCode>
+      <FileName>Services\EmailService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Vancouver.Services.TimeZoneObject">
+    <Position X="19.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAgAAAACAKAAAAAAAAAAA=</HashCode>
+      <FileName>Services\TimeZoneObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vancouver.Services.AirportInfoService">
+    <Position X="11.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAgAAAAAAQAAAAAIAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\AirportInfoService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="AirportObjects" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

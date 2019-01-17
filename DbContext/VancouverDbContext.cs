@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Vancouver.CustomerFolder;
 using Vancouver.FlightsFolder;
 using Vancouver.Models;
 
-namespace Vancouver.Databases
+namespace Vancouver.DbContext
 {
     public class VancouverDbContext : IdentityDbContext<ApplicationUser>
     {
