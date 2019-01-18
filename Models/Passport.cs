@@ -5,23 +5,52 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Vancouver.Core;
 using Vancouver.CustomerFolder;
 
 namespace Vancouver.Models
 {
-    public class Passport
+    public class Passport : Archetype
     {
-        public string PassportId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime ValidFrom { get; set; }
-        public DateTime ValidTo { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        private string passportId;
+        private string firstName;
+        private string lastName;
+        private DateTime validFrom = DateTime.MinValue;
+        private DateTime validTo = DateTime.MaxValue;
+        private string passportNumber;
 
-        //[Required]
-        //[DataType(DataType.Text)]
-        //[MinLength(9)]
-        public string PassportNumber { get; set; }
+        public string PassportId
+        {
+            get => getString(ref passportId);
+            set => passportId = value;
+        }
+        public string FirstName
+        {
+            get => getString(ref firstName);
+            set => firstName = value;
+        }
+
+        public string LastName
+        {
+            get => getString(ref lastName);
+            set => lastName = value;
+        }
+        public DateTime ValidFrom
+        {
+            get => getMinValue(ref validFrom, ref validTo);
+            set => setValue(ref validFrom, value);
+        }
+        public DateTime ValidTo
+        {
+            get => getMaxValue(ref validTo, ref validFrom);
+            set => setValue(ref validTo, value);
+        }
+        public DateTime DateOfBirth { get; set; }
+        public string PassportNumber
+        {
+            get => getString(ref passportNumber);
+            set => passportNumber = value;
+        }
         
     }
 }

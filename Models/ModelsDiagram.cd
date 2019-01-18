@@ -23,7 +23,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAgA=</HashCode>
       <FileName>Models\Order.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -36,7 +36,7 @@
   <Class Name="Vancouver.Models.Passport">
     <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAQACAAACAAAAAAAYg=</HashCode>
+      <HashCode>AAABAEAAAABAAAAAAAAAAAAAIAAQACAAACAAiAAgAYg=</HashCode>
       <FileName>Models\Passport.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -107,9 +107,12 @@
   <Class Name="Vancouver.Models.Customer">
     <Position X="4.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAACBAAACgABAAAAAAIAAQABAAAAAQCACgAAg=</HashCode>
+      <HashCode>AAAAAEAAACBAAACgABAAAAAAAAAQABAAAAAQCACAAAg=</HashCode>
       <FileName>Models\Customer.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Passport" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -15,8 +15,7 @@ namespace Vancouver.Models
     {
         private string id;
         private string bookingReference;
-
-
+        
         public string Id
         {
             get => getString(ref id);

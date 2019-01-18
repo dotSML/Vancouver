@@ -12,5 +12,26 @@ namespace Vancouver.Tests.ModelsTests
         {
             return GetRandom.Object<testClass>();
         }
+        [TestMethod]
+        public void IdTest()
+        {
+            //canReadWrite(() => obj.Id, x => obj.Id = x);
+            //Assert.IsNotNull(obj.Id);
+        }
+        [TestMethod]
+        public void BookingReferenceTest()
+        {
+            //canReadWrite(() => obj.BookingReference, x => obj.BookingReference = x);
+        }
+        [TestMethod]
+        public void OrderItineraryTest()
+        {
+            Assert.Inconclusive();
+        }
+        [TestMethod]
+        public void TicketsTest()
+        {
+            Assert.Inconclusive();
+        }
     }
 }
