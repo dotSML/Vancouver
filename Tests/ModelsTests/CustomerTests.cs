@@ -21,6 +21,7 @@ namespace Vancouver.Tests.ModelsTests
         public void CustomerIdTest()
         {
             canReadWrite(() => obj.CustomerId, x => obj.CustomerId = x);
+            Assert.IsNotNull(obj.CustomerId);
         }
         [TestMethod]
         public void FirstNameTest()
@@ -58,7 +59,8 @@ namespace Vancouver.Tests.ModelsTests
         [TestMethod]
         public void PrimaryTest()
         {
-            
+            var primary = obj.Primary;
+            Assert.IsInstanceOfType(primary, typeof(bool));
         }
     }
 }

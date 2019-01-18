@@ -12,8 +12,6 @@ namespace Vancouver.Models
         private string firstName;
         private string lastName;
         private string email;
-        private DateTime validFrom = DateTime.MinValue;
-        private DateTime validTo = DateTime.MaxValue;
 
         [Key]
         public string CustomerId {

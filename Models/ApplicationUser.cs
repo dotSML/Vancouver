@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vancouver.CustomerFolder;
+using Vancouver.Core;
 
 namespace Vancouver.Models
 {
@@ -15,6 +16,7 @@ namespace Vancouver.Models
     {
         [PersonalData]
         public string FirstName { get; set; }
+
         [PersonalData]
         public string LastName { get; set; }
         [PersonalData]
