@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Vancouver.Models.BankLink" Collapsed="true">
-    <Position X="3.5" Y="5" Width="1.5" />
+    <Position X="5.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\BankLink.cs</FileName>
@@ -16,6 +16,13 @@
   </Class>
   <Class Name="Vancouver.Models.Order">
     <Position X="10" Y="0.5" Width="2" />
+    <AssociationLine Name="OrderItinerary" Type="Vancouver.FlightsFolder.ItineraryObject" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11" Y="2.569" />
+        <Point X="11" Y="2.938" />
+        <Point X="12.5" Y="2.938" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="Tickets" Type="Vancouver.Models.Ticket" FixedToPoint="true">
       <Path>
         <Point X="10" Y="0.875" />
@@ -42,6 +49,22 @@
   </Class>
   <Class Name="Vancouver.Models.Payment">
     <Position X="2" Y="2.5" Width="1.5" />
+    <AssociationLine Name="Ticket" Type="Vancouver.FlightsFolder.ItineraryObject" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="3.312" />
+        <Point X="1.75" Y="3.312" />
+        <Point X="1.75" Y="6.017" />
+        <Point X="13.5" Y="6.017" />
+        <Point X="13.5" Y="5.642" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="BankLink" Type="Vancouver.Models.BankLink" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="4.079" />
+        <Point X="6" Y="4.079" />
+        <Point X="6" Y="4.75" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAkBAAAAAAAAAAICAAAAAAAAAAAAQBAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Payment.cs</FileName>
@@ -53,7 +76,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Vancouver.Models.PaymentMethod">
-    <Position X="6" Y="5" Width="2" />
+    <Position X="2" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Models\PaymentMethod.cs</FileName>
@@ -80,7 +103,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Vancouver.FlightsFolder.ItineraryObject">
-    <Position X="13.25" Y="0.5" Width="2" />
+    <Position X="12.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AgACAAAAIMQIAECAAACABIIFACAAAABBAAAAAQACCQI=</HashCode>
       <FileName>FlightsFolder\ItineraryObject.cs</FileName>
@@ -91,14 +114,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Vancouver.FlightsFolder.IndividualFlightInbound" Collapsed="true">
-    <Position X="16.75" Y="0.5" Width="1.5" />
+    <Position X="16" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FlightsFolder\IndividualFlightInbound.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Vancouver.FlightsFolder.IndividualFlightOutbound" Collapsed="true">
-    <Position X="16.75" Y="1.5" Width="1.5" />
+    <Position X="16" Y="1.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FlightsFolder\IndividualFlightOutbound.cs</FileName>

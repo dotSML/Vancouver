@@ -12,8 +12,6 @@ namespace Vancouver.DbContext
         }
 
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Invoice> AllSoldTickets { get; set; }
-        public DbSet<UserTravelHistory> AllCustomerTravelHistories { get; set; }
         public DbSet<ItineraryObject> Itineraries { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
