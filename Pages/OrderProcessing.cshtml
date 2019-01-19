@@ -237,7 +237,7 @@
                     @for (int i = 0; i < orderObject.AmountOfPassengers; i++)
                     {
                         var travelerNumber = @i + 1;
-                        <div class="col-5 niceShadow" style="border-radius: 7px; margin-top: 10px; margin-bottom: 10px; background: rgba(36, 52, 74, 0.8); color:white; padding:5px;">
+                        <div class="col-5 niceShadow" style="border-radius: 7px; margin-top: 10px; margin-bottom: 10px; margin-right: 30px; margin-left: 2%; background: rgba(36, 52, 74, 0.8); color: white; padding:5px; padding-left:20px; min-width: 45%;">
                             <h4>Traveler @travelerNumber</h4>
                             <div class="form-group">
                                 <div>
@@ -271,7 +271,7 @@
                                                         <div class="col-auto newTravelerPassport" id="newTravelerPassport-@i" style="display: none;">
                                                             <h4>Passport</h4>
                                                             <div class="form-group">
-                                                                <div style="max-width: 80%">
+                                                                <div style="max-width: 80%;">
                                                                     <label asp-for="Customers[i].Passport.PassportNumber">Passport number</label>
                                                                     <input asp-for="Customers[i].Passport.PassportNumber" type="text" class="form-control" />
                                                                     <label asp-for="Customers[i].Passport.DateOfBirth">Date Of Birth</label>
