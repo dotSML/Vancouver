@@ -9,7 +9,7 @@ namespace Vancouver.Models
 {
     public class Payment
     {
-        public int PaymentID { get; set; }
+        public int PaymentId { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public ItineraryObject Ticket { get; set; }
         public BankLink BankLink { get; set; }

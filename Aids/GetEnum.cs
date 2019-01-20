@@ -1,12 +1,6 @@
-﻿
+﻿using System;
 
-
-
-
-using System;
-using Vancouver.Aids;
-
-namespace Open.Aids {
+namespace Vancouver.Aids {
 
     public static class GetEnum {
         public static int Count<T>() {

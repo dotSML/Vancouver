@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Vancouver.Aids;
 
-namespace Open.Aids {
+namespace Vancouver.Aids {
 
 
     public static class CreateNew {

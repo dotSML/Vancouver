@@ -1,13 +1,8 @@
-﻿
-
-
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
-using Vancouver.Aids;
 
-namespace Open.Aids {
+namespace Vancouver.Aids {
     public static class SetRandom {
         public static void Values(object o) {
             if (o is null) return;

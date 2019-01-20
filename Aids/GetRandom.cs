@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Text;
 using Vancouver.Aids;
 
-namespace Open.Aids {
+namespace Vancouver.Aids {
 
     public static class GetRandom {
         private static readonly Random r = new Random();
@@ -111,8 +111,8 @@ namespace Open.Aids {
                Convert.ToUInt64(Double(Convert.ToDouble(min), Convert.ToDouble(max))),
                 min);
         }
-
-        public static object Value(Type t) {
+        public static object Value(Type t)
+        {
             var x = Nullable.GetUnderlyingType(t);
             if (!(x is null)) t = x;
             if (t.IsArray) return Array(t.GetElementType());

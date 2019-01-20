@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Open.Aids;
+using Vancouver.Aids;
 using Vancouver.Models;
 
 namespace Vancouver.Tests.ModelsTests

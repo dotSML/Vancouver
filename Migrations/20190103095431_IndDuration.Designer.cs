@@ -375,11 +375,11 @@ namespace Vancouver.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PaymentID");
+                    b.Property<int?>("PaymentId");
 
                     b.HasKey("InvoiceID");
 
-                    b.HasIndex("PaymentID");
+                    b.HasIndex("PaymentId");
 
                     b.ToTable("AllSoldTickets");
                 });
@@ -424,7 +424,7 @@ namespace Vancouver.Migrations
 
             modelBuilder.Entity("Vancouver.Models.Payment", b =>
                 {
-                    b.Property<int>("PaymentID")
+                    b.Property<int>("PaymentId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -440,7 +440,7 @@ namespace Vancouver.Migrations
 
                     b.Property<string>("TotalPrice");
 
-                    b.HasKey("PaymentID");
+                    b.HasKey("PaymentId");
 
                     b.HasIndex("BankLinkId");
 
@@ -578,7 +578,7 @@ namespace Vancouver.Migrations
                 {
                     b.HasOne("Vancouver.Models.Payment", "Payment")
                         .WithMany()
-                        .HasForeignKey("PaymentID");
+                        .HasForeignKey("PaymentId");
                 });
 
             modelBuilder.Entity("Vancouver.Models.Order", b =>

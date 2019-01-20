@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Open.Aids;
+using Vancouver.Aids;
 using Vancouver.Models;
 
 namespace Vancouver.Tests.ModelsTests
@@ -15,18 +15,20 @@ namespace Vancouver.Tests.ModelsTests
         [TestMethod]
         public void IdTest()
         {
-            //canReadWrite(() => obj.Id, x => obj.Id = x);
-            //Assert.IsNotNull(obj.Id);
+            canReadWrite(() => obj.Id, x => obj.Id = x);
+            Assert.IsNotNull(obj.Id);
         }
         [TestMethod]
         public void BookingReferenceTest()
         {
-            //canReadWrite(() => obj.BookingReference, x => obj.BookingReference = x);
+            canReadWrite(() => obj.BookingReference, x => obj.BookingReference = x);
         }
         [TestMethod]
         public void OrderItineraryTest()
         {
-            Assert.Inconclusive();
+            canReadWrite(() => obj.OrderItinerary, x => obj.OrderItinerary = x);
+            obj.OrderItinerary = null;
+            Assert.IsNull(obj.OrderItinerary);
         }
         [TestMethod]
         public void TicketsTest()

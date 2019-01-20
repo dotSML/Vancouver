@@ -448,7 +448,7 @@ namespace Vancouver.Migrations
                         name: "FK_AllSoldTickets_Payment_PaymentID",
                         column: x => x.PaymentID,
                         principalTable: "Payment",
-                        principalColumn: "PaymentID",
+                        principalColumn: "PaymentId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -460,7 +460,7 @@ namespace Vancouver.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AllSoldTickets_PaymentID",
                 table: "AllSoldTickets",
-                column: "PaymentID");
+                column: "PaymentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
