@@ -27,6 +27,6 @@ namespace Vancouver.Models
             set => bookingReference = value;
         }
         public ItineraryObject OrderItinerary { get; set; }
-        public ICollection<Ticket> Tickets { get; set; }
+        public IList<Ticket> Tickets { get; set; }
     }
 }

@@ -10,18 +10,23 @@ namespace Vancouver.Tests.ModelsTests
         private class testClass : Ticket { }
         protected override Ticket getRandomObject()
         {
-            return GetRandom.Object<testClass>();
+            return new Ticket
+            {
+                Customer = new Customer { ApplicationUserId = "test" },
+                Order = new Order { Id = "OrderTest" },
+                TicketId = "ticketId"
+            };
         }
         [TestMethod]
         public void TicketIdTest()
         {
             canReadWrite(() => obj.TicketId, x => obj.TicketId = x);
-            Assert.IsNotNull(obj.TicketId);
         }
         [TestMethod]
         public void OrderTest()
         {
-            canReadWrite(() => obj.Order, x => obj.Order = x);
+            Ticket testTicket = getRandomObject();
+            Assert.AreEqual(testTicket.Order.Id, "OrderTest");
         }
         [TestMethod]
         public void CustomerTest()

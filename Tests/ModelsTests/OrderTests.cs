@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Vancouver.Aids;
 using Vancouver.Models;
 
@@ -10,13 +11,20 @@ namespace Vancouver.Tests.ModelsTests
         private class testClass : Order { }
         protected override Order getRandomObject()
         {
-            return GetRandom.Object<testClass>();
+
+            List<Ticket> ticketList = new List<Ticket>();
+            return new Order
+            {
+                BookingReference = "test",
+                Id = "testId",
+                Tickets = ticketList,
+                OrderItinerary = new FlightsFolder.ItineraryObject()
+            };
         }
         [TestMethod]
         public void IdTest()
         {
             canReadWrite(() => obj.Id, x => obj.Id = x);
-            Assert.IsNotNull(obj.Id);
         }
         [TestMethod]
         public void BookingReferenceTest()
@@ -26,14 +34,21 @@ namespace Vancouver.Tests.ModelsTests
         [TestMethod]
         public void OrderItineraryTest()
         {
-            canReadWrite(() => obj.OrderItinerary, x => obj.OrderItinerary = x);
-            obj.OrderItinerary = null;
-            Assert.IsNull(obj.OrderItinerary);
+            Order testOrder = getRandomObject();
+            testOrder.OrderItinerary.Id = "testId";
+            Assert.AreEqual(testOrder.OrderItinerary.Id, "testId");
         }
         [TestMethod]
         public void TicketsTest()
         {
-            Assert.Inconclusive();
+            Order testOrder = getRandomObject();
+
+            testOrder.Tickets.Add(new Ticket
+            {
+                Customer = new Customer(),
+                Order = new Order()
+            });
+            Assert.AreEqual(testOrder.Tickets.Count, 1);
         }
     }
 }
