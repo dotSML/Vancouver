@@ -72,7 +72,8 @@ namespace Vancouver.Services
             }
             catch (TimeZoneNotFoundException ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("Time zone not found:" + ex);
+                ZoneInfo = TimeZoneInfo.Utc;
             }
 
             return ZoneInfo;
