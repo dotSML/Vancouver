@@ -11,21 +11,10 @@ using Vancouver.Models;
 
 namespace Vancouver.Models
 {
-    public class Order : Archetype
+    public class Order
     {
-        private string id;
-        private string bookingReference;
-        
-        public string Id
-        {
-            get => getString(ref id);
-            set => id = value;
-        }
-        public string BookingReference
-        {
-            get => getString(ref bookingReference);
-            set => bookingReference = value;
-        }
+        public string Id { get; set; }
+        public string BookingReference { get; set; }
         public ItineraryObject OrderItinerary { get; set; }
         public IList<Ticket> Tickets { get; set; }
     }

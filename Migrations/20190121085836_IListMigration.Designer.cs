@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vancouver.DbContext;
 
 namespace Vancouver.Migrations
 {
     [DbContext(typeof(VancouverDbContext))]
-    partial class VancouverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190121085836_IListMigration")]
+    partial class IListMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
