@@ -85,7 +85,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                         var obj = JsonConvert.DeserializeObject<LoginPostData>(requestBody);
                         if (obj == null)
                         {
-                            Console.WriteLine("FAIIIIL");
+                            Console.WriteLine("FAILED LOGIN!");
                         }
                         if (obj != null)
                         {
@@ -134,9 +134,6 @@ namespace Vancouver.Areas.Identity.Pages.Account
                 {
                     return new JsonResult("Invalid Credentials.");
                 }
-            
-
-            
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

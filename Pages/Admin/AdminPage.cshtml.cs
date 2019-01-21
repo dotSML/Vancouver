@@ -28,7 +28,7 @@ namespace Vancouver.Pages.Admin
             _provider = provider;
         }
 
-        public async Task<ActionResult> OnGet()
+        public ActionResult OnGet()
         {
             ApplicationUserList = _context.Users.ToList();
 

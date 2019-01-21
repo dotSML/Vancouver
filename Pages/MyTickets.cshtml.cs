@@ -83,7 +83,7 @@ namespace Vancouver.Pages
                 _context.SaveChanges();
             }
 
-            return RedirectToPage("/tickettest");
+            return RedirectToPage("/mytickets");
         }
 
 

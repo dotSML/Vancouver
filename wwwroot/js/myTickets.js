@@ -1,43 +1,59 @@
 ﻿$(document).on('click', '#addByReferenceBtn', function () {
     $('#itinerarySearchLoggedIn').slideToggle('fast');
+    if ($(this).text() == "Add trip") {
+        $(this).text("Close");
+    }
+    else {
+        $(this).text("Add trip");
+    }
 });
-var clickCount;
-$(document).ready(function () {
-    clickCount = 0;
-})
 
 $(document).on('click', '.showTicketsBtn', function () {
-    if (clickCount = 0) {
-        $(this).text('Close Details');
-        var data = $($(this).data('target'));
-        data.slideToggle('fast');
-        clickCount = 1;
-
-    } else if (clickCount = 1) {
-        $(this).text('Details');
-        var data = $($(this).data('target'));
-        data.slideToggle('fast');
-        clickCount = 0;
+    var data = $($(this).data('target'));
+    data.slideToggle('fast');
+    console.log("details clicked");
+    if ($(this).text() == "Details") {
+        $(this).text("Close Details");
+        $(this).css('background-color', '#1405a8');
     }
-
-    clickCount = 1;
+    else {
+        $(this).text("Details");
+        $(this).css('background-color', '#CA508B');
+    }
 });
 
-$(document).on('click', '.toggleBoardingPasses', function () {
+$(document).on('click', '.toggleBoardingPasses', function (e) {
     console.log("clicked");
     var data = $($(this).data('target'));
     console.log(data);
     data.slideToggle('fast');
+    if ($(this).text() == "Boarding passes") {
+        console.log($(this).text());
+        $(this).text("Close passes");
+        $(this).css('background-color', '#1405a8');
+    }
+    else {
+        console.log("Else if");
+        $(this).text("Boarding passes");
+        $(this).css('background-color', '#CA508B');
+    }
+
 });
 
 $(document).on('click', '.togglePass', function () {
     var data = $($(this).data('target'));
     console.log(data);
     data.slideToggle('fast');
+    if ($(this).text() == "Details") {
+        $(this).text("Close Details")
+    }
+    else {
+        $(this).text("Details");
+    }
 });
 
-$(document).on('click', function () {
-    $(document).each('.boardingPass').hide();
-})
+//$(document).on('click', function () {
+//    $(document).each('.boardingPass').hide();
+//})
 
 

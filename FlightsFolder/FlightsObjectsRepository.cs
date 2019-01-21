@@ -28,7 +28,7 @@ namespace Vancouver.FlightsFolder
         private static IList<ItineraryObject> itineraries { get; } = new List<ItineraryObject>();
         private FlightsResponse.RootObject FlightsResponse { get; set; }
 
-        public async Task<ItineraryObject> GetObject(string id)
+        public ItineraryObject GetObject(string id)
         {
             return itineraries.FirstOrDefault(x => x.Id == id);
         }
@@ -43,12 +43,6 @@ namespace Vancouver.FlightsFolder
             public string TravelClass { get; set; }
             public string Currency { get; set; }
         }
-
-        public async Task<IEnumerable<ItineraryObject>> GetFlightsList()
-        {
-            return null;
-        }
-
 
         public string GetIata(string airport)
         {
@@ -288,6 +282,7 @@ namespace Vancouver.FlightsFolder
             }
             catch (Exception e)
             {
+                Console.WriteLine("Flight search exception: {0}", e);
                 return null;
             }
 

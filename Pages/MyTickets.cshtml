@@ -215,7 +215,7 @@
                                                                 <div class="box" style="padding: 5px !important">
                                                                     <div class="passenger">
                                                                         <small>passenger</small>
-                                                                        <strong>@ticket.Customer.FirstName @ticket.Customer.LastName</strong>
+                                                                        <strong>@ticket.Customer.FirstName @ticket.Customer.LastName <br /> @currentInd.departs_at.Split("T")[0]</strong>
                                                                     </div>
                                                                 </div>
 
@@ -322,7 +322,7 @@
                                                                     <div class="times">
                                                                         <div class="box">
                                                                             <small>Boarding</small>
-                                                                            <strong>11:05</strong>
+                                                                            <strong>-</strong>
                                                                         </div>
                                                                         <div class="box">
                                                                             <small>Departure</small>
