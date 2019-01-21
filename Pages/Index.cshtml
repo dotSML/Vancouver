@@ -120,7 +120,7 @@
             <div class="text-danger">@Model.Error</div>
         }
     </div>
-    
+
 
     <div id="flightResults">
 
@@ -536,14 +536,13 @@
                  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
             <circle fill="none" stroke="#fff" stroke-width="4" cx="50" cy="50" r="44" style="opacity: 0.5;" />
 
-            <circle fill="#fff" stroke="#CA508B" stroke-width="3" cx="8" cy="54" r="6">
+x           <circle fill="#fff" stroke="#CA508B" stroke-width="3" cx="8" cy="54" r="6">
             <animateTransform attributeName="transform"
                               dur="2s"
                               type="rotate"
                               from="0 50 48"
                               to="360 50 52"
                               repeatCount="indefinite" />
-
             </circle>
         </svg>
         </div>
@@ -554,70 +553,7 @@
         <img src="~/images/sad.png" />
     </div>
 
-
-    <script>
-        $(window).scroll(function (event) {
-            var scrollPosition = $(window).scrollTop();
-
-            if (scrollPosition > 95) {
-                $('#searchBar').removeClass('flightSearchBox');
-                $('#searchBar').addClass('fixedFlightSearchBox');
-                $('#flightResults').addClass('pushFlightResultsDown');
-                $('#flightResults').addClass('vertical-center');
-            } else {
-                $('#searchBar').removeClass('fixedFlightSearchBox');
-                $('#searchBar').addClass('flightSearchBox');
-                $('#flightResults').removeClass('pushFlightResultsDown');
-            }
-        });
-    </script>
-
-
-    <script>
-        $(document).ready(function () {
-            $('#searchBar').fadeIn();
-
-            $('#fareOption').click(function selectChangedDatepicker() {
-                if ($('#fareOption').val() === "One Way") {
-                    $('#datepickerInbound').val('');
-                    $('#datepickerInbound').attr('disabled', true);
-                } else {
-                    $('#datepickerInbound').attr('disabled', false);
-                }
-            });
-
-
-            $('#aspSearchBtn').on('click',
-                function () {
-
-                    //if ($('#datepickerInbound').val('')) {
-                    //    $('#fareOption').val('One Way');
-                    //    $('#fareOption').change();
-                    //    $('#datepickerInbound').attr('disabled', true);
-                    //    $('#aspValidation').fadeOut();
-                    //    $('#flightResults').fadeOut();
-                    //    $('#loading').fadeIn();
-                    //} else {}
-                    $('#aspValidation').fadeOut();
-                    $('#flightResults').fadeOut();
-                    $('#loading').fadeIn();
-
-
-                });
-
-            var nowDate = new Date();
-            var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
-
-            $('#js_daterange').datepicker({
-                startDate: today,
-                format: 'yyyy-mm-dd',
-                autoClose: true
-            });
-        })
-    </script>
-
-
-    <script src="~/js/searchFlights.js"></script>
+    <script src="~/js/newFlightSearchScripts.js"></script>
     <script src="~/js/showFlightDetails.js"></script>
     <script src="~/lib/jquery.md5.js"></script>
     <script src="~/js/bootstrap-datepicker.js"></script>

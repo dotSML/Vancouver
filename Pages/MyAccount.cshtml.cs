@@ -52,7 +52,6 @@ namespace Vancouver.Pages
 
         public void OnGet()
         {
-            AddDefaultTraveler();
             var userId = _userManager.GetUserId(User);
             Travelers = _context.Customers.Include(x => x.Passport).Where(r => r.ApplicationUserId == userId).ToList();
         }
@@ -159,37 +158,10 @@ namespace Vancouver.Pages
 
             return new JsonResult("Success!");
         }
-
-
-        public void AddDefaultTraveler()
-        {
-
-            if (_signInManager.IsSignedIn(User))
-            {
-                var user = _userManager.GetUserAsync(User);
-                var userTravelers = _context.Customers.Any(x => x.ApplicationUserId == user.Result.Id);
-
-                if (!userTravelers)
-                {
-                    var traveler = new Customer
-                    {
-                        ApplicationUserId = user.Result.Id,
-                        FirstName = user.Result.FirstName,
-                        LastName = user.Result.LastName,
-                        DateOfBirth = user.Result.DateOfBirth,
-                        Email = user.Result.Email,
-                        Primary = true
-                    };
-
-                    _context.Customers.Add(traveler);
-                    _context.SaveChanges();
-                }
-            }
-
-        }
     }
-
 }
+
+
 
 
 

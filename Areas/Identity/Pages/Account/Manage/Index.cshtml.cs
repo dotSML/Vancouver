@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Vancouver.DbContext;
 using Vancouver.Models;
 
 namespace Vancouver.Areas.Identity.Pages.Account.Manage
@@ -17,15 +18,18 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        public VancouverDbContext _context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            VancouverDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -96,12 +100,18 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            var oldFirstName = user.FirstName;
+            var oldLastName = user.LastName;
+            
+
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -144,6 +154,7 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            UpdateDefaultTraveler(user, oldFirstName, oldLastName);
             await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
@@ -179,6 +190,32 @@ namespace Vancouver.Areas.Identity.Pages.Account.Manage
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
+        }
+
+
+        public Customer GetDefaultTraveler(string firstName, string lastName)
+        {
+            var defaultTraveler = _context.Customers.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName);
+            if(defaultTraveler != null)
+            {
+                return defaultTraveler;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void UpdateDefaultTraveler(ApplicationUser user, string oldFirstName, string oldLastName)
+        {
+            var customer = GetDefaultTraveler(oldFirstName, oldLastName);
+            customer.FirstName = user.FirstName;
+            customer.LastName = user.LastName;
+            customer.DateOfBirth = user.DateOfBirth;
+            customer.Email = user.Email;
+            _context.Customers.Update(customer);
+            _context.SaveChanges();
+
         }
     }
 }

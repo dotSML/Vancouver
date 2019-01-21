@@ -124,17 +124,13 @@ namespace Vancouver.FlightsFolder
             var outboundLegs = new List<IndividualFlightOutbound>();
             var inboundLegs = new List<IndividualFlightInbound>();
 
-            
-
             itineraries.Clear();
             for(int i = 0;  i < rootObjCount; i++ )
             {
-                
                 outboundLegs.Clear();
                 inboundLegs.Clear();
                 var flightsCountOutbound = rootObj.results[i].itineraries[0].outbound.flights.Count;
                 var getFlightsOutbound = rootObj.results[i].itineraries[0].outbound.flights;
-                
 
                 for (int u = 0; getFlightsOutbound.Count > u; u++)
                 {

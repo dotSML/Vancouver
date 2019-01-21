@@ -29,10 +29,7 @@ namespace Vancouver
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ITicketPurchaseService, TicketPurchaseService>();
@@ -56,8 +53,6 @@ namespace Vancouver
            services.AddCors();
             //.AddDefaultTokenProviders()
 
-
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -68,7 +63,6 @@ namespace Vancouver
             .AddRazorPagesOptions(options => { options.Conventions.AuthorizePage("/MyAccount");  })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ICustomersRepository, CustomersRepository>();
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
@@ -83,7 +77,6 @@ namespace Vancouver
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
 
             app.UseStatusCodePagesWithRedirects("/errors/notfound");
             app.UseStaticFiles();
@@ -107,11 +100,6 @@ namespace Vancouver
             AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
         }
 
-        /// <summary>
-        /// Create a role if not exists.
-        /// </summary>
-        /// <param name="serviceProvider">Service Provider</param>
-        /// <param name="roleName">Role Name</param>
         private static void CreateRole(IServiceProvider serviceProvider, string roleName)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -125,14 +113,7 @@ namespace Vancouver
                 roleResult.Wait();
             }
         }
-
-        /// <summary>
-        /// Add user to a role if the user exists, otherwise, create the user and adds him to the role.
-        /// </summary>
-        /// <param name="serviceProvider">Service Provider</param>
-        /// <param name="userEmail">User Username</param>
-        /// <param name="userPwd">User Password. Used to create the user if not exists.</param>
-        /// <param name="roleName">Role Name</param>
+        
         private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail,
             string userPwd, string roleName)
         {
@@ -164,8 +145,6 @@ namespace Vancouver
 
             Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(appUser, roleName);
             newUserRole.Wait();
-
         }
-
     }
 }

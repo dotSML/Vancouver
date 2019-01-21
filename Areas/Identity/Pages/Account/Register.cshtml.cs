@@ -16,6 +16,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Vancouver.Models;
 using Vancouver.Services;
+using Vancouver.Pages;
+using Vancouver.DbContext;
+using System.Linq;
 
 namespace Vancouver.Areas.Identity.Pages.Account
 {
@@ -27,7 +30,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailService;
         private IHostingEnvironment _environment;
-        
+        public VancouverDbContext _context;
 
 
         public RegisterModel(
@@ -35,13 +38,15 @@ namespace Vancouver.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailService,
-            IHostingEnvironment environment)
+            IHostingEnvironment environment,
+            VancouverDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailService = emailService;
             _environment = environment;
+            _context = context;
         }
 
         [BindProperty]
@@ -113,7 +118,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             string ajaxPostPassword = "";
             string ajaxPostAgree = "";
 
-            
+
 
             MemoryStream stream = new MemoryStream();
             Request.Body.CopyTo(stream);
@@ -127,7 +132,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
                     var obj = JsonConvert.DeserializeObject<RegisterPostData>(requestBody);
                     if (obj == null)
                     {
-                        Console.WriteLine("FAIIIIL");
+                        Console.WriteLine("FAILED!");
                     }
                     if (obj != null)
                     {
@@ -143,7 +148,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
             }
 
             Input.DateOfBirth = DateTime.ParseExact(ajaxPostDateOfBirth,
-                new string[] {"dd/MM/yyyy", "d/M/yyyy", "d/MM/yyyy", "dd/M/yyyy"}, CultureInfo.InvariantCulture);
+                new string[] { "dd/MM/yyyy", "d/M/yyyy", "d/MM/yyyy", "dd/M/yyyy" }, CultureInfo.InvariantCulture);
             Input.FirstName = ajaxPostFirstName;
             Input.LastName = ajaxPostLastName;
             Input.Email = ajaxPostEmail;
@@ -171,23 +176,24 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
+                AddDefaultTraveler();
                 return new JsonResult("Register Success!");
             }
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
                 return new JsonResult("Register failed!");
-                
+
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
         }
 
-        
 
 
-    
+
+
 
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -235,35 +241,64 @@ namespace Vancouver.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     //await _emailService.SendEmailAsync(Input.Username, "Confirm your email",
-                        //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
-               
-                
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                
-                
+
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
         }
-    }
 
-    public class RegisterPostData
-    {
-        public string InputEmail { get; set; }
-        public string InputUsername { get; set; }
-        public string InputPassword { get; set; }
-        public string InputDateOfBirth { get; set; }
-        public string InputFirstName { get; set; }
-        public string InputLastName { get; set; }
-        public string InputAcceptTerms { get; set; }
+
+
+        public void AddDefaultTraveler()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = _userManager.GetUserAsync(User);
+                var userTravelers = _context.Customers.Any(x => x.ApplicationUserId == user.Result.Id);
+
+                if (!userTravelers)
+                {
+                    var traveler = new Customer
+                    {
+                        ApplicationUserId = user.Result.Id,
+                        FirstName = user.Result.FirstName,
+                        LastName = user.Result.LastName,
+                        DateOfBirth = user.Result.DateOfBirth,
+                        Email = user.Result.Email,
+                        Primary = true
+                    };
+
+                    _context.Customers.Add(traveler);
+                    _context.SaveChanges();
+                }
+            }
+
+
+        }
+
+        public class RegisterPostData
+        {
+            public string InputEmail { get; set; }
+            public string InputUsername { get; set; }
+            public string InputPassword { get; set; }
+            public string InputDateOfBirth { get; set; }
+            public string InputFirstName { get; set; }
+            public string InputLastName { get; set; }
+            public string InputAcceptTerms { get; set; }
+        }
     }
 }

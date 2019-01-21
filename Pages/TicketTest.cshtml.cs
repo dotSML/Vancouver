@@ -58,7 +58,6 @@ namespace Vancouver.Pages
                     .Where(x => x.OrderItinerary.ApplicationUserId == _userManager.GetUserId(User))
                     .AsNoTracking().OrderBy(x => x.OrderItinerary.departureTimeOutbound).ToListAsync();
             }
-            
         }
 
         public ActionResult OnPost(ItinerarySearchModel ItinerarySearch)
@@ -83,7 +82,6 @@ namespace Vancouver.Pages
                 _context.Orders.Update(OrderToAdd);
                 _context.SaveChanges();
             }
-            
 
             return RedirectToPage("/tickettest");
         }

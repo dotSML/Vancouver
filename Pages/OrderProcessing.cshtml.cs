@@ -33,9 +33,6 @@ namespace Vancouver.Pages
             _userManager = userManager;
         }
 
-        
-
-
         [BindProperty]
         public ItineraryObject OrderObject { get; set; }
         public List<Customer> Customers { get; set; }
@@ -63,7 +60,6 @@ namespace Vancouver.Pages
             }
 
         }
-
 
         public ActionResult OnPost(List<Customer> customers)
         {
@@ -102,12 +98,6 @@ namespace Vancouver.Pages
             {
                return RedirectToPage("Index");
             }
-            
-
-            
-
-
-            
         }
     }
 }
