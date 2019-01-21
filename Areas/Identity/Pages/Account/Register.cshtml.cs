@@ -176,7 +176,7 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                AddDefaultTraveler();
+                AddDefaultTraveler(user);
                 return new JsonResult("Register Success!");
             }
             foreach (var error in result.Errors)
@@ -263,31 +263,26 @@ namespace Vancouver.Areas.Identity.Pages.Account
 
 
 
-        public void AddDefaultTraveler()
+        public void AddDefaultTraveler(ApplicationUser newUser)
         {
-            if (_signInManager.IsSignedIn(User))
-            {
-                var user = _userManager.GetUserAsync(User);
-                var userTravelers = _context.Customers.Any(x => x.ApplicationUserId == user.Result.Id);
+                var user = newUser;
+                var userTravelers = _context.Customers.Any(x => x.ApplicationUserId == user.Id);
 
                 if (!userTravelers)
                 {
                     var traveler = new Customer
                     {
-                        ApplicationUserId = user.Result.Id,
-                        FirstName = user.Result.FirstName,
-                        LastName = user.Result.LastName,
-                        DateOfBirth = user.Result.DateOfBirth,
-                        Email = user.Result.Email,
+                        ApplicationUserId = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        DateOfBirth = user.DateOfBirth,
+                        Email = user.Email,
                         Primary = true
                     };
 
                     _context.Customers.Add(traveler);
                     _context.SaveChanges();
-                }
             }
-
-
         }
 
         public class RegisterPostData

@@ -14,14 +14,14 @@ using Vancouver.Services;
 
 namespace Vancouver.Pages
 {
-    public class TicketTestModel : PageModel
+    public class MyTicketsModel : PageModel
     {
         public VancouverDbContext _context;
         public UserManager<ApplicationUser> _userManager;
         public SignInManager<ApplicationUser> _signInManager;
         private readonly IAirportInfoService _airportInfoService; 
 
-        public TicketTestModel(VancouverDbContext context, 
+        public MyTicketsModel(VancouverDbContext context, 
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IAirportInfoService airportInfoService)
