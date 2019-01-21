@@ -6,19 +6,13 @@ using Vancouver.Core;
 
 namespace Vancouver.Models
 {
-    public class Customer: Archetype
+    public class Customer : Archetype
     {
-        private string customerId;
-        private string firstName;
-        private string lastName;
-        private string email;
 
         [Key]
-        public string CustomerId {
-            get => getString(ref customerId);
-            set => customerId = value;
-        }
-
+        public string CustomerId { get; set; }
+        private string lastName;
+        private string firstName;
         [DisplayName("First Name")]
         [Required]
         public string FirstName
@@ -26,6 +20,7 @@ namespace Vancouver.Models
             get => getString(ref firstName);
             set => firstName = value;
         }
+    
         [DisplayName("Last Name")]
         [Required]
         public string LastName
@@ -34,11 +29,7 @@ namespace Vancouver.Models
             set => lastName = value;
         }
         public DateTime DateOfBirth { get; set; }
-        public string Email
-        {
-            get => getString(ref email);
-            set => email = value;
-        }
+        public string Email { get; set; }
 
         public bool Primary { get; set; }
         
