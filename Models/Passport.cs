@@ -19,11 +19,7 @@ namespace Vancouver.Models
         private DateTime validTo = DateTime.MaxValue;
         private string passportNumber;
 
-        public string PassportId
-        {
-            get => getString(ref passportId);
-            set => passportId = value;
-        }
+        public string PassportId { get; set; }
         public string FirstName
         {
             get => getString(ref firstName);
